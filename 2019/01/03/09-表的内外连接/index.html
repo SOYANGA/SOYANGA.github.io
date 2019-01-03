@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="09 表的内外连接9.1内链接内连接实际上就是利用where子句对两种表形成的笛卡儿积进行筛选，我们前面学习的查询都是内连接，也是在开发过程中使用的最多的连接查询 语法 1select 字段 from 表1 inner join 表2 on 连接条件 and其他连接条件;  之前学的就是内连接  显示smith的名字和部门名称 12345-- 之前写法select ename,dename fro">
+<meta name="description" content="##  配合食用效果极佳 内连接查询：往往使用频繁，可以配合多种查询方法食用。 内连接就是两表的笛卡儿积表的基础上进行筛选 外连接查询：首先要确定基准表（基准信息），即左连接的左表，右连接的右表。然后确定结合表，结合表需要的筛选条件。">
 <meta name="keywords" content="MySQL数据库,MySQL数据库练习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="09-表的内外连接">
 <meta property="og:url" content="https://soyanga.github.io/2019/01/03/09-表的内外连接/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="09 表的内外连接9.1内链接内连接实际上就是利用where子句对两种表形成的笛卡儿积进行筛选，我们前面学习的查询都是内连接，也是在开发过程中使用的最多的连接查询 语法 1select 字段 from 表1 inner join 表2 on 连接条件 and其他连接条件;  之前学的就是内连接  显示smith的名字和部门名称 12345-- 之前写法select ename,dename fro">
+<meta property="og:description" content="##  配合食用效果极佳 内连接查询：往往使用频繁，可以配合多种查询方法食用。 内连接就是两表的笛卡儿积表的基础上进行筛选 外连接查询：首先要确定基准表（基准信息），即左连接的左表，右连接的右表。然后确定结合表，结合表需要的筛选条件。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-03T08:48:03.384Z">
+<meta property="og:updated_time" content="2019-01-03T08:56:09.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="09-表的内外连接">
-<meta name="twitter:description" content="09 表的内外连接9.1内链接内连接实际上就是利用where子句对两种表形成的笛卡儿积进行筛选，我们前面学习的查询都是内连接，也是在开发过程中使用的最多的连接查询 语法 1select 字段 from 表1 inner join 表2 on 连接条件 and其他连接条件;  之前学的就是内连接  显示smith的名字和部门名称 12345-- 之前写法select ename,dename fro">
+<meta name="twitter:description" content="##  配合食用效果极佳 内连接查询：往往使用频繁，可以配合多种查询方法食用。 内连接就是两表的笛卡儿积表的基础上进行筛选 外连接查询：首先要确定基准表（基准信息），即左连接的左表，右连接的右表。然后确定结合表，结合表需要的筛选条件。">
 
 
 
@@ -380,7 +380,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-03T16:48:03+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-03T16:56:09+08:00">
                 2019-01-03
               </time>
             
@@ -400,7 +400,7 @@
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/MySQL数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">-MySQL数据库</span>
+                    <span itemprop="name">MySQL数据库</span>
                   </a>
                 </span>
 
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  908
+                  1k
                 </span>
               
 
@@ -446,7 +446,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  4
                 </span>
               
             </div>
@@ -467,7 +467,13 @@
       
 
       
-        <h1 id="09-表的内外连接"><a href="#09-表的内外连接" class="headerlink" title="09 表的内外连接"></a>09 表的内外连接</h1><h2 id="9-1内链接"><a href="#9-1内链接" class="headerlink" title="9.1内链接"></a>9.1内链接</h2><p>内连接实际上就是利用where子句对两种表形成的笛卡儿积进行筛选，我们前面学习的查询都是内连接，也是在开发过程中使用的最多的连接查询</p>
+        <p>## </p>
+<p><strong>配合食用效果极佳</strong></p>
+<p><strong>内连接查询：</strong>往往使用频繁，可以配合多种查询方法食用。</p>
+<p>内连接就是两表的笛卡儿积表的基础上进行筛选</p>
+<p><strong>外连接查询：</strong>首先要确定<strong>基准表</strong>（<strong>基准信息</strong>），即左连接的左表，右连接的右表。然后确定<strong>结合表</strong>，结合表需要的筛选条件。</p>
+<a id="more"></a>
+<h1 id="09-表的内外连接"><a href="#09-表的内外连接" class="headerlink" title="09 表的内外连接"></a>09 表的内外连接</h1><h2 id="9-1内链接"><a href="#9-1内链接" class="headerlink" title="9.1内链接"></a>9.1内链接</h2><p>内连接实际上就是利用where子句对两种表形成的笛卡儿积进行筛选，我们前面学习的查询都是内连接，也是在开发过程中使用的最多的连接查询</p>
 <p>语法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 字段 from 表1 inner join 表2 on 连接条件 and其他连接条件;</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -675,7 +681,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -780,7 +786,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">2.8k</span>
+    <span title="Site words total count">2.9k</span>
   
 </div>
 
