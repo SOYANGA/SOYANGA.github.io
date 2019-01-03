@@ -334,6 +334,241 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/03/09-表的内外连接/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/03/09-表的内外连接/" itemprop="url">09-表的内外连接</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T15:38:41+08:00">
+                2019-01-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-03T16:48:03+08:00">
+                2019-01-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">-MySQL数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  908
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="09-表的内外连接"><a href="#09-表的内外连接" class="headerlink" title="09 表的内外连接"></a>09 表的内外连接</h1><h2 id="9-1内链接"><a href="#9-1内链接" class="headerlink" title="9.1内链接"></a>9.1内链接</h2><p>内连接实际上就是利用where子句对两种表形成的笛卡儿积进行筛选，我们前面学习的查询都是内连接，也是在开发过程中使用的最多的连接查询</p>
+<p>语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 字段 from 表1 inner join 表2 on 连接条件 and其他连接条件;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>之前学的就是内连接</p>
+</blockquote>
+<p>显示smith的名字和部门名称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-- 之前写法</span><br><span class="line">select ename,dename from emp,dept where emp.deptno=dept.deptno and ename=&apos;smith&apos;;</span><br><span class="line"></span><br><span class="line">-- 标准内连接写法</span><br><span class="line">select ename,dename from emp inner join dept on emp.deptno=dept.depyno and ename=&apos;smith&apos;;</span><br></pre></td></tr></table></figure>
+<p><strong>理解：</strong>inner join就是inner join两个表的笛卡儿积中筛选on 后的条件</p>
+<h2 id="9-2外连接"><a href="#9-2外连接" class="headerlink" title="9.2外连接"></a>9.2外连接</h2><p>外连接分为左连接右连接。（记住一种自己熟悉的即可）</p>
+<h3 id="9-2-1左外连接"><a href="#9-2-1左外连接" class="headerlink" title="9.2.1左外连接"></a>9.2.1左外连接</h3><p><strong>左外连接:</strong>  如果联合查询的时，左侧的表我们完全显示 </p>
+<p>语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 字段名 from 表名1 left join 表名2 on 连接条件</span><br></pre></td></tr></table></figure>
+<p><strong>理解：</strong>left join就是左表（一定显示）和右表中on后筛选后的表的结合（以左表为基础上添加（符合筛选条件的）右表）</p>
+<h3 id="9-2-2右外连接"><a href="#9-2-2右外连接" class="headerlink" title="9.2.2右外连接"></a>9.2.2右外连接</h3><p><strong>右连接：</strong>如果联合查询，右侧的表完全显示我们就说是右外连接。</p>
+<p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 字段 from 表明1 right join 表明2 on 连接条件</span><br></pre></td></tr></table></figure>
+<p><strong>理解：</strong>left join就是右表（一定显示）和左表中on后筛选后的表的结合（以右表为基础上添加（符合筛选条件的）左标）</p>
+<p><strong>小练习：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- 键两张表</span><br><span class="line">create table stu (id int, name varchar(30));  -- 学生表 </span><br><span class="line">insert into stu values(1,&apos;jack&apos;),(2,&apos;tom&apos;),(3,&apos;kity&apos;),(4,&apos;nono&apos;); </span><br><span class="line"></span><br><span class="line">create table exam (id int, grade int);  -- 成绩表</span><br><span class="line">insert into exam values(1, 56),(2,76),(11, 8);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>查询所有学生的成绩，如果没有这个学生的成绩，也要将学生的个人信息显示出来。</strong></p>
+<p><strong>分析：</strong>关键字:所有学生， 成绩，（没有成绩也要显示出来） （<strong>以学生表为基准表，结合成绩表</strong>）外连接（左右都可以）</p>
+<p><strong>左外连接：</strong></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from stu left inner exam on stu.id=exam.id;</span><br></pre></td></tr></table></figure>
+<p>​    <strong>右外连接：</strong>（不适合，因为一般都是基准表在结合表的前面显示）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select stu.* from exam right inner stu on stu.id=exam.id;</span><br><span class="line"></span><br><span class="line">-- 改为：（太麻烦）</span><br><span class="line">select stu.id ,stu.name,exam.id,exam.grade from exam right join stu on stu.id=exam.id;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>对stu表和exam表联合查询，把所有的成绩都显示出来，即使这个成绩没有学生与它对应，也要显示出来</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from stu right join exam on stu.id=exam.id;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>列处部门名称和这些部门的员工信息，同时列出没有员工的部门</strong></p>
+<p><strong>分析：</strong>关键字（部门名称，这些部分的员工信息，列出没有员工的部门）（<strong>以部门名称基准表，结合与员工表</strong>）外连接（左右都可以）</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- 方法一：</span><br><span class="line">select d.dname, e.* from dept d left join emp e on d.deptno=e.deptno; </span><br><span class="line">-- 方法二： </span><br><span class="line">select d.dname, e.* from emp e right join dept d on d.deptno=e.deptno;</span><br></pre></td></tr></table></figure>
+<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><blockquote>
+<p>内连接查询：往往使用频繁，可以配合多种查询方法食用。</p>
+<p>内连接就是两表的笛卡儿积表的基础上进行筛选</p>
+<p>外连接查询：首先要确定<strong>基准表</strong>（<strong>基准信息</strong>），即左连接的左表，右连接的右表。然后确定<strong>结合表</strong>，结合表需要的筛选条件。</p>
+</blockquote>
+<blockquote>
+<p><strong>SQL</strong>查询中各个关键字的执行先后顺序：</p>
+<p>from &gt; on&gt; join &gt; where &gt; group by &gt; with &gt; having &gt; select &gt; distinct &gt; order by &gt; limit</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/03/MySQL练习复合查询/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -941,7 +1176,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1041,7 +1276,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">1.9k</span>
+    <span title="Site words total count">2.8k</span>
   
 </div>
 
