@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-01-06T09:52:22.677Z</updated>
+  <updated>2019-01-06T14:23:04.871Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>14-javaIO</title>
+    <link href="https://soyanga.github.io/2019/01/06/14-javaIO/"/>
+    <id>https://soyanga.github.io/2019/01/06/14-javaIO/</id>
+    <published>2019-01-06T14:09:59.000Z</published>
+    <updated>2019-01-06T14:23:04.871Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Java高级开发之JavaIO"><a href="#Java高级开发之JavaIO" class="headerlink" title="Java高级开发之JavaIO"></a>Java高级开发之JavaIO</h1><p>IO部分的重点：五个类（File、OutputStream、InputStream、Reader、Writer）一个接口（Serializable）</p><h1 id="1-File文件操作类"><a href="#1-File文件操作类" class="headerlink" title="1.File文件操作类"></a>1.File文件操作类</h1><p>在java.io包中，File类是唯一一个与文件本身操作（创建，删除，取得信息）有关的程序类</p><h2 id="1-1File类的基本使用"><a href="#1-1File类的基本使用" class="headerlink" title="1.1File类的基本使用"></a>1.1File类的基本使用</h2><p>java.io.File类是一个普通的类，直接产生实例化对象即可，两个构造方法如下：</p><blockquote><p>public File(String pathname);</p><p>public File(String parent,String child); //设置父路径和子类</p></blockquote><p>如果要进行文件的基本操作，可以使用FIle类的如下方法；</p><blockquote><p>创建一个新文件</p></blockquote><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">createNewFile</span><span class="params">()</span> <span class="keyword">throws</span> IOExcepotion</span></span><br></pre></td></tr></table></figure><blockquote><p>判断一个文件是否存在</p></blockquote><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> bollean <span class="title">exists</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure><p>由于java具有跨平台特性但是，在实际项目部署环境可能与开发环境不同.那么这个时候路径的问题就很麻烦。Windows下面使用的是“\”,而Unix系统下使用的是“/”。所以使用路径分隔符时都会采用File类的一个常量”<code>public static final String separator</code>“来描述</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Java高级开发之JavaIO&quot;&gt;&lt;a href=&quot;#Java高级开发之JavaIO&quot; class=&quot;headerlink&quot; title=&quot;Java高级开发之JavaIO&quot;&gt;&lt;/a&gt;Java高级开发之JavaIO&lt;/h1&gt;&lt;p&gt;IO部分的重点：五个类（File、O
+      
+    
+    </summary>
+    
+      <category term="JAVASE" scheme="https://soyanga.github.io/categories/JAVASE/"/>
+    
+    
+      <category term="-JavaSE基础 -Java学习笔记" scheme="https://soyanga.github.io/tags/JavaSE%E5%9F%BA%E7%A1%80-Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>12-视图</title>
