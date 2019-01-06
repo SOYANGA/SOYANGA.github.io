@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="SOYANGA">
 <meta property="og:description" content="11-事务管理事务就是一组DML语句组成，这些语句在逻辑上存在着相关性，这一组DML语句要么成功，要么全部失败，是一个整体。MySQL提供一种机制，保证我们达到这样的效果。事务还规定不同的客户端看到的数据是不相同的。 事务处理是一种机制，用来管理必须成批执行的MySQL操作，以保证数据库不包含不完整的操作结果。利用事务处理，可保证一组操作不会中途停止，他们或者作为整体执行，或者完全不执行（除非明确">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-05T14:47:19.416Z">
+<meta property="og:updated_time" content="2019-01-06T09:45:33.968Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="11-事务管理">
 <meta name="twitter:description" content="11-事务管理事务就是一组DML语句组成，这些语句在逻辑上存在着相关性，这一组DML语句要么成功，要么全部失败，是一个整体。MySQL提供一种机制，保证我们达到这样的效果。事务还规定不同的客户端看到的数据是不相同的。 事务处理是一种机制，用来管理必须成批执行的MySQL操作，以保证数据库不包含不完整的操作结果。利用事务处理，可保证一组操作不会中途停止，他们或者作为整体执行，或者完全不执行（除非明确">
@@ -380,8 +380,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-05T22:47:19+08:00">
-                2019-01-05
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-06T17:45:33+08:00">
+                2019-01-06
               </time>
             
           </span>
@@ -524,7 +524,7 @@
 <p>但是在事务处理块中，提交不会隐含地进行。为进行明确地提交，使用commit语句。commit语句后当前事务就已经结束了，在事务中保存地回退点就不再存在了。</p>
 <p>【以下仅个人理解】</p>
 <p>可以这样理解事务地执行过程，开始一个事务后所有的SQL语句（insert，delete,update）执行的结果都在内存中保存并未真实的写入物理磁盘中（文件），一个回退点就相当标记当前时刻临时表中（内存）的状态，当执行回退时，就像栈一样的之前的语句从语句栈中弹出，返回表的回退点的状态。</p>
-<p><strong>当commit执行后，或者rollback语句执行后事务回关闭。</strong>将内存中的有效SQL语句对应表写回物理磁盘中表（文件）  【此处的rollback语句并非是<code>rollback to 回退点</code>语句，回滚的回退点的语句并不能真正结束事务，还需显示的调用commit 或 rollback语句】</p>
+<p><strong>当commit执行后，或者rollback语句执行后事务回关闭。</strong>将内存中的有效SQL语句对应表写回物理磁盘中表（文件）  【<strong>此处的rollback语句并非是<code>rollback to 回退点</code>语句，回滚的回退点的语句并不能真正结束事务，还需显示的调用commit 或 rollback语句</strong>】</p>
 <p><strong>当一个事务中某行语句执行出错时，commit之前的一条语句，则自动回退到执行错误语句的前面且事务并没有被提交，假如再使用<code>start transaction</code>则会提交之前的事务，开始新的事务。</strong></p>
 <h3 id="小Tips"><a href="#小Tips" class="headerlink" title="小Tips:"></a>小Tips:</h3><blockquote>
 <p>隐含事务关闭：当commit执行后，或者rollback语句执行后事务回关闭，事务回自动关闭（将来的更改将会隐式的提交）</p>
@@ -703,6 +703,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/01/06/12-视图/" rel="prev" title="12-视图">
+                12-视图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -782,7 +786,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -898,7 +902,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">8.1k</span>
+    <span title="Site words total count">10.4k</span>
   
 </div>
 
