@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="SOYANGA">
 <meta property="og:description" content="12.视图MySQL5添加了对视图的支持。 视图是一个虚拟的表。其内容由查询定义。同真实的表一样，视图包含一系列带有名称的列和行数据。视图的数据变化会影响到基表，基表的数据变化也会影响到视图。 视图可以把查询包装成一个虚拟表（临时表），方便检索。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-06T09:47:47.590Z">
+<meta property="og:updated_time" content="2019-01-06T09:52:22.677Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="12-视图">
 <meta name="twitter:description" content="12.视图MySQL5添加了对视图的支持。 视图是一个虚拟的表。其内容由查询定义。同真实的表一样，视图包含一系列带有名称的列和行数据。视图的数据变化会影响到基表，基表的数据变化也会影响到视图。 视图可以把查询包装成一个虚拟表（临时表），方便检索。">
@@ -380,7 +380,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-06T17:47:47+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-06T17:52:22+08:00">
                 2019-01-06
               </time>
             
@@ -563,7 +563,7 @@
 <li>视图可以和表一起使用</li>
 </ul>
 <h1 id="小练习"><a href="#小练习" class="headerlink" title="小练习"></a>小练习</h1><p><strong>牛客：针对actor表创建视图actor_name_view</strong></p>
-<p><a href="https://www.nowcoder.com/practice/b9db784b5e3d488cbd30bd78fdb2a862?tpId=82&amp;&amp;tqId=29806&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking" target="_blank" rel="noopener">https://www.nowcoder.com/practice/b9db784b5e3d488cbd30bd78fdb2a862?tpId=82&amp;&amp;tqId=29806&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking</a></p>
+<p><a href="https://www.nowcoder.com/practice/b9db784b5e3d488cbd30bd78fdb2a862?tpId=82&amp;&amp;tqId=29806&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/sql/question-ranking" target="_blank" rel="noopener">牛客：针对actor表创建视图actor_name_view</a></p>
 <p><strong>题目描述：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">针对actor表创建视图actor_name_view，只包含first_name以及last_name两列，并对这两列重新命名，first_name为first_name_v，last_name修改为last_name_v：</span><br><span class="line">CREATE TABLE IF NOT EXISTS actor (</span><br><span class="line">actor_id smallint(5) NOT NULL PRIMARY KEY,</span><br><span class="line">first_name varchar(45) NOT NULL,</span><br><span class="line">last_name varchar(45) NOT NULL,</span><br><span class="line">last_update timestamp NOT NULL DEFAULT (datetime(&apos;now&apos;,&apos;localtime&apos;)))</span><br></pre></td></tr></table></figure>
 <p>分析：写视图就是先思考select语句即可</p>
