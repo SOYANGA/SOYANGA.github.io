@@ -334,6 +334,316 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/14/网络基础-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/14/网络基础-1/" itemprop="url">网络基础<1></a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T10:10:31+08:00">
+                2019-01-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-14T17:12:30+08:00">
+                2019-01-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">-Linux多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="线程的概念（复习）-铺垫"><a href="#线程的概念（复习）-铺垫" class="headerlink" title="线程的概念（复习）-铺垫"></a>线程的概念（复习）-铺垫</h1><ul>
+<li><p>进程是<strong>分配系统资源的基本单位</strong></p>
+</li>
+<li><p>线程是<strong>一个标准的进程(一个执行流的进程)</strong></p>
+</li>
+</ul>
+<h2 id="1-理解（Linux下）"><a href="#1-理解（Linux下）" class="headerlink" title="1.理解（Linux下）"></a>1.理解（Linux下）</h2><p><strong>线程是在进程的内部运行的：</strong>线程是在进程的地址空间内运行的，共享一份虚拟地址空间。</p>
+<p>线程大部分资源都是共享的。（共用一个虚拟地址空间）</p>
+<p>进程大部分资源都是独立的。（每个一个进程都有自己独自的一份虚拟地址空间）</p>
+<p>CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linux当中CPU看到的一个进程相当于一个轻量级进程（&lt;=一个标准的进程(一个执行流的进程)）</p>
+<p>Linux下没有一份真正意义的进程。使用进程模拟线程。</p>
+<p>TCB ThreadContrlClock 线程控制块</p>
+<h2 id="2-线程的资源"><a href="#2-线程的资源" class="headerlink" title="2.线程的资源"></a>2.线程的资源</h2><ul>
+<li><strong>私有资源</strong></li>
+</ul>
+<ol>
+<li>上下文信息</li>
+<li>线程ID</li>
+<li>一组寄存器</li>
+<li>线程栈</li>
+<li>erro</li>
+<li>信号屏蔽字</li>
+<li>调度优先级</li>
+</ol>
+<ul>
+<li><strong>共享资源</strong></li>
+</ul>
+<ol>
+<li>同有个地址空间</li>
+<li>文件描述符</li>
+<li>每种处理信号处理方式（忽略，默认，自定义）</li>
+<li>当前工作目录</li>
+<li>用户id和组id</li>
+</ol>
+<h3 id="3-线程优点"><a href="#3-线程优点" class="headerlink" title="3.线程优点"></a>3.线程优点</h3><ul>
+<li>创建线程比创建一个进程代价小</li>
+<li>与进程之间切换相比，线程之间的切换需要操作系统的工作小的多</li>
+<li>线程占用的资源要比进程少很多</li>
+<li>能充分利用多处理器的可并行数量</li>
+<li>在等待慢速IO操作的同时，程序可以执行其他任务</li>
+<li>计算密集型应用，为了能在多处理器系统上运行，将计算分解到多个线程中实现</li>
+<li>IO密集型应用，为了提高性能，将IO操作重叠。线程可以同时等待不同IO操作</li>
+</ul>
+<h2 id="4-线程缺点"><a href="#4-线程缺点" class="headerlink" title="4.线程缺点"></a>4.线程缺点</h2><ul>
+<li>性能损失<ul>
+<li>一个很少被外部事件阻塞的计算密集型线程往往⽆无法与共它线程共享同⼀一个处理器。如 果计算密集型线程的数量⽐比可⽤用的处理器多，那么可能会有较⼤大的性能损失，这⾥里的性 能损失指的是增加了额外的同步和调度开销，⽽而可⽤用的资源不变。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>健壮性降低</p>
+<ul>
+<li>编写多 程需要更全⾯面更深⼊入的考虑，在一个多线程程序⾥里，因时间分配上的细微偏差 或者因共享了不该共享的变量⽽而造成不良影响的可能性是很⼤大的，换句话说线程之间是 缺乏保护的。</li>
+</ul>
+</li>
+<li><p>缺乏访问控制</p>
+<ul>
+<li>进程是访问控制的基本粒度，在⼀一个线程中调⽤用某些OS函数会对整个进程造成影响</li>
+</ul>
+</li>
+<li><p>编程难度提高</p>
+</li>
+</ul>
+<h1 id="线程控制"><a href="#线程控制" class="headerlink" title="线程控制"></a>线程控制</h1><h2 id="1-POSIX线程库"><a href="#1-POSIX线程库" class="headerlink" title="1.POSIX线程库"></a>1.POSIX线程库</h2><ul>
+<li>与线程有关的函数构成了⼀一个完整的系列，绝⼤大多数函数的名字都是以“pthread_”打头的 </li>
+<li>引入头文件</li>
+<li>链接这些线程库时要使用编译命令”-lpthread”选项</li>
+</ul>
+<p><strong>在Linux查看正在运行的线程</strong> </p>
+<p><strong><code>ps -aL</code></strong></p>
+<h1 id="线程互斥"><a href="#线程互斥" class="headerlink" title="线程互斥"></a>线程互斥</h1><p>mutex(互斥量)</p>
+<ul>
+<li>大部分情况，线程使用的数据都是局部变量，变量的地址空间在线程的栈空间内，这种情况，变量的归属单个线程，其他线程无法获取这种变量</li>
+<li>但是有的时候，很多变量都需要线程共享，这样的变量称为共享变量，可以通过数据的共享，完成线程之间的交互</li>
+<li>多个线程并发操作共享变量，会带来一些问题。</li>
+</ul>
+<p>通常情况下同步是要互斥为前提的，同步可以保证多个执行流按照特定有效的顺序去访问临界资源。</p>
+<p><strong>总结：</strong>互斥了解决数据的二义性问题，安全性，正确性问题。</p>
+<p>同步互斥可以让多个线程，多个进程之间可以协同工作。</p>
+<h2 id="1-互斥锁（mutex）"><a href="#1-互斥锁（mutex）" class="headerlink" title="1.互斥锁（mutex）"></a>1.互斥锁（mutex）</h2><p>例如:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//操作共享变量会有问题的售票系统</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">int</span> tickets = <span class="number">1000</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">void</span> * <span class="title">buyTicket</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">     <span class="keyword">char</span> * thread = (<span class="keyword">char</span>*) arg;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(tickets&gt;<span class="number">0</span>)&#123;</span><br><span class="line">             usleep(<span class="number">1000</span>);</span><br><span class="line">             <span class="built_in">printf</span>(<span class="string">"%s get a ticket ,num:%d\n"</span>,thread,tickets);</span><br><span class="line">            tickets--;</span><br><span class="line">         &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">"%s quit!\n"</span>,thread);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> t1,t2,t3,t4;</span><br><span class="line">    pthread_create(&amp;t1,<span class="literal">NULL</span>,buyTicket,(<span class="keyword">void</span> *)<span class="string">"thread 1"</span>);</span><br><span class="line">    pthread_create(&amp;t3,<span class="literal">NULL</span>,buyTicket,(<span class="keyword">void</span> *)<span class="string">"thread 3"</span>);</span><br><span class="line">    pthread_create(&amp;t4,<span class="literal">NULL</span>,buyTicket,(<span class="keyword">void</span> *)<span class="string">"thread 4"</span>);    </span><br><span class="line">    pthread_join(t1,<span class="literal">NULL</span>);</span><br><span class="line">    pthread_join(t2,<span class="literal">NULL</span>);</span><br><span class="line">    pthread_join(t3,<span class="literal">NULL</span>);</span><br><span class="line">    pthread_join(t4,<span class="literal">NULL</span>);                                                                                                                             </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//加锁后 互斥</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sched.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> ticket = <span class="number">100</span>; <span class="keyword">pthread_mutex_t</span> mutex;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">route</span><span class="params">(<span class="keyword">void</span> *arg)</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">char</span> *id = (<span class="keyword">char</span>*)arg;    </span><br><span class="line">    <span class="keyword">while</span> ( <span class="number">1</span> ) &#123;        </span><br><span class="line">        pthread_mutex_lock(&amp;mutex);        </span><br><span class="line">        <span class="keyword">if</span> ( ticket &gt; <span class="number">0</span> ) &#123;           </span><br><span class="line">            usleep(<span class="number">1000</span>);            </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%s sells ticket:%d\n"</span>, id, ticket);           </span><br><span class="line">            ticket--;            </span><br><span class="line">            pthread_mutex_unlock(&amp;mutex);            <span class="comment">// sched_yield(); 放弃CPU       </span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;            </span><br><span class="line">            pthread_mutex_unlock(&amp;mutex);            </span><br><span class="line">            <span class="keyword">break</span>;       </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( <span class="keyword">void</span> )</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">pthread_t</span> t1, t2, t3, t4;</span><br><span class="line">    pthread_mutex_init(&amp;mutex, <span class="literal">NULL</span>);</span><br><span class="line">    pthread_create(&amp;t1, <span class="literal">NULL</span>, route, <span class="string">"thread 1"</span>);    </span><br><span class="line">    pthread_create(&amp;t2, <span class="literal">NULL</span>, route, <span class="string">"thread 2"</span>);   </span><br><span class="line">    pthread_create(&amp;t3, <span class="literal">NULL</span>, route, <span class="string">"thread 3"</span>);   </span><br><span class="line">    pthread_create(&amp;t4, <span class="literal">NULL</span>, route, <span class="string">"thread 4"</span>);</span><br><span class="line">    pthread_join(t1, <span class="literal">NULL</span>);    </span><br><span class="line">    pthread_join(t2, <span class="literal">NULL</span>);    </span><br><span class="line">    pthread_join(t3, <span class="literal">NULL</span>);    </span><br><span class="line">    pthread_join(t4, <span class="literal">NULL</span>);</span><br><span class="line">    pthread_mutex_destroy(&amp;mutex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>mutex锁必须先初始化，互斥锁用完后，必须删除互斥锁</p>
+<p>锁的初始化</p>
+<ul>
+<li>静态初始化</li>
+</ul>
+<p><code>pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER</code></p>
+<ul>
+<li><p>动态初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`<span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_init</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex, <span class="keyword">const</span> pthread_mutexattr <span class="keyword">_t</span> *<span class="keyword">restrict</span> attr)</span></span>;    参数：        mutex：要初始化的互斥量        attr：<span class="literal">NULL</span>`</span><br></pre></td></tr></table></figure>
+<p>销毁互斥量 </p>
+<p>销毁互斥量需要注意： </p>
+<ul>
+<li><p>使⽤用PTHREAD_ MUTEX_ INITIALIZER初始化的互斥量不需要销毁 </p>
+</li>
+<li><p>不要销毁⼀一个已经加锁的互斥量 </p>
+</li>
+<li><p>已经销毁的互斥量，要确保后⾯面不会有线程再尝试加锁</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int pthread_mutex_destroy(pthread_mutex_t *mutex)；</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>互斥量加锁和解锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int pthread_mutex_lock(pthread_mutex_t *mutex); int pthread_mutex_unlock(pthread_mutex_t *mutex); 返回值:成功返回0,失败返回错误号</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>调⽤用pthread_ lock 时，可能会遇到以下情况: 互斥量处于未锁状态，该函数会将互斥量锁定，同时返回成功 发起函数调⽤用时，其他线程已经锁定互斥量，或者存在其他线程同时申请互斥量，但没有竞争到互 斥量，那么pthread_ lock调⽤<strong>会陷⼊入阻塞，等待互斥量解锁。</strong> </p>
+</blockquote>
+<p><strong>trylock：非阻塞式获取锁</strong></p>
+<p><strong>总结：</strong></p>
+<p><strong>锁本身是临界资源</strong>，但是申请锁的操作是原子性的。所以才可以使用锁保护临界资源。</p>
+<h1 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h1><blockquote>
+<ul>
+<li>当一个线程互斥地访问某个变量时，它可能发现在其他线程状态改变值之前，它什么也做不了。</li>
+<li>例如一个线程访问队列时，发现队列为空，它只能等待，只到其它线程将一个节点添加到队列中。 这种情况就需要⽤用到条件变量。</li>
+</ul>
+</blockquote>
+<h1 id="生产消费者"><a href="#生产消费者" class="headerlink" title="生产消费者"></a>生产消费者</h1><p>分析：</p>
+<p>生产者生产者之间的关系—互斥关系（不能共享）</p>
+<p>生产者消费者之间的关系—互斥关系，同步关系</p>
+<p>消费者消费者之间的关系—互斥关系（不能共享）</p>
+<p><strong>交易场所：超市</strong></p>
+<p>321原则： 3种关系，2个角色，1 个交易场所</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/06/14-javaIO/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1923,7 +2233,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1934,7 +2244,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1945,7 +2255,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2023,7 +2333,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">10.6k</span>
+    <span title="Site words total count">12.4k</span>
   
 </div>
 
