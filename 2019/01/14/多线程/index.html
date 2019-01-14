@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
+
+
+
+  <meta name="keywords" content="Linux操作系统," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SOYANGA" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="线程的概念（复习）-铺垫 进程是分配系统资源的基本单位 线程是一个标准的进程(一个执行流的进程)   1.理解（Linux下）线程是在进程的内部运行的：线程是在进程的地址空间内运行的，共享一份虚拟地址空间。 线程大部分资源都是共享的。（共用一个虚拟地址空间） 进程大部分资源都是独立的。（每个一个进程都有自己独自的一份虚拟地址空间） CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linu">
+<meta name="keywords" content="Linux操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux多线程">
+<meta property="og:url" content="https://soyanga.github.io/2019/01/14/多线程/index.html">
+<meta property="og:site_name" content="SOYANGA">
+<meta property="og:description" content="线程的概念（复习）-铺垫 进程是分配系统资源的基本单位 线程是一个标准的进程(一个执行流的进程)   1.理解（Linux下）线程是在进程的内部运行的：线程是在进程的地址空间内运行的，共享一份虚拟地址空间。 线程大部分资源都是共享的。（共用一个虚拟地址空间） 进程大部分资源都是独立的。（每个一个进程都有自己独自的一份虚拟地址空间） CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="d:/hexo/source/img/Linux线程图解.png">
+<meta property="og:updated_time" content="2019-01-14T10:40:36.901Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux多线程">
+<meta name="twitter:description" content="线程的概念（复习）-铺垫 进程是分配系统资源的基本单位 线程是一个标准的进程(一个执行流的进程)   1.理解（Linux下）线程是在进程的内部运行的：线程是在进程的地址空间内运行的，共享一份虚拟地址空间。 线程大部分资源都是共享的。（共用一个虚拟地址空间） 进程大部分资源都是独立的。（每个一个进程都有自己独自的一份虚拟地址空间） CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linu">
+<meta name="twitter:image" content="d:/hexo/source/img/Linux线程图解.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://soyanga.github.io/2019/01/14/多线程/"/>
+
+
+
+
+
+  <title>Linux多线程 | SOYANGA</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/SOYANGA" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+
+	
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SOYANGA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello World</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-star"></i> <br />
+            
+            生活中的美好
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            照片
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/14/多线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux多线程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T10:10:31+08:00">
+                2019-01-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-14T18:40:36+08:00">
+                2019-01-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="线程的概念（复习）-铺垫"><a href="#线程的概念（复习）-铺垫" class="headerlink" title="线程的概念（复习）-铺垫"></a>线程的概念（复习）-铺垫</h1><ul>
+<li>进程是<strong>分配系统资源的基本单位</strong></li>
+<li>线程是<strong>一个标准的进程(一个执行流的进程)</strong></li>
+</ul>
+<p><img src="D:\hexo\source\img\Linux线程图解.png" alt="Linux线程图解"></p>
+<h2 id="1-理解（Linux下）"><a href="#1-理解（Linux下）" class="headerlink" title="1.理解（Linux下）"></a>1.理解（Linux下）</h2><p><strong>线程是在进程的内部运行的：</strong>线程是在进程的地址空间内运行的，共享一份虚拟地址空间。</p>
+<p>线程大部分资源都是共享的。（共用一个虚拟地址空间）</p>
+<p>进程大部分资源都是独立的。（每个一个进程都有自己独自的一份虚拟地址空间）</p>
+<p>CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linux当中CPU看到的一个进程相当于一个轻量级进程（&lt;=一个标准的进程(一个执行流的进程)）</p>
+<p>Linux下没有一份真正意义的进程。使用进程模拟线程。</p>
+<p>TCB ThreadContrlClock 线程控制块</p>
+ <a id="more"></a>
+<h2 id="2-线程的资源"><a href="#2-线程的资源" class="headerlink" title="2.线程的资源"></a>2.线程的资源</h2><ul>
+<li><strong>私有资源</strong></li>
+</ul>
+<blockquote>
+<ol>
+<li>线程ID</li>
+<li>一组寄存器（上下文保护）</li>
+<li>线程栈</li>
+<li>erro</li>
+<li>信号屏蔽字</li>
+<li>调度优先级</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>共享资源</strong></li>
+</ul>
+<blockquote>
+<ol>
+<li>同有个地址空间</li>
+<li>文件描述符</li>
+<li>每种处理信号处理方式（忽略，默认，自定义）</li>
+<li>当前工作目录</li>
+<li>用户id和组id</li>
+</ol>
+</blockquote>
+<h2 id="3-线程优点"><a href="#3-线程优点" class="headerlink" title="3.线程优点"></a>3.线程优点</h2><blockquote>
+<ul>
+<li>创建线程比创建一个进程代价小</li>
+<li>与进程之间切换相比，线程之间的切换需要操作系统的工作小的多</li>
+<li>线程占用的资源要比进程少很多</li>
+<li>能充分利用多处理器的可并行数量</li>
+<li>在等待慢速IO操作的同时，程序可以执行其他任务</li>
+<li>计算密集型应用，为了能在多处理器系统上运行，将计算分解到多个线程中实现</li>
+<li>IO密集型应用，为了提高性能，将IO操作重叠。线程可以同时等待不同IO操作</li>
+</ul>
+</blockquote>
+<h2 id="4-线程缺点"><a href="#4-线程缺点" class="headerlink" title="4.线程缺点"></a>4.线程缺点</h2><ul>
+<li>性能损失<ul>
+<li>一个很少被外部事件阻塞的计算密集型线程往往⽆无法与共它线程共享同⼀一个处理器。如 果计算密集型线程的数量⽐比可⽤用的处理器多，那么可能会有较⼤大的性能损失，这⾥里的性 能损失指的是增加了额外的同步和调度开销，⽽而可⽤用的资源不变。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>健壮性降低</p>
+<ul>
+<li>编写多 程需要更全⾯面更深⼊入的考虑，在一个多线程程序⾥里，因时间分配上的细微偏差 或者因共享了不该共享的变量⽽而造成不良影响的可能性是很⼤大的，换句话说线程之间是 缺乏保护的。</li>
+</ul>
+</li>
+<li><p>缺乏访问控制</p>
+<ul>
+<li>进程是访问控制的基本粒度，在⼀一个线程中调⽤用某些OS函数会对整个进程造成影响</li>
+</ul>
+</li>
+<li><p>编程难度提高</p>
+</li>
+</ul>
+<h1 id="线程控制"><a href="#线程控制" class="headerlink" title="线程控制"></a>线程控制</h1><h2 id="1-POSIX线程库"><a href="#1-POSIX线程库" class="headerlink" title="1.POSIX线程库"></a>1.POSIX线程库</h2><blockquote>
+<ul>
+<li>与线程有关的函数构成了⼀一个完整的系列，绝⼤大多数函数的名字都是以“pthread_”打头的 </li>
+<li>引入头文件</li>
+<li>链接这些线程库时要使用编译命令”-lpthread”选项</li>
+</ul>
+</blockquote>
+<p><strong>在Linux查看正在运行的线程</strong> </p>
+<p><strong><code>ps -aL</code></strong></p>
+<h1 id="线程互斥"><a href="#线程互斥" class="headerlink" title="线程互斥"></a>线程互斥</h1><p>mutex(互斥量)</p>
+<blockquote>
+<ul>
+<li>大部分情况，线程使用的数据都是局部变量，变量的地址空间在线程的栈空间内，这种情况，变量的归属单个线程，其他线程无法获取这种变量</li>
+<li>但是有的时候，很多变量都需要线程共享，这样的变量称为共享变量，可以通过数据的共享，完成线程之间的交互</li>
+<li>多个线程并发操作共享变量，会带来一些问题。</li>
+</ul>
+<p>通常情况下同步是要互斥为前提的，同步可以保证多个执行流按照特定有效的顺序去访问临界资源。</p>
+</blockquote>
+<p><strong>总结：</strong>互斥了解决数据的二义性问题，安全性，正确性问题。</p>
+<p>同步互斥可以让多个线程，多个进程之间可以协同工作。</p>
+<h2 id="1-互斥锁（mutex）"><a href="#1-互斥锁（mutex）" class="headerlink" title="1.互斥锁（mutex）"></a>1.互斥锁（mutex）</h2><p>例如:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//操作共享变量会有问题的售票系统</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">int</span> tickets = <span class="number">1000</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">void</span> * <span class="title">buyTicket</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">     <span class="keyword">char</span> * thread = (<span class="keyword">char</span>*) arg;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(tickets&gt;<span class="number">0</span>)&#123;</span><br><span class="line">             usleep(<span class="number">1000</span>);</span><br><span class="line">             <span class="built_in">printf</span>(<span class="string">"%s get a ticket ,num:%d\n"</span>,thread,tickets);</span><br><span class="line">            tickets--;</span><br><span class="line">         &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">"%s quit!\n"</span>,thread);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> t1,t2,t3,t4;</span><br><span class="line">    pthread_create(&amp;t1,<span class="literal">NULL</span>,buyTicket,(<span class="keyword">void</span> *)<span class="string">"thread 1"</span>);</span><br><span class="line">    pthread_create(&amp;t3,<span class="literal">NULL</span>,buyTicket,(<span class="keyword">void</span> *)<span class="string">"thread 3"</span>);</span><br><span class="line">    pthread_create(&amp;t4,<span class="literal">NULL</span>,buyTicket,(<span class="keyword">void</span> *)<span class="string">"thread 4"</span>);    </span><br><span class="line">    pthread_join(t1,<span class="literal">NULL</span>);</span><br><span class="line">    pthread_join(t2,<span class="literal">NULL</span>);</span><br><span class="line">    pthread_join(t3,<span class="literal">NULL</span>);</span><br><span class="line">    pthread_join(t4,<span class="literal">NULL</span>);                                                                                                                             </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//加锁后 互斥</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sched.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> ticket = <span class="number">100</span>; <span class="keyword">pthread_mutex_t</span> mutex;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">route</span><span class="params">(<span class="keyword">void</span> *arg)</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">char</span> *id = (<span class="keyword">char</span>*)arg;    </span><br><span class="line">    <span class="keyword">while</span> ( <span class="number">1</span> ) &#123;        </span><br><span class="line">        pthread_mutex_lock(&amp;mutex);        </span><br><span class="line">        <span class="keyword">if</span> ( ticket &gt; <span class="number">0</span> ) &#123;           </span><br><span class="line">            usleep(<span class="number">1000</span>);            </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%s sells ticket:%d\n"</span>, id, ticket);           </span><br><span class="line">            ticket--;            </span><br><span class="line">            pthread_mutex_unlock(&amp;mutex);            <span class="comment">// sched_yield(); 放弃CPU       </span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;            </span><br><span class="line">            pthread_mutex_unlock(&amp;mutex);            </span><br><span class="line">            <span class="keyword">break</span>;       </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( <span class="keyword">void</span> )</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">pthread_t</span> t1, t2, t3, t4;</span><br><span class="line">    pthread_mutex_init(&amp;mutex, <span class="literal">NULL</span>);</span><br><span class="line">    pthread_create(&amp;t1, <span class="literal">NULL</span>, route, <span class="string">"thread 1"</span>);    </span><br><span class="line">    pthread_create(&amp;t2, <span class="literal">NULL</span>, route, <span class="string">"thread 2"</span>);   </span><br><span class="line">    pthread_create(&amp;t3, <span class="literal">NULL</span>, route, <span class="string">"thread 3"</span>);   </span><br><span class="line">    pthread_create(&amp;t4, <span class="literal">NULL</span>, route, <span class="string">"thread 4"</span>);</span><br><span class="line">    pthread_join(t1, <span class="literal">NULL</span>);    </span><br><span class="line">    pthread_join(t2, <span class="literal">NULL</span>);    </span><br><span class="line">    pthread_join(t3, <span class="literal">NULL</span>);    </span><br><span class="line">    pthread_join(t4, <span class="literal">NULL</span>);</span><br><span class="line">    pthread_mutex_destroy(&amp;mutex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>mutex锁必须先初始化，互斥锁用完后，必须删除互斥锁</p>
+<p>锁的初始化</p>
+<ul>
+<li>静态初始化</li>
+</ul>
+<p><code>pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER</code></p>
+<ul>
+<li><p>动态初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`<span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_init</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex, <span class="keyword">const</span> pthread_mutexattr <span class="keyword">_t</span> *<span class="keyword">restrict</span> attr)</span></span>;    参数：        mutex：要初始化的互斥量        attr：<span class="literal">NULL</span>`</span><br></pre></td></tr></table></figure>
+<p>销毁互斥量 </p>
+<p>销毁互斥量需要注意： </p>
+<ul>
+<li><p>使⽤用PTHREAD_ MUTEX_ INITIALIZER初始化的互斥量不需要销毁 </p>
+</li>
+<li><p>不要销毁⼀一个已经加锁的互斥量 </p>
+</li>
+<li><p>已经销毁的互斥量，要确保后⾯面不会有线程再尝试加锁</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int pthread_mutex_destroy(pthread_mutex_t *mutex)；</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>互斥量加锁和解锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int pthread_mutex_lock(pthread_mutex_t *mutex); int pthread_mutex_unlock(pthread_mutex_t *mutex); 返回值:成功返回0,失败返回错误号</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>调⽤用pthread_ lock 时，可能会遇到以下情况: 互斥量处于未锁状态，该函数会将互斥量锁定，同时返回成功 发起函数调⽤用时，其他线程已经锁定互斥量，或者存在其他线程同时申请互斥量，但没有竞争到互 斥量，那么pthread_ lock调⽤<strong>会陷⼊入阻塞，等待互斥量解锁。</strong> </p>
+</blockquote>
+<p><strong>trylock：非阻塞式获取锁</strong></p>
+<p><strong>总结：</strong></p>
+<p><strong>锁本身是临界资源</strong>，但是申请锁的操作是原子性的。所以才可以使用锁保护临界资源。</p>
+<h2 id="可重入VS线程安全"><a href="#可重入VS线程安全" class="headerlink" title="可重入VS线程安全"></a>可重入VS线程安全</h2><p>概念：</p>
+<blockquote>
+<ul>
+<li>线程安全：多个线程并发同一段代码时，不会出现不同结果。常见对全局变量或静态变量进行操作，并且没有锁保护的情况下，会出现该问题。</li>
+<li>重入：同一函数被不同的执行流程钓调用，当前一个流程还没有执行完，就有其他执行流再次进入，我们称之为重入。一个函数在重入的条件下，运行结果不会出现任何不同或者任何问题，则该函数被称为可重入函数，否则是不</li>
+</ul>
+</blockquote>
+<h2 id="常见的线程安全不安全问题"><a href="#常见的线程安全不安全问题" class="headerlink" title="常见的线程安全不安全问题"></a>常见的线程安全不安全问题</h2><blockquote>
+<ul>
+<li>不保护共享变量的函数</li>
+<li>函数状态随时被调用，状态发变化的函数</li>
+<li>返回指向静态变量指针的函数</li>
+<li>调用线程不安全函数的函数</li>
+</ul>
+</blockquote>
+<h2 id="常见的线程安全的情况"><a href="#常见的线程安全的情况" class="headerlink" title="常见的线程安全的情况"></a>常见的线程安全的情况</h2><blockquote>
+<ul>
+<li>每个线程对全局变量或者静态变量只有读取权限，而没有写入的权限，一般来说这些线程是安全的</li>
+<li>类或者接口对于线程来说都是原子操作</li>
+<li>多个线程之间的切换不会导致该接口的执行结果存在二义性</li>
+</ul>
+</blockquote>
+<h2 id="常见不可重入的情况"><a href="#常见不可重入的情况" class="headerlink" title="常见不可重入的情况"></a>常见不可重入的情况</h2><blockquote>
+<ul>
+<li>调用了malloc/free函数，因为malloc函数使用全局链表来管理堆的</li>
+<li>调用了标准I/O库函数，标准I/O库的很多实现都以不可重入的方式使用全局数据结构 </li>
+<li>可重入函数体内使用了静态的数据结构</li>
+</ul>
+</blockquote>
+<h2 id="常见的可重入函数的情况"><a href="#常见的可重入函数的情况" class="headerlink" title="常见的可重入函数的情况"></a>常见的可重入函数的情况</h2><blockquote>
+<ul>
+<li>不是使用静态变量或全局变量</li>
+<li>不使用用malloc或new开辟出来的空间</li>
+<li>不调用课不可重入的函数</li>
+<li>不返回静态或者全局数据，所有数据都有函数的调用者提供</li>
+<li>使用本地数据，或者通过制作全局数据的本地拷贝来保护全局数据</li>
+</ul>
+</blockquote>
+<h2 id="可重入与线程安全联系"><a href="#可重入与线程安全联系" class="headerlink" title="可重入与线程安全联系"></a>可重入与线程安全联系</h2><blockquote>
+<ul>
+<li>函数是可重入的，线程就是安全的</li>
+<li>函数是不可重入，那就不能由多个线程使用，有可能引发线程安全问题</li>
+<li>如果一个函数由全局变量，那么这个函数即不是线程安全的也不是可重入的。</li>
+</ul>
+</blockquote>
+<h2 id="可重入与线程安全的区别"><a href="#可重入与线程安全的区别" class="headerlink" title="可重入与线程安全的区别"></a>可重入与线程安全的区别</h2><blockquote>
+<ul>
+<li>可重入函数是线程安全函数的一种</li>
+<li>线程安全不一定可重入，而可重入函数则一定是线程安全的。</li>
+<li>如果将对临界资源的访问加上锁，则这个函数是线程安全的，但如果这个重入函数，若锁还未释放则会产生死锁（自己进入自己锁好的函数，本线程被挂起，本线程带着锁且被挂起，线程携带的锁永远不会被释放–<strong>死锁</strong>），因此是不可重入的。</li>
+</ul>
+</blockquote>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><h3 id="死锁的概念"><a href="#死锁的概念" class="headerlink" title="死锁的概念"></a><strong>死锁的概念</strong></h3><ul>
+<li><blockquote>
+<p>死锁是指在一组进程中的各个进程均占有不会释放的资源，但因互相申请被其他进程所占有不会释放的资源而处于一种永久等待状态。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="死锁的四个必要条件"><a href="#死锁的四个必要条件" class="headerlink" title="死锁的四个必要条件"></a><strong>死锁的四个必要条件</strong></h3><blockquote>
+<ul>
+<li>互斥条件：一个资源每次只能被一个执行流使用</li>
+<li>请求与保持条件：一个执行流因请求资源而阻塞时，对已获得资源保持不放</li>
+<li>不剥夺条件：一个执行已获得的资源，在未使用完之前，不能强行剥夺</li>
+<li>循环等待条件：若干执行流之间形成一种头尾相接的循环等待资源的关系。</li>
+</ul>
+</blockquote>
+<h2 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h2><blockquote>
+<ul>
+<li>破坏死锁四个必要条件</li>
+<li>加锁顺序一致  所有线程申请锁的顺序是一定</li>
+<li>避免未释放场景</li>
+<li>资源一次性分配</li>
+</ul>
+</blockquote>
+<h2 id="避免死锁的算法"><a href="#避免死锁的算法" class="headerlink" title="避免死锁的算法"></a>避免死锁的算法</h2><blockquote>
+<ul>
+<li><p>死锁检测算法</p>
+</li>
+<li><p>银行家算法</p>
+<p>哲学家就餐问题</p>
+</li>
+</ul>
+</blockquote>
+<h1 id="Linux同步"><a href="#Linux同步" class="headerlink" title="Linux同步"></a>Linux同步</h1><h2 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h2><blockquote>
+<ul>
+<li>当一个线程互斥地访问某个变量时，它可能发现在其他线程状态改变值之前，它什么也做不了。</li>
+<li>例如一个线程访问队列时，发现队列为空，它只能等待，只到其它线程将一个节点添加到队列中。 这种情况就需要⽤用到条件变量。</li>
+</ul>
+</blockquote>
+<h1 id="生产消费者"><a href="#生产消费者" class="headerlink" title="生产消费者"></a>生产消费者</h1><p>分析：</p>
+<p>生产者生产者之间的关系—互斥关系（不能共享）</p>
+<p>生产者消费者之间的关系—互斥关系，同步关系</p>
+<p>消费者消费者之间的关系—互斥关系（不能共享）</p>
+<p><strong>交易场所：超市</strong></p>
+<p>321原则： 3种关系，2个角色，1 个交易场所</p>
+
+      
+    </div>
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+  
+</div>
+	
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    SOYANGA
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://soyanga.github.io/2019/01/14/多线程/" title="Linux多线程">https://soyanga.github.io/2019/01/14/多线程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux操作系统/" rel="tag"><i class="fa fa-tag"></i> Linux操作系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/06/14-javaIO/" rel="next" title="14-javaIO">
+                <i class="fa fa-chevron-left"></i> 14-javaIO
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="SOYANGA" />
+            
+              <p class="site-author-name" itemprop="name">SOYANGA</p>
+              <p class="site-description motion-element" itemprop="description">量变到质变是一段很长的路，如果你不走的话</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/SOYANGA" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/SoYangA" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线程的概念（复习）-铺垫"><span class="nav-number">1.</span> <span class="nav-text">线程的概念（复习）-铺垫</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-理解（Linux下）"><span class="nav-number">1.1.</span> <span class="nav-text">1.理解（Linux下）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-线程的资源"><span class="nav-number">1.2.</span> <span class="nav-text">2.线程的资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-线程优点"><span class="nav-number">1.3.</span> <span class="nav-text">3.线程优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-线程缺点"><span class="nav-number">1.4.</span> <span class="nav-text">4.线程缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程控制"><span class="nav-number">2.</span> <span class="nav-text">线程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-POSIX线程库"><span class="nav-number">2.1.</span> <span class="nav-text">1.POSIX线程库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程互斥"><span class="nav-number">3.</span> <span class="nav-text">线程互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-互斥锁（mutex）"><span class="nav-number">3.1.</span> <span class="nav-text">1.互斥锁（mutex）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重入VS线程安全"><span class="nav-number">3.2.</span> <span class="nav-text">可重入VS线程安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的线程安全不安全问题"><span class="nav-number">3.3.</span> <span class="nav-text">常见的线程安全不安全问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的线程安全的情况"><span class="nav-number">3.4.</span> <span class="nav-text">常见的线程安全的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见不可重入的情况"><span class="nav-number">3.5.</span> <span class="nav-text">常见不可重入的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的可重入函数的情况"><span class="nav-number">3.6.</span> <span class="nav-text">常见的可重入函数的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重入与线程安全联系"><span class="nav-number">3.7.</span> <span class="nav-text">可重入与线程安全联系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重入与线程安全的区别"><span class="nav-number">3.8.</span> <span class="nav-text">可重入与线程安全的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">3.9.</span> <span class="nav-text">死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁的概念"><span class="nav-number">3.9.1.</span> <span class="nav-text">死锁的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁的四个必要条件"><span class="nav-number">3.9.2.</span> <span class="nav-text">死锁的四个必要条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免死锁"><span class="nav-number">3.10.</span> <span class="nav-text">避免死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免死锁的算法"><span class="nav-number">3.11.</span> <span class="nav-text">避免死锁的算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux同步"><span class="nav-number">4.</span> <span class="nav-text">Linux同步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件变量"><span class="nav-number">4.1.</span> <span class="nav-text">条件变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生产消费者"><span class="nav-number">5.</span> <span class="nav-text">生产消费者</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	  
+		<div id="music163player">
+			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=430 src="//music.163.com/outchain/player?type=0&id=2536957308&auto=1&height=430"></iframe>
+		</div>
+	
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SOYANGA</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">13.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  undefined
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":110,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
