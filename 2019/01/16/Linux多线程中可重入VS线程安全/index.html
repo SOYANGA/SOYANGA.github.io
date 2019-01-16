@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux操作系统," />
 
 
 
@@ -82,17 +82,18 @@
 
 
 
-<meta name="description" content="可重入VS线程安全概念：   线程安全：多个线程并发同一段代码时，不会出现不同结果。常见对全局变量或静态变量进行操作，并且没有锁保护的情况下，会出现该问题。 重入：同一函数被不同的执行流程钓调用，当前一个流程还没有执行完，就有其他执行流再次进入，我们称之为重入。一个函数在重入的条件下，运行结果不会出现任何不同或者任何问题，则该函数被称为可重入函数，否则是不   常见的线程安全不安全问题  不保护共">
+<meta name="description" content="可重入VS线程安全概念：   线程安全：多个线程并发同一段代码时，不会出现不同结果。常见对全局变量或静态变量进行操作，并且没有锁保护的情况下，会出现该问题。 重入：同一函数被不同的执行流程钓调用，当前一个流程还没有执行完，就有其他执行流再次进入，我们称之为重入。一个函数在重入的条件下，运行结果不会出现任何不同或者任何问题，则该函数被称为可重入函数，否则不是。">
+<meta name="keywords" content="Linux操作系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux多线程中可重入VS线程安全">
 <meta property="og:url" content="https://soyanga.github.io/2019/01/16/Linux多线程中可重入VS线程安全/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="可重入VS线程安全概念：   线程安全：多个线程并发同一段代码时，不会出现不同结果。常见对全局变量或静态变量进行操作，并且没有锁保护的情况下，会出现该问题。 重入：同一函数被不同的执行流程钓调用，当前一个流程还没有执行完，就有其他执行流再次进入，我们称之为重入。一个函数在重入的条件下，运行结果不会出现任何不同或者任何问题，则该函数被称为可重入函数，否则是不   常见的线程安全不安全问题  不保护共">
+<meta property="og:description" content="可重入VS线程安全概念：   线程安全：多个线程并发同一段代码时，不会出现不同结果。常见对全局变量或静态变量进行操作，并且没有锁保护的情况下，会出现该问题。 重入：同一函数被不同的执行流程钓调用，当前一个流程还没有执行完，就有其他执行流再次进入，我们称之为重入。一个函数在重入的条件下，运行结果不会出现任何不同或者任何问题，则该函数被称为可重入函数，否则不是。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-16T07:08:29.060Z">
+<meta property="og:updated_time" content="2019-01-16T07:26:43.008Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux多线程中可重入VS线程安全">
-<meta name="twitter:description" content="可重入VS线程安全概念：   线程安全：多个线程并发同一段代码时，不会出现不同结果。常见对全局变量或静态变量进行操作，并且没有锁保护的情况下，会出现该问题。 重入：同一函数被不同的执行流程钓调用，当前一个流程还没有执行完，就有其他执行流再次进入，我们称之为重入。一个函数在重入的条件下，运行结果不会出现任何不同或者任何问题，则该函数被称为可重入函数，否则是不   常见的线程安全不安全问题  不保护共">
+<meta name="twitter:description" content="可重入VS线程安全概念：   线程安全：多个线程并发同一段代码时，不会出现不同结果。常见对全局变量或静态变量进行操作，并且没有锁保护的情况下，会出现该问题。 重入：同一函数被不同的执行流程钓调用，当前一个流程还没有执行完，就有其他执行流再次进入，我们称之为重入。一个函数在重入的条件下，运行结果不会出现任何不同或者任何问题，则该函数被称为可重入函数，否则不是。">
 
 
 
@@ -379,12 +380,34 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:08:29+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:26:43+08:00">
                 2019-01-16
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -448,9 +471,10 @@
 <blockquote>
 <ul>
 <li>线程安全：多个线程并发同一段代码时，不会出现不同结果。常见对全局变量或静态变量进行操作，并且没有锁保护的情况下，会出现该问题。</li>
-<li>重入：同一函数被不同的执行流程钓调用，当前一个流程还没有执行完，就有其他执行流再次进入，我们称之为重入。一个函数在重入的条件下，运行结果不会出现任何不同或者任何问题，则该函数被称为可重入函数，否则是不</li>
+<li>重入：同一函数被不同的执行流程钓调用，当前一个流程还没有执行完，就有其他执行流再次进入，我们称之为重入。一个函数在重入的条件下，运行结果不会出现任何不同或者任何问题，则该函数被称为可重入函数，否则不是。</li>
 </ul>
 </blockquote>
+<a id="more"></a>
 <h2 id="常见的线程安全不安全问题"><a href="#常见的线程安全不安全问题" class="headerlink" title="常见的线程安全不安全问题"></a>常见的线程安全不安全问题</h2><blockquote>
 <ul>
 <li>不保护共享变量的函数</li>
@@ -569,6 +593,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux操作系统/" rel="tag"><i class="fa fa-tag"></i> Linux操作系统</a>
+          
+        </div>
       
 
       

@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="SOYANGA">
 <meta property="og:description" content="线程控制POSIX线程库  与线程有关的函数构成了⼀一个完整的系列，绝⼤大多数函数的名字都是以“pthread_”打头的  引入头文件 链接这些线程库时要使用编译命令”-lpthread”选项   线程创建1234功能：创建⼀一个新的线程 原型    int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-16T07:18:30.053Z">
+<meta property="og:updated_time" content="2019-01-16T07:26:13.867Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux多线程控制">
 <meta name="twitter:description" content="线程控制POSIX线程库  与线程有关的函数构成了⼀一个完整的系列，绝⼤大多数函数的名字都是以“pthread_”打头的  引入头文件 链接这些线程库时要使用编译命令”-lpthread”选项   线程创建1234功能：创建⼀一个新的线程 原型    int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*">
@@ -380,7 +380,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:18:30+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:26:13+08:00">
                 2019-01-16
               </time>
             
@@ -481,6 +481,7 @@
 <li>pthreads函数出错时不会设置全局变量errno（⽽而⼤大部分其他POSIX函数会这样做）。⽽而是将错误 代码通过返回值返回 </li>
 <li>pthreads同样也提供了线程内的errno变量，以⽀支持其它使⽤用errno的代码。对于pthreads函数的错 误，建议通过返回值判定，因为读取返回值要比读取线程内的errno变量的开销更小</li>
 </ul>
+<a id="more"></a>
 <h2 id="线程等待"><a href="#线程等待" class="headerlink" title="线程等待"></a>线程等待</h2><p>pthread库中</p>
 <p><strong>线程需要等待：</strong></p>
 <ul>
@@ -587,8 +588,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/16/Linuix线程ID和进程ID/" rel="next" title="线程ID和进程ID">
-                <i class="fa fa-chevron-left"></i> 线程ID和进程ID
+              <a href="/2019/01/16/Linux线程ID和进程ID/" rel="next" title="Linux线程ID和进程ID">
+                <i class="fa fa-chevron-left"></i> Linux线程ID和进程ID
               </a>
             
           </div>
