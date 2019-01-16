@@ -334,7 +334,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/14/多线程/">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/Linux多线程同步/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SOYANGA">
@@ -353,7 +353,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/14/多线程/" itemprop="url">Linux多线程</a></h1>
+                <a class="post-title-link" href="/2019/01/16/Linux多线程同步/" itemprop="url">Linux多线程同步</a></h1>
         
 
         <div class="post-meta">
@@ -365,8 +365,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T10:10:31+08:00">
-                2019-01-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T15:19:26+08:00">
+                2019-01-16
               </time>
             
 
@@ -381,8 +381,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-15T22:40:04+08:00">
-                2019-01-15
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:20:24+08:00">
+                2019-01-16
               </time>
             
           </span>
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.8k
+                  185
                 </span>
               
 
@@ -447,7 +447,1339 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  10
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Linux同步"><a href="#Linux同步" class="headerlink" title="Linux同步"></a>Linux同步</h1><h2 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h2><blockquote>
+<ul>
+<li>当一个线程互斥地访问某个变量时，它可能发现在其他线程状态改变值之前，它什么也做不了。</li>
+<li>例如一个线程访问队列时，发现队列为空，它只能等待，只到其它线程将一个节点添加到队列中。 这种情况就需要⽤用到条件变量。</li>
+</ul>
+</blockquote>
+<h1 id="生产消费者"><a href="#生产消费者" class="headerlink" title="生产消费者"></a>生产消费者</h1><p>分析：</p>
+<p>生产者生产者之间的关系—互斥关系（不能共享）</p>
+<p>生产者消费者之间的关系—互斥关系，同步关系</p>
+<p>消费者消费者之间的关系—互斥关系（不能共享）</p>
+<p><strong>交易场所：超市</strong></p>
+<p>321原则： 3种关系，2个角色，1 个交易场所</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/Linux多线程中可重入VS线程安全/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/Linux多线程中可重入VS线程安全/" itemprop="url">Linux多线程中可重入VS线程安全</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T15:02:47+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:08:29+08:00">
+                2019-01-16
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  991
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="可重入VS线程安全"><a href="#可重入VS线程安全" class="headerlink" title="可重入VS线程安全"></a>可重入VS线程安全</h2><p>概念：</p>
+<blockquote>
+<ul>
+<li>线程安全：多个线程并发同一段代码时，不会出现不同结果。常见对全局变量或静态变量进行操作，并且没有锁保护的情况下，会出现该问题。</li>
+<li>重入：同一函数被不同的执行流程钓调用，当前一个流程还没有执行完，就有其他执行流再次进入，我们称之为重入。一个函数在重入的条件下，运行结果不会出现任何不同或者任何问题，则该函数被称为可重入函数，否则是不</li>
+</ul>
+</blockquote>
+<h2 id="常见的线程安全不安全问题"><a href="#常见的线程安全不安全问题" class="headerlink" title="常见的线程安全不安全问题"></a>常见的线程安全不安全问题</h2><blockquote>
+<ul>
+<li>不保护共享变量的函数</li>
+<li>函数状态随时被调用，状态发变化的函数</li>
+<li>返回指向静态变量指针的函数</li>
+<li>调用线程不安全函数的函数</li>
+</ul>
+</blockquote>
+<h2 id="常见的线程安全的情况"><a href="#常见的线程安全的情况" class="headerlink" title="常见的线程安全的情况"></a>常见的线程安全的情况</h2><blockquote>
+<ul>
+<li>每个线程对全局变量或者静态变量只有读取权限，而没有写入的权限，一般来说这些线程是安全的</li>
+<li>类或者接口对于线程来说都是原子操作</li>
+<li>多个线程之间的切换不会导致该接口的执行结果存在二义性</li>
+</ul>
+</blockquote>
+<h2 id="常见不可重入的情况"><a href="#常见不可重入的情况" class="headerlink" title="常见不可重入的情况"></a>常见不可重入的情况</h2><blockquote>
+<ul>
+<li>调用了malloc/free函数，因为malloc函数使用全局链表来管理堆的</li>
+<li>调用了标准I/O库函数，标准I/O库的很多实现都以不可重入的方式使用全局数据结构 </li>
+<li>可重入函数体内使用了静态的数据结构</li>
+</ul>
+</blockquote>
+<h2 id="常见的可重入函数的情况"><a href="#常见的可重入函数的情况" class="headerlink" title="常见的可重入函数的情况"></a>常见的可重入函数的情况</h2><blockquote>
+<ul>
+<li>不是使用静态变量或全局变量</li>
+<li>不使用用malloc或new开辟出来的空间</li>
+<li>不调用课不可重入的函数</li>
+<li>不返回静态或者全局数据，所有数据都有函数的调用者提供</li>
+<li>使用本地数据，或者通过制作全局数据的本地拷贝来保护全局数据</li>
+</ul>
+</blockquote>
+<h2 id="可重入与线程安全联系"><a href="#可重入与线程安全联系" class="headerlink" title="可重入与线程安全联系"></a>可重入与线程安全联系</h2><blockquote>
+<ul>
+<li>函数是可重入的，线程就是安全的</li>
+<li>函数是不可重入，那就不能由多个线程使用，有可能引发线程安全问题</li>
+<li>如果一个函数由全局变量，那么这个函数即不是线程安全的也不是可重入的。</li>
+</ul>
+</blockquote>
+<h2 id="可重入与线程安全的区别"><a href="#可重入与线程安全的区别" class="headerlink" title="可重入与线程安全的区别"></a>可重入与线程安全的区别</h2><blockquote>
+<ul>
+<li>可重入函数是线程安全函数的一种</li>
+<li>线程安全不一定可重入，而可重入函数则一定是线程安全的。</li>
+<li>如果将对临界资源的访问加上锁，则这个函数是线程安全的，但如果这个重入函数，若锁还未释放则会产生死锁（自己进入自己锁好的函数，本线程被挂起，本线程带着锁且被挂起，线程携带的锁永远不会被释放–<strong>死锁</strong>），因此是不可重入的。</li>
+</ul>
+</blockquote>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><h3 id="死锁的概念"><a href="#死锁的概念" class="headerlink" title="死锁的概念"></a><strong>死锁的概念</strong></h3><ul>
+<li><blockquote>
+<p>死锁是指在一组进程中的各个进程均占有不会释放的资源，但因互相申请被其他进程所占有不会释放的资源而处于一种永久等待状态。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="死锁的四个必要条件"><a href="#死锁的四个必要条件" class="headerlink" title="死锁的四个必要条件"></a><strong>死锁的四个必要条件</strong></h3><blockquote>
+<ul>
+<li>互斥条件：一个资源每次只能被一个执行流使用</li>
+<li>请求与保持条件：一个执行流因请求资源而阻塞时，对已获得资源保持不放</li>
+<li>不剥夺条件：一个执行已获得的资源，在未使用完之前，不能强行剥夺</li>
+<li>循环等待条件：若干执行流之间形成一种头尾相接的循环等待资源的关系。</li>
+</ul>
+</blockquote>
+<h2 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h2><blockquote>
+<ul>
+<li>破坏死锁四个必要条件</li>
+<li>加锁顺序一致  所有线程申请锁的顺序是一定</li>
+<li>避免未释放场景</li>
+<li>资源一次性分配</li>
+</ul>
+</blockquote>
+<h2 id="避免死锁的算法"><a href="#避免死锁的算法" class="headerlink" title="避免死锁的算法"></a>避免死锁的算法</h2><blockquote>
+<ul>
+<li><p>死锁检测算法</p>
+</li>
+<li><p>银行家算法</p>
+<p>哲学家就餐问题</p>
+</li>
+</ul>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/Linux多线程互斥/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/Linux多线程互斥/" itemprop="url">Linux多线程互斥</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T15:02:09+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:08:10+08:00">
+                2019-01-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="线程互斥"><a href="#线程互斥" class="headerlink" title="线程互斥"></a>线程互斥</h1><h3 id="进程线程间的互斥相关背景概念"><a href="#进程线程间的互斥相关背景概念" class="headerlink" title="进程线程间的互斥相关背景概念"></a>进程线程间的互斥相关背景概念</h3><ul>
+<li>临界资源：多线程执行流共享的资源叫做临界资源</li>
+<li>临界区：每个线程内部，访问临界资源的代码，就叫做临界区</li>
+<li>互斥：任何时刻，互斥保证有且只有一个执行流进入临界区，访问临界资源，通常对临界资源起保护作用</li>
+<li>原子性：不被任何调度机制打断的操作，该操作只有两态，要么完成，要么未完成</li>
+</ul>
+<h2 id="–-操作并不是原子的操作，而是对应三条汇编指令"><a href="#–-操作并不是原子的操作，而是对应三条汇编指令" class="headerlink" title="–/++操作并不是原子的操作，而是对应三条汇编指令"></a>–/++操作并不是原子的操作，而是对应三条汇编指令</h2><ul>
+<li>load:将共享变量从内存加载到寄存器中</li>
+<li>update:更新寄存器里面的值，执行-1操作</li>
+<li>store：将新值，从寄存器中写回共享变量的内存地址中</li>
+</ul>
+<p>要解决++/–操作不是原子的要做到以下3点</p>
+<ol>
+<li>代码必须有互斥行为：当代码进入到临界区执行时，不允许其他线程进入该临界区</li>
+<li>如果多个线程同时要求执行临界区的代码时。并且临界区没有线程在执行，那么只允许一个线程进入该临界区。</li>
+<li>如果线程不在临界区中执行，那么该线程不能阻止其他线程进入临界区。</li>
+</ol>
+<p><img src="img\1547620588390.png" alt="Lock原理图"></p>
+<p>mutex(互斥量)</p>
+<blockquote>
+<ul>
+<li>大部分情况，线程使用的数据都是局部变量，变量的地址空间在线程的栈空间内，这种情况，变量的归属单个线程，其他线程无法获取这种变量</li>
+<li>但是有的时候，很多变量都需要线程共享，这样的变量称为共享变量，可以通过数据的共享，完成线程之间的交互</li>
+<li>多个线程并发操作共享变量，会带来一些问题。</li>
+</ul>
+<p>通常情况下同步是要互斥为前提的，同步可以保证多个执行流按照特定有效的顺序去访问临界资源。</p>
+</blockquote>
+<p><strong>总结：</strong>互斥了解决数据的二义性问题，安全性，正确性问题。</p>
+<p>同步互斥可以让多个线程，多个进程之间可以协同工作。</p>
+<h2 id="1-互斥锁（mutex）"><a href="#1-互斥锁（mutex）" class="headerlink" title="1.互斥锁（mutex）"></a>1.互斥锁（mutex）</h2><p>例如:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//操作共享变量会有问题的售票系统</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">int</span> tickets = <span class="number">1000</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">void</span> * <span class="title">buyTicket</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">     <span class="keyword">char</span> * thread = (<span class="keyword">char</span>*) arg;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(tickets&gt;<span class="number">0</span>)&#123;</span><br><span class="line">             usleep(<span class="number">1000</span>);</span><br><span class="line">             <span class="built_in">printf</span>(<span class="string">"%s get a ticket ,num:%d\n"</span>,thread,tickets);</span><br><span class="line">            tickets--;</span><br><span class="line">         &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">"%s quit!\n"</span>,thread);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> t1,t2,t3,t4;</span><br><span class="line">    pthread_create(&amp;t1,<span class="literal">NULL</span>,buyTicket,(<span class="keyword">void</span> *)<span class="string">"thread 1"</span>);</span><br><span class="line">    pthread_create(&amp;t3,<span class="literal">NULL</span>,buyTicket,(<span class="keyword">void</span> *)<span class="string">"thread 3"</span>);</span><br><span class="line">    pthread_create(&amp;t4,<span class="literal">NULL</span>,buyTicket,(<span class="keyword">void</span> *)<span class="string">"thread 4"</span>);    </span><br><span class="line">    pthread_join(t1,<span class="literal">NULL</span>);</span><br><span class="line">    pthread_join(t2,<span class="literal">NULL</span>);</span><br><span class="line">    pthread_join(t3,<span class="literal">NULL</span>);</span><br><span class="line">    pthread_join(t4,<span class="literal">NULL</span>);                                                                                                                             </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//加锁后 互斥</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sched.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> ticket = <span class="number">100</span>; <span class="keyword">pthread_mutex_t</span> mutex;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">route</span><span class="params">(<span class="keyword">void</span> *arg)</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">char</span> *id = (<span class="keyword">char</span>*)arg;    </span><br><span class="line">    <span class="keyword">while</span> ( <span class="number">1</span> ) &#123;        </span><br><span class="line">        pthread_mutex_lock(&amp;mutex);        </span><br><span class="line">        <span class="keyword">if</span> ( ticket &gt; <span class="number">0</span> ) &#123;           </span><br><span class="line">            usleep(<span class="number">1000</span>);            </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%s sells ticket:%d\n"</span>, id, ticket);           </span><br><span class="line">            ticket--;            </span><br><span class="line">            pthread_mutex_unlock(&amp;mutex);            <span class="comment">// sched_yield(); 放弃CPU       </span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;            </span><br><span class="line">            pthread_mutex_unlock(&amp;mutex);            </span><br><span class="line">            <span class="keyword">break</span>;       </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( <span class="keyword">void</span> )</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">pthread_t</span> t1, t2, t3, t4;</span><br><span class="line">    pthread_mutex_init(&amp;mutex, <span class="literal">NULL</span>);</span><br><span class="line">    pthread_create(&amp;t1, <span class="literal">NULL</span>, route, <span class="string">"thread 1"</span>);    </span><br><span class="line">    pthread_create(&amp;t2, <span class="literal">NULL</span>, route, <span class="string">"thread 2"</span>);   </span><br><span class="line">    pthread_create(&amp;t3, <span class="literal">NULL</span>, route, <span class="string">"thread 3"</span>);   </span><br><span class="line">    pthread_create(&amp;t4, <span class="literal">NULL</span>, route, <span class="string">"thread 4"</span>);</span><br><span class="line">    pthread_join(t1, <span class="literal">NULL</span>);    </span><br><span class="line">    pthread_join(t2, <span class="literal">NULL</span>);    </span><br><span class="line">    pthread_join(t3, <span class="literal">NULL</span>);    </span><br><span class="line">    pthread_join(t4, <span class="literal">NULL</span>);</span><br><span class="line">    pthread_mutex_destroy(&amp;mutex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>mutex锁必须先初始化，互斥锁用完后，必须删除互斥锁</p>
+<p>锁的初始化</p>
+<ul>
+<li>静态初始化</li>
+</ul>
+<p><code>pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER</code></p>
+<ul>
+<li><p>动态初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`<span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_init</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex, <span class="keyword">const</span> pthread_mutexattr <span class="keyword">_t</span> *<span class="keyword">restrict</span> attr)</span></span>;    参数：        mutex：要初始化的互斥量        attr：<span class="literal">NULL</span>`</span><br></pre></td></tr></table></figure>
+<p>销毁互斥量 </p>
+<p>销毁互斥量需要注意： </p>
+<ul>
+<li><p>使⽤用PTHREAD_ MUTEX_ INITIALIZER初始化的互斥量不需要销毁 </p>
+</li>
+<li><p>不要销毁⼀一个已经加锁的互斥量 </p>
+</li>
+<li><p>已经销毁的互斥量，要确保后⾯面不会有线程再尝试加锁</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int pthread_mutex_destroy(pthread_mutex_t *mutex)；</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>互斥量加锁和解锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int pthread_mutex_lock(pthread_mutex_t *mutex); int pthread_mutex_unlock(pthread_mutex_t *mutex); 返回值:成功返回0,失败返回错误号</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>调⽤用pthread_ lock 时，可能会遇到以下情况: 互斥量处于未锁状态，该函数会将互斥量锁定，同时返回成功 发起函数调⽤用时，其他线程已经锁定互斥量，或者存在其他线程同时申请互斥量，但没有竞争到互 斥量，那么pthread_ lock调⽤<strong>会陷⼊入阻塞，等待互斥量解锁。</strong> </p>
+</blockquote>
+<p><strong>trylock：非阻塞式获取锁</strong></p>
+<p><strong>总结：</strong></p>
+<p><strong>锁本身是临界资源</strong>，但是申请锁的操作是原子性的。所以才可以使用锁保护临界资源。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/Linux多线程控制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/Linux多线程控制/" itemprop="url">Linux多线程控制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T15:01:41+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:18:30+08:00">
+                2019-01-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="线程控制"><a href="#线程控制" class="headerlink" title="线程控制"></a>线程控制</h1><h2 id="POSIX线程库"><a href="#POSIX线程库" class="headerlink" title="POSIX线程库"></a>POSIX线程库</h2><blockquote>
+<ul>
+<li>与线程有关的函数构成了⼀一个完整的系列，绝⼤大多数函数的名字都是以“pthread_”打头的 </li>
+<li>引入头文件</li>
+<li>链接这些线程库时要使用编译命令”-lpthread”选项</li>
+</ul>
+</blockquote>
+<h2 id="线程创建"><a href="#线程创建" class="headerlink" title="线程创建"></a>线程创建</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">功能：创建⼀一个新的线程 </span><br><span class="line">原型    int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*star t_routine)(void*), void *arg); </span><br><span class="line">参数    thread:返回线程ID    attr:设置线程的属性，attr为<span class="literal">NULL</span>表⽰示使⽤用默认属性    start_routine:是个函数地址，线程启动后要执⾏行的函数    arg:传给线程启动函数的参数</span><br><span class="line">返回值：成功返回<span class="number">0</span>；失败返回错误码</span><br></pre></td></tr></table></figure>
+<p>错误检查: </p>
+<ul>
+<li>传统的⼀一些函数是，成功返回0，失败返回-1，并且对全局变量errno赋值以指⽰示错误。</li>
+<li>pthreads函数出错时不会设置全局变量errno（⽽而⼤大部分其他POSIX函数会这样做）。⽽而是将错误 代码通过返回值返回 </li>
+<li>pthreads同样也提供了线程内的errno变量，以⽀支持其它使⽤用errno的代码。对于pthreads函数的错 误，建议通过返回值判定，因为读取返回值要比读取线程内的errno变量的开销更小</li>
+</ul>
+<h2 id="线程等待"><a href="#线程等待" class="headerlink" title="线程等待"></a>线程等待</h2><p>pthread库中</p>
+<p><strong>线程需要等待：</strong></p>
+<ul>
+<li>已经退出的线程，其空间没有被释放，仍然在进程的地址空间内。 </li>
+<li>创建新的线程不会复用刚才退出线程的地址空间。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">功能：等待线程结束 </span><br><span class="line">原型    <span class="function"><span class="keyword">int</span> <span class="title">pthread_join</span><span class="params">(<span class="keyword">pthread_t</span> thread, <span class="keyword">void</span> **value_ptr)</span></span>; </span><br><span class="line">参数    thread:线程ID    value_ptr:它指向一个指针，后者指向线程的返回值 </span><br><span class="line">返回值：成功返回<span class="number">0</span>；失败返回错误码</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>线程等待，当前发起等待线程被挂起（阻塞式），等待被等待退出。</strong></p>
+</blockquote>
+<p>retval：被等待线程退出的返回值。（不关注就传一个NULL）</p>
+<p>线程退出几种情况：</p>
+<ul>
+<li>线程运行完了结果对</li>
+<li>线程运行完了结果不对</li>
+<li>线程没运行完出异常</li>
+</ul>
+<p>但是一个进程中的线程异常退出，整个进程就退出了，发起等待线程也就被终止，所以不关注出异常情况。</p>
+<h2 id="线程终止"><a href="#线程终止" class="headerlink" title="线程终止"></a>线程终止</h2><p>如果需要只终止某个线程而不终止整个进程,可以有三种方法:</p>
+<ol>
+<li>从线程函数return 退出码。这种方法对主线程不适用,从main函数return相当于调用exit。 </li>
+<li>线程可以调用pthread_ exit（退出码）终止自己。 </li>
+<li>一个线程可以调用pthread_ cancel终止同一进程中的另一个线程</li>
+</ol>
+<ul>
+<li>pthread_exit函数</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">功能：线程终止 </span><br><span class="line">原型    <span class="function"><span class="keyword">void</span> <span class="title">pthread_exit</span><span class="params">(<span class="keyword">void</span> *value_ptr)</span></span>; </span><br><span class="line">参数    value_ptr:value_ptr不要指向一个局部变量。 </span><br><span class="line">返回值：无返回值，跟进程一样，线程结束的时候无法返回到它的调用者（自身）</span><br></pre></td></tr></table></figure>
+<ul>
+<li>需要注意,pthread_exit或者return返回的指针所指向的内存单元必须是全局的或者是用malloc分配的,不能在线程函数 的栈上分配,因为当其它线程得到这个返回指针时线程函数已经退出了。</li>
+<li>pthread_cancel函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">功能：取消一个执行中的线程 </span><br><span class="line">原型    int pthread_cancel(pthread_t thread); </span><br><span class="line">参数    thread:线程ID </span><br><span class="line">返回值：成功返回0；失败返回错误码</span><br></pre></td></tr></table></figure>
+<p>调用<strong>join函数</strong>的线程将挂起等待,直到id为thread的线程终止。thread线程以不同的方法终止,通过pthread_join得到的终 止状态是不同的，总结如下:</p>
+<blockquote>
+<p>1.如果thread线程通过<strong>return</strong>返回,value_ ptr所指向的单元里存放的是thread线程函数的返回值。 2. 如果thread线程被别的线程调用<strong>pthread_ cance</strong>l异常终掉,value_ ptr所指向的单元里存放的是常数<strong>PTHREAD_ CANCELED   ——返回值为：-1。</strong> </p>
+<p>3.如果thread线程是自己调用<strong>pthread_exit</strong>终止的,value_ptr所指向的单元存放的是传给<strong>pthread_exit的参数。</strong> </p>
+<p>4.如果对thread线程的<strong>终止状态不感兴趣,可以传NULL给value_ ptr参数</strong>。</p>
+</blockquote>
+<h2 id="分离线程"><a href="#分离线程" class="headerlink" title="分离线程"></a>分离线程</h2><ul>
+<li>默认情况下，新创建的线程是joinable的，线程退出后，需要对其进行pthread_join操作，否则无法释放资 源，从而造成系统泄漏。</li>
+<li>如果不关心线程的返回值，join是一种负担，这个时候，我们可以告诉系统，当线程退出时，自动释放线程 资源。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_detach</span><span class="params">(<span class="keyword">pthread_t</span> thread)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>可以是线程组内其他线程对目标线程进行分离，也可以是线程自己分离:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pthread_detach(pthread_self());</span><br></pre></td></tr></table></figure>
+<p>joinable和分离是冲突的，一个线程不能既是joinable又是分离的。</p>
+<p>joinable和分离是冲突的，一个线程不能既是joinable又是分离的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/Linuix线程ID和进程ID/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/Linuix线程ID和进程ID/" itemprop="url">线程ID和进程ID</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T14:57:03+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:00:34+08:00">
+                2019-01-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  544
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="在Linux查看正在运行的线程"><a href="#在Linux查看正在运行的线程" class="headerlink" title="在Linux查看正在运行的线程"></a><strong>在Linux查看正在运行的线程</strong></h1><p><strong><code>ps -aL</code></strong></p>
+<h1 id="线程ID和进程ID"><a href="#线程ID和进程ID" class="headerlink" title="线程ID和进程ID"></a>线程ID和进程ID</h1><p><img src="img\1547621920737.png" alt="线程ID和进程ID"></p>
+<p>同一个进程内部的线程（多个执行流）用getpid()返回的是一个一个PID。（用户级id）</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/16/Linuix线程ID和进程ID/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/Linux线程ID和进程ID/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/Linux线程ID和进程ID/" itemprop="url">Linux线程ID和进程ID</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T14:57:03+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:10:06+08:00">
+                2019-01-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  544
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="在Linux查看正在运行的线程"><a href="#在Linux查看正在运行的线程" class="headerlink" title="在Linux查看正在运行的线程"></a><strong>在Linux查看正在运行的线程</strong></h1><p><strong><code>ps -aL</code></strong></p>
+<h1 id="线程ID和进程ID"><a href="#线程ID和进程ID" class="headerlink" title="线程ID和进程ID"></a>线程ID和进程ID</h1><p><img src="img\1547621920737.png" alt="线程ID和进程ID"></p>
+<p>同一个进程内部的线程（多个执行流）用getpid()返回的是一个一个PID。（用户级id）</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/16/Linux线程ID和进程ID/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/14/Linux线程概念/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/14/Linux线程概念/" itemprop="url">Linux多线程概念</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T10:10:31+08:00">
+                2019-01-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:19:54+08:00">
+                2019-01-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  704
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
                 </span>
               
             </div>
@@ -473,16 +1805,17 @@
 <li>进程是<strong>分配系统资源的基本单位</strong></li>
 <li>线程是<strong>一个标准的进程(一个执行流的进程)</strong></li>
 </ul>
-<p><img src="img/Linux线程图解.png" alt="Linux线程图解"></p>
+<p><img src="img\1547621339288.png" alt="Linux线程图解"></p>
 <h2 id="1-理解（Linux下）"><a href="#1-理解（Linux下）" class="headerlink" title="1.理解（Linux下）"></a>1.理解（Linux下）</h2><p><strong>线程是在进程的内部运行的：</strong>线程是在进程的地址空间内运行的，共享一份虚拟地址空间。</p>
-<p>线程大部分资源都是共享的。（共用一个虚拟地址空间）</p>
-<p>进程大部分资源都是独立的。（每个一个进程都有自己独自的一份虚拟地址空间）</p>
+<p><strong>线程大部分资源都是共享的</strong>。（共用一个虚拟地址空间）</p>
+<p><strong>进程大部分资源都是独立的</strong>。（每个一个进程都有自己独自的一份虚拟地址空间）</p>
 <p>CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linux当中CPU看到的一个进程相当于一个轻量级进程（&lt;=一个标准的进程(一个执行流的进程)）</p>
 <p>Linux下没有一份真正意义的进程。使用进程模拟线程。</p>
 <p>TCB ThreadContrlClock 线程控制块</p>
+<p><img src="img\线程概念.png" alt="线程概念"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/14/多线程/#more" rel="contents">
+            <a class="btn" href="/2019/01/14/Linux线程概念/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1114,970 +2447,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/04/10-索引特性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/04/10-索引特性/" itemprop="url">10-索引特性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T16:51:06+08:00">
-                2019-01-04
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-06T17:45:38+08:00">
-                2019-01-06
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.2k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="10索引特性（重点-）"><a href="#10索引特性（重点-）" class="headerlink" title="10索引特性（重点**）"></a>10索引特性（重点**）</h1><p>索引：提高数据库的性能，索引是物美价廉的东西。不用增加内存，不用该程序，不用调sql ,只要执行正确的<code>create index</code>，查询 ==速度== 就能提高成百上千倍。但是查速度的提高是以插入，更新，删除的速度为代价的，这些写操作，增加了大量的IO。所以它的价值，在于提高==海量数据的键锁速度==。</p>
-<p><strong>常见索引分为：</strong></p>
-<ul>
-<li>主键索引（primary key)</li>
-<li>唯一键索引（unique）</li>
-<li>普通索引 (index)</li>
-<li>全文索引（fulltext）–解决中文索引问题</li>
-</ul>
-<p><strong>索引部分目前只做简单学习，下来将索引部分详细研究后再对本篇博客做补充。</strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/04/10-索引特性/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/03/09-表的内外连接/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/03/09-表的内外连接/" itemprop="url">09-表的内外连接</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T15:38:41+08:00">
-                2019-01-03
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-14T18:39:18+08:00">
-                2019-01-14
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.4k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>配合食用效果极佳 </strong></p>
-<p><strong>内连接查询：</strong>往往使用频繁，可以配合多种查询方法食用。</p>
-<p>内连接就是两表的笛卡儿积表的基础上进行筛选</p>
-<p><strong>外连接查询：</strong>首先要确定<strong>基准表</strong>（<strong>基准信息</strong>），即左连接的左表，右连接的右表。然后确定<strong>结合表</strong>，结合表需要的筛选条件。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/03/09-表的内外连接/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/03/MySQL练习复合查询/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/03/MySQL练习复合查询/" itemprop="url">MySQL练习复合查询</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T13:47:17+08:00">
-                2019-01-03
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-03T16:55:08+08:00">
-                2019-01-03
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  759
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>复合查询（重点）</strong></p>
-<ul>
-<li>函数得使用</li>
-</ul>
-<ul>
-<li><p>多表查询</p>
-</li>
-<li><p>自连接</p>
-</li>
-<li><p>子查询</p>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/03/MySQL练习复合查询/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/02/MySQL练习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/02/MySQL练习/" itemprop="url">MySQL练习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T23:00:52+08:00">
-                2019-01-02
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-14T18:39:25+08:00">
-                2019-01-14
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>MySQL基本查询得练习（基础部分）</strong></p>
-<p>MySQL学习得关键多连多练多练！！！</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/02/MySQL练习/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2018/05/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/15/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T21:16:53+08:00">
-                2018-05-15
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-14T18:39:23+08:00">
-                2019-01-14
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  78
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>博客开始2018</strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/15/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2125,7 +2501,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2225,7 +2601,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">13.4k</span>
+    <span title="Site words total count">15.9k</span>
   
 </div>
 

@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="JavaSE基础,Java学习笔记," />
+  <meta name="keywords" content="Linux操作系统," />
 
 
 
@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="Java高级开发之JavaIOIO部分的重点：五个类（File、OutputStream、InputStream、Reader、Writer）一个接口（Serializable） 1.File文件操作类在java.io包中，File类是唯一一个与文件本身操作（创建，删除，取得信息）有关的程序类 1.1File类的基本使用java.io.File类是一个普通的类，直接产生实例化对象即可，两个构造方法">
-<meta name="keywords" content="JavaSE基础,Java学习笔记">
+<meta name="description" content="Linux同步条件变量  当一个线程互斥地访问某个变量时，它可能发现在其他线程状态改变值之前，它什么也做不了。 例如一个线程访问队列时，发现队列为空，它只能等待，只到其它线程将一个节点添加到队列中。 这种情况就需要⽤用到条件变量。   生产消费者分析： 生产者生产者之间的关系—互斥关系（不能共享） 生产者消费者之间的关系—互斥关系，同步关系 消费者消费者之间的关系—互斥关系（不能共享） 交易场所：">
+<meta name="keywords" content="Linux操作系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="14-javaIO">
-<meta property="og:url" content="https://soyanga.github.io/2019/01/06/14-javaIO/index.html">
+<meta property="og:title" content="Linux多线程同步">
+<meta property="og:url" content="https://soyanga.github.io/2019/01/16/Linux多线程同步/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="Java高级开发之JavaIOIO部分的重点：五个类（File、OutputStream、InputStream、Reader、Writer）一个接口（Serializable） 1.File文件操作类在java.io包中，File类是唯一一个与文件本身操作（创建，删除，取得信息）有关的程序类 1.1File类的基本使用java.io.File类是一个普通的类，直接产生实例化对象即可，两个构造方法">
+<meta property="og:description" content="Linux同步条件变量  当一个线程互斥地访问某个变量时，它可能发现在其他线程状态改变值之前，它什么也做不了。 例如一个线程访问队列时，发现队列为空，它只能等待，只到其它线程将一个节点添加到队列中。 这种情况就需要⽤用到条件变量。   生产消费者分析： 生产者生产者之间的关系—互斥关系（不能共享） 生产者消费者之间的关系—互斥关系，同步关系 消费者消费者之间的关系—互斥关系（不能共享） 交易场所：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-14T10:39:37.797Z">
+<meta property="og:updated_time" content="2019-01-16T07:20:24.344Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="14-javaIO">
-<meta name="twitter:description" content="Java高级开发之JavaIOIO部分的重点：五个类（File、OutputStream、InputStream、Reader、Writer）一个接口（Serializable） 1.File文件操作类在java.io包中，File类是唯一一个与文件本身操作（创建，删除，取得信息）有关的程序类 1.1File类的基本使用java.io.File类是一个普通的类，直接产生实例化对象即可，两个构造方法">
+<meta name="twitter:title" content="Linux多线程同步">
+<meta name="twitter:description" content="Linux同步条件变量  当一个线程互斥地访问某个变量时，它可能发现在其他线程状态改变值之前，它什么也做不了。 例如一个线程访问队列时，发现队列为空，它只能等待，只到其它线程将一个节点添加到队列中。 这种情况就需要⽤用到条件变量。   生产消费者分析： 生产者生产者之间的关系—互斥关系（不能共享） 生产者消费者之间的关系—互斥关系，同步关系 消费者消费者之间的关系—互斥关系（不能共享） 交易场所：">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://soyanga.github.io/2019/01/06/14-javaIO/"/>
+  <link rel="canonical" href="https://soyanga.github.io/2019/01/16/Linux多线程同步/"/>
 
 
 
 
 
-  <title>14-javaIO | SOYANGA</title>
+  <title>Linux多线程同步 | SOYANGA</title>
   
 
 
@@ -335,7 +335,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/06/14-javaIO/">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/Linux多线程同步/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SOYANGA">
@@ -352,7 +352,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">14-javaIO</h1>
+          <h1 class="post-title" itemprop="name headline">Linux多线程同步</h1>
         
 
         <div class="post-meta">
@@ -364,8 +364,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T22:09:59+08:00">
-                2019-01-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T15:19:26+08:00">
+                2019-01-16
               </time>
             
 
@@ -380,8 +380,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-14T18:39:37+08:00">
-                2019-01-14
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:20:24+08:00">
+                2019-01-16
               </time>
             
           </span>
@@ -399,8 +399,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVASE</span>
+                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux多线程</span>
                   </a>
                 </span>
 
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  256
+                  185
                 </span>
               
 
@@ -467,23 +467,18 @@
       
 
       
-        <h1 id="Java高级开发之JavaIO"><a href="#Java高级开发之JavaIO" class="headerlink" title="Java高级开发之JavaIO"></a>Java高级开发之JavaIO</h1><p>IO部分的重点：五个类（File、OutputStream、InputStream、Reader、Writer）一个接口（Serializable）</p>
-<h1 id="1-File文件操作类"><a href="#1-File文件操作类" class="headerlink" title="1.File文件操作类"></a>1.File文件操作类</h1><p>在java.io包中，File类是唯一一个与文件本身操作（创建，删除，取得信息）有关的程序类</p>
-<h2 id="1-1File类的基本使用"><a href="#1-1File类的基本使用" class="headerlink" title="1.1File类的基本使用"></a>1.1File类的基本使用</h2><p>java.io.File类是一个普通的类，直接产生实例化对象即可，两个构造方法如下：</p>
-<blockquote>
-<p>public File(String pathname);</p>
-<p>public File(String parent,String child); //设置父路径和子类</p>
+        <h1 id="Linux同步"><a href="#Linux同步" class="headerlink" title="Linux同步"></a>Linux同步</h1><h2 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h2><blockquote>
+<ul>
+<li>当一个线程互斥地访问某个变量时，它可能发现在其他线程状态改变值之前，它什么也做不了。</li>
+<li>例如一个线程访问队列时，发现队列为空，它只能等待，只到其它线程将一个节点添加到队列中。 这种情况就需要⽤用到条件变量。</li>
+</ul>
 </blockquote>
-<p>如果要进行文件的基本操作，可以使用FIle类的如下方法；</p>
-<blockquote>
-<p>创建一个新文件</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">createNewFile</span><span class="params">()</span> <span class="keyword">throws</span> IOExcepotion</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>判断一个文件是否存在</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> bollean <span class="title">exists</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-<p>由于java具有跨平台特性但是，在实际项目部署环境可能与开发环境不同.那么这个时候路径的问题就很麻烦。Windows下面使用的是“\”,而Unix系统下使用的是“/”。所以使用路径分隔符时都会采用File类的一个常量”<code>public static final String separator</code>“来描述</p>
+<h1 id="生产消费者"><a href="#生产消费者" class="headerlink" title="生产消费者"></a>生产消费者</h1><p>分析：</p>
+<p>生产者生产者之间的关系—互斥关系（不能共享）</p>
+<p>生产者消费者之间的关系—互斥关系，同步关系</p>
+<p>消费者消费者之间的关系—互斥关系（不能共享）</p>
+<p><strong>交易场所：超市</strong></p>
+<p>321原则： 3种关系，2个角色，1 个交易场所</p>
 
       
     </div>
@@ -514,7 +509,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://soyanga.github.io/2019/01/06/14-javaIO/" title="14-javaIO">https://soyanga.github.io/2019/01/06/14-javaIO/</a>
+    <a href="https://soyanga.github.io/2019/01/16/Linux多线程同步/" title="Linux多线程同步">https://soyanga.github.io/2019/01/16/Linux多线程同步/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -529,9 +524,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaSE基础/" rel="tag"><i class="fa fa-tag"></i> JavaSE基础</a>
-          
-            <a href="/tags/Java学习笔记/" rel="tag"><i class="fa fa-tag"></i> Java学习笔记</a>
+            <a href="/tags/Linux操作系统/" rel="tag"><i class="fa fa-tag"></i> Linux操作系统</a>
           
         </div>
       
@@ -544,8 +537,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/06/12-视图/" rel="next" title="12-视图">
-                <i class="fa fa-chevron-left"></i> 12-视图
+              <a href="/2019/01/16/Linux多线程中可重入VS线程安全/" rel="next" title="Linux多线程中可重入VS线程安全">
+                <i class="fa fa-chevron-left"></i> Linux多线程中可重入VS线程安全
               </a>
             
           </div>
@@ -553,10 +546,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/14/Linux线程概念/" rel="prev" title="Linux多线程概念">
-                Linux多线程概念 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -715,7 +704,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java高级开发之JavaIO"><span class="nav-number">1.</span> <span class="nav-text">Java高级开发之JavaIO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-File文件操作类"><span class="nav-number">2.</span> <span class="nav-text">1.File文件操作类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1File类的基本使用"><span class="nav-number">2.1.</span> <span class="nav-text">1.1File类的基本使用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux同步"><span class="nav-number">1.</span> <span class="nav-text">Linux同步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件变量"><span class="nav-number">1.1.</span> <span class="nav-text">条件变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生产消费者"><span class="nav-number">2.</span> <span class="nav-text">生产消费者</span></a></li></ol></div>
             
 
           </div>

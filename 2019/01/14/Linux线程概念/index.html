@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="JavaSE基础,Java学习笔记," />
+  <meta name="keywords" content="Linux操作系统," />
 
 
 
@@ -82,18 +82,21 @@
 
 
 
-<meta name="description" content="Java高级开发之JavaIOIO部分的重点：五个类（File、OutputStream、InputStream、Reader、Writer）一个接口（Serializable） 1.File文件操作类在java.io包中，File类是唯一一个与文件本身操作（创建，删除，取得信息）有关的程序类 1.1File类的基本使用java.io.File类是一个普通的类，直接产生实例化对象即可，两个构造方法">
-<meta name="keywords" content="JavaSE基础,Java学习笔记">
+<meta name="description" content="线程的概念（复习）-铺垫 进程是分配系统资源的基本单位 线程是一个标准的进程(一个执行流的进程)   1.理解（Linux下）线程是在进程的内部运行的：线程是在进程的地址空间内运行的，共享一份虚拟地址空间。 线程大部分资源都是共享的。（共用一个虚拟地址空间） 进程大部分资源都是独立的。（每个一个进程都有自己独自的一份虚拟地址空间） CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linu">
+<meta name="keywords" content="Linux操作系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="14-javaIO">
-<meta property="og:url" content="https://soyanga.github.io/2019/01/06/14-javaIO/index.html">
+<meta property="og:title" content="Linux多线程概念">
+<meta property="og:url" content="https://soyanga.github.io/2019/01/14/Linux线程概念/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="Java高级开发之JavaIOIO部分的重点：五个类（File、OutputStream、InputStream、Reader、Writer）一个接口（Serializable） 1.File文件操作类在java.io包中，File类是唯一一个与文件本身操作（创建，删除，取得信息）有关的程序类 1.1File类的基本使用java.io.File类是一个普通的类，直接产生实例化对象即可，两个构造方法">
+<meta property="og:description" content="线程的概念（复习）-铺垫 进程是分配系统资源的基本单位 线程是一个标准的进程(一个执行流的进程)   1.理解（Linux下）线程是在进程的内部运行的：线程是在进程的地址空间内运行的，共享一份虚拟地址空间。 线程大部分资源都是共享的。（共用一个虚拟地址空间） 进程大部分资源都是独立的。（每个一个进程都有自己独自的一份虚拟地址空间） CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-14T10:39:37.797Z">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/14/Linux线程概念/img/1547621339288.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/14/Linux线程概念/img/线程概念.png">
+<meta property="og:updated_time" content="2019-01-16T07:19:54.222Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="14-javaIO">
-<meta name="twitter:description" content="Java高级开发之JavaIOIO部分的重点：五个类（File、OutputStream、InputStream、Reader、Writer）一个接口（Serializable） 1.File文件操作类在java.io包中，File类是唯一一个与文件本身操作（创建，删除，取得信息）有关的程序类 1.1File类的基本使用java.io.File类是一个普通的类，直接产生实例化对象即可，两个构造方法">
+<meta name="twitter:title" content="Linux多线程概念">
+<meta name="twitter:description" content="线程的概念（复习）-铺垫 进程是分配系统资源的基本单位 线程是一个标准的进程(一个执行流的进程)   1.理解（Linux下）线程是在进程的内部运行的：线程是在进程的地址空间内运行的，共享一份虚拟地址空间。 线程大部分资源都是共享的。（共用一个虚拟地址空间） 进程大部分资源都是独立的。（每个一个进程都有自己独自的一份虚拟地址空间） CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linu">
+<meta name="twitter:image" content="https://soyanga.github.io/2019/01/14/Linux线程概念/img/1547621339288.png">
 
 
 
@@ -123,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="https://soyanga.github.io/2019/01/06/14-javaIO/"/>
+  <link rel="canonical" href="https://soyanga.github.io/2019/01/14/Linux线程概念/"/>
 
 
 
 
 
-  <title>14-javaIO | SOYANGA</title>
+  <title>Linux多线程概念 | SOYANGA</title>
   
 
 
@@ -335,7 +338,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/06/14-javaIO/">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/14/Linux线程概念/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SOYANGA">
@@ -352,7 +355,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">14-javaIO</h1>
+          <h1 class="post-title" itemprop="name headline">Linux多线程概念</h1>
         
 
         <div class="post-meta">
@@ -364,8 +367,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T22:09:59+08:00">
-                2019-01-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T10:10:31+08:00">
+                2019-01-14
               </time>
             
 
@@ -380,8 +383,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-14T18:39:37+08:00">
-                2019-01-14
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T15:19:54+08:00">
+                2019-01-16
               </time>
             
           </span>
@@ -399,8 +402,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVASE</span>
+                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux多线程</span>
                   </a>
                 </span>
 
@@ -430,7 +433,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  256
+                  704
                 </span>
               
 
@@ -446,7 +449,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -467,23 +470,75 @@
       
 
       
-        <h1 id="Java高级开发之JavaIO"><a href="#Java高级开发之JavaIO" class="headerlink" title="Java高级开发之JavaIO"></a>Java高级开发之JavaIO</h1><p>IO部分的重点：五个类（File、OutputStream、InputStream、Reader、Writer）一个接口（Serializable）</p>
-<h1 id="1-File文件操作类"><a href="#1-File文件操作类" class="headerlink" title="1.File文件操作类"></a>1.File文件操作类</h1><p>在java.io包中，File类是唯一一个与文件本身操作（创建，删除，取得信息）有关的程序类</p>
-<h2 id="1-1File类的基本使用"><a href="#1-1File类的基本使用" class="headerlink" title="1.1File类的基本使用"></a>1.1File类的基本使用</h2><p>java.io.File类是一个普通的类，直接产生实例化对象即可，两个构造方法如下：</p>
+        <h1 id="线程的概念（复习）-铺垫"><a href="#线程的概念（复习）-铺垫" class="headerlink" title="线程的概念（复习）-铺垫"></a>线程的概念（复习）-铺垫</h1><ul>
+<li>进程是<strong>分配系统资源的基本单位</strong></li>
+<li>线程是<strong>一个标准的进程(一个执行流的进程)</strong></li>
+</ul>
+<p><img src="img\1547621339288.png" alt="Linux线程图解"></p>
+<h2 id="1-理解（Linux下）"><a href="#1-理解（Linux下）" class="headerlink" title="1.理解（Linux下）"></a>1.理解（Linux下）</h2><p><strong>线程是在进程的内部运行的：</strong>线程是在进程的地址空间内运行的，共享一份虚拟地址空间。</p>
+<p><strong>线程大部分资源都是共享的</strong>。（共用一个虚拟地址空间）</p>
+<p><strong>进程大部分资源都是独立的</strong>。（每个一个进程都有自己独自的一份虚拟地址空间）</p>
+<p>CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linux当中CPU看到的一个进程相当于一个轻量级进程（&lt;=一个标准的进程(一个执行流的进程)）</p>
+<p>Linux下没有一份真正意义的进程。使用进程模拟线程。</p>
+<p>TCB ThreadContrlClock 线程控制块</p>
+<p><img src="img\线程概念.png" alt="线程概念"></p>
+<a id="more"></a>
+<h2 id="2-线程的资源"><a href="#2-线程的资源" class="headerlink" title="2.线程的资源"></a>2.线程的资源</h2><ul>
+<li><strong>私有资源</strong></li>
+</ul>
 <blockquote>
-<p>public File(String pathname);</p>
-<p>public File(String parent,String child); //设置父路径和子类</p>
+<ol>
+<li>线程ID</li>
+<li>一组寄存器（上下文保护）</li>
+<li>线程栈</li>
+<li>erro</li>
+<li>信号屏蔽字</li>
+<li>调度优先级</li>
+</ol>
 </blockquote>
-<p>如果要进行文件的基本操作，可以使用FIle类的如下方法；</p>
+<ul>
+<li><strong>共享资源</strong></li>
+</ul>
 <blockquote>
-<p>创建一个新文件</p>
+<ol>
+<li>同有个地址空间</li>
+<li>文件描述符</li>
+<li>每种处理信号处理方式（忽略，默认，自定义）</li>
+<li>当前工作目录</li>
+<li>用户id和组id</li>
+</ol>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">createNewFile</span><span class="params">()</span> <span class="keyword">throws</span> IOExcepotion</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>判断一个文件是否存在</p>
+<h2 id="3-线程优点"><a href="#3-线程优点" class="headerlink" title="3.线程优点"></a>3.线程优点</h2><blockquote>
+<ul>
+<li>创建线程比创建一个进程代价小</li>
+<li>与进程之间切换相比，线程之间的切换需要操作系统的工作小的多</li>
+<li>线程占用的资源要比进程少很多</li>
+<li>能充分利用多处理器的可并行数量</li>
+<li>在等待慢速IO操作的同时，程序可以执行其他任务</li>
+<li>计算密集型应用，为了能在多处理器系统上运行，将计算分解到多个线程中实现</li>
+<li>IO密集型应用，为了提高性能，将IO操作重叠。线程可以同时等待不同IO操作</li>
+</ul>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> bollean <span class="title">exists</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-<p>由于java具有跨平台特性但是，在实际项目部署环境可能与开发环境不同.那么这个时候路径的问题就很麻烦。Windows下面使用的是“\”,而Unix系统下使用的是“/”。所以使用路径分隔符时都会采用File类的一个常量”<code>public static final String separator</code>“来描述</p>
+<h2 id="4-线程缺点"><a href="#4-线程缺点" class="headerlink" title="4.线程缺点"></a>4.线程缺点</h2><ul>
+<li>性能损失<ul>
+<li>一个很少被外部事件阻塞的计算密集型线程往往⽆无法与共它线程共享同⼀一个处理器。如 果计算密集型线程的数量⽐比可⽤用的处理器多，那么可能会有较⼤大的性能损失，这⾥里的性 能损失指的是增加了额外的同步和调度开销，⽽而可⽤用的资源不变。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>健壮性降低</p>
+<ul>
+<li>编写多 程需要更全⾯面更深⼊入的考虑，在一个多线程程序⾥里，因时间分配上的细微偏差 或者因共享了不该共享的变量⽽而造成不良影响的可能性是很⼤大的，换句话说线程之间是 缺乏保护的。</li>
+</ul>
+</li>
+<li><p>缺乏访问控制</p>
+<ul>
+<li>进程是访问控制的基本粒度，在⼀一个线程中调⽤用某些OS函数会对整个进程造成影响</li>
+</ul>
+</li>
+<li><p>编程难度提高</p>
+</li>
+</ul>
 
       
     </div>
@@ -514,7 +569,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://soyanga.github.io/2019/01/06/14-javaIO/" title="14-javaIO">https://soyanga.github.io/2019/01/06/14-javaIO/</a>
+    <a href="https://soyanga.github.io/2019/01/14/Linux线程概念/" title="Linux多线程概念">https://soyanga.github.io/2019/01/14/Linux线程概念/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -529,9 +584,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaSE基础/" rel="tag"><i class="fa fa-tag"></i> JavaSE基础</a>
-          
-            <a href="/tags/Java学习笔记/" rel="tag"><i class="fa fa-tag"></i> Java学习笔记</a>
+            <a href="/tags/Linux操作系统/" rel="tag"><i class="fa fa-tag"></i> Linux操作系统</a>
           
         </div>
       
@@ -544,8 +597,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/06/12-视图/" rel="next" title="12-视图">
-                <i class="fa fa-chevron-left"></i> 12-视图
+              <a href="/2019/01/06/14-javaIO/" rel="next" title="14-javaIO">
+                <i class="fa fa-chevron-left"></i> 14-javaIO
               </a>
             
           </div>
@@ -554,8 +607,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/14/Linux线程概念/" rel="prev" title="Linux多线程概念">
-                Linux多线程概念 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/16/Linux线程ID和进程ID/" rel="prev" title="Linux线程ID和进程ID">
+                Linux线程ID和进程ID <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -715,7 +768,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java高级开发之JavaIO"><span class="nav-number">1.</span> <span class="nav-text">Java高级开发之JavaIO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-File文件操作类"><span class="nav-number">2.</span> <span class="nav-text">1.File文件操作类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1File类的基本使用"><span class="nav-number">2.1.</span> <span class="nav-text">1.1File类的基本使用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线程的概念（复习）-铺垫"><span class="nav-number">1.</span> <span class="nav-text">线程的概念（复习）-铺垫</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-理解（Linux下）"><span class="nav-number">1.1.</span> <span class="nav-text">1.理解（Linux下）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-线程的资源"><span class="nav-number">1.2.</span> <span class="nav-text">2.线程的资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-线程优点"><span class="nav-number">1.3.</span> <span class="nav-text">3.线程优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-线程缺点"><span class="nav-number">1.4.</span> <span class="nav-text">4.线程缺点</span></a></li></ol></li></ol></div>
             
 
           </div>
