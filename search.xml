@@ -129,31 +129,6 @@
     
     
     <entry>
-      <title>线程ID和进程ID</title>
-      <link href="/2019/01/16/Linuix%E7%BA%BF%E7%A8%8BID%E5%92%8C%E8%BF%9B%E7%A8%8BID/"/>
-      <url>/2019/01/16/Linuix%E7%BA%BF%E7%A8%8BID%E5%92%8C%E8%BF%9B%E7%A8%8BID/</url>
-      
-        <content type="html"><![CDATA[<h1 id="在Linux查看正在运行的线程"><a href="#在Linux查看正在运行的线程" class="headerlink" title="在Linux查看正在运行的线程"></a><strong>在Linux查看正在运行的线程</strong></h1><p><strong><code>ps -aL</code></strong></p><h1 id="线程ID和进程ID"><a href="#线程ID和进程ID" class="headerlink" title="线程ID和进程ID"></a>线程ID和进程ID</h1><p><img src="img\1547621920737.png" alt="线程ID和进程ID"></p><p>同一个进程内部的线程（多个执行流）用getpid()返回的是一个一个PID。（用户级id）</p><a id="more"></a><ul><li>一个进程里面对应多个PCB(线程的PCB) </li></ul><table><thead><tr><th>用户态</th><th>系统调用</th><th>内核进程描述符中对应的结构</th></tr></thead><tbody><tr><td>线程ID</td><td>pid_t gettid(void);</td><td>pid_t pid(操作系统调度的线程号) 操作系统级别 //c库中被没有间接调用 tid = syscall(SYS_gettid);——<strong>LWP</strong></td></tr><tr><td>进程ID</td><td>pid_t getpid(void);</td><td>pid_t tgid (进程组ID)  用户级  直接可以调用**</td></tr></tbody></table><p><strong>LWP - getttid()  –pid</strong> (操作系统级别)</p><p><strong>ps命令中的-L选项，会显示如下信息：</strong></p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost linux]<span class="meta"># ps -eLf |head -1 &amp;&amp; ps -eLf |grep a.out |grep -v grep UID        PID  PPID   LWP  C NLWP STIME TTY          TIME CMD </span></span><br><span class="line">root     <span class="number">28543</span> <span class="number">22937</span> <span class="number">28543</span>  <span class="number">0</span>    <span class="number">2</span> <span class="number">15</span>:<span class="number">32</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> ./a.out </span><br><span class="line">root     <span class="number">28543</span> <span class="number">22937</span> <span class="number">28544</span>  <span class="number">0</span>    <span class="number">2</span> <span class="number">15</span>:<span class="number">32</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> ./a.out</span><br></pre></td></tr></table></figure><ul><li>LWP:线程ID，既gettid()系统调用的返回值。 </li><li>NLWP:线程组内线程的个</li></ul><blockquote><p>Linux提供了gettid系统调用来返回其线程ID，可是glibc并没有将该系统调用封装起来，在开放接口来共程序员使 用。如果确实需要获得线程ID，可以采用如下方法：     #include &lt;sys/syscall.h&gt;   pid_t tid;   tid = syscall(SYS_gettid);</p></blockquote><p><strong>当一个线程的pid=tgid则这个线程是主线程</strong></p><p>线程ID及进程地址空间布局</p><ul><li><p>pthread_create函数会产生一个线程ID，存放在第一个参数指向的地址中。该线程ID(库级别操作id)和前面所说的线程ID（pid）不是一回事。</p></li><li><p>前面讲的线程ID属于进程调度的范畴。因为线程是轻量级进程，是操作系统调度器的最小单位，所以需要 一个数值来唯一表示该线程。 </p></li><li><p>pthread_ create函数第一个参数指向一个虚拟内存单元，该内存单元的地址即为新创建线程的线程ID，属于 NPTL线程库的范畴。线程库的后续操作，就是根据该线程ID来操作线程的。 线程库NPTL提供了pthread_ self函数，可以获得线程自身的ID：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pthread_t</span> pthread_self(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux多线程 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux操作系统 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Linux多线程概念</title>
       <link href="/2019/01/14/Linux%E7%BA%BF%E7%A8%8B%E6%A6%82%E5%BF%B5/"/>
       <url>/2019/01/14/Linux%E7%BA%BF%E7%A8%8B%E6%A6%82%E5%BF%B5/</url>
