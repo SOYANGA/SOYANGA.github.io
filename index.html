@@ -334,6 +334,219 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/18/Linux网络套接字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/18/Linux网络套接字/" itemprop="url">Linux网络套接字</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T01:09:38+08:00">
+                2019-01-18
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-18T01:48:10+08:00">
+                2019-01-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  519
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="网络编程套接字"><a href="#网络编程套接字" class="headerlink" title="网络编程套接字"></a>网络编程套接字</h1><h3 id="本节重点"><a href="#本节重点" class="headerlink" title="本节重点"></a>本节重点</h3><ul>
+<li>认识IP地址，端口号，网络字节序等网络编程中的基本概念；</li>
+<li>学习socket api的基本用法；</li>
+<li>能够实现一个简单的udp客户端/服务器；</li>
+<li>能够实现一个简单的tcp客户端/服务器（单连接版本，多进程版本，多线程版本）；</li>
+<li>理解tcp服务器建立连接，发送数据，断开连接的流程；</li>
+</ul>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>IP协议有两个版本，IPv4和IPv6。我们整个的课程，凡是提到IP协议，没有特殊说明的，默认都是IPv4</p>
+<ul>
+<li>IP地址是IP协议中，用来标识网络中不同主机地址；</li>
+<li>对于IPv4来说，IP地址是一个4字节，32位整数；</li>
+<li>我们通常也常用也使用“点分十进制”的字符串表示IP地址，例如 198.168.0.1;用点分割的每一个数字表示一个字节，范围是0-255；</li>
+</ul>
+<h3 id="理解源IP地址和目的的IP地址"><a href="#理解源IP地址和目的的IP地址" class="headerlink" title="理解源IP地址和目的的IP地址"></a>理解<strong>源IP地址</strong>和<strong>目的的IP地址</strong></h3><p>IP数据包头部中，有两个IP地址，分别叫做源IP地址，和目的IP地址。</p>
+<p>网络通信信息，不止只用IP地址标识，不能标识主机中的那个应用发送接收的消息。</p>
+<h3 id="端口号"><a href="#端口号" class="headerlink" title="端口号"></a>端口号</h3><p>端口号（port）是传输层协议内容</p>
+<ul>
+<li>端口号是一个2字节16位的整数</li>
+<li>端口号是用来标识一个进程，告诉操作系统，当前的这个数据要交给那一个进程来处理</li>
+<li>IP地址+端口号能够标识网络上的某一台主机的某个进程</li>
+<li>一个端口号能被一个进程占用</li>
+</ul>
+<p><strong>IP地址+端口号称之为socket</strong>  </p>
+<p>socket是进程通信（跨网络）</p>
+<p>一个进程可以绑定多个端口号；单一个端口号不能被多个进程绑定</p>
+<h3 id="理解源端口号和目的端口号"><a href="#理解源端口号和目的端口号" class="headerlink" title="理解源端口号和目的端口号"></a>理解源端口号和目的端口号</h3><p>传输层协议（TCP和UDP）的数据段中有两个端口号，分别叫做源端口号和目的端口号，就是在描述“数据是谁发的，要发个给是谁”；</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/网络基础(1)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -381,7 +594,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-18T00:09:50+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-18T10:16:38+08:00">
                 2019-01-18
               </time>
             
@@ -2163,200 +2376,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/06/12-视图/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/06/12-视图/" itemprop="url">12-视图</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T10:37:11+08:00">
-                2019-01-06
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-14T18:39:22+08:00">
-                2019-01-14
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.9k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="12-视图"><a href="#12-视图" class="headerlink" title="12.视图"></a>12.视图</h1><p>MySQL5添加了对视图的支持。</p>
-<p>视图是一个<strong>虚拟的表</strong>。其内容由查询定义。同真实的表一样，视图包含一系列带有名称的列和行数据。<strong>视图的数据变化会影响到基表，基表的数据变化也会影响到视图。</strong></p>
-<p>视图可以把查询包装成一个虚拟表（临时表），方便检索。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/06/12-视图/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2411,7 +2430,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2511,7 +2530,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">18.9k</span>
+    <span title="Site words total count">19.4k</span>
   
 </div>
 
