@@ -92,7 +92,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络套接字/C语言大端小段转换.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络套接字/不同套接字结构体.png">
-<meta property="og:updated_time" content="2019-01-18T14:50:50.659Z">
+<meta property="og:updated_time" content="2019-01-18T16:28:34.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux网络套接字">
 <meta name="twitter:description" content="网络编程套接字学习要点： 认识IP地址，端口号，网络字节序等网络编程中的基本概念； 学习socket api的基本用法； 能够实现一个简单的udp客户端/服务器； 能够实现一个简单的tcp客户端/服务器（单连接版本，多进程版本，多线程版本）； 理解tcp服务器建立连接，发送数据，断开连接的流程；  IP地址IP协议有两个版本，IPv4和IPv6。我们整个的课程，凡是提到IP协议，没有特殊说">
@@ -383,8 +383,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-18T22:50:50+08:00">
-                2019-01-18
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-19T00:28:34+08:00">
+                2019-01-19
               </time>
             
           </span>
@@ -500,6 +500,7 @@
 <p>socket是进程通信（跨网络）</p>
 <p><strong>一个进程可以绑定多个端口号；单一个端口号不能被多个进程绑定</strong></p>
 <h3 id="理解源端口号和目的端口号"><a href="#理解源端口号和目的端口号" class="headerlink" title="理解源端口号和目的端口号"></a>理解源端口号和目的端口号</h3><p>传输层协议（TCP和 UDP ）的数据段中有两个端口号，分别叫做源端口号和目的端口号，就是在描述“数据是谁发的，要发个给是谁”。</p>
+<a id="more"></a>
 <h2 id="认识TCP协议"><a href="#认识TCP协议" class="headerlink" title="认识TCP协议"></a>认识TCP协议</h2><p>我们先对TCP（Transmission Control Protocol传输控制协议）有一个直观的认识</p>
 <blockquote>
 <ul>

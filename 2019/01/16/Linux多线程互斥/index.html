@@ -90,12 +90,12 @@
 <meta property="og:site_name" content="SOYANGA">
 <meta property="og:description" content="线程互斥进程线程间的互斥相关背景概念 临界资源：多线程执行流共享的资源叫做临界资源 临界区：每个线程内部，访问临界资源的代码，就叫做临界区 互斥：任何时刻，互斥保证有且只有一个执行流进入临界区，访问临界资源，通常对临界资源起保护作用 原子性：不被任何调度机制打断的操作，该操作只有两态，要么完成，要么未完成  –/++操作并不是原子的操作，而是对应三条汇编指令 load:将共享变量从内存加载到寄存器">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/16/Linux多线程互斥/1547620588390.png">
-<meta property="og:updated_time" content="2019-01-16T13:36:32.024Z">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/16/Linux多线程互斥/Lock原理图.png">
+<meta property="og:updated_time" content="2019-01-18T16:40:16.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux多线程互斥">
 <meta name="twitter:description" content="线程互斥进程线程间的互斥相关背景概念 临界资源：多线程执行流共享的资源叫做临界资源 临界区：每个线程内部，访问临界资源的代码，就叫做临界区 互斥：任何时刻，互斥保证有且只有一个执行流进入临界区，访问临界资源，通常对临界资源起保护作用 原子性：不被任何调度机制打断的操作，该操作只有两态，要么完成，要么未完成  –/++操作并不是原子的操作，而是对应三条汇编指令 load:将共享变量从内存加载到寄存器">
-<meta name="twitter:image" content="https://soyanga.github.io/2019/01/16/Linux多线程互斥/1547620588390.png">
+<meta name="twitter:image" content="https://soyanga.github.io/2019/01/16/Linux多线程互斥/Lock原理图.png">
 
 
 
@@ -382,8 +382,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T21:36:32+08:00">
-                2019-01-16
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-19T00:40:16+08:00">
+                2019-01-19
               </time>
             
           </span>
@@ -486,7 +486,7 @@
 <li>如果多个线程同时要求执行临界区的代码时。并且临界区没有线程在执行，那么只允许一个线程进入该临界区。</li>
 <li>如果线程不在临界区中执行，那么该线程不能阻止其他线程进入临界区。</li>
 </ol>
-<p><img src="/2019/01/16/Linux多线程互斥/1547620588390.png" alt="Lock原理图"></p>
+<p><img src="/2019/01/16/Linux多线程互斥/Lock原理图.png" alt="Lock原理图"></p>
 <a id="more"></a>
 <h2 id="mutex-互斥量"><a href="#mutex-互斥量" class="headerlink" title="mutex(互斥量)"></a>mutex(互斥量)</h2><blockquote>
 <ul>
