@@ -91,13 +91,13 @@
 <meta property="og:description" content="网络基础2 理解应⽤用层的作用, 初识HTTP协议   理解传输层的作用, 深入理解TCP的各项特性和机制   理解网络层的作用, 深入理解IP协议的基本原理   理解数据链路层的作⽤用, 了解ARP协议   对整个TCP/IP协议有系统的理解   对TCP/IP协议体系下的其他重要协议和技术有一定的了解   学会使⽤用一些分析网络问题的工具和方法 注意!! 注意!! 注意!!   本课是网络">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/URL-网址.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/hexo/source/img/1547866578248.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/1547866578248.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/HTTP请求响应的过程.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/HTTP请求实践.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/HTTP响应实践.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/UDP报文图.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/TCP协议格式.png">
-<meta property="og:updated_time" content="2019-01-19T16:23:02.458Z">
+<meta property="og:updated_time" content="2019-01-19T16:35:05.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络基础(2)">
 <meta name="twitter:description" content="网络基础2 理解应⽤用层的作用, 初识HTTP协议   理解传输层的作用, 深入理解TCP的各项特性和机制   理解网络层的作用, 深入理解IP协议的基本原理   理解数据链路层的作⽤用, 了解ARP协议   对整个TCP/IP协议有系统的理解   对TCP/IP协议体系下的其他重要协议和技术有一定的了解   学会使⽤用一些分析网络问题的工具和方法 注意!! 注意!! 注意!!   本课是网络">
@@ -388,7 +388,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T00:23:02+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T00:35:05+08:00">
                 2019-01-20
               </time>
             
@@ -523,9 +523,10 @@
 <p>转义规则如下：</p>
 <p>讲需要转码的字符串为16进制，然后从右象左，取4位（不足4位直接处理），每2位做一位，前面加上%，编码最后变成 <code>%XY</code>格式</p>
 <p>例如：</p>
-<p><img src="/2019/01/18/网络基础-2/hexo\source\img\1547866578248.png" alt="1547866578248"></p>
+<p><img src="/2019/01/18/网络基础-2/1547866578248.png" alt="1547866578248"></p>
 <p>？后面的参数将我搜索的内容”<code>C++</code>“中的”<code>+</code>“转变为了”<code>%2B</code>“</p>
 <p>urldecode就是 urlencode的逆过程；可以进行反转义    </p>
+<a id="more"></a>
 <h2 id="HTTP协议格式"><a href="#HTTP协议格式" class="headerlink" title="HTTP协议格式"></a>HTTP协议格式</h2><p>HTTP请求</p>
 <p><img src="/2019/01/18/网络基础-2/HTTP请求响应的过程.png" alt="HTTP请求响应的过程"></p>
 <blockquote>
