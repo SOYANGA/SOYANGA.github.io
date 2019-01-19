@@ -381,8 +381,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-19T23:12:12+08:00">
-                2019-01-19
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T00:23:02+08:00">
+                2019-01-20
               </time>
             
           </span>
@@ -513,7 +513,7 @@
 <p>序列化反序列化：JOSN /XML  </p>
 <h1 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h1><p>HTTP（超文本传输协议）</p>
 <p>认识URL–网址</p>
-<p><img src="/2019/01/18/网络基础-2/hexo\source\img\URL-网址.png" alt="URL-网址"></p>
+<p><img src="/2019/01/18/网络基础-2/URL-网址.png" alt="URL-网址"></p>
 <h2 id="urlencode和urldecode"><a href="#urlencode和urldecode" class="headerlink" title="urlencode和urldecode"></a>urlencode和urldecode</h2><p>象/？：等这样的字符在URL中是特殊意义理解，因此该字符不能随意出现。假如要出现必须对带有这些特殊字符进行转义。</p>
 <p>转义规则如下：</p>
 <p>讲需要转码的字符串为16进制，然后从右象左，取4位（不足4位直接处理），每2位做一位，前面加上%，编码最后变成 <code>%XY</code>格式</p>
@@ -522,7 +522,7 @@
 <p>？后面的参数将我搜索的内容”<code>C++</code>“中的”<code>+</code>“转变为了”<code>%2B</code>“</p>
 <p>urldecode就是 urlencode的逆过程；可以进行反转义    </p>
 <h2 id="HTTP协议格式"><a href="#HTTP协议格式" class="headerlink" title="HTTP协议格式"></a>HTTP协议格式</h2><p>HTTP请求</p>
-<p><img src="/2019/01/18/网络基础-2/hexo\source\img\HTTP请求响应的过程-1547869401409.png" alt="HTTP请求响应的过程"></p>
+<p><img src="/2019/01/18/网络基础-2/HTTP请求响应的过程.png" alt="HTTP请求响应的过程"></p>
 <blockquote>
 <ul>
 <li>首行：[方法]+[URL]+[版本]</li>
@@ -541,9 +541,9 @@
 <p>实践</p>
 <p>Linux下使用telent工具：远程登陆某一台主机上的一个服务。</p>
 <p>请求：</p>
-<p><img src="/2019/01/18/网络基础-2/hexo\source\img\1547869782326.png" alt="1547869782326"></p>
+<p><img src="/2019/01/18/网络基础-2/HTTP请求实践.png" alt="请求"></p>
 <p>响应：</p>
-<p><img src="/2019/01/18/网络基础-2/hexo\source\img\HTTP响应实践.png" alt="HTTP响应实践"></p>
+<p><img src="/2019/01/18/网络基础-2/HTTP响应实践.png" alt="HTTP响应实践"></p>
 <h2 id="HTTP常见方法"><a href="#HTTP常见方法" class="headerlink" title="HTTP常见方法"></a>HTTP常见方法</h2><table>
 <thead>
 <tr>
@@ -708,7 +708,7 @@
 <p>语法：pidof[进程名]</p>
 <p>功能：通过进程名，查看进程id</p>
 <h2 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h2><p>UDP协议端格式</p>
-<p><img src="/2019/01/18/网络基础-2/hexo\source\img\UDP报文图-1547894452237.png" alt="UDP报文图"></p>
+<p><img src="/2019/01/18/网络基础-2/UDP报文图.png" alt="UDP报文图"></p>
 <blockquote>
 <ul>
 <li>16位UDP长度, 表示整个数据报(UDP⾸首部+UDP数据)的最大长度; </li>
@@ -756,7 +756,7 @@
 </ul>
 <p>自定义UDP程序的应用层协议；<br>自动IP地址获取的能力：DHCP，这个自动获取的IP是从网络获取的，DHCP是一个服务，通常是路由器有这个服务，DHCP是集成在路由器当中的，路由器分配局域网IP给电脑。</p>
 <h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><p>TCP全称为 “传输控制协议(Transmission Control Protocol”). 人如其名, 要对数据的传输进⾏⼀个详细的控制; </p>
-<p><img src="/2019/01/18/网络基础-2/hexo\source\img\TCP协议格式.png" alt="TCP协议格式"></p>
+<p><img src="/2019/01/18/网络基础-2/TCP协议格式.png" alt="TCP协议格式"></p>
 <ul>
 <li>源/目的端口号：表示数据从那个进程来，到那个进程去</li>
 <li>32位序号/32位确认号：如下详谈超时重插，去重，数据的顺序到达</li>
