@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="用UDP实现可靠传输（经典面试题）参考TCP的可靠性机制，在应用层实现类似的逻辑 例如：   引入确认应答，确保对端收到数据（可靠性） 引入序列号，保证顺序顺序 引入超时重传，如果隔一段时间没有应答，就重发数据； ….   面向字节流创建一个TCP的socket，同时在内核中创建一个发送缓冲区和一个接收缓冲区；   调用write时，数据先回发送到缓冲区中 如果发送的字节数太⻓, 会被拆分成多">
+<meta name="description" content="用UDP实现可靠传输（经典面试题）参考TCP的可靠性机制，在应用层实现类似的逻辑 例如：   引入确认应答，确保对端收到数据（可靠性） 引入序列号，保证顺序顺序 引入超时重传，如果隔一段时间没有应答，就重发数据； ….">
 <meta name="keywords" content="Linux网络,TCP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络-TCP扩展">
 <meta property="og:url" content="https://soyanga.github.io/2019/01/20/网络-TCP扩展/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="用UDP实现可靠传输（经典面试题）参考TCP的可靠性机制，在应用层实现类似的逻辑 例如：   引入确认应答，确保对端收到数据（可靠性） 引入序列号，保证顺序顺序 引入超时重传，如果隔一段时间没有应答，就重发数据； ….   面向字节流创建一个TCP的socket，同时在内核中创建一个发送缓冲区和一个接收缓冲区；   调用write时，数据先回发送到缓冲区中 如果发送的字节数太⻓, 会被拆分成多">
+<meta property="og:description" content="用UDP实现可靠传输（经典面试题）参考TCP的可靠性机制，在应用层实现类似的逻辑 例如：   引入确认应答，确保对端收到数据（可靠性） 引入序列号，保证顺序顺序 引入超时重传，如果隔一段时间没有应答，就重发数据； ….">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-20T15:50:40.482Z">
+<meta property="og:updated_time" content="2019-01-20T15:55:58.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络-TCP扩展">
-<meta name="twitter:description" content="用UDP实现可靠传输（经典面试题）参考TCP的可靠性机制，在应用层实现类似的逻辑 例如：   引入确认应答，确保对端收到数据（可靠性） 引入序列号，保证顺序顺序 引入超时重传，如果隔一段时间没有应答，就重发数据； ….   面向字节流创建一个TCP的socket，同时在内核中创建一个发送缓冲区和一个接收缓冲区；   调用write时，数据先回发送到缓冲区中 如果发送的字节数太⻓, 会被拆分成多">
+<meta name="twitter:description" content="用UDP实现可靠传输（经典面试题）参考TCP的可靠性机制，在应用层实现类似的逻辑 例如：   引入确认应答，确保对端收到数据（可靠性） 引入序列号，保证顺序顺序 引入超时重传，如果隔一段时间没有应答，就重发数据； ….">
 
 
 
@@ -380,7 +380,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T23:50:40+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T23:55:58+08:00">
                 2019-01-20
               </time>
             
@@ -490,6 +490,7 @@
 <li>….</li>
 </ul>
 </blockquote>
+<a id="more"></a>
 <h2 id="面向字节流"><a href="#面向字节流" class="headerlink" title="面向字节流"></a>面向字节流</h2><p>创建一个TCP的socket，同时在内核中创建一个发送缓冲区和一个接收缓冲区；</p>
 <blockquote>
 <ul>

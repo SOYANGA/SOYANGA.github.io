@@ -94,13 +94,13 @@
 <meta property="og:image" content="https://soyanga.github.io/2019/01/20/网络-传输层TCP协议(2)/确认应答.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/20/网络-传输层TCP协议(2)/确认应答详细流程.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/20/网络-传输层TCP协议(2)/超时重传.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/20/网络-传输层TCP协议(2)/时重传-数据重复.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/20/网络-传输层TCP协议(2)/超时重传-数据重复.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/20/网络-传输层TCP协议(2)/滑动窗口.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/20/网络-传输层TCP协议(2)/滑动窗口执行流程.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/20/网络-传输层TCP协议(2)/滑动窗口ACK丢失问题.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/20/网络-传输层TCP协议(2)/流量控制细节流程.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/20/网络-传输层TCP协议(2)/拥塞控制算法曲线图.png">
-<meta property="og:updated_time" content="2019-01-20T15:51:18.807Z">
+<meta property="og:updated_time" content="2019-01-20T15:57:16.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络-传输层TCP协议(2)">
 <meta name="twitter:description" content="连接管理机制正常情况下，TCP要经过三次握手建立连接，四次挥手断开连接  TCP连接断开中服务器与客户端状态变化服务端状态转变：   [CLOSED-&amp;gt;LISTEN】 服务器断掉调用listen后进⼊LISTEN状态, 等待客户端连接 ； [LISTEN -&amp;gt; SYN_RCVD] ⼀旦监听到连接请求(同步报⽂段), 就将该连接放⼊内核等待队列中, 并向客户端发送SYN确认报⽂ 。">
@@ -391,7 +391,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T23:51:18+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T23:57:16+08:00">
                 2019-01-20
               </time>
             
@@ -515,6 +515,7 @@
 <li>[<strong>TIME_WAIT -&gt; CLOSED</strong>] 客户端要等待⼀个2MSL(Max Segment Life, 报⽂最⼤⽣存时间)的时间,才会进⼊CLOSED状态 。</li>
 </ul>
 </blockquote>
+<a id="more"></a>
 <p>欠一张状态流程图</p>
 <p><strong>在建立连接和释放连接是基于状态基的。</strong>   </p>
 <h2 id="状态机："><a href="#状态机：" class="headerlink" title="状态机："></a>状态机：</h2><p><strong>在什么状态干什么事</strong></p>
@@ -559,7 +560,7 @@
 <li>如果主机A在⼀个<strong>特定时间间隔内没有收到B发来的确认应答</strong>, 就会进⾏重发 但是, 主机A未收到B发来的确认应答, 也可能是因为ACK丢失了; </li>
 </ul>
 </blockquote>
-<p><img src="/2019/01/20/网络-传输层TCP协议(2)/时重传-数据重复.png" alt="超时重传-数据重复"></p>
+<p><img src="/2019/01/20/网络-传输层TCP协议(2)/超时重传-数据重复.png" alt="超时重传-数据重复"></p>
 <blockquote>
 <p>因此主机B会收到很多重复数据. 那么TCP协议需要能够识别出那些包是重复的包, 并且把重复的丢弃掉，这时候我们可以利⽤前⾯提到的序列号, 就可以很容易做到去重的效果 .</p>
 </blockquote>

@@ -381,7 +381,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T23:50:40+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T23:55:58+08:00">
                 2019-01-20
               </time>
             
@@ -480,8 +480,7 @@
 
       
         
-          
-            <meta name="referrer" content="no-referrer">
+          <meta name="referrer" content="no-referrer">
 
 <h2 id="用UDP实现可靠传输（经典面试题）"><a href="#用UDP实现可靠传输（经典面试题）" class="headerlink" title="用UDP实现可靠传输（经典面试题）"></a>用UDP实现可靠传输（经典面试题）</h2><p>参考TCP的可靠性机制，在应用层实现类似的逻辑</p>
 <p>例如：</p>
@@ -493,55 +492,13 @@
 <li>….</li>
 </ul>
 </blockquote>
-<h2 id="面向字节流"><a href="#面向字节流" class="headerlink" title="面向字节流"></a>面向字节流</h2><p>创建一个TCP的socket，同时在内核中创建一个发送缓冲区和一个接收缓冲区；</p>
-<blockquote>
-<ul>
-<li>调用write时，数据先回发送到缓冲区中</li>
-<li>如果发送的字节数<strong>太⻓</strong>, <strong>会被拆分成多个TCP的数据包发出</strong> </li>
-<li>如果发送的字节数<strong>太短</strong>, <strong>就会先在缓冲区⾥等待, 等到缓冲区长度差不多了, 或者其他合适的时机发送出去</strong> </li>
-<li><strong>接收数据的时候, 数据也是从网络卡驱动程序到达内核的接收缓冲区</strong> </li>
-<li>然后应用程序可以掉调用read从接收缓冲区拿到数据；</li>
-<li>另一个方面，TCP的一个连接，既然有发送缓冲区，也有接收缓冲区，那么对于这一个连接，既可以读数据也可以写数据，这个概念叫做<strong>全双工</strong> </li>
-</ul>
-</blockquote>
-<p>由于缓冲区的存在，TCP程序的读和写不需要一一匹配，例如：</p>
-<blockquote>
-<ul>
-<li>写100个字节数据时, 可以调⽤⼀次write写100个字节, 也可以调⽤100次write, 每次写⼀个字节;</li>
-<li>读100个字节数据时, 也完全不需要考虑写的时候是怎么写的, 既可以⼀次read 100个字节, 也可以<br>⼀次read⼀个字节, 重复100次; </li>
-</ul>
-</blockquote>
-<p>例子：</p>
-<p>TCP:自来水公司供水的例子，例如TCP的传输，水被用于做什么，怎么接的。自来水公司（TCP）不关心。完全由商铺，饭店，奶茶店，养猪厂（等上层应用决定）。</p>
-<p>UDP：饮水机的送水，一桶一桶的。</p>
-<p>粘包问题</p>
-<p>[八戒吃馒头例子]</p>
-<blockquote>
-<ul>
-<li>首先要明确，粘包问题中的包“包”，是指的应用等的数据包</li>
-<li>在TCP的协议中，没有如图UDP一样的“报文长度”这样的字段，但是有一个序号这样的字段。</li>
-<li>站在传输层的角度，TCP是一个一个报文过来的，按照序号排好在缓冲区中。</li>
-<li>站在应用层的角度，看到的只是一串连续的字节数组</li>
-<li>那么应用层看到了这么一连串的字节数据，就不知道从哪个部分开始到哪个部分，是一个完整的应用层结构。</li>
-</ul>
-</blockquote>
-<p>解决粘包问腿，明确每个报文的边界</p>
-<blockquote>
-<ul>
-<li>对于定长的包，保证每次都按固定大小读取即可；例如上面的Request结构，是固定大小的，那么从缓冲区从头开始按sizeof(Request)一次读取即可；</li>
-<li>对于变长的包，可以在包头位置，约定一个总包文长度的字段，从而就知道了包的结束位置；</li>
-<li>对于变长的包，还可以在包和包之间使用明确的分割符（应用协议是程序猿⾃⼰来定的, 只要保证分隔符不和正⽂冲突即可) ；</li>
-</ul>
-</blockquote>
-<p>UDP报头，报文是定长的，且报头有一个16位的UDP长度。就可以明确每个报文的边界。</p>
-<p>且站在应用层的角度上在使用UDP发送数据报的时候数据报一定是完整的或者数据包丢失，不会出现“半个”报文的情况。</p>
-<h2 id="TCP异常情况"><a href="#TCP异常情况" class="headerlink" title="TCP异常情况"></a>TCP异常情况</h2><p><strong>进程终止：</strong>进程终止会释放文件描述符，任然可以发送FIN，和正常关闭没有什么区别。</p>
-<p>会被操作系统底层正常关闭，操作系统底层会帮你进行4挥手，正常关闭。</p>
-<p><strong>机器重启:</strong> 和进程终止的情况相同 。</p>
-<p><strong>机器断电/网络断开：</strong>接收端认为连接还在，一旦接收端有写⼊操作, 接收端发现连接已经不在了, <strong>就会进行reset</strong>发送含有RST. 即使没有写⼊操作, TCP⾃⼰也内置了⼀个保活定时器, 会定期询问对⽅是否还在. 如果对⽅不在, 也会把连接释放 。</p>
-<p>另外, 应⽤层的某些协议, 也有⼀些这样的检测机制. 例如HTTP长连接中, 也会定期检测对⽅的状态. 例如QQ,在QQ断线之后, 也会定期尝试重新连接 。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/20/网络-TCP扩展/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -638,7 +595,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T23:51:18+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T23:57:16+08:00">
                 2019-01-20
               </time>
             
@@ -737,8 +694,7 @@
 
       
         
-          
-            <meta name="referrer" content="no-referrer">
+          <meta name="referrer" content="no-referrer">
 
 <h1 id="连接管理机制"><a href="#连接管理机制" class="headerlink" title="连接管理机制"></a>连接管理机制</h1><p>正常情况下，TCP要经过三次握手建立连接，四次挥手断开连接</p>
 <p><img src="/2019/01/20/网络-传输层TCP协议(2)/TCP连接流程图.png" alt="TCP连接流程图"></p>
@@ -764,216 +720,13 @@
 <li>[<strong>TIME_WAIT -&gt; CLOSED</strong>] 客户端要等待⼀个2MSL(Max Segment Life, 报⽂最⼤⽣存时间)的时间,才会进⼊CLOSED状态 。</li>
 </ul>
 </blockquote>
-<p>欠一张状态流程图</p>
-<p><strong>在建立连接和释放连接是基于状态基的。</strong>   </p>
-<h2 id="状态机："><a href="#状态机：" class="headerlink" title="状态机："></a>状态机：</h2><p><strong>在什么状态干什么事</strong></p>
-<h3 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME_WAIT"></a>TIME_WAIT</h3><ul>
-<li><p><strong>TIME_WAIT:主动退出的一方要进入的状态</strong>，是需要等待一段时间的，让<strong>双方的连接安全释放</strong>。</p>
-<ul>
-<li><p><strong>保证迟到的报文尽快消散</strong>。</p>
-<p>例子：</p>
-<p>客户端A发出一个报文，有一个路由器比较卡，此时客户端A退出。退出后有建立了连接，此时报文才发过去。-迟到的报文。（解决迟到报文的状态）</p>
-<ul>
-<li>TCP协议规定,主动关闭连接的⼀⽅要处于TIME_ WAIT状态,等待两个MSL(maximum segment lifetime)的时间后才能回到CLOSED状态 </li>
-<li>TIME_WAIT:等待的时间（MSL maximum segment lifetime ），单向的MSL时间一般是60秒，双向则就是120秒2分钟。</li>
-<li>可以通过<code>cat /proc/sys/net/ipv4/tcp_fin_timeout</code>查看MSL的值 </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="解决TIME-WAIT状态引起的bind失败的方法"><a href="#解决TIME-WAIT状态引起的bind失败的方法" class="headerlink" title="解决TIME_WAIT状态引起的bind失败的方法"></a>解决TIME_WAIT状态引起的bind失败的方法</h3><p><strong>在server的TCP连接没有完全断开之前不允许重新监听, 某些情况下可能是不合理的</strong> </p>
-<blockquote>
-<ul>
-<li>例如:</li>
-<li>服务器需要处理⾮常⼤量的客户端的连接(每个连接的⽣存时间可能很短, 但是每秒都有很⼤数的客户端来请求).</li>
-<li>这个时候如果由服务器端主动关闭连接(⽐如某些客户端不活跃, 就需要被服务器端主动清理掉), 就会产⽣⼤量TIME_WAIT连接. </li>
-<li>由于我们的请求量很⼤, 就可能导致TIME_WAIT的连接数很多, 导致服务器的端⼝不够⽤, ⽆法处<br>理新的连接 </li>
-</ul>
-</blockquote>
-<p>使⽤<code>setsockopt()</code>设置<code>socket描述符</code>的 选项<code>SO_REUSEADDR</code>为<code>1</code>, 表示允许创建端口号相同但IP地址不同的多个socket描述符<br>在server代码的socket()和bind()调⽤之间插⼊如下代码 </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> opt = <span class="number">1</span>;</span><br><span class="line">setsockopt(listenfd,SOL_SOCKET,SO_REUSEADDR,&amp;opt,<span class="keyword">sizeof</span>(opt));</span><br></pre></td></tr></table></figure>
-<ul>
-<li>ESTABLISHED:连接成功-三次握手完成</li>
-</ul>
-<p>确认应答机制（ACK）机制详解</p>
-<p><img src="/2019/01/20/网络-传输层TCP协议(2)/确认应答.png" alt="确认应答"></p>
-<p>TCP将每个字节的数据都进行了编号</p>
-<p><img src="/2019/01/20/网络-传输层TCP协议(2)/确认应答详细流程.png" alt="确认应答详细流程"></p>
-<p>每⼀个ACK都带有对应的确认序列号, 意思是告诉发送者, 我已经收到了哪些数据; 下⼀次你从哪⾥开始发 </p>
-<h3 id="超时重传机制"><a href="#超时重传机制" class="headerlink" title="超时重传机制"></a>超时重传机制</h3><p><img src="/2019/01/20/网络-传输层TCP协议(2)/超时重传.png" alt="超时重传"></p>
-<blockquote>
-<ul>
-<li>机A发送数据给B之后, 可能因为网络络拥堵等原因, 数据⽆法到达主机B;</li>
-<li>如果主机A在⼀个<strong>特定时间间隔内没有收到B发来的确认应答</strong>, 就会进⾏重发 但是, 主机A未收到B发来的确认应答, 也可能是因为ACK丢失了; </li>
-</ul>
-</blockquote>
-<p><img src="/2019/01/20/网络-传输层TCP协议(2)/时重传-数据重复.png" alt="超时重传-数据重复"></p>
-<blockquote>
-<p>因此主机B会收到很多重复数据. 那么TCP协议需要能够识别出那些包是重复的包, 并且把重复的丢弃掉，这时候我们可以利⽤前⾯提到的序列号, 就可以很容易做到去重的效果 .</p>
-</blockquote>
-<h3 id="超时时间对传输的影响"><a href="#超时时间对传输的影响" class="headerlink" title="超时时间对传输的影响"></a>超时时间对传输的影响</h3><p>但是超时时间的太长，会影响整体传输效率，超时时间设置的太端，就可能影响整提的重传效率</p>
-<p><strong>TCP为了保证无论在任何环境下都能⽐较⾼性能的通信, 因此会动态计算这个最大超时时间</strong> </p>
-<blockquote>
-<ul>
-<li>Linux中(BSD Unix和Windows也是如此), 超时以<strong>500ms</strong>为⼀个单位进⾏控制, 每次判定超时重发的超时时间都是500ms的整数倍。</li>
-<li>如果重发⼀次之后, 仍然得不到应答, 等待 2*500ms 后再进⾏重传。</li>
-<li><em>如果仍然得不到应答, 等待 4</em>500ms 进⾏重传. 依次类推, 以指数形式递增。</li>
-<li><strong>累计到⼀定的重传次数, TCP认为网络或者对端主机出现异常, 强制关闭连接</strong> 。</li>
-</ul>
-</blockquote>
-<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p>刚才我们讨论了确认应答策略, 对每⼀个发送的数据段, 都要给⼀个ACK确认应答. 收到ACK后再发送下⼀个数据段. 这样做有⼀个⽐较⼤的缺点, 就是性能较差. 尤其是数据往返的时间较⻓的时候 。</p>
-<p>就像当串行执行的发送。这样会影响传传输效率问题，此次发送多条数据，就可以达大大提高性能（将多个端的等待时间叠加在一起）</p>
-<p>滑动窗口的大小由= 接收方窗口大小+拥塞窗口决定</p>
-<p><img src="/2019/01/20/网络-传输层TCP协议(2)/滑动窗口.png" alt="滑动窗口"></p>
-<blockquote>
-<ul>
-<li>窗大小指的是⽆需等待确认应答⽽可以继续发送数据的最⼤值. 上图的窗⼝⼤⼩就是4000个字节(四个段).</li>
-<li>发送前四个段的时候, 不需要等待任何ACK, 直接发送;</li>
-<li>收到第⼀个ACK后, 滑动窗⼝向后移动, 继续发送第五个段的数据; 依次类推;</li>
-<li>操作系统内核为了维护这个滑动窗⼝ , 需要<strong>开辟发送缓冲区来</strong>记录当前还有哪些数据没有应答; 只有确认应答过的数据, 才能从缓冲区删掉;</li>
-<li>窗⼝越⼤, 则网络的吞吐率就越⾼ </li>
-</ul>
-</blockquote>
-<h3 id="主机A的发送缓冲区"><a href="#主机A的发送缓冲区" class="headerlink" title="主机A的发送缓冲区"></a>主机A的发送缓冲区</h3><ul>
-<li>窗口内的数据全部都会被发出去，窗口前的数据（已经发送出去的数据且已经发送的数据已经被接收方确认），窗口中的数据（已经发送的数据），窗口之后的数据（待发送的数据）。</li>
-<li>滑动窗口的大小：传送方传输效率问题【发送方的发送缓冲区】。</li>
-</ul>
-<p><img src="/2019/01/20/网络-传输层TCP协议(2)/滑动窗口执行流程.png" alt="滑动窗口执行流程"></p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>如果出现丢包，要进行超时重传，这里分两种情况讨论</p>
-<ul>
-<li><p>情况一：数据包已经到达，ACK丢失了（引发重复发送问题）</p>
-<p>这种情况下，只是服务器的确认报文丢了，实际上服务器已经接收到了客户端发送的数据了。</p>
-<p>此时发送方继续发送即可，只要服务器中后续有一个确认报文(确认报文会确认的数据内容会向后增加)发送成功，则客户端就会让滑动窗口向后移动即可。</p>
-</li>
-</ul>
-<p><img src="/2019/01/20/网络-传输层TCP协议(2)/滑动窗口ACK丢失问题.png" alt="滑动窗口ACK丢失问题"></p>
-<p>​    前面并未确认的报文后续的ACK会进行一起确认。</p>
-<h3 id="快重传"><a href="#快重传" class="headerlink" title="快重传"></a>快重传</h3><ul>
-<li>情况二：数据包直接丢了</li>
-</ul>
-<blockquote>
-<ul>
-<li>当某⼀段报⽂段丢失之后, 发送端会⼀直收到 1001 这样的ACK, 就像是在提醒发送端 “我想要的是1001” ⼀样;</li>
-<li>如果发送端主机连续三次收到了同样⼀个 “1001” 这样的应答, 就会将对应的数据 1001 - 2000 重新发送;</li>
-<li>这个时候接收端收到了 1001 之后, 再次返回的ACK就是7001了(因为2001 - 7000)接收端其实之前就已经收到了, 被放到了接收端操作系统内核的接收缓冲区中 。</li>
-</ul>
-</blockquote>
-<p>这种机制被称为“<strong>高速重发控制”（也叫“快重传”</strong> ）。<strong>根本目的解决了可靠性和特高效率。</strong></p>
-<p>快重传无法解决单个传输的数据丢失问题，超时重传虽然慢了点，但是可以确保有效性，可靠性。</p>
-<p>流量控制（Flow Control）</p>
-<p>接收端处理数据的速度是有限的，如果发送端发的太快，导致接收端的缓冲区被打满, 这个时候如果发送端继续发送, 就会造成丢包, 继⽽引起丢包重传等等⼀系列连锁反应 。</p>
-<p>因此TCP⽀持根据接收端的处理能⼒, 来决定发送端的发送速度. 这个机制就叫做流量控制(Flow Control); </p>
-<blockquote>
-<ul>
-<li>接收端将⾃⼰可以接收的缓冲区⼤⼩放⼊ TCP ⾸部中的 “窗⼝⼤小” 字段, 通过ACK端通知发端;</li>
-<li>窗⼝⼤⼩字段越⼤, 说明网络的吞吐量越⾼;</li>
-<li>接收端⼀旦发现⾃⼰的缓冲区快满了, 就会将窗⼝大小设置成⼀个更小的值通知给发送端;（当前接收方的接收缓冲区的大小）</li>
-<li>发送端接受到这个窗⼝之后, 就会减慢自己的发送速度;</li>
-<li>如果接收端缓冲区满了, 就会将窗⼝置为0; 这时发送⽅不再发送数据, 但是需要定期发送⼀个窗⼝ 探测数据段，使接收端把装口大小告诉发送端。</li>
-</ul>
-</blockquote>
-<p><img src="/2019/01/20/网络-传输层TCP协议(2)/流量控制细节流程.png" alt="流量控制细节流程"></p>
-<p>接收端如何把窗口大小告诉发送端呢? 回忆我们的TCP⾸首部中, 有一个16位窗口字段, 就是存放了窗口大小信息; </p>
-<p>那么问题来了, 16位比特位最大表示65535, 那么TCP窗口最大就是65535字节么? 实际上, T<strong>CP首部40字节选项中还包含了一个窗口扩大因子M,</strong> 实际窗口大小是窗口大小字段的值左移 M 位; </p>
-<p>实际窗口大小=16位窗口大小&lt;&lt;(扩大因子)M=(2^16-1)*(2^M)</p>
-<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>虽然TCP有了滑动窗口这个高效方式，能够高效可靠的发送大量的数据。但是如果在刚开始阶段就发送大量的数据，任然可能引发问题。</p>
-<p>因为网络上有很多计算机，可能当前的网络状态就已经比较拥堵了，在清楚当前网络状态下，贸然发送大量的数据，是很有可能引发更大的问题。</p>
-<p><strong>TCP引入，慢启动，先发送少量的数据，谈谈接收方的窗口大小。接收方成功接收返回的响应的报文会包含他的窗口大小。然后再决定按照多大的速度传输数据；</strong></p>
-<blockquote>
-<ul>
-<li>此处引⼊入一个概念程为拥塞窗口</li>
-<li>发送开始的时候, 定义拥塞窗口大小为1; </li>
-<li>每次收到一个ACK应答, 拥塞窗口加1; </li>
-<li>每次发送数据包的时候, 将<strong>拥塞窗口</strong>和接收端主机反馈的<strong>窗口大小</strong>做比较,<strong>取较小的值作为实际发 送的窗口大小;</strong></li>
-</ul>
-</blockquote>
-<p>像上⾯面这样的拥塞窗口增⻓长速度, 是指数级别的. “<strong>慢启动” 只是指初使时慢,</strong> 但是<strong>增长速度非常快</strong>。</p>
-<p>上述as:高利贷，开始利息小，后面滚雪球式增长。</p>
-<p>慢启动+阈值控制：</p>
-<p><img src="/2019/01/20/网络-传输层TCP协议(2)/拥塞控制算法曲线图.png" alt="拥塞控制算法曲线图"></p>
-<blockquote>
-<ul>
-<li>为了不增⻓长的那么快, 因此不能使拥塞窗⼝口单纯的加倍. </li>
-<li>此处引入一个叫做慢启动的阈值 当拥塞窗口超过这个阈值的时候, 不再按照指数方式增长, ⽽而是按照线性方式增。</li>
-<li>当TCP开始启动的时候, 慢启动阈值等于窗口最大值; </li>
-<li>在每次<strong>超时重发</strong>（丢包）的时候, 慢启动阈值会变成原来的一半, 同时拥塞窗口置回1; </li>
-</ul>
-</blockquote>
-<p><strong>少量的丢包, 我们仅仅是触发超时重传;</strong>  </p>
-<p><strong>大量的丢包, 我们就认为网络拥塞;</strong>  </p>
-<p><strong>当TCP通信开始后, 网络吞吐量会逐渐上升; 随着网络发生拥堵, 吞吐量会立刻下降; 拥塞控制</strong>。</p>
-<p>归根结底是TCP协议想尽可能<strong>快的把数据传输给对方, 但是又要避免给网络造成太大压力的折中方案.</strong>  </p>
-<p>TCP拥塞控制这样的过程, 就好像热恋的感觉</p>
-<p><strong>流量控制，拥塞控制，滑动窗口。</strong> </p>
-<p>滑动窗口：发送数据的效率问题</p>
-<p>流量控制：解决发送数据的总量问题</p>
-<p>拥塞控制：解决发送数据的故障问题</p>
-<p><strong>发送数据要考虑的（体现在滑动窗口的大小上）=对方接收能力/流量控制（窗口大小）+网络状况（拥塞窗口）</strong></p>
-<h3 id="延迟应答"><a href="#延迟应答" class="headerlink" title="延迟应答"></a>延迟应答</h3><p>如果接收数据的主机立刻返回ACK应答，这时候返回的窗口可能性比较小</p>
-<blockquote>
-<ul>
-<li>假设接收的缓冲区为1M，一次收到500k的数据；如果立刻应答，返回的窗口就是500k;</li>
-<li>但实际上可能处理端处理的速度很快，10ms之内就把500k数据从缓冲区消费掉了</li>
-<li>在这种情况下，接收端处理还远没有达到自己的极限，即使窗口再放大一些，也能处理的过来</li>
-<li>如果接收端稍微等一下再应答，比如等待200ms再应带，那么这个时候返回的窗口就是1M；</li>
-</ul>
-</blockquote>
-<p>一<strong>定要记得，窗口越大，网络吞吐量就越高。我们的目标是保证网络不拥堵的情况下尽量提高传输效率；</strong> </p>
-<p>那么所有的包都可以延迟应答么？肯定也不是：</p>
-<blockquote>
-<ul>
-<li>数量限制：每隔N个包就应答一次</li>
-<li>时间限制：超过最大延迟时间就应答一次；</li>
-</ul>
-</blockquote>
-<p>具体的数量和超时时间，依照操作系统也有不同差异；一般取2N，超时时间取200ms；</p>
-<h3 id="捎带应答"><a href="#捎带应答" class="headerlink" title="捎带应答"></a>捎带应答</h3><p>在延迟应答的基础上，我们发现，很多情况下，客户端服务器在应用层也是“一发一收的”的，意为着客户端给服务器都说了“How are you”,服务也给客户端回一个“Fine ,think you”;</p>
-<p>那么这个时候ACK就可以搭春风车了，和服务器回应的“Fine ,think you”一起回给客户端</p>
-<h1 id="TCP小结："><a href="#TCP小结：" class="headerlink" title="TCP小结："></a>TCP小结：</h1><h2 id="可靠性："><a href="#可靠性：" class="headerlink" title="可靠性："></a>可靠性：</h2><blockquote>
-<ul>
-<li>校验和</li>
-<li>面向来链接</li>
-<li>确认应答机制</li>
-<li>序列号（32为序号应32确认序号）</li>
-<li>超时重发，去重</li>
-<li>连接管理</li>
-<li>流量控制（窗口大小）</li>
-<li>拥塞控制</li>
-</ul>
-</blockquote>
-<p>提高性能</p>
-<blockquote>
-<ul>
-<li>滑动窗口</li>
-<li>快速重传</li>
-<li>延迟应答</li>
-<li>捎带应答</li>
-</ul>
-</blockquote>
-<p>其他：</p>
-<blockquote>
-<ul>
-<li>定时器（超时重传定时器，保证定时器，TIME_WAIT定时器）</li>
-</ul>
-</blockquote>
-<h2 id="基于TCP应用层协议"><a href="#基于TCP应用层协议" class="headerlink" title="基于TCP应用层协议"></a>基于TCP应用层协议</h2><ul>
-<li>HTTP</li>
-<li>HTTPS</li>
-<li>SSH</li>
-<li>Telnet</li>
-<li>FTP</li>
-<li>SMTP</li>
-</ul>
-<h2 id="TCP-UDP区别"><a href="#TCP-UDP区别" class="headerlink" title="TCP/UDP区别"></a>TCP/UDP区别</h2><blockquote>
-<ul>
-<li>TCP用于可靠传输情况，应用于文件传输，重要状态更新等场景</li>
-<li>UDP用于高速传输和实时性要求叫较高的通信领域，例如：早期的QQ, 视频传输等. 另外UDP可以⽤于广播 </li>
-</ul>
-</blockquote>
-<p>具体场景，具体分析去判断。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/20/网络-传输层TCP协议(2)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
