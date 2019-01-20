@@ -97,7 +97,17 @@
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/HTTP响应实践.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/UDP报文图.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/TCP协议格式.png">
-<meta property="og:updated_time" content="2019-01-19T16:35:05.604Z">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/TCP连接流程图.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/确认应答.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/确认应答详细流程.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/超时重传.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/时重传-数据重复.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/滑动窗口.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/滑动窗口执行流程.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/滑动窗口ACK丢失问题.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/流量控制细节流程.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/拥塞控制算法曲线图.png">
+<meta property="og:updated_time" content="2019-01-20T15:51:16.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络基础(2)">
 <meta name="twitter:description" content="网络基础2 理解应⽤用层的作用, 初识HTTP协议   理解传输层的作用, 深入理解TCP的各项特性和机制   理解网络层的作用, 深入理解IP协议的基本原理   理解数据链路层的作⽤用, 了解ARP协议   对整个TCP/IP协议有系统的理解   对TCP/IP协议体系下的其他重要协议和技术有一定的了解   学会使⽤用一些分析网络问题的工具和方法 注意!! 注意!! 注意!!   本课是网络">
@@ -388,7 +398,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T00:35:05+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T23:51:16+08:00">
                 2019-01-20
               </time>
             
@@ -438,7 +448,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4.8k
+                  9.8k
                 </span>
               
 
@@ -454,7 +464,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  16
+                  34
                 </span>
               
             </div>
@@ -526,6 +536,7 @@
 <p><img src="/2019/01/18/网络基础-2/1547866578248.png" alt="1547866578248"></p>
 <p>？后面的参数将我搜索的内容”<code>C++</code>“中的”<code>+</code>“转变为了”<code>%2B</code>“</p>
 <p>urldecode就是 urlencode的逆过程；可以进行反转义    </p>
+<p><a href="http://tool.chinaz.com/Tools/urlencode.aspx" target="_blank" rel="noopener">URL解码工具</a></p>
 <a id="more"></a>
 <h2 id="HTTP协议格式"><a href="#HTTP协议格式" class="headerlink" title="HTTP协议格式"></a>HTTP协议格式</h2><p>HTTP请求</p>
 <p><img src="/2019/01/18/网络基础-2/HTTP请求响应的过程.png" alt="HTTP请求响应的过程"></p>
@@ -764,22 +775,23 @@
 <h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><p>TCP全称为 “传输控制协议(Transmission Control Protocol”). 人如其名, 要对数据的传输进⾏⼀个详细的控制; </p>
 <p><img src="/2019/01/18/网络基础-2/TCP协议格式.png" alt="TCP协议格式"></p>
 <ul>
-<li>源/目的端口号：表示数据从那个进程来，到那个进程去</li>
-<li>32位序号/32位确认号：如下详谈超时重插，去重，数据的顺序到达</li>
-<li>4位TCP报头长度：表示该TCP头部有多少个32位bit(有多少个<strong>4字节</strong>); 所以TCP头部最大长度是<strong>15 * 4 =60</strong> 字节</li>
-<li>6位标志位<ul>
+<li><strong>源/目的端口号</strong>：表示数据从那个进程来，到那个进程去</li>
+<li><strong>32位序号/32位确认号</strong>：如下详谈超时重查，去重，数据的顺序到达</li>
+<li><strong>4位TCP报头长度</strong>：表示该TCP头部有多少个32位bit(有多少个<strong>4字节</strong>); 所以TCP头部最大长度是<strong>15 * 4 =60</strong> 字节</li>
+<li><strong>6位标志位</strong><ul>
 <li>URG：紧急指针是否有效</li>
 <li>ACK：确认号是否有效</li>
 <li>PSH：提⽰接收端应⽤程序⽴刻从TCP缓冲区把数据读⾛ </li>
 <li>RST：对⽅要求重新建⽴连接; 我们把携带RST标识的称为复位报⽂段 </li>
 <li>SYN：请求建⽴连接; 我们把携带SYN标识的称为同步报⽂段 </li>
 <li>FIN：通知对⽅, 本端要关闭了, 我们称携带FIN标识的为结束报⽂段 </li>
+<li>详解</li>
 </ul>
 </li>
-<li>16位窗口大小：：如下详谈流量控制</li>
-<li>16位校验和: 发送端填充, CRC校验. 接收端校验不通过, 则认为数据有问题. 此处的检验和不光包含TCP⾸部, 也包含TCP数据部分.</li>
-<li>16位紧急指针: 标识哪部分数据是<strong>紧急数据</strong>;</li>
-<li>40字节头部选项: 暂时忽略; </li>
+<li><strong>16位窗口大小</strong>：：如下详谈流量控制（接收者的接收缓冲区）</li>
+<li><strong>16位校验和:</strong> 发送端填充, CRC校验. 接收端校验不通过, 则认为数据有问题. 此处的检验和不光包含TCP⾸部, 也包含TCP数据部分.</li>
+<li><strong>16位紧急指针</strong>: 标识哪部分数据是<strong>紧急数据</strong>;</li>
+<li><strong>40字节头部选项</strong>: 暂时忽略; </li>
 </ul>
 <h3 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h3><ul>
 <li>TCP如何做到报头和有效载荷分离</li>
@@ -790,7 +802,7 @@
 <li>TCP把报文（有效载荷）交到上层的哪一个协议</li>
 </ul>
 <p>TCP包头中含有目的端口号，根据目的端口号交付给上层协议</p>
-<h3 id="TCP保证靠性"><a href="#TCP保证靠性" class="headerlink" title="TCP保证靠性"></a>TCP保证靠性</h3><ul>
+<h3 id="TCP保证数据可靠性"><a href="#TCP保证数据可靠性" class="headerlink" title="TCP保证数据可靠性"></a>TCP保证数据可靠性</h3><ul>
 <li><strong>确认应答机制</strong></li>
 </ul>
 <p>最后最新的报文，永远没有应答。互联网中没有百分百可靠的协议，但是我们，假如客户端服务器收到数据报且确认，我们可以确定在此之前的信息是可靠的，已经被接收到的。局部安全性。</p>
@@ -810,7 +822,14 @@
 </li>
 </ul>
 <ul>
-<li><strong>16位校验和-流量控制:</strong> 发送端填充, CRC校验. 接收端校验不通过, 则认为数据有问题. 此处的检验和不光包含TCP⾸部, 也包含TCP数据部分.</li>
+<li><p><strong>16位校验和</strong> </p>
+<p>发送端填充, CRC校验. 接收端校验不通过, 则认为数据有问题. 此处的检验和不光包含TCP⾸部, 也包含TCP数据部分。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>16位窗口大小-流量控制:</strong> </p>
+<p>根据接收方的接收缓冲区剩余空间的大小（接收能力），来给发送方反馈当前接收缓冲区剩余空间的大小，进而控制发送速度。</p>
+</li>
 </ul>
 <h4 id="序号和确认序号详解："><a href="#序号和确认序号详解：" class="headerlink" title="序号和确认序号详解："></a>序号和确认序号详解：</h4><p><strong>确认序号是双向的，服务器跟客户端各自有个各自的序号和确认序号，序号用于标记发送的报文，</strong></p>
 <p><strong>确认序号用于标记收到的报文。</strong> </p>
@@ -833,16 +852,302 @@
 <p>通过五元组来，既可以确定要端断开那个连接。</p>
 <h4 id="RST"><a href="#RST" class="headerlink" title="RST:"></a>RST:</h4><p><strong>重置连接</strong> </p>
 <p><strong>对方要求重新建立连接; 我们把携带RST标识的称为复位报文段</strong>  </p>
-<p>三次握手最后一次客户端响应服务器收到连接建立的请求，在发送中途丢失。客户端认为连接已经建立，服务器没有收到这个报文，任务连接并没有建立。此时客户端给服务器发送数据，TCP服务器是面向连接的，发现此时收的数据的客户端并没有跟服务器建立连接。就给客户端响应一个RST报文。客户收到这个连接的时候就发现自己并没有建立起连接。客户端把当前建立的连接断开，重新建立连接，或者不建立连接。</p>
+<p>三次握手最后一次客户端响应服务器收到连接建立的请求，在发送中途丢失。客户端认为连接已经立，服务器没有收到这个报文，任务连接并没有建立。此时客户端给服务器发送数据，TCP服务器是面向连接的，发现此时收的数据的客户端并没有跟服务器建立连接。就给客户端响应一个RST报文。客户收到这个连接的时候就发现自己并没有建立起连接。客户端把当前建立的连接断开，重新建立连接，或者不建立连接。</p>
 <h4 id="URG："><a href="#URG：" class="headerlink" title="URG："></a>URG：</h4><p><strong>as:救护车，警车。</strong> </p>
 <p><strong>带外数据：高优先级报文处理，让报文优先处理。：能够标志的资源有限。</strong> </p>
 <p>TCP面向字节流的，16位紧急指针解决的是数据偏移量的问题。（下来了解一下）</p>
 <h4 id="PSH"><a href="#PSH" class="headerlink" title="PSH:"></a>PSH:</h4><p>客户端提示接收端应⽤程序⽴刻从TCP缓冲区把数据读走</p>
 <p>客户端发送带有PSH的标志位的报文。催促接收端尽快将数据进行交付。</p>
 <h3 id="连接管理机制"><a href="#连接管理机制" class="headerlink" title="连接管理机制"></a>连接管理机制</h3><p>正常情况下，TCP要经过三次握手建立连接，四次挥手断开连接</p>
-<h4 id="状态基："><a href="#状态基：" class="headerlink" title="状态基："></a>状态基：</h4><p>ESTABLISHED:</p>
-<p>TIME_WAIT:最先退出的一方要进入的状态</p>
-
+<p><img src="/2019/01/18/网络基础-2/TCP连接流程图.png" alt="TCP连接流程图"></p>
+<h3 id="TCP连接断开中服务器与客户端状态变化"><a href="#TCP连接断开中服务器与客户端状态变化" class="headerlink" title="TCP连接断开中服务器与客户端状态变化"></a>TCP连接断开中服务器与客户端状态变化</h3><p>服务端状态转变：</p>
+<blockquote>
+<ul>
+<li>[<strong>CLOSED-&gt;LISTEN</strong>】 服务器断掉调用listen后进⼊LISTEN状态, 等待客户端连接 ；</li>
+<li>[<strong>LISTEN -&gt; SYN_RCVD</strong>] ⼀旦监听到连接请求(同步报⽂段), 就将该连接放⼊内核等待队列中, 并向客户端发送SYN确认报⽂ 。</li>
+<li>[<strong>SYN_RCVD -&gt; ESTABLISHED</strong>] 服务端⼀旦收到客户端的确认报⽂, 就进⼊ESTABLISHED状态,<br>可以进⾏读写数据了 。</li>
+<li>[<strong>ESTABLISHED -&gt; CLOSE_WAIT</strong>] 当客户端主动关闭连接(调⽤close), 服务器会收到结束报⽂段,<br>服务器返回确认报⽂段并进⼊CLOSE_WAIT 。</li>
+<li>[<strong>CLOSE_WAIT -&gt; LAST_ACK</strong>] 进⼊CLOSE_WAIT后说明服务器准备关闭连接(需要处理完之前的<br>数据); 当服务器真正调⽤close关闭连接时, 会向客户端发送FIN, 此时服务器进⼊LAST_ACK状态,<br>等待最后⼀个ACK到来(这个ACK是客户端确认收到了FIN 。</li>
+<li>[<strong>LAST_ACK -&gt; CLOSED</strong>] 服务器收到了对FIN的ACK, 彻底关闭连接 </li>
+</ul>
+</blockquote>
+<p>客户端状态转变：</p>
+<blockquote>
+<ul>
+<li>[<strong>CLOSED -&gt; SYN_SENT</strong>] 客户端调⽤connect, 发送同步报⽂段; （请求连接报文）</li>
+<li>[<strong>SYN_SENT -&gt; ESTABLISHED</strong>] connect调⽤成功, 则进⼊ESTABLISHED状态, 开始读写数据 </li>
+<li>[<strong>ESTABLISHED -&gt; FIN_WAIT_1</strong>] 客户端主动调⽤close时, 向服务器发送结束报⽂段, 同时进⼊FIN_WAIT_1; </li>
+<li>[<strong>FIN_WAIT_1 -&gt; FIN_WAIT_2</strong>] 客户端收到服务器对结束报⽂段的确认, 则进⼊FIN_WAIT_2, 开始<br>等待服务器的结束报⽂段 ;</li>
+<li>[<strong>FIN_WAIT_2 -&gt; TIME_WAIT</strong>] 客户端收到服务器发来的结束报⽂段, 进⼊TIME_WAIT, 并发出<br>LAST_ACK ;</li>
+<li>[<strong>TIME_WAIT -&gt; CLOSED</strong>] 客户端要等待⼀个2MSL(Max Segment Life, 报⽂最⼤⽣存时间)的时间,才会进⼊CLOSED状态 。</li>
+</ul>
+</blockquote>
+<p>欠一张状态流程图</p>
+<p><strong>在建立连接和释放连接是基于状态基的。</strong>   </p>
+<h3 id="状态机："><a href="#状态机：" class="headerlink" title="状态机："></a>状态机：</h3><p><strong>在什么状态干什么事</strong></p>
+<h4 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME_WAIT"></a>TIME_WAIT</h4><ul>
+<li><p><strong>TIME_WAIT:主动退出的一方要进入的状态</strong>，是需要等待一段时间的，让<strong>双方的连接安全释放</strong>。</p>
+<ul>
+<li><p><strong>保证迟到的报文尽快消散</strong>。</p>
+<p>例子：</p>
+<p>客户端A发出一个报文，有一个路由器比较卡，此时客户端A退出。退出后有建立了连接，此时报文才发过去。-迟到的报文。（解决迟到报文的状态）</p>
+<ul>
+<li>TCP协议规定,主动关闭连接的⼀⽅要处于TIME_ WAIT状态,等待两个MSL(maximum segment lifetime)的时间后才能回到CLOSED状态 </li>
+<li>TIME_WAIT:等待的时间（MSL maximum segment lifetime ），单向的MSL时间一般是60秒，双向则就是120秒2分钟。</li>
+<li>可以通过<code>cat /proc/sys/net/ipv4/tcp_fin_timeout</code>查看MSL的值 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="解决TIME-WAIT状态引起的bind失败的方法"><a href="#解决TIME-WAIT状态引起的bind失败的方法" class="headerlink" title="解决TIME_WAIT状态引起的bind失败的方法"></a>解决TIME_WAIT状态引起的bind失败的方法</h4><p><strong>在server的TCP连接没有完全断开之前不允许重新监听, 某些情况下可能是不合理的</strong> </p>
+<blockquote>
+<ul>
+<li>例如:</li>
+<li>服务器需要处理⾮常⼤量的客户端的连接(每个连接的⽣存时间可能很短, 但是每秒都有很⼤数的客户端来请求).</li>
+<li>这个时候如果由服务器端主动关闭连接(⽐如某些客户端不活跃, 就需要被服务器端主动清理掉), 就会产⽣⼤量TIME_WAIT连接. </li>
+<li>由于我们的请求量很⼤, 就可能导致TIME_WAIT的连接数很多, 导致服务器的端⼝不够⽤, ⽆法处<br>理新的连接 </li>
+</ul>
+</blockquote>
+<p>使⽤<code>setsockopt()</code>设置<code>socket描述符</code>的 选项<code>SO_REUSEADDR</code>为<code>1</code>, 表示允许创建端口号相同但IP地址不同的多个socket描述符<br>在server代码的socket()和bind()调⽤之间插⼊如下代码 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> opt = <span class="number">1</span>;</span><br><span class="line">setsockopt(listenfd,SOL_SOCKET,SO_REUSEADDR,&amp;opt,<span class="keyword">sizeof</span>(opt));</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ESTABLISHED:连接成功-三次握手完成</li>
+</ul>
+<h3 id="确认应答机制（ACK）机制详解"><a href="#确认应答机制（ACK）机制详解" class="headerlink" title="确认应答机制（ACK）机制详解"></a>确认应答机制（ACK）机制详解</h3><p><img src="/2019/01/18/网络基础-2/确认应答.png" alt="确认应答"></p>
+<p>TCP将每个字节的数据都进行了编号</p>
+<p><img src="/2019/01/18/网络基础-2/确认应答详细流程.png" alt="确认应答详细流程"></p>
+<p>每⼀个ACK都带有对应的确认序列号, 意思是告诉发送者, 我已经收到了哪些数据; 下⼀次你从哪⾥开始发 </p>
+<h3 id="超时重传机制"><a href="#超时重传机制" class="headerlink" title="超时重传机制"></a>超时重传机制</h3><p><img src="/2019/01/18/网络基础-2/超时重传.png" alt="超时重传"></p>
+<blockquote>
+<ul>
+<li>机A发送数据给B之后, 可能因为网络络拥堵等原因, 数据⽆法到达主机B;</li>
+<li>如果主机A在⼀个<strong>特定时间间隔内没有收到B发来的确认应答</strong>, 就会进⾏重发 但是, 主机A未收到B发来的确认应答, 也可能是因为ACK丢失了; </li>
+</ul>
+</blockquote>
+<p><img src="/2019/01/18/网络基础-2/时重传-数据重复.png" alt="超时重传-数据重复"></p>
+<blockquote>
+<p>因此主机B会收到很多重复数据. 那么TCP协议需要能够识别出那些包是重复的包, 并且把重复的丢弃掉，这时候我们可以利⽤前⾯提到的序列号, 就可以很容易做到去重的效果 .</p>
+</blockquote>
+<h4 id="超时时间对传输的影响"><a href="#超时时间对传输的影响" class="headerlink" title="超时时间对传输的影响"></a>超时时间对传输的影响</h4><p>但是超时时间的太长，会影响整体传输效率，超时时间设置的太端，就可能影响整提的重传效率</p>
+<p><strong>TCP为了保证无论在任何环境下都能⽐较⾼性能的通信, 因此会动态计算这个最大超时时间</strong> </p>
+<blockquote>
+<ul>
+<li>Linux中(BSD Unix和Windows也是如此), 超时以<strong>500ms</strong>为⼀个单位进⾏控制, 每次判定超时重发的超时时间都是500ms的整数倍。</li>
+<li>如果重发⼀次之后, 仍然得不到应答, 等待 2*500ms 后再进⾏重传。</li>
+<li><em>如果仍然得不到应答, 等待 4</em>500ms 进⾏重传. 依次类推, 以指数形式递增。</li>
+<li><strong>累计到⼀定的重传次数, TCP认为网络或者对端主机出现异常, 强制关闭连接</strong> 。</li>
+</ul>
+</blockquote>
+<h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>刚才我们讨论了确认应答策略, 对每⼀个发送的数据段, 都要给⼀个ACK确认应答. 收到ACK后再发送下⼀个数据段. 这样做有⼀个⽐较⼤的缺点, 就是性能较差. 尤其是数据往返的时间较⻓的时候 。</p>
+<p>就像当串行执行的发送。这样会影响传传输效率问题，此次发送多条数据，就可以达大大提高性能（将多个端的等待时间叠加在一起）</p>
+<p>滑动窗口的大小由= 接收方窗口大小+拥塞窗口决定</p>
+<p><img src="/2019/01/18/网络基础-2/滑动窗口.png" alt="滑动窗口"></p>
+<blockquote>
+<ul>
+<li>窗大小指的是⽆需等待确认应答⽽可以继续发送数据的最⼤值. 上图的窗⼝⼤⼩就是4000个字节(四个段).</li>
+<li>发送前四个段的时候, 不需要等待任何ACK, 直接发送;</li>
+<li>收到第⼀个ACK后, 滑动窗⼝向后移动, 继续发送第五个段的数据; 依次类推;</li>
+<li>操作系统内核为了维护这个滑动窗⼝ , 需要<strong>开辟发送缓冲区来</strong>记录当前还有哪些数据没有应答; 只有确认应答过的数据, 才能从缓冲区删掉;</li>
+<li>窗⼝越⼤, 则网络的吞吐率就越⾼ </li>
+</ul>
+</blockquote>
+<h4 id="主机A的发送缓冲区"><a href="#主机A的发送缓冲区" class="headerlink" title="主机A的发送缓冲区"></a>主机A的发送缓冲区</h4><ul>
+<li>窗口内的数据全部都会被发出去，窗口前的数据（已经发送出去的数据且已经发送的数据已经被接收方确认），窗口中的数据（已经发送的数据），窗口之后的数据（待发送的数据）。</li>
+<li>滑动窗口的大小：传送方传输效率问题【发送方的发送缓冲区】。</li>
+</ul>
+<p><img src="/2019/01/18/网络基础-2/滑动窗口执行流程.png" alt="滑动窗口执行流程"></p>
+<h4 id="问题-2"><a href="#问题-2" class="headerlink" title="问题"></a>问题</h4><p>如果出现丢包，要进行超时重传，这里分两种情况讨论</p>
+<ul>
+<li><p>情况一：数据包已经到达，ACK丢失了（引发重复发送问题）</p>
+<p>这种情况下，只是服务器的确认报文丢了，实际上服务器已经接收到了客户端发送的数据了。</p>
+<p>此时发送方继续发送即可，只要服务器中后续有一个确认报文(确认报文会确认的数据内容会向后增加)发送成功，则客户端就会让滑动窗口向后移动即可。</p>
+</li>
+</ul>
+<p><img src="/2019/01/18/网络基础-2/滑动窗口ACK丢失问题.png" alt="滑动窗口ACK丢失问题"></p>
+<p>​    前面并未确认的报文后续的ACK会进行一起确认。</p>
+<h3 id="快重传"><a href="#快重传" class="headerlink" title="快重传"></a>快重传</h3><ul>
+<li>情况二：数据包直接丢了</li>
+</ul>
+<blockquote>
+<ul>
+<li>当某⼀段报⽂段丢失之后, 发送端会⼀直收到 1001 这样的ACK, 就像是在提醒发送端 “我想要的是1001” ⼀样;</li>
+<li>如果发送端主机连续三次收到了同样⼀个 “1001” 这样的应答, 就会将对应的数据 1001 - 2000 重新发送;</li>
+<li>这个时候接收端收到了 1001 之后, 再次返回的ACK就是7001了(因为2001 - 7000)接收端其实之前就已经收到了, 被放到了接收端操作系统内核的接收缓冲区中 。</li>
+</ul>
+</blockquote>
+<p>这种机制被称为“<strong>高速重发控制”（也叫“快重传”</strong> ）。<strong>根本目的解决了可靠性和特高效率。</strong></p>
+<p>快重传无法解决单个传输的数据丢失问题，超时重传虽然慢了点，但是可以确保有效性，可靠性。</p>
+<h3 id="流量控制（Flow-Control）"><a href="#流量控制（Flow-Control）" class="headerlink" title="流量控制（Flow Control）"></a>流量控制（Flow Control）</h3><p>接收端处理数据的速度是有限的，如果发送端发的太快，导致接收端的缓冲区被打满, 这个时候如果发送端继续发送, 就会造成丢包, 继⽽引起丢包重传等等⼀系列连锁反应 。</p>
+<p>因此TCP⽀持根据接收端的处理能⼒, 来决定发送端的发送速度. 这个机制就叫做流量控制(Flow Control); </p>
+<blockquote>
+<ul>
+<li>接收端将⾃⼰可以接收的缓冲区⼤⼩放⼊ TCP ⾸部中的 “窗⼝⼤小” 字段, 通过ACK端通知发端;</li>
+<li>窗⼝⼤⼩字段越⼤, 说明网络的吞吐量越⾼;</li>
+<li>接收端⼀旦发现⾃⼰的缓冲区快满了, 就会将窗⼝大小设置成⼀个更小的值通知给发送端;（当前接收方的接收缓冲区的大小）</li>
+<li>发送端接受到这个窗⼝之后, 就会减慢自己的发送速度;</li>
+<li>如果接收端缓冲区满了, 就会将窗⼝置为0; 这时发送⽅不再发送数据, 但是需要定期发送⼀个窗⼝ 探测数据段，使接收端把装口大小告诉发送端。</li>
+</ul>
+</blockquote>
+<p><img src="/2019/01/18/网络基础-2/流量控制细节流程.png" alt="流量控制细节流程"></p>
+<p>接收端如何把窗口大小告诉发送端呢? 回忆我们的TCP⾸首部中, 有一个16位窗口字段, 就是存放了窗口大小信息; </p>
+<p>那么问题来了, 16位比特位最大表示65535, 那么TCP窗口最大就是65535字节么? 实际上, T<strong>CP首部40字节选项中还包含了一个窗口扩大因子M,</strong> 实际窗口大小是窗口大小字段的值左移 M 位; </p>
+<p>实际窗口大小=16位窗口大小&lt;&lt;(扩大因子)M=(2^16-1)*(2^M)</p>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>虽然TCP有了滑动窗口这个高效方式，能够高效可靠的发送大量的数据。但是如果在刚开始阶段就发送大量的数据，任然可能引发问题。</p>
+<p>因为网络上有很多计算机，可能当前的网络状态就已经比较拥堵了，在清楚当前网络状态下，贸然发送大量的数据，是很有可能引发更大的问题。</p>
+<p><strong>TCP引入，慢启动，先发送少量的数据，谈谈接收方的窗口大小。接收方成功接收返回的响应的报文会包含他的窗口大小。然后再决定按照多大的速度传输数据；</strong></p>
+<blockquote>
+<ul>
+<li>此处引⼊入一个概念程为拥塞窗口</li>
+<li>发送开始的时候, 定义拥塞窗口大小为1; </li>
+<li>每次收到一个ACK应答, 拥塞窗口加1; </li>
+<li>每次发送数据包的时候, 将<strong>拥塞窗口</strong>和接收端主机反馈的<strong>窗口大小</strong>做比较,<strong>取较小的值作为实际发 送的窗口大小;</strong></li>
+</ul>
+</blockquote>
+<p>像上⾯面这样的拥塞窗口增⻓长速度, 是指数级别的. “<strong>慢启动” 只是指初使时慢,</strong> 但是<strong>增长速度非常快</strong>。</p>
+<p>上述as:高利贷，开始利息小，后面滚雪球式增长。</p>
+<p>慢启动+阈值控制：</p>
+<p><img src="/2019/01/18/网络基础-2/拥塞控制算法曲线图.png" alt="拥塞控制算法曲线图"></p>
+<blockquote>
+<ul>
+<li>为了不增⻓长的那么快, 因此不能使拥塞窗⼝口单纯的加倍. </li>
+<li>此处引入一个叫做慢启动的阈值 当拥塞窗口超过这个阈值的时候, 不再按照指数方式增长, ⽽而是按照线性方式增。</li>
+<li>当TCP开始启动的时候, 慢启动阈值等于窗口最大值; </li>
+<li>在每次<strong>超时重发</strong>（丢包）的时候, 慢启动阈值会变成原来的一半, 同时拥塞窗口置回1; </li>
+</ul>
+</blockquote>
+<p><strong>少量的丢包, 我们仅仅是触发超时重传;</strong>  </p>
+<p><strong>大量的丢包, 我们就认为网络拥塞;</strong>  </p>
+<p><strong>当TCP通信开始后, 网络吞吐量会逐渐上升; 随着网络发生拥堵, 吞吐量会立刻下降; 拥塞控制</strong>。</p>
+<p>归根结底是TCP协议想尽可能<strong>快的把数据传输给对方, 但是又要避免给网络造成太大压力的折中方案.</strong>  </p>
+<p>TCP拥塞控制这样的过程, 就好像热恋的感觉</p>
+<p><strong>流量控制，拥塞控制，滑动窗口。</strong> </p>
+<p>滑动窗口：发送数据的效率问题</p>
+<p>流量控制：解决发送数据的总量问题</p>
+<p>拥塞控制：解决发送数据的故障问题</p>
+<p><strong>发送数据要考虑的（体现在滑动窗口的大小上）=对方接收能力/流量控制（窗口大小）+网络状况（拥塞窗口）</strong></p>
+<h3 id="延迟应答"><a href="#延迟应答" class="headerlink" title="延迟应答"></a>延迟应答</h3><p>如果接收数据的主机立刻返回ACK应答，这时候返回的窗口可能性比较小</p>
+<blockquote>
+<ul>
+<li>假设接收的缓冲区为1M，一次收到500k的数据；如果立刻应答，返回的窗口就是500k;</li>
+<li>但实际上可能处理端处理的速度很快，10ms之内就把500k数据从缓冲区消费掉了</li>
+<li>在这种情况下，接收端处理还远没有达到自己的极限，即使窗口再放大一些，也能处理的过来</li>
+<li>如果接收端稍微等一下再应答，比如等待200ms再应带，那么这个时候返回的窗口就是1M；</li>
+</ul>
+</blockquote>
+<p>一<strong>定要记得，窗口越大，网络吞吐量就越高。我们的目标是保证网络不拥堵的情况下尽量提高传输效率；</strong> </p>
+<p>那么所有的包都可以延迟应答么？肯定也不是：</p>
+<blockquote>
+<ul>
+<li>数量限制：每隔N个包就应答一次</li>
+<li>时间限制：超过最大延迟时间就应答一次；</li>
+</ul>
+</blockquote>
+<p>具体的数量和超时时间，依照操作系统也有不同差异；一般取2N，超时时间取200ms；</p>
+<h3 id="捎带应答"><a href="#捎带应答" class="headerlink" title="捎带应答"></a>捎带应答</h3><p>在延迟应答的基础上，我们发现，很多情况下，客户端服务器在应用层也是“一发一收的”的，意为着客户端给服务器都说了“How are you”,服务也给客户端回一个“Fine ,think you”;</p>
+<p>那么这个时候ACK就可以搭春风车了，和服务器回应的“Fine ,think you”一起回给客户端</p>
+<h2 id="TCP小结："><a href="#TCP小结：" class="headerlink" title="TCP小结："></a>TCP小结：</h2><h4 id="可靠性："><a href="#可靠性：" class="headerlink" title="可靠性："></a>可靠性：</h4><blockquote>
+<ul>
+<li>校验和</li>
+<li>面向来链接</li>
+<li>确认应答机制</li>
+<li>序列号（32为序号应32确认序号）</li>
+<li>超时重发，去重</li>
+<li>连接管理</li>
+<li>流量控制（窗口大小）</li>
+<li>拥塞控制</li>
+</ul>
+</blockquote>
+<h4 id="提高性能"><a href="#提高性能" class="headerlink" title="提高性能"></a>提高性能</h4><blockquote>
+<ul>
+<li>滑动窗口</li>
+<li>快速重传</li>
+<li>延迟应答</li>
+<li>捎带应答</li>
+</ul>
+</blockquote>
+<p>其他：</p>
+<blockquote>
+<ul>
+<li>定时器（超时重传定时器，保证定时器，TIME_WAIT定时器）</li>
+</ul>
+</blockquote>
+<h4 id="基于TCP应用层协议"><a href="#基于TCP应用层协议" class="headerlink" title="基于TCP应用层协议"></a>基于TCP应用层协议</h4><ul>
+<li>HTTP</li>
+<li>HTTPS</li>
+<li>SSH</li>
+<li>Telnet</li>
+<li>FTP</li>
+<li>SMTP</li>
+</ul>
+<h3 id="TCP-UDP区别"><a href="#TCP-UDP区别" class="headerlink" title="TCP/UDP区别"></a>TCP/UDP区别</h3><blockquote>
+<ul>
+<li>TCP用于可靠传输情况，应用于文件传输，重要状态更新等场景</li>
+<li>UDP用于高速传输和实时性要求叫较高的通信领域，例如：早期的QQ, 视频传输等. 另外UDP可以⽤于广播 </li>
+</ul>
+</blockquote>
+<p>具体场景，具体分析去判断。</p>
+<h3 id="用UDP实现可靠传输（经典面试题）"><a href="#用UDP实现可靠传输（经典面试题）" class="headerlink" title="用UDP实现可靠传输（经典面试题）"></a>用UDP实现可靠传输（经典面试题）</h3><p>参考TCP的可靠性机制，在应用层实现类似的逻辑</p>
+<p>例如：</p>
+<blockquote>
+<ul>
+<li>引入确认应答，确保对端收到数据（可靠性）</li>
+<li>引入序列号，保证顺序顺序</li>
+<li>引入超时重传，如果隔一段时间没有应答，就重发数据；</li>
+<li>….</li>
+</ul>
+</blockquote>
+<h3 id="面向字节流"><a href="#面向字节流" class="headerlink" title="面向字节流"></a>面向字节流</h3><p>创建一个TCP的socket，同时在内核中创建一个发送缓冲区和一个接收缓冲区；</p>
+<blockquote>
+<ul>
+<li>调用write时，数据先回发送到缓冲区中</li>
+<li>如果发送的字节数<strong>太⻓</strong>, <strong>会被拆分成多个TCP的数据包发出</strong> </li>
+<li>如果发送的字节数<strong>太短</strong>, <strong>就会先在缓冲区⾥等待, 等到缓冲区长度差不多了, 或者其他合适的时机发送出去</strong> </li>
+<li><strong>接收数据的时候, 数据也是从网络卡驱动程序到达内核的接收缓冲区</strong> </li>
+<li>然后应用程序可以掉调用read从接收缓冲区拿到数据；</li>
+<li>另一个方面，TCP的一个连接，既然有发送缓冲区，也有接收缓冲区，那么对于这一个连接，既可以读数据也可以写数据，这个概念叫做<strong>全双工</strong> </li>
+</ul>
+</blockquote>
+<p>由于缓冲区的存在，TCP程序的读和写不需要一一匹配，例如：</p>
+<blockquote>
+<ul>
+<li>写100个字节数据时, 可以调⽤⼀次write写100个字节, 也可以调⽤100次write, 每次写⼀个字节;</li>
+<li>读100个字节数据时, 也完全不需要考虑写的时候是怎么写的, 既可以⼀次read 100个字节, 也可以<br>⼀次read⼀个字节, 重复100次; </li>
+</ul>
+</blockquote>
+<p>例子：</p>
+<p>TCP:自来水公司供水的例子，例如TCP的传输，水被用于做什么，怎么接的。自来水公司（TCP）不关心。完全由商铺，饭店，奶茶店，养猪厂（等上层应用决定）。</p>
+<p>UDP：饮水机的送水，一桶一桶的。</p>
+<h3 id="粘包问题"><a href="#粘包问题" class="headerlink" title="粘包问题"></a>粘包问题</h3><p>[八戒吃馒头例子]</p>
+<blockquote>
+<ul>
+<li>首先要明确，粘包问题中的包“包”，是指的应用等的数据包</li>
+<li>在TCP的协议中，没有如图UDP一样的“报文长度”这样的字段，但是有一个序号这样的字段。</li>
+<li>站在传输层的角度，TCP是一个一个报文过来的，按照序号排好在缓冲区中。</li>
+<li>站在应用层的角度，看到的只是一串连续的字节数组</li>
+<li>那么应用层看到了这么一连串的字节数据，就不知道从哪个部分开始到哪个部分，是一个完整的应用层结构。</li>
+</ul>
+</blockquote>
+<p>解决粘包问腿，明确每个报文的边界</p>
+<blockquote>
+<ul>
+<li>对于定长的包，保证每次都按固定大小读取即可；例如上面的Request结构，是固定大小的，那么从缓冲区从头开始按sizeof(Request)一次读取即可；</li>
+<li>对于变长的包，可以在包头位置，约定一个总包文长度的字段，从而就知道了包的结束位置；</li>
+<li>对于变长的包，还可以在包和包之间使用明确的分割符（应用协议是程序猿⾃⼰来定的, 只要保证分隔符不和正⽂冲突即可) ；</li>
+</ul>
+</blockquote>
+<p>UDP报头，报文是定长的，且报头有一个16位的UDP长度。就可以明确每个报文的边界。</p>
+<p>且站在应用层的角度上在使用UDP发送数据报的时候数据报一定是完整的或者数据包丢失，不会出现“半个”报文的情况。</p>
+<h3 id="TCP异常情况"><a href="#TCP异常情况" class="headerlink" title="TCP异常情况"></a>TCP异常情况</h3><p><strong>进程终止：</strong>进程终止会释放文件描述符，任然可以发送FIN，和正常关闭没有什么区别。</p>
+<p>会被操作系统底层正常关闭，操作系统底层会帮你进行4挥手，正常关闭。</p>
+<p><strong>机器重启:</strong> 和进程终止的情况相同 。</p>
+<p><strong>机器断电/网络断开：</strong>接收端认为连接还在，一旦接收端有写⼊操作, 接收端发现连接已经不在了, <strong>就会进行reset</strong>发送含有RST. 即使没有写⼊操作, TCP⾃⼰也内置了⼀个保活定时器, 会定期询问对⽅是否还在. 如果对⽅不在, 也会把连接释放 。</p>
+<p>另外, 应⽤层的某些协议, 也有⼀些这样的检测机制. 例如HTTP长连接中, 也会定期检测对⽅的状态. 例如QQ,在QQ断线之后, 也会定期尝试重新连接 。</p>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p>在复杂的网络环境中<strong>确定一个合适的路径</strong>，路径选择能力。</p>
+<h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>主机：配有IP地址，但是不进行路由控制的设备；</p>
+<p>路由器：配有IP地址，又能进行路由控制；</p>
+<p>节点：主机和路由器的统称。</p>
+<h3 id="协议头格式"><a href="#协议头格式" class="headerlink" title="协议头格式"></a>协议头格式</h3>
       
     </div>
     
@@ -909,6 +1214,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/20/网络-传输层UDP协议/" rel="prev" title="‘网络-传输层UDP协议协议‘">
+                ‘网络-传输层UDP协议协议‘ <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -989,7 +1298,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1000,7 +1309,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1011,7 +1320,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1067,7 +1376,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络基础2"><span class="nav-number">1.</span> <span class="nav-text">网络基础2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用层"><span class="nav-number">2.</span> <span class="nav-text">应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#再谈“协议”"><span class="nav-number">2.1.</span> <span class="nav-text">再谈“协议”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络版计算器"><span class="nav-number">2.2.</span> <span class="nav-text">网络版计算器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP协议"><span class="nav-number">3.</span> <span class="nav-text">HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#urlencode和urldecode"><span class="nav-number">3.1.</span> <span class="nav-text">urlencode和urldecode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议格式"><span class="nav-number">3.2.</span> <span class="nav-text">HTTP协议格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP常见方法"><span class="nav-number">3.3.</span> <span class="nav-text">HTTP常见方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP的状态码"><span class="nav-number">3.4.</span> <span class="nav-text">HTTP的状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重定向详解："><span class="nav-number">3.4.0.1.</span> <span class="nav-text">重定向详解：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP常见Header"><span class="nav-number">3.5.</span> <span class="nav-text">HTTP常见Header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践简单HTTP服务器（Web服务器）"><span class="nav-number">3.6.</span> <span class="nav-text">实践简单HTTP服务器（Web服务器）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传输层"><span class="nav-number">4.</span> <span class="nav-text">传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#再谈端口号"><span class="nav-number">4.1.</span> <span class="nav-text">再谈端口号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#netstat"><span class="nav-number">4.2.</span> <span class="nav-text">netstat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pidof"><span class="nav-number">4.3.</span> <span class="nav-text">pidof</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP协议"><span class="nav-number">4.4.</span> <span class="nav-text">UDP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">4.4.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP特点"><span class="nav-number">4.4.2.</span> <span class="nav-text">UDP特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#面向数据报"><span class="nav-number">4.4.2.1.</span> <span class="nav-text">面向数据报</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP缓冲区"><span class="nav-number">4.4.3.</span> <span class="nav-text">UDP缓冲区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP使用注意事项"><span class="nav-number">4.4.4.</span> <span class="nav-text">UDP使用注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP协议"><span class="nav-number">4.5.</span> <span class="nav-text">TCP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题-1"><span class="nav-number">4.5.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP保证靠性"><span class="nav-number">4.5.2.</span> <span class="nav-text">TCP保证靠性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#序号和确认序号详解："><span class="nav-number">4.5.2.1.</span> <span class="nav-text">序号和确认序号详解：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#超时重查："><span class="nav-number">4.5.2.1.1.</span> <span class="nav-text">超时重查：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#去重："><span class="nav-number">4.5.2.1.2.</span> <span class="nav-text">去重：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓冲区"><span class="nav-number">4.5.3.</span> <span class="nav-text">缓冲区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16位窗口大小-流量控制"><span class="nav-number">4.5.4.</span> <span class="nav-text">16位窗口大小-流量控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首部长度"><span class="nav-number">4.5.5.</span> <span class="nav-text">首部长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6位标志位"><span class="nav-number">4.5.6.</span> <span class="nav-text">6位标志位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SYN"><span class="nav-number">4.5.6.1.</span> <span class="nav-text">SYN:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ACK"><span class="nav-number">4.5.6.2.</span> <span class="nav-text">ACK:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FIN"><span class="nav-number">4.5.6.3.</span> <span class="nav-text">FIN:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RST"><span class="nav-number">4.5.6.4.</span> <span class="nav-text">RST:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#URG："><span class="nav-number">4.5.6.5.</span> <span class="nav-text">URG：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PSH"><span class="nav-number">4.5.6.6.</span> <span class="nav-text">PSH:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接管理机制"><span class="nav-number">4.5.7.</span> <span class="nav-text">连接管理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#状态基："><span class="nav-number">4.5.7.1.</span> <span class="nav-text">状态基：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络基础2"><span class="nav-number">1.</span> <span class="nav-text">网络基础2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用层"><span class="nav-number">2.</span> <span class="nav-text">应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#再谈“协议”"><span class="nav-number">2.1.</span> <span class="nav-text">再谈“协议”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络版计算器"><span class="nav-number">2.2.</span> <span class="nav-text">网络版计算器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP协议"><span class="nav-number">3.</span> <span class="nav-text">HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#urlencode和urldecode"><span class="nav-number">3.1.</span> <span class="nav-text">urlencode和urldecode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议格式"><span class="nav-number">3.2.</span> <span class="nav-text">HTTP协议格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP常见方法"><span class="nav-number">3.3.</span> <span class="nav-text">HTTP常见方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP的状态码"><span class="nav-number">3.4.</span> <span class="nav-text">HTTP的状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重定向详解："><span class="nav-number">3.4.0.1.</span> <span class="nav-text">重定向详解：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP常见Header"><span class="nav-number">3.5.</span> <span class="nav-text">HTTP常见Header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践简单HTTP服务器（Web服务器）"><span class="nav-number">3.6.</span> <span class="nav-text">实践简单HTTP服务器（Web服务器）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传输层"><span class="nav-number">4.</span> <span class="nav-text">传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#再谈端口号"><span class="nav-number">4.1.</span> <span class="nav-text">再谈端口号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#netstat"><span class="nav-number">4.2.</span> <span class="nav-text">netstat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pidof"><span class="nav-number">4.3.</span> <span class="nav-text">pidof</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP协议"><span class="nav-number">4.4.</span> <span class="nav-text">UDP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">4.4.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP特点"><span class="nav-number">4.4.2.</span> <span class="nav-text">UDP特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#面向数据报"><span class="nav-number">4.4.2.1.</span> <span class="nav-text">面向数据报</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP缓冲区"><span class="nav-number">4.4.3.</span> <span class="nav-text">UDP缓冲区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP使用注意事项"><span class="nav-number">4.4.4.</span> <span class="nav-text">UDP使用注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP协议"><span class="nav-number">4.5.</span> <span class="nav-text">TCP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题-1"><span class="nav-number">4.5.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP保证数据可靠性"><span class="nav-number">4.5.2.</span> <span class="nav-text">TCP保证数据可靠性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#序号和确认序号详解："><span class="nav-number">4.5.2.1.</span> <span class="nav-text">序号和确认序号详解：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#超时重查："><span class="nav-number">4.5.2.1.1.</span> <span class="nav-text">超时重查：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#去重："><span class="nav-number">4.5.2.1.2.</span> <span class="nav-text">去重：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓冲区"><span class="nav-number">4.5.3.</span> <span class="nav-text">缓冲区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16位窗口大小-流量控制"><span class="nav-number">4.5.4.</span> <span class="nav-text">16位窗口大小-流量控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首部长度"><span class="nav-number">4.5.5.</span> <span class="nav-text">首部长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6位标志位"><span class="nav-number">4.5.6.</span> <span class="nav-text">6位标志位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SYN"><span class="nav-number">4.5.6.1.</span> <span class="nav-text">SYN:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ACK"><span class="nav-number">4.5.6.2.</span> <span class="nav-text">ACK:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FIN"><span class="nav-number">4.5.6.3.</span> <span class="nav-text">FIN:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RST"><span class="nav-number">4.5.6.4.</span> <span class="nav-text">RST:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#URG："><span class="nav-number">4.5.6.5.</span> <span class="nav-text">URG：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PSH"><span class="nav-number">4.5.6.6.</span> <span class="nav-text">PSH:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接管理机制"><span class="nav-number">4.5.7.</span> <span class="nav-text">连接管理机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP连接断开中服务器与客户端状态变化"><span class="nav-number">4.5.8.</span> <span class="nav-text">TCP连接断开中服务器与客户端状态变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态机："><span class="nav-number">4.5.9.</span> <span class="nav-text">状态机：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TIME-WAIT"><span class="nav-number">4.5.9.1.</span> <span class="nav-text">TIME_WAIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决TIME-WAIT状态引起的bind失败的方法"><span class="nav-number">4.5.9.2.</span> <span class="nav-text">解决TIME_WAIT状态引起的bind失败的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确认应答机制（ACK）机制详解"><span class="nav-number">4.5.10.</span> <span class="nav-text">确认应答机制（ACK）机制详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超时重传机制"><span class="nav-number">4.5.11.</span> <span class="nav-text">超时重传机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#超时时间对传输的影响"><span class="nav-number">4.5.11.1.</span> <span class="nav-text">超时时间对传输的影响</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滑动窗口"><span class="nav-number">4.5.12.</span> <span class="nav-text">滑动窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主机A的发送缓冲区"><span class="nav-number">4.5.12.1.</span> <span class="nav-text">主机A的发送缓冲区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题-2"><span class="nav-number">4.5.12.2.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快重传"><span class="nav-number">4.5.13.</span> <span class="nav-text">快重传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流量控制（Flow-Control）"><span class="nav-number">4.5.14.</span> <span class="nav-text">流量控制（Flow Control）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拥塞控制"><span class="nav-number">4.5.15.</span> <span class="nav-text">拥塞控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延迟应答"><span class="nav-number">4.5.16.</span> <span class="nav-text">延迟应答</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#捎带应答"><span class="nav-number">4.5.17.</span> <span class="nav-text">捎带应答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP小结："><span class="nav-number">4.6.</span> <span class="nav-text">TCP小结：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可靠性："><span class="nav-number">4.6.0.1.</span> <span class="nav-text">可靠性：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提高性能"><span class="nav-number">4.6.0.2.</span> <span class="nav-text">提高性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于TCP应用层协议"><span class="nav-number">4.6.0.3.</span> <span class="nav-text">基于TCP应用层协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-UDP区别"><span class="nav-number">4.6.1.</span> <span class="nav-text">TCP/UDP区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用UDP实现可靠传输（经典面试题）"><span class="nav-number">4.6.2.</span> <span class="nav-text">用UDP实现可靠传输（经典面试题）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面向字节流"><span class="nav-number">4.6.3.</span> <span class="nav-text">面向字节流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#粘包问题"><span class="nav-number">4.6.4.</span> <span class="nav-text">粘包问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP异常情况"><span class="nav-number">4.6.5.</span> <span class="nav-text">TCP异常情况</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络层"><span class="nav-number">5.</span> <span class="nav-text">网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP协议"><span class="nav-number">5.1.</span> <span class="nav-text">IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">5.1.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协议头格式"><span class="nav-number">5.1.2.</span> <span class="nav-text">协议头格式</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1105,7 +1414,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.8k</span>
+    <span title="Site words total count">41.3k</span>
   
 </div>
 

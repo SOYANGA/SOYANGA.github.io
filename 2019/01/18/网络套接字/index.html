@@ -82,20 +82,20 @@
 
 
 
-<meta name="description" content="网络编程套接字学习要点： 认识IP地址，端口号，网络字节序等网络编程中的基本概念； 学习socket api的基本用法； 能够实现一个简单的udp客户端/服务器； 能够实现一个简单的tcp客户端/服务器（单连接版本，多进程版本，多线程版本）； 理解tcp服务器建立连接，发送数据，断开连接的流程；  IP地址IP协议有两个版本，IPv4和IPv6。我们整个的课程，凡是提到IP协议，没有特殊说">
+<meta name="description" content="网络编程套接字学习要点： 认识IP地址，端口号，网络字节序等网络编程中的基本概念； 学习socket api的基本用法； 能够实现一个简单的udp客户端/服务器； 能够实现一个简单的tcp客户端/服务器（单连接版本，多进程版本，多线程版本）； 理解tcp服务器建立连接，发送数据，断开连接的流程；  IP地址IP协议有两个版本，IPv4和IPv6。我们整个的课程，凡是提到IP协议，没有特殊说明的">
 <meta name="keywords" content="Linux网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux网络套接字">
 <meta property="og:url" content="https://soyanga.github.io/2019/01/18/网络套接字/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="网络编程套接字学习要点： 认识IP地址，端口号，网络字节序等网络编程中的基本概念； 学习socket api的基本用法； 能够实现一个简单的udp客户端/服务器； 能够实现一个简单的tcp客户端/服务器（单连接版本，多进程版本，多线程版本）； 理解tcp服务器建立连接，发送数据，断开连接的流程；  IP地址IP协议有两个版本，IPv4和IPv6。我们整个的课程，凡是提到IP协议，没有特殊说">
+<meta property="og:description" content="网络编程套接字学习要点： 认识IP地址，端口号，网络字节序等网络编程中的基本概念； 学习socket api的基本用法； 能够实现一个简单的udp客户端/服务器； 能够实现一个简单的tcp客户端/服务器（单连接版本，多进程版本，多线程版本）； 理解tcp服务器建立连接，发送数据，断开连接的流程；  IP地址IP协议有两个版本，IPv4和IPv6。我们整个的课程，凡是提到IP协议，没有特殊说明的">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络套接字/C语言大端小段转换.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络套接字/不同套接字结构体.png">
-<meta property="og:updated_time" content="2019-01-19T05:00:48.299Z">
+<meta property="og:updated_time" content="2019-01-20T06:57:40.437Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux网络套接字">
-<meta name="twitter:description" content="网络编程套接字学习要点： 认识IP地址，端口号，网络字节序等网络编程中的基本概念； 学习socket api的基本用法； 能够实现一个简单的udp客户端/服务器； 能够实现一个简单的tcp客户端/服务器（单连接版本，多进程版本，多线程版本）； 理解tcp服务器建立连接，发送数据，断开连接的流程；  IP地址IP协议有两个版本，IPv4和IPv6。我们整个的课程，凡是提到IP协议，没有特殊说">
+<meta name="twitter:description" content="网络编程套接字学习要点： 认识IP地址，端口号，网络字节序等网络编程中的基本概念； 学习socket api的基本用法； 能够实现一个简单的udp客户端/服务器； 能够实现一个简单的tcp客户端/服务器（单连接版本，多进程版本，多线程版本）； 理解tcp服务器建立连接，发送数据，断开连接的流程；  IP地址IP协议有两个版本，IPv4和IPv6。我们整个的课程，凡是提到IP协议，没有特殊说明的">
 <meta name="twitter:image" content="https://soyanga.github.io/2019/01/18/网络套接字/C语言大端小段转换.png">
 
 
@@ -383,8 +383,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-19T13:00:48+08:00">
-                2019-01-19
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T14:57:40+08:00">
+                2019-01-20
               </time>
             
           </span>
@@ -471,8 +471,6 @@
 
       
         <meta name="referrer" content="no-referrer">
-
-
 
 <h1 id="网络编程套接字"><a href="#网络编程套接字" class="headerlink" title="网络编程套接字"></a>网络编程套接字</h1><h2 id="学习要点："><a href="#学习要点：" class="headerlink" title="学习要点："></a>学习要点：</h2><ul>
 <li>认识IP地址，端口号，网络字节序等网络编程中的基本概念；</li>
@@ -865,7 +863,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -876,7 +874,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -887,7 +885,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -981,7 +979,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.8k</span>
+    <span title="Site words total count">41.3k</span>
   
 </div>
 
