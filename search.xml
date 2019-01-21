@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>网络链路层ARP协议</title>
+      <link href="/2019/01/22/%E7%BD%91%E7%BB%9C%E9%93%BE%E8%B7%AF%E5%B1%82ARP%E5%8D%8F%E8%AE%AE/"/>
+      <url>/2019/01/22/%E7%BD%91%E7%BB%9C%E9%93%BE%E8%B7%AF%E5%B1%82ARP%E5%8D%8F%E8%AE%AE/</url>
+      
+        <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h2><p>虽然我们在这里介绍ARP协议，但是ARP不是一个单纯的数据链路层的协议！<strong>而是一个介于数据链路层和网络层之间的协议；地址解析协议</strong></p><h3 id="ARP协议的作用"><a href="#ARP协议的作用" class="headerlink" title="ARP协议的作用"></a>ARP协议的作用</h3><p><strong>ARP协议建立了主机IP地址和MAC地址的映射关系。</strong> :couple_with_heart:</p><blockquote><ul><li>在网络通讯时，源主机的应用程序知道目的主机的IP地址和端口号，却不知道目的主机的硬件地址；</li><li>数据包首先是被网卡接收到再去处理上层协议的，如果接收到的数据包的硬件地址与本机不符，则直接丢弃；</li><li><strong>因此在通讯前必须获得目的主机的硬件地址；</strong></li></ul></blockquote><h3 id="ARP协议的工作流程"><a href="#ARP协议的工作流程" class="headerlink" title="ARP协议的工作流程"></a>ARP协议的工作流程</h3><p><img src="/2019/01/22/网络链路层ARP协议/ARP通信流程.png" alt="ARP通信流程"></p><blockquote><ul><li>源主机发出ARP请求,询问“IP地址是192.168.0.1的主机的硬件地址是多少”, 并将这个请求广播到本地网段<strong>(以太网帧首部的硬件地址填FF:FF:FF:FF:FF:FF表示广播);</strong> </li><li>目的主机接收到广播的ARP请求,发现其中的IP地址与本机相符,则发送一个ARP应答数据包给源主机,将自己的硬件地址填写在应答包中;</li><li>每台主机都<strong>维护一个ARP缓存表</strong>,可以用<code>arp -a</code>命令查看。缓存表中的表项有过期时间(一般为20分钟),如果20分钟内没有再次使用某个表项,则该表项失效,下次还要发ARP请求来获得目的主机的硬件地址</li></ul></blockquote><p><img src="/2019/01/22/网络链路层ARP协议/ARP缓存表.png" alt="ARP缓存表"></p><a id="more"></a><h3 id="ARP数据报的格式"><a href="#ARP数据报的格式" class="headerlink" title="ARP数据报的格式"></a>ARP数据报的格式</h3><p><img src="/2019/01/22/网络链路层ARP协议/ARP数据报格式.png" alt="ARP数据报格式"></p><blockquote><ul><li>源MAC地址、目的MAC地址在以太网首部和ARP请求中个出现一次，对于链路层为以太网情况是多余的，但是链路层是其他类型的网络则有可能是必要的。</li><li><strong>硬件类型</strong>值链路层网络类型，1为以太网</li><li><strong>协议类型</strong>值要转换的地址类型，0X0800为IP地址</li><li><strong>硬件地址长度</strong>对于以太网地址为6字节; </li><li><strong>协议地址长度</strong>对于和IP地址为4字节; </li><li><strong>OP字段</strong>为1表示ARP<strong>请求,</strong>op字段为2表示ARP<strong>应答</strong>。</li><li><strong>发送端以太网地址</strong>：即以太网源地址</li><li><strong>发送端IP地址</strong>：172.20.1.1</li><li><strong>目的以太网地址</strong>：FF:FF:FF:FF:FF:FF（未知） 广播地址</li><li><strong>目的IP地址</strong>: 172.20.1.2</li></ul></blockquote><p>以太网首部</p><blockquote><ul><li><strong>以太网目的地址</strong>：FF:FF:FF:FF:FF:FF（未知）广播地址</li><li><strong>以太网源地址</strong>：即发送端以太网地址</li><li><strong>数据帧类型：</strong> 0806（ARP）</li></ul></blockquote><p>广播地址发送出去，所有局域网的主机都能接收到，数据帧的以太网地址是广播地址，所以都对数据帧进行解包分用，发现是一个ARP请求，向上交付到ARP层，</p><p>ARP对数据包解包分用查看是向那个IP发送ARP请求，看目标IP是否是自己，不是则丢弃。</p><p>是的就构建一个应答OP为2，  发送的应答将以太网首部的以太网目的地址变为发出请求的主机IP地址，局域网下的所有机器都收到了，但是查看数据帧中的目的以太网地址不是广播地址，则是只有发起ARP请求的主机收到了，其余主机则丢弃该响应。</p><p>发起ARP请求的主机收到ARP请求时，就对ARP进行解析,OP为2，为ARP响应，则提取出了想要发送数据的MAC地址。</p><p>此时将对ARP进行缓存（ARP表），MAC和IP的映射。该缓存有生命周期一般为20分钟。20分钟后操作系统得重新进行ARP缓存操作。</p><p>这是时主机A就知道主机B的MAC地址了，就将数据封装称以太网帧的形式发送个主机B。主机B就到了解包分用的过程。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux网络 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux网络 </tag>
+            
+            <tag> ARP协议 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>网络-数据链路层以太网协议</title>
       <link href="/2019/01/22/%E7%BD%91%E7%BB%9C-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%8D%8F%E8%AE%AE/"/>
       <url>/2019/01/22/%E7%BD%91%E7%BB%9C-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%8D%8F%E8%AE%AE/</url>
