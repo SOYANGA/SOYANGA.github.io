@@ -107,14 +107,14 @@
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/滑动窗口ACK丢失问题.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/流量控制细节流程.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/拥塞控制算法曲线图.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/hexo/source/img/IP协议头格式.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/hexo/source/img/IP报头的分片行.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/hexo/source/img/路由表.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/hexo/source/img/以太网网络帧格式-1548067070533.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/hexo/source/img/ARP通信流程.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/hexo/source/img/ARP缓存表.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/hexo/source/img/ARP数据报格式.png">
-<meta property="og:updated_time" content="2019-01-21T15:50:09.379Z">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/IP协议头格式.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/IP报头的分片行.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/路由表.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/以太网网络帧格式.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/ARP通信流程.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/ARP缓存表.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/数据报格式.png">
+<meta property="og:updated_time" content="2019-01-21T15:58:09.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络基础(2)">
 <meta name="twitter:description" content="网络基础2 理解应⽤用层的作用, 初识HTTP协议   理解传输层的作用, 深入理解TCP的各项特性和机制   理解网络层的作用, 深入理解IP协议的基本原理   理解数据链路层的作⽤用, 了解ARP协议   对整个TCP/IP协议有系统的理解   对TCP/IP协议体系下的其他重要协议和技术有一定的了解   学会使⽤用一些分析网络问题的工具和方法 注意!! 注意!! 注意!!   本课是网络">
@@ -405,7 +405,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-21T23:50:09+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-21T23:58:09+08:00">
                 2019-01-21
               </time>
             
@@ -1155,7 +1155,7 @@
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>主机：配有IP地址，但是不进行路由控制的设备；</p>
 <p>路由器：配有IP地址，又能进行路由控制；</p>
 <p>节点：主机和路由器的统称。</p>
-<h3 id="IP协议头格式"><a href="#IP协议头格式" class="headerlink" title="IP协议头格式"></a>IP协议头格式</h3><p><img src="/2019/01/18/网络基础-2/hexo\source\img\IP协议头格式.png" alt="IP协议头格式"></p>
+<h3 id="IP协议头格式"><a href="#IP协议头格式" class="headerlink" title="IP协议头格式"></a>IP协议头格式</h3><p><img src="/2019/01/18/网络基础-2/IP协议头格式.png" alt="IP协议头格式"></p>
 <ul>
 <li><strong>4位版本号（version）：</strong>只当IP协议的版本，对于IPv4来说就是4</li>
 <li><strong>4位头部长度（hearer length）:</strong>以4字节（一行）为单位，4位头部长度能表示的最大数字是15，即IP头部最大长度是15*4 = 60字节。</li>
@@ -1181,7 +1181,7 @@
 <h4 id="IP层第二行整体是用来分片与组装的"><a href="#IP层第二行整体是用来分片与组装的" class="headerlink" title="IP层第二行整体是用来分片与组装的"></a>IP层第二行整体是用来分片与组装的</h4><p>例如：发快递一个快递发不下，拆分成个包裹快递发送。接收方也得把这个10个包裹组装起来。</p>
 <p>链路层一次最大发送报文的大小位MTU：一般的大小为1500字节</p>
 <p>在同层分片，就应该在同层组装。</p>
-<p><img src="/2019/01/18/网络基础-2/hexo\source\img\IP报头的分片行.png" alt="IP报头的分片行"></p>
+<p><img src="/2019/01/18/网络基础-2/IP报头的分片行.png" alt="IP报头的分片行"></p>
 <ul>
 <li><p><strong>16位标志是分片报文的序号</strong>，同一个IP报文的值是一样的。（甄别分片报文和正常报文）。</p>
 </li>
@@ -1292,7 +1292,7 @@
 <li>路由表中的最后一行,主要由<strong>下一跳地址和发送接口两部分</strong>组成,当目的地址与路由表中其它行都不匹配时,就按缺省路由条目规定的接口发送到下一跳地址。 </li>
 </ul>
 </blockquote>
-<p><img src="/2019/01/18/网络基础-2/hexo\source\img\路由表.png" alt="路由表"></p>
+<p><img src="/2019/01/18/网络基础-2/路由表.png" alt="路由表"></p>
 <blockquote>
 <ul>
 <li>这台主机一个网络接口，连接到192.168.245.0/24 网络。</li>
@@ -1333,7 +1333,7 @@
 <li>以太网是当前应用最广发的局域网技术；和以太网并列的还有令牌环，无线LAN等；</li>
 </ul>
 </blockquote>
-<h4 id="以太网帧格式"><a href="#以太网帧格式" class="headerlink" title="以太网帧格式"></a>以太网帧格式</h4><p><img src="/2019/01/18/网络基础-2/hexo\source\img\以太网网络帧格式-1548067070533.png" alt="以太网网络帧格式"></p>
+<h4 id="以太网帧格式"><a href="#以太网帧格式" class="headerlink" title="以太网帧格式"></a>以太网帧格式</h4><p><img src="/2019/01/18/网络基础-2/以太网网络帧格式.png" alt="以太网网络帧格式"></p>
 <blockquote>
 <ul>
 <li>源地址和目的地址：网卡的硬件地址（MAC）地址，长度是48位，是在网卡出厂时固化的；</li>
@@ -1410,7 +1410,7 @@
 <li><strong>因此在通讯前必须获得目的主机的硬件地址；</strong></li>
 </ul>
 </blockquote>
-<h3 id="ARP协议的工作流程"><a href="#ARP协议的工作流程" class="headerlink" title="ARP协议的工作流程"></a>ARP协议的工作流程</h3><p><img src="/2019/01/18/网络基础-2/hexo\source\img\ARP通信流程.png" alt="ARP通信流程"></p>
+<h3 id="ARP协议的工作流程"><a href="#ARP协议的工作流程" class="headerlink" title="ARP协议的工作流程"></a>ARP协议的工作流程</h3><p><img src="/2019/01/18/网络基础-2/ARP通信流程.png" alt="ARP通信流程"></p>
 <blockquote>
 <ul>
 <li>源主机发出ARP请求,询问“IP地址是192.168.0.1的主机的硬件地址是多少”, 并将这个请求广播到本地网段<strong>(以太网帧首部的硬件地址填FF:FF:FF:FF:FF:FF表示广播);</strong> </li>
@@ -1418,8 +1418,8 @@
 <li>每台主机都<strong>维护一个ARP缓存表</strong>,可以用<code>arp -a</code>命令查看。缓存表中的表项有过期时间(一般为20分钟),如果20分钟内没有再次使用某个表项,则该表项失效,下次还要发ARP请求来获得目的主机的硬件地址</li>
 </ul>
 </blockquote>
-<p><img src="/2019/01/18/网络基础-2/hexo\source\img\ARP缓存表.png" alt="ARP缓存表"></p>
-<h3 id="ARP数据报的格式"><a href="#ARP数据报的格式" class="headerlink" title="ARP数据报的格式"></a>ARP数据报的格式</h3><h3 id=""><a href="#" class="headerlink" title=""></a><img src="/2019/01/18/网络基础-2/hexo\source\img\ARP数据报格式.png" alt="ARP数据报格式"></h3><blockquote>
+<p><img src="/2019/01/18/网络基础-2/ARP缓存表.png" alt="ARP缓存表"></p>
+<h3 id="ARP数据报的格式"><a href="#ARP数据报的格式" class="headerlink" title="ARP数据报的格式"></a>ARP数据报的格式</h3><h3 id=""><a href="#" class="headerlink" title=""></a><img src="/2019/01/18/网络基础-2/数据报格式.png" alt="ARP数据报格式"></h3><blockquote>
 <ul>
 <li>源MAC地址、目的MAC地址在以太网首部和ARP请求中个出现一次，对于链路层为以太网情况是多余的，但是链路层是其他类型的网络则有可能是必要的。</li>
 <li><strong>硬件类型</strong>值链路层网络类型，1为以太网</li>
