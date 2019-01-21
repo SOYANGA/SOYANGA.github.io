@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>网络-数据链路层以太网协议</title>
+      <link href="/2019/01/22/%E7%BD%91%E7%BB%9C-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%8D%8F%E8%AE%AE/"/>
+      <url>/2019/01/22/%E7%BD%91%E7%BB%9C-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%8D%8F%E8%AE%AE/</url>
+      
+        <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><p>用于两个设备（同一种数据节点）之间进行传递</p><h3 id="对比理解“数据链路层”和“网络层”"><a href="#对比理解“数据链路层”和“网络层”" class="headerlink" title="对比理解“数据链路层”和“网络层”"></a>对比理解“数据链路层”和“网络层”</h3><p>[唐僧例子之白龙马]</p><h2 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h2><blockquote><ul><li>“以太网”不是一种具体的网络，而是一种技术标准，即包含了数据链路层的内容，也包含了一些物理层的内容。例如：规定了网络拓扑图</li><li>例如以太网中的网线必须使用双绞线；传输速率有10M,100M，1000M等；</li><li>以太网是当前应用最广发的局域网技术；和以太网并列的还有令牌环，无线LAN等；</li></ul></blockquote><h4 id="以太网帧格式"><a href="#以太网帧格式" class="headerlink" title="以太网帧格式"></a>以太网帧格式</h4><p><img src="/2019/01/22/网络-数据链路层以太网协议/以太网网络帧格式.png" alt="以太网网络帧格式"></p><a id="more"></a><blockquote><ul><li>源地址和目的地址：网卡的硬件地址（MAC）地址，长度是48位，是在网卡出厂时固化的；</li><li>协议类型字段有三种值，分别对应IP、ARP、RARP</li><li>帧末尾是CRC校验码</li></ul></blockquote><h3 id="认识MAC地址"><a href="#认识MAC地址" class="headerlink" title="认识MAC地址"></a>认识MAC地址</h3><blockquote><ul><li>MAC地址用来识别数据链路层中相连的节点；</li><li>长度为48位, 及6个字节. ⼀般⽤用16进制数字加上冒号的形式来表⽰(例如: 08:00:27:03:fb:19) </li><li>在网卡出厂时就确定了, 不能修改. mac地址通常是唯一的(虚拟机中的mac地址不是真实的mac地 址, 可能会冲突; 也有些网卡支持用户配置mac地址）。</li><li>CRC：校验方式</li></ul></blockquote><h4 id="对比地址和ip地址的"><a href="#对比地址和ip地址的" class="headerlink" title="对比地址和ip地址的"></a>对比地址和ip地址的</h4><ul><li>IP地址描述的是路途起点到终点</li><li>MAC地址描述的是路途上的每一个区间的起点和终点；</li></ul><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul><li>MAC帧协议如何分离有效载荷和分离问题</li></ul><p>MAC的报头的长度是固定的，就可以进行拆分。</p><ul><li>MAC协议如何向上交付</li></ul><p>帧类型字段可以确定交付给的上层，0800–IP 、0806—RP、8035-RARP</p><h3 id="认识MTU"><a href="#认识MTU" class="headerlink" title="认识MTU"></a>认识MTU</h3><blockquote><ul><li>以太网帧帧中的数据长度规定最小46字节，最大1500字节，ARP数据包的长度不够46字节，要在后面补充位；</li><li>最大值1500称为以太网的最大传输单元（MTU）,不同网络类型有不同的MTU;</li><li>如果一个数据包从以太网由到拨号链路上,数据包长度大于拨号链路的MTU了,则需要对数据包进行分片(fragmentation); </li><li>不同的数据链路层标准的MTU是不同的；</li></ul></blockquote><h3 id="MUT对IP协议的影响"><a href="#MUT对IP协议的影响" class="headerlink" title="MUT对IP协议的影响"></a>MUT对IP协议的影响</h3><p>由于数据链路层MTU的限制，对于较大的IP数据包包进行分包。</p><blockquote><ul><li>将较⼤大的IP包分成多个小包, 并给每个小包打上标签; </li><li>每个小包IP协议头的16位标识（id）都是相同的；</li><li>每个小包的IP协议头的3位标志位字段中，第2位为0，表示允许分片，第三位来表示结束标记（为1为结束包）</li><li>到达对端（IP网络层）时再将这些小包，会顺序重组，拼装到一起返回给传输层；</li><li>一旦些报文中的任意一个小包丢失了，接收端的重组就失败，但是IP层不会负责重新传输数据，TCP会进行超时重传。</li></ul></blockquote><h3 id="MTU对UDP协议的影响"><a href="#MTU对UDP协议的影响" class="headerlink" title="MTU对UDP协议的影响"></a>MTU对UDP协议的影响</h3><blockquote><ul><li>一旦UDP携带的数据超过1472（1500-20(IP首部)-8(UDP首部)），那么就会在网络层分成多个IP数据报。</li><li>这多个IP数据报有任何一个丢失了，都会引起接收端网络重组失败，那么就意味着，如果UDP数据包报在网络层被分片，整个数据被丢失的概率就会大大增加。</li></ul></blockquote><h3 id="MTU对于TCP协议的影响"><a href="#MTU对于TCP协议的影响" class="headerlink" title="MTU对于TCP协议的影响"></a>MTU对于TCP协议的影响</h3><blockquote><ul><li>TCP的一个数据也不能无限大，也要受制于MTU，TCP的单个TCP的单个数据报的最大消息长度, 称为 MSS(Max Segment Size)=1460 （1500-20(IP首部)-20(TCP首部)）</li><li>TCP在建立连接的过程中, 通信双方会进行MSS协商. </li><li>最理想的情况下, MSS的值正好是在IP不会被分片处理的最大长度(这个长度仍然是受制于数据链路层的MTU). </li><li><strong>双方在发送SYN的时候会在TCP的头部写入字节能支持的MSS值</strong></li></ul><p>然会双发得知对方的MSS值后，选择较小的值作为最终MSS</p><ul><li>MSS的值就是在TCP首部的40字节变长选项中（kind=2);</li></ul></blockquote><h3 id="MSS和MTU的关系"><a href="#MSS和MTU的关系" class="headerlink" title="MSS和MTU的关系"></a>MSS和MTU的关系</h3><p>MSS是针对传输层而言的，MTU是针对数据链路层而言的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux网络 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux网络 </tag>
+            
+            <tag> 以太网协议 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>网络-网络层IP协议</title>
       <link href="/2019/01/21/%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82IP%E5%8D%8F%E8%AE%AE/"/>
       <url>/2019/01/21/%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82IP%E5%8D%8F%E8%AE%AE/</url>
