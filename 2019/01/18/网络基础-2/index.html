@@ -12,6 +12,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
   
@@ -114,7 +125,7 @@
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/ARP通信流程.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/ARP缓存表.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/18/网络基础-2/ARP数据报格式.png">
-<meta property="og:updated_time" content="2019-01-21T16:36:46.031Z">
+<meta property="og:updated_time" content="2019-01-22T07:49:59.271Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络基础(2)">
 <meta name="twitter:description" content="网络基础2 理解应⽤用层的作用, 初识HTTP协议   理解传输层的作用, 深入理解TCP的各项特性和机制   理解网络层的作用, 深入理解IP协议的基本原理   理解数据链路层的作⽤用, 了解ARP协议   对整个TCP/IP协议有系统的理解   对TCP/IP协议体系下的其他重要协议和技术有一定的了解   学会使⽤用一些分析网络问题的工具和方法 注意!! 注意!! 注意!!   本课是网络">
@@ -381,6 +392,11 @@
         
 
         <div class="post-meta">
+		    
+            <i class="fa fa-thumb-tack"></i>
+            <font color=7D26CD>置顶</font>
+            <span class="post-meta-divider">|</span>
+            
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -405,7 +421,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T00:36:46+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T15:49:59+08:00">
                 2019-01-22
               </time>
             
@@ -535,18 +551,18 @@
 <p>序列化反序列化：JOSN /XML  </p>
 <h1 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h1><p>HTTP（超文本传输协议）</p>
 <p>认识URL–网址</p>
-<p><img src="/2019/01/18/网络基础-2/URL-网址.png" alt="URL-网址"></p>
+<p><img src="URL-网址.png" alt="URL-网址"></p>
 <h2 id="urlencode和urldecode"><a href="#urlencode和urldecode" class="headerlink" title="urlencode和urldecode"></a>urlencode和urldecode</h2><p>象/？：等这样的字符在URL中是特殊意义理解，因此该字符不能随意出现。假如要出现必须对带有这些特殊字符进行转义。</p>
 <p>转义规则如下：</p>
 <p>讲需要转码的字符串为16进制，然后从右象左，取4位（不足4位直接处理），每2位做一位，前面加上%，编码最后变成 <code>%XY</code>格式</p>
 <p>例如：</p>
-<p><img src="/2019/01/18/网络基础-2/1547866578248.png" alt="1547866578248"></p>
+<p><img src="1547866578248.png" alt="1547866578248"></p>
 <p>？后面的参数将我搜索的内容”<code>C++</code>“中的”<code>+</code>“转变为了”<code>%2B</code>“</p>
 <p>urldecode就是 urlencode的逆过程；可以进行反转义    </p>
 <p><a href="http://tool.chinaz.com/Tools/urlencode.aspx" target="_blank" rel="noopener">URL解码工具</a></p>
 <a id="more"></a>
 <h2 id="HTTP协议格式"><a href="#HTTP协议格式" class="headerlink" title="HTTP协议格式"></a>HTTP协议格式</h2><p>HTTP请求</p>
-<p><img src="/2019/01/18/网络基础-2/HTTP请求响应的过程.png" alt="HTTP请求响应的过程"></p>
+<p><img src="HTTP请求响应的过程.png" alt="HTTP请求响应的过程"></p>
 <blockquote>
 <ul>
 <li>首行：[方法]+[URL]+[版本]</li>
@@ -565,9 +581,9 @@
 <p>实践</p>
 <p>Linux下使用telent工具：远程登陆某一台主机上的一个服务。</p>
 <p>请求：</p>
-<p><img src="/2019/01/18/网络基础-2/HTTP请求实践.png" alt="请求"></p>
+<p><img src="HTTP请求实践.png" alt="请求"></p>
 <p>响应：</p>
-<p><img src="/2019/01/18/网络基础-2/HTTP响应实践.png" alt="HTTP响应实践"></p>
+<p><img src="HTTP响应实践.png" alt="HTTP响应实践"></p>
 <h2 id="HTTP常见方法"><a href="#HTTP常见方法" class="headerlink" title="HTTP常见方法"></a>HTTP常见方法</h2><table>
 <thead>
 <tr>
@@ -732,7 +748,7 @@
 <p>语法：pidof[进程名]</p>
 <p>功能：通过进程名，查看进程id</p>
 <h2 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h2><p>UDP协议端格式</p>
-<p><img src="/2019/01/18/网络基础-2/UDP报文图.png" alt="UDP报文图"></p>
+<p><img src="UDP报文图.png" alt="UDP报文图"></p>
 <blockquote>
 <ul>
 <li>16位UDP长度, 表示整个数据报(UDP⾸首部+UDP数据)的最大长度; </li>
@@ -780,7 +796,7 @@
 </ul>
 <p>自定义UDP程序的应用层协议；<br>自动IP地址获取的能力：DHCP，这个自动获取的IP是从网络获取的，DHCP是一个服务，通常是路由器有这个服务，DHCP是集成在路由器当中的，路由器分配局域网IP给电脑。</p>
 <h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><p>TCP全称为 “传输控制协议(Transmission Control Protocol”). 人如其名, 要对数据的传输进⾏⼀个详细的控制; </p>
-<p><img src="/2019/01/18/网络基础-2/TCP协议格式.png" alt="TCP协议格式"></p>
+<p><img src="TCP协议格式.png" alt="TCP协议格式"></p>
 <ul>
 <li><strong>源/目的端口号</strong>：表示数据从那个进程来，到那个进程去</li>
 <li><strong>32位序号/32位确认号</strong>：如下详谈超时重查，去重，数据的顺序到达</li>
@@ -866,7 +882,7 @@
 <h4 id="PSH"><a href="#PSH" class="headerlink" title="PSH:"></a>PSH:</h4><p>客户端提示接收端应⽤程序⽴刻从TCP缓冲区把数据读走</p>
 <p>客户端发送带有PSH的标志位的报文。催促接收端尽快将数据进行交付。</p>
 <h3 id="连接管理机制"><a href="#连接管理机制" class="headerlink" title="连接管理机制"></a>连接管理机制</h3><p>正常情况下，TCP要经过三次握手建立连接，四次挥手断开连接</p>
-<p><img src="/2019/01/18/网络基础-2/TCP连接流程图.png" alt="TCP连接流程图"></p>
+<p><img src="TCP连接流程图.png" alt="TCP连接流程图"></p>
 <h3 id="TCP连接断开中服务器与客户端状态变化"><a href="#TCP连接断开中服务器与客户端状态变化" class="headerlink" title="TCP连接断开中服务器与客户端状态变化"></a>TCP连接断开中服务器与客户端状态变化</h3><p>服务端状态转变：</p>
 <blockquote>
 <ul>
@@ -921,18 +937,18 @@
 <ul>
 <li>ESTABLISHED:连接成功-三次握手完成</li>
 </ul>
-<h3 id="确认应答机制（ACK）机制详解"><a href="#确认应答机制（ACK）机制详解" class="headerlink" title="确认应答机制（ACK）机制详解"></a>确认应答机制（ACK）机制详解</h3><p><img src="/2019/01/18/网络基础-2/确认应答.png" alt="确认应答"></p>
+<h3 id="确认应答机制（ACK）机制详解"><a href="#确认应答机制（ACK）机制详解" class="headerlink" title="确认应答机制（ACK）机制详解"></a>确认应答机制（ACK）机制详解</h3><p><img src="确认应答.png" alt="确认应答"></p>
 <p>TCP将每个字节的数据都进行了编号</p>
-<p><img src="/2019/01/18/网络基础-2/确认应答详细流程.png" alt="确认应答详细流程"></p>
+<p><img src="确认应答详细流程.png" alt="确认应答详细流程"></p>
 <p>每⼀个ACK都带有对应的确认序列号, 意思是告诉发送者, 我已经收到了哪些数据; 下⼀次你从哪⾥开始发 </p>
-<h3 id="超时重传机制"><a href="#超时重传机制" class="headerlink" title="超时重传机制"></a>超时重传机制</h3><p><img src="/2019/01/18/网络基础-2/超时重传.png" alt="超时重传"></p>
+<h3 id="超时重传机制"><a href="#超时重传机制" class="headerlink" title="超时重传机制"></a>超时重传机制</h3><p><img src="超时重传.png" alt="超时重传"></p>
 <blockquote>
 <ul>
 <li>机A发送数据给B之后, 可能因为网络络拥堵等原因, 数据⽆法到达主机B;</li>
 <li>如果主机A在⼀个<strong>特定时间间隔内没有收到B发来的确认应答</strong>, 就会进⾏重发 但是, 主机A未收到B发来的确认应答, 也可能是因为ACK丢失了; </li>
 </ul>
 </blockquote>
-<p><img src="/2019/01/18/网络基础-2/时重传-数据重复.png" alt="超时重传-数据重复"></p>
+<p><img src="时重传-数据重复.png" alt="超时重传-数据重复"></p>
 <blockquote>
 <p>因此主机B会收到很多重复数据. 那么TCP协议需要能够识别出那些包是重复的包, 并且把重复的丢弃掉，这时候我们可以利⽤前⾯提到的序列号, 就可以很容易做到去重的效果 .</p>
 </blockquote>
@@ -949,7 +965,7 @@
 <h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>刚才我们讨论了确认应答策略, 对每⼀个发送的数据段, 都要给⼀个ACK确认应答. 收到ACK后再发送下⼀个数据段. 这样做有⼀个⽐较⼤的缺点, 就是性能较差. 尤其是数据往返的时间较⻓的时候 。</p>
 <p>就像当串行执行的发送。这样会影响传传输效率问题，此次发送多条数据，就可以达大大提高性能（将多个端的等待时间叠加在一起）</p>
 <p>滑动窗口的大小由= 接收方窗口大小+拥塞窗口决定</p>
-<p><img src="/2019/01/18/网络基础-2/滑动窗口.png" alt="滑动窗口"></p>
+<p><img src="滑动窗口.png" alt="滑动窗口"></p>
 <blockquote>
 <ul>
 <li>窗大小指的是⽆需等待确认应答⽽可以继续发送数据的最⼤值. 上图的窗⼝⼤⼩就是4000个字节(四个段).</li>
@@ -963,7 +979,7 @@
 <li>窗口内的数据全部都会被发出去，窗口前的数据（已经发送出去的数据且已经发送的数据已经被接收方确认），窗口中的数据（已经发送的数据），窗口之后的数据（待发送的数据）。</li>
 <li>滑动窗口的大小：传送方传输效率问题【发送方的发送缓冲区】。</li>
 </ul>
-<p><img src="/2019/01/18/网络基础-2/滑动窗口执行流程.png" alt="滑动窗口执行流程"></p>
+<p><img src="滑动窗口执行流程.png" alt="滑动窗口执行流程"></p>
 <h4 id="问题-2"><a href="#问题-2" class="headerlink" title="问题"></a>问题</h4><p>如果出现丢包，要进行超时重传，这里分两种情况讨论</p>
 <ul>
 <li><p>情况一：数据包已经到达，ACK丢失了（引发重复发送问题）</p>
@@ -971,7 +987,7 @@
 <p>此时发送方继续发送即可，只要服务器中后续有一个确认报文(确认报文会确认的数据内容会向后增加)发送成功，则客户端就会让滑动窗口向后移动即可。</p>
 </li>
 </ul>
-<p><img src="/2019/01/18/网络基础-2/滑动窗口ACK丢失问题.png" alt="滑动窗口ACK丢失问题"></p>
+<p><img src="滑动窗口ACK丢失问题.png" alt="滑动窗口ACK丢失问题"></p>
 <p>​    前面并未确认的报文后续的ACK会进行一起确认。</p>
 <h3 id="快重传"><a href="#快重传" class="headerlink" title="快重传"></a>快重传</h3><ul>
 <li>情况二：数据包直接丢了</li>
@@ -996,7 +1012,7 @@
 <li>如果接收端缓冲区满了, 就会将窗⼝置为0; 这时发送⽅不再发送数据, 但是需要定期发送⼀个窗⼝ 探测数据段，使接收端把装口大小告诉发送端。</li>
 </ul>
 </blockquote>
-<p><img src="/2019/01/18/网络基础-2/流量控制细节流程.png" alt="流量控制细节流程"></p>
+<p><img src="流量控制细节流程.png" alt="流量控制细节流程"></p>
 <p>接收端如何把窗口大小告诉发送端呢? 回忆我们的TCP⾸首部中, 有一个16位窗口字段, 就是存放了窗口大小信息; </p>
 <p>那么问题来了, 16位比特位最大表示65535, 那么TCP窗口最大就是65535字节么? 实际上, T<strong>CP首部40字节选项中还包含了一个窗口扩大因子M,</strong> 实际窗口大小是窗口大小字段的值左移 M 位; </p>
 <p>实际窗口大小=16位窗口大小&lt;&lt;(扩大因子)M=(2^16-1)*(2^M)</p>
@@ -1014,7 +1030,7 @@
 <p>像上⾯面这样的拥塞窗口增⻓长速度, 是指数级别的. “<strong>慢启动” 只是指初使时慢,</strong> 但是<strong>增长速度非常快</strong>。</p>
 <p>上述as:高利贷，开始利息小，后面滚雪球式增长。</p>
 <p>慢启动+阈值控制：</p>
-<p><img src="/2019/01/18/网络基础-2/拥塞控制算法曲线图.png" alt="拥塞控制算法曲线图"></p>
+<p><img src="拥塞控制算法曲线图.png" alt="拥塞控制算法曲线图"></p>
 <blockquote>
 <ul>
 <li>为了不增⻓长的那么快, 因此不能使拥塞窗⼝口单纯的加倍. </li>
@@ -1155,7 +1171,7 @@
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>主机：配有IP地址，但是不进行路由控制的设备；</p>
 <p>路由器：配有IP地址，又能进行路由控制；</p>
 <p>节点：主机和路由器的统称。</p>
-<h3 id="IP协议头格式"><a href="#IP协议头格式" class="headerlink" title="IP协议头格式"></a>IP协议头格式</h3><p><img src="/2019/01/18/网络基础-2/IP协议头格式.png" alt="IP协议头格式"></p>
+<h3 id="IP协议头格式"><a href="#IP协议头格式" class="headerlink" title="IP协议头格式"></a>IP协议头格式</h3><p><img src="IP协议头格式.png" alt="IP协议头格式"></p>
 <ul>
 <li><strong>4位版本号（version）：</strong>只当IP协议的版本，对于IPv4来说就是4</li>
 <li><strong>4位头部长度（hearer length）:</strong>以4字节（一行）为单位，4位头部长度能表示的最大数字是15，即IP头部最大长度是15*4 = 60字节。</li>
@@ -1181,7 +1197,7 @@
 <h4 id="IP层第二行整体是用来分片与组装的"><a href="#IP层第二行整体是用来分片与组装的" class="headerlink" title="IP层第二行整体是用来分片与组装的"></a>IP层第二行整体是用来分片与组装的</h4><p>例如：发快递一个快递发不下，拆分成个包裹快递发送。接收方也得把这个10个包裹组装起来。</p>
 <p>链路层一次最大发送报文的大小位MTU：一般的大小为1500字节</p>
 <p>在同层分片，就应该在同层组装。</p>
-<p><img src="/2019/01/18/网络基础-2/IP报头的分片行.png" alt="IP报头的分片行"></p>
+<p><img src="IP报头的分片行.png" alt="IP报头的分片行"></p>
 <ul>
 <li><p><strong>16位标志是分片报文的序号</strong>，同一个IP报文的值是一样的。（甄别分片报文和正常报文）。</p>
 </li>
@@ -1292,7 +1308,7 @@
 <li>路由表中的最后一行,主要由<strong>下一跳地址和发送接口两部分</strong>组成,当目的地址与路由表中其它行都不匹配时,就按缺省路由条目规定的接口发送到下一跳地址。 </li>
 </ul>
 </blockquote>
-<p><img src="/2019/01/18/网络基础-2/路由表.png" alt="路由表"></p>
+<p><img src="路由表.png" alt="路由表"></p>
 <blockquote>
 <ul>
 <li>这台主机一个网络接口，连接到192.168.245.0/24 网络。</li>
@@ -1334,7 +1350,7 @@
 <li>以太网是当前应用最广发的局域网技术；和以太网并列的还有令牌环，无线LAN等；</li>
 </ul>
 </blockquote>
-<h3 id="以太网帧格式"><a href="#以太网帧格式" class="headerlink" title="以太网帧格式"></a>以太网帧格式</h3><p><img src="/2019/01/18/网络基础-2/以太网网络帧格式.png" alt="以太网网络帧格式"></p>
+<h3 id="以太网帧格式"><a href="#以太网帧格式" class="headerlink" title="以太网帧格式"></a>以太网帧格式</h3><p><img src="以太网网络帧格式.png" alt="以太网网络帧格式"></p>
 <blockquote>
 <ul>
 <li>源地址和目的地址：网卡的硬件地址（MAC）地址，长度是48位，是在网卡出厂时固化的；</li>
@@ -1411,7 +1427,7 @@
 <li><strong>因此在通讯前必须获得目的主机的硬件地址；</strong></li>
 </ul>
 </blockquote>
-<h3 id="ARP协议的工作流程"><a href="#ARP协议的工作流程" class="headerlink" title="ARP协议的工作流程"></a>ARP协议的工作流程</h3><p><img src="/2019/01/18/网络基础-2/ARP通信流程.png" alt="ARP通信流程"></p>
+<h3 id="ARP协议的工作流程"><a href="#ARP协议的工作流程" class="headerlink" title="ARP协议的工作流程"></a>ARP协议的工作流程</h3><p><img src="ARP通信流程.png" alt="ARP通信流程"></p>
 <blockquote>
 <ul>
 <li>源主机发出ARP请求,询问“IP地址是192.168.0.1的主机的硬件地址是多少”, 并将这个请求广播到本地网段<strong>(以太网帧首部的硬件地址填FF:FF:FF:FF:FF:FF表示广播);</strong> </li>
@@ -1419,8 +1435,8 @@
 <li>每台主机都<strong>维护一个ARP缓存表</strong>,可以用<code>arp -a</code>命令查看。缓存表中的表项有过期时间(一般为20分钟),如果20分钟内没有再次使用某个表项,则该表项失效,下次还要发ARP请求来获得目的主机的硬件地址</li>
 </ul>
 </blockquote>
-<p><img src="/2019/01/18/网络基础-2/ARP缓存表.png" alt="ARP缓存表"></p>
-<h3 id="ARP数据报的格式"><a href="#ARP数据报的格式" class="headerlink" title="ARP数据报的格式"></a>ARP数据报的格式</h3><p><img src="/2019/01/18/网络基础-2/ARP数据报格式.png" alt="ARP数据报格式"></p>
+<p><img src="ARP缓存表.png" alt="ARP缓存表"></p>
+<h3 id="ARP数据报的格式"><a href="#ARP数据报的格式" class="headerlink" title="ARP数据报的格式"></a>ARP数据报的格式</h3><p><img src="ARP数据报格式.png" alt="ARP数据报格式"></p>
 <blockquote>
 <ul>
 <li>源MAC地址、目的MAC地址在以太网首部和ARP请求中个出现一次，对于链路层为以太网情况是多余的，但是链路层是其他类型的网络则有可能是必要的。</li>
@@ -1689,7 +1705,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1700,7 +1716,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

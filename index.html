@@ -12,6 +12,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
   
@@ -334,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/22/正则表达式/">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/18/网络基础-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SOYANGA">
@@ -353,10 +364,15 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/22/正则表达式/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2019/01/18/网络基础-2/" itemprop="url">网络基础(2)</a></h1>
         
 
         <div class="post-meta">
+		    
+            <i class="fa fa-thumb-tack"></i>
+            <font color=7D26CD>置顶</font>
+            <span class="post-meta-divider">|</span>
+            
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -365,8 +381,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-22T13:18:31+08:00">
-                2019-01-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T22:59:19+08:00">
+                2019-01-18
               </time>
             
 
@@ -381,12 +397,34 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T13:59:19+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T15:49:59+08:00">
                 2019-01-22
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -409,7 +447,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k
+                  16.6k
                 </span>
               
 
@@ -425,7 +463,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  58
                 </span>
               
             </div>
@@ -447,196 +485,65 @@
 
       
         
-          
-            <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><ul>
-<li>正则表达式概念</li>
-<li>正则表达式应用场景</li>
-<li>正则表达式三要素</li>
-<li>正则表达式特殊符号</li>
-<li>扩展正则和基础正则</li>
-</ul>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<ul>
-<li>正则表达式Regular Expression）是用于描述一组字符串特征的模式，用来匹配特定的字符串。通过特殊字符+普通字符来进行模式描述，从而达到文本匹配目的的工具</li>
-<li>寻人启事</li>
-<li>正则表达式目前被集成到各种文本编辑器/文本处理工具当中</li>
-</ul>
-</blockquote>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
-<li><strong>验证</strong>：表单提交，进行用户名密码验证</li>
-<li><strong>查找</strong>：从大量信息中快速提取指定内容，在一批url中，查找指定url</li>
-<li><strong>替换</strong>：将指定格式的文本，进行正则匹配查找，找到后进行特定替换（vim文本替换符）</li>
-</ul>
-<h2 id="正则表达式的基本要求"><a href="#正则表达式的基本要求" class="headerlink" title="正则表达式的基本要求"></a>正则表达式的基本要求</h2><ul>
-<li>字符类</li>
-<li>数量限定符</li>
-<li>位置限定符</li>
-<li>特殊符号</li>
-</ul>
-<p>grep是一款Linux下按行进行匹配文本的工具。通常是Linux下处理文本的第一步，带有很多有用的选项。采用的是贪心算法</p>
-<blockquote>
-<ul>
-<li>-E :使用扩展正则匹配</li>
-<li>–color:将匹配的到的内容进行语法高亮</li>
-</ul>
-</blockquote>
-<h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><table>
-<thead>
-<tr>
-<th>字符</th>
-<th>含义</th>
-<th>举例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.</td>
-<td>匹配任意一个字符</td>
-<td>abd.可以匹配abcde、abc9等</td>
-</tr>
-<tr>
-<td>[]</td>
-<td>匹配括号中的任意一个字符</td>
-<td>[abc]d,可以匹配ad,bd,或带有d的字符集</td>
-</tr>
-<tr>
-<td>-</td>
-<td>在[ ]括号内表示字符范围</td>
-<td>[0-9a-fA-F]可以匹配一位16进制数字</td>
-</tr>
-<tr>
-<td>^</td>
-<td>位于[]括号内的开头，匹配除考好中的字符之外的任意一个字符</td>
-<td>[^xy] 1匹配除了xy之外的任意一个字符 可以怕匹配a1,b1但不能匹配x1,y1</td>
-</tr>
-<tr>
-<td>[[:xxx:]]</td>
-<td>grep工具预定义的一下些命名字符类</td>
-<td>[[:alpha:]]匹配一个字母，[[:digit:]]匹配一个数字</td>
-</tr>
-</tbody>
-</table>
-<p><img src="/2019/01/22/正则表达式/gerp练习.png" alt="gerp练习"></p>
-<h2 id="数量限定符"><a href="#数量限定符" class="headerlink" title="数量限定符"></a>数量限定符</h2><table>
-<thead>
-<tr>
-<th>字符</th>
-<th>含义</th>
-<th>举例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>？</td>
-<td>紧跟在他前面的单元应匹配零次或一次</td>
-<td>[0-9]?\.[0-9]匹配0.0、2.3、.5等，由于.在正则表达式中是一个特殊字符，所以需要用\转义一下，取字面值</td>
-</tr>
-<tr>
-<td>+</td>
-<td>紧跟在他前面的单元应匹配一次或多次</td>
-<td>[a-zA-Z0-9_.-]+@[a-zA-z0-9_.-]+\.[a-zA-Z0-9_.-]+匹配email地址</td>
-</tr>
-<tr>
-<td>*</td>
-<td>紧跟在他前面的单元应匹配零次或多次</td>
-<td>[0-9][0-9]<em>匹配至少一位数字，等价于[0-9]+.[a-zA-z_]+[a-zA-Z_0-9]\</em>匹配C语言标识符</td>
-</tr>
-<tr>
-<td>{N}</td>
-<td>紧跟在他前面的单元应匹配精确匹配N次</td>
-<td>[1-9][0-9]{2}匹配从100到999的整数</td>
-</tr>
-<tr>
-<td>{N,}</td>
-<td>紧跟在他前面的单元应匹配至少N次</td>
-<td>[1-9][0-9][2,]匹配三位以上（含三位)的整数</td>
-</tr>
-<tr>
-<td>{,M}</td>
-<td>紧跟在他前面的单元应匹配最多M次</td>
-<td>[0-9]{,1}相当于[0-9]?     Linux下的grep不支持</td>
-</tr>
-<tr>
-<td>{N,M}</td>
-<td>紧跟在他前面的单元应匹配至少N次,最多M次</td>
-<td>[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1.3}\.[0-9]{1.3}匹配IP地址</td>
-</tr>
-</tbody>
-</table>
-<h2 id="位置限定符"><a href="#位置限定符" class="headerlink" title="位置限定符"></a>位置限定符</h2><table>
-<thead>
-<tr>
-<th>字符</th>
-<th>含义</th>
-<th>举例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>^</td>
-<td>匹配行首的位置</td>
-<td>^Contennt匹配位于一行开头的Content</td>
-</tr>
-<tr>
-<td>$</td>
-<td>匹配行末的位置</td>
-<td>;$匹配位于一行结尾的；号，^$匹配空行</td>
-</tr>
-<tr>
-<td>\&lt;</td>
-<td>匹配以单词开头的位置（所有）</td>
-<td>\&lt;th匹配…this,但不匹配ethernet、tenth</td>
-</tr>
-<tr>
-<td>\&gt;</td>
-<td>匹配以词结尾的位置（所有）</td>
-<td>p\&gt;匹配leap…,但不匹配parent,sleepy</td>
-</tr>
-<tr>
-<td>\b</td>
-<td>匹配以单词开头置或以单词结尾的位置（所有）</td>
-<td>\bat\b匹配…at…,但不匹配cat、atexit、batch</td>
-</tr>
-<tr>
-<td>\B</td>
-<td>匹配非以单词开头或以单词结尾的位置（所有）</td>
-<td>\Bat\B匹配battery,但不匹配…attend、hat…</td>
-</tr>
-</tbody>
-</table>
-<h2 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h2><table>
-<thead>
-<tr>
-<th>字符</th>
-<th>含义</th>
-<th>举例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>\</td>
-<td>转义字符，普通字符转义为特殊字符，特殊字符转义为普通字符</td>
-<td>普通字符&lt;写成\&lt;表示单词开头的位置，特殊字符.写成\.以及\写成\\就当作普通字符</td>
-</tr>
-<tr>
-<td>()</td>
-<td>将正则表达式的一部分括起来组成一个单元，可以对整个单元使用数量限定符</td>
-<td>([0-9]{1,3}\.){3}[0-9]{1,3}匹配IP地址</td>
-</tr>
-<tr>
-<td>\</td>
-<td></td>
-<td>连接两个子表达式，表示或的关系</td>
-<td>n(o\</td>
-<td>either)匹配no 或neither</td>
-</tr>
-</tbody>
-</table>
-<h2 id="扩展正则和基准正则"><a href="#扩展正则和基准正则" class="headerlink" title="扩展正则和基准正则"></a>扩展正则和基准正则</h2><p>区别：正则表达式的Extended规范和Basic规则基本相同。只是Basic规范下，有些字符<code>?+{}|（）</code>  应解释为普通字符，要表示上述特殊含义则需要加上\转义</p>
-<p>反之，在Extended规范下，<code>？+{}|（）</code> 应被解释为普通字符，要表示上述特殊含义则需要加上<code>\</code>转义。</p>
-<p>所以<code>grep</code> 工具带上<code>-E</code> 选项，表示使用扩正则来进行匹配，若没有，则表示使用基准正则进行匹配.</p>
+          <meta name="referrer" content="no-referrer">
 
-          
+<h1 id="网络基础2"><a href="#网络基础2" class="headerlink" title="网络基础2"></a>网络基础2</h1><ul>
+<li><p>理解应⽤用层的作用, 初识HTTP协议 </p>
+</li>
+<li><p>理解传输层的作用, 深入理解TCP的各项特性和机制 </p>
+</li>
+<li><p>理解网络层的作用, 深入理解IP协议的基本原理 </p>
+</li>
+<li><p>理解数据链路层的作⽤用, 了解ARP协议 </p>
+</li>
+<li><p>对整个TCP/IP协议有系统的理解 </p>
+</li>
+<li><p>对TCP/IP协议体系下的其他重要协议和技术有一定的了解 </p>
+</li>
+<li><p>学会使⽤用一些分析网络问题的工具和方法</p>
+<p>注意!! 注意!! 注意!! </p>
+</li>
+<li><p>本课是网络编程的理论基础. </p>
+</li>
+<li><p>是一个服务器开发程序员的重要基本功.</p>
+</li>
+</ul>
+<p>  自顶向下讲解：</p>
+<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><p>我们写一个解决我们实际问题, 满足我们日常需求的网络程序, 都是在应用层。</p>
+<h2 id="再谈“协议”"><a href="#再谈“协议”" class="headerlink" title="再谈“协议”"></a>再谈“协议”</h2><p>协议是一种 “约定”. socket api的接口, 在读写数据时, 都是按 “字符串” 的方式来发送接收的。我们约定客户端先发送，服务器先接收。是一种客户端与服务器之间的约定。</p>
+<h2 id="网络版计算器"><a href="#网络版计算器" class="headerlink" title="网络版计算器"></a>网络版计算器</h2><p>我们需要实现⼀个服务器版的加法器. 我们需要客户端把要计算的两个加数发过去, 然后由服务器进行计算, 最后再把结果返回给客户端. </p>
+<p>约定方案一：<strong>约定指定格式 </strong> </p>
+<ul>
+<li>客户端发送一个形如”1+1”的字符串;</li>
+<li>这个字符串中有两个操作数, 都是整形; </li>
+<li>两个数字之间会有一个字符是运算符, 运算符只能是 + ; </li>
+<li>数字和运算符之间没有空格;</li>
+</ul>
+<p>约定方案二：<strong>TCP:面向字节流</strong>  :raising_hand_man:</p>
+<ul>
+<li>定义结构体来表⽰示我们需要交互的信息; </li>
+<li>发送数据时将这个结构体按照一个规则转换成字符串, 接收到数据的时候再按照相同的规则把字符串转化回结构体; </li>
+<li>这个过程叫做 “序列化” 和 “反序列化”</li>
+</ul>
+<p>序列化反序列化：JOSN /XML  </p>
+<h1 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h1><p>HTTP（超文本传输协议）</p>
+<p>认识URL–网址</p>
+<p><img src="URL-网址.png" alt="URL-网址"></p>
+<h2 id="urlencode和urldecode"><a href="#urlencode和urldecode" class="headerlink" title="urlencode和urldecode"></a>urlencode和urldecode</h2><p>象/？：等这样的字符在URL中是特殊意义理解，因此该字符不能随意出现。假如要出现必须对带有这些特殊字符进行转义。</p>
+<p>转义规则如下：</p>
+<p>讲需要转码的字符串为16进制，然后从右象左，取4位（不足4位直接处理），每2位做一位，前面加上%，编码最后变成 <code>%XY</code>格式</p>
+<p>例如：</p>
+<p><img src="1547866578248.png" alt="1547866578248"></p>
+<p>？后面的参数将我搜索的内容”<code>C++</code>“中的”<code>+</code>“转变为了”<code>%2B</code>“</p>
+<p>urldecode就是 urlencode的逆过程；可以进行反转义    </p>
+<p><a href="http://tool.chinaz.com/Tools/urlencode.aspx" target="_blank" rel="noopener">URL解码工具</a></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/18/网络基础-2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -709,6 +616,7 @@
         
 
         <div class="post-meta">
+		    
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -922,6 +830,7 @@
         
 
         <div class="post-meta">
+		    
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -1133,6 +1042,7 @@
         
 
         <div class="post-meta">
+		    
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -1336,6 +1246,7 @@
         
 
         <div class="post-meta">
+		    
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -1549,6 +1460,7 @@
         
 
         <div class="post-meta">
+		    
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -1763,6 +1675,7 @@
         
 
         <div class="post-meta">
+		    
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -1991,6 +1904,7 @@
         
 
         <div class="post-meta">
+		    
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -2186,6 +2100,7 @@
         
 
         <div class="post-meta">
+		    
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -2364,7 +2279,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/18/网络基础-2/">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/18/TCP协议通讯流程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SOYANGA">
@@ -2383,10 +2298,11 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/18/网络基础-2/" itemprop="url">网络基础(2)</a></h1>
+                <a class="post-title-link" href="/2019/01/18/TCP协议通讯流程/" itemprop="url">TCP协议通讯流程</a></h1>
         
 
         <div class="post-meta">
+		    
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -2395,7 +2311,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T22:59:19+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T20:39:25+08:00">
                 2019-01-18
               </time>
             
@@ -2411,8 +2327,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T00:36:46+08:00">
-                2019-01-22
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-18T22:53:12+08:00">
+                2019-01-18
               </time>
             
           </span>
@@ -2461,7 +2377,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  16.6k
+                  1k
                 </span>
               
 
@@ -2477,7 +2393,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  58
+                  3
                 </span>
               
             </div>
@@ -2501,59 +2417,31 @@
         
           <meta name="referrer" content="no-referrer">
 
-<h1 id="网络基础2"><a href="#网络基础2" class="headerlink" title="网络基础2"></a>网络基础2</h1><ul>
-<li><p>理解应⽤用层的作用, 初识HTTP协议 </p>
-</li>
-<li><p>理解传输层的作用, 深入理解TCP的各项特性和机制 </p>
-</li>
-<li><p>理解网络层的作用, 深入理解IP协议的基本原理 </p>
-</li>
-<li><p>理解数据链路层的作⽤用, 了解ARP协议 </p>
-</li>
-<li><p>对整个TCP/IP协议有系统的理解 </p>
-</li>
-<li><p>对TCP/IP协议体系下的其他重要协议和技术有一定的了解 </p>
-</li>
-<li><p>学会使⽤用一些分析网络问题的工具和方法</p>
-<p>注意!! 注意!! 注意!! </p>
-</li>
-<li><p>本课是网络编程的理论基础. </p>
-</li>
-<li><p>是一个服务器开发程序员的重要基本功.</p>
-</li>
-</ul>
-<p>  自顶向下讲解：</p>
-<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><p>我们写一个解决我们实际问题, 满足我们日常需求的网络程序, 都是在应用层。</p>
-<h2 id="再谈“协议”"><a href="#再谈“协议”" class="headerlink" title="再谈“协议”"></a>再谈“协议”</h2><p>协议是一种 “约定”. socket api的接口, 在读写数据时, 都是按 “字符串” 的方式来发送接收的。我们约定客户端先发送，服务器先接收。是一种客户端与服务器之间的约定。</p>
-<h2 id="网络版计算器"><a href="#网络版计算器" class="headerlink" title="网络版计算器"></a>网络版计算器</h2><p>我们需要实现⼀个服务器版的加法器. 我们需要客户端把要计算的两个加数发过去, 然后由服务器进行计算, 最后再把结果返回给客户端. </p>
-<p>约定方案一：<strong>约定指定格式 </strong> </p>
-<ul>
-<li>客户端发送一个形如”1+1”的字符串;</li>
-<li>这个字符串中有两个操作数, 都是整形; </li>
-<li>两个数字之间会有一个字符是运算符, 运算符只能是 + ; </li>
-<li>数字和运算符之间没有空格;</li>
-</ul>
-<p>约定方案二：<strong>TCP:面向字节流</strong>  :raising_hand_man:</p>
-<ul>
-<li>定义结构体来表⽰示我们需要交互的信息; </li>
-<li>发送数据时将这个结构体按照一个规则转换成字符串, 接收到数据的时候再按照相同的规则把字符串转化回结构体; </li>
-<li>这个过程叫做 “序列化” 和 “反序列化”</li>
-</ul>
-<p>序列化反序列化：JOSN /XML  </p>
-<h1 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h1><p>HTTP（超文本传输协议）</p>
-<p>认识URL–网址</p>
-<p><img src="/2019/01/18/网络基础-2/URL-网址.png" alt="URL-网址"></p>
-<h2 id="urlencode和urldecode"><a href="#urlencode和urldecode" class="headerlink" title="urlencode和urldecode"></a>urlencode和urldecode</h2><p>象/？：等这样的字符在URL中是特殊意义理解，因此该字符不能随意出现。假如要出现必须对带有这些特殊字符进行转义。</p>
-<p>转义规则如下：</p>
-<p>讲需要转码的字符串为16进制，然后从右象左，取4位（不足4位直接处理），每2位做一位，前面加上%，编码最后变成 <code>%XY</code>格式</p>
-<p>例如：</p>
-<p><img src="/2019/01/18/网络基础-2/1547866578248.png" alt="1547866578248"></p>
-<p>？后面的参数将我搜索的内容”<code>C++</code>“中的”<code>+</code>“转变为了”<code>%2B</code>“</p>
-<p>urldecode就是 urlencode的逆过程；可以进行反转义    </p>
-<p><a href="http://tool.chinaz.com/Tools/urlencode.aspx" target="_blank" rel="noopener">URL解码工具</a></p>
+
+
+<h2 id="TCP协议通讯流程"><a href="#TCP协议通讯流程" class="headerlink" title="TCP协议通讯流程"></a>TCP协议通讯流程</h2><p><strong>TCP要建立链接，就需要三次握手</strong> </p>
+<p><strong>TCP保证可靠性：确认应答机制。</strong> </p>
+<p><strong>TCP断开链接，需要4次握手</strong> </p>
+<p>维护链接是要有成本，TCP比UDP消耗更大，因为保证可靠性</p>
+<h3 id="问题：三次握手为什么不是2次呢，不是4次呢？"><a href="#问题：三次握手为什么不是2次呢，不是4次呢？" class="headerlink" title="问题：三次握手为什么不是2次呢，不是4次呢？"></a>问题：三次握手为什么不是2次呢，不是4次呢？</h3><p>客户端发起链接<strong>请求（SYN）</strong>，服务器对其<strong>响应</strong>（<strong>SYN+ACK</strong>），客户端再紧接着<strong>确认</strong>(<strong>ACK)</strong>。</p>
+<p>客户端发起链接<strong>请求</strong>，服务器对其<strong>响应</strong>，在网络中报文可能丢失，</p>
+<h4 id="为什么不是2次"><a href="#为什么不是2次" class="headerlink" title="为什么不是2次"></a>为什么不是2次</h4><p>客户端发送的报文丢失，链接失败</p>
+<p>但是客户端发送（<strong>请求</strong>）给服务器的报文没丢失，且服务器发送的报文（<strong>响应</strong>）发出后，服务器认为已经建立链接，但是客户端此时并能没有接收报文（报文在网络中传输），客户端认为并没有建立起链接。</p>
+<p>服务器认为链接建立好了，服务器就要求维护这个链接，<strong>服务器需要花成本去维护</strong>。，但是这个链接并不是双方认可的链接。</p>
+<p>如果服务器发送的<strong>响应报文</strong>，丢失了，客户端认为并没有链接，就会继续发送<strong>一个新的请求报文</strong>给服务器。此时服务器接收到<strong>请求报文</strong>，发送自己的<strong>响应报文</strong> 给客户端客户,服务器又认为链接已经建立，就又会<strong>花成本维护</strong>一个这个链接。</p>
+<p><strong>所以长此以往，服务器上就会有众多的闲时链接，导致服务器资源不够，服务器瘫痪。</strong></p>
+<p><strong>两次握手有着致命的缺陷。</strong></p>
+<p>2次握手情况下，假如人利用这种方式攻击服务器，服务器就会瘫痪，但是3次握手情况下服务器不会产生故障，攻击者也会得逞只会自己主机上会产生众多闲时链接自作自受。</p>
+<p><strong>三次握手前两次发送报文丢失了，服务器客户端不会认为链接已经建立。不会发生上述情况。</strong></p>
+<p><strong>分析最后一次确认链接报文发送过程中丢失了</strong>，客户端认为链接成功，服务器认为报文丢失了链接失败了。</p>
+<p>此时会发生以上的相反情况，客户端上就会有众多的闲时链接。</p>
+<p>但是服务器永远是多个客户端链接的，一对多的。得保证服务器的安全，所以是三次。</p>
+<h4 id="为什么不是4次-6-8"><a href="#为什么不是4次-6-8" class="headerlink" title="为什么不是4次 /6/8"></a><strong>为什么不是4次</strong> <strong>/6/8</strong></h4><p>这个就像是踢球一样，在谁的脚下发起最后的射门，谁就有责任对这个求负责。</p>
+<p>最后一次链接谁发决定谁可能会产生闲时链接。</p>
+<h4 id="为什么不是5次7次"><a href="#为什么不是5次7次" class="headerlink" title="为什么不是5次7次"></a>为什么不是5次7次</h4><p>没有必要这样，3次握手已经可以避免上述服务器瘫痪的操作，5次7次就很多余而且还会导致链接成功几率降低。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/18/网络基础-2/#more" rel="contents">
+            <a class="btn" href="/2019/01/18/TCP协议通讯流程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2659,7 +2547,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2670,7 +2558,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
