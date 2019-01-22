@@ -797,7 +797,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/16/正则表达式/" itemprop="url">网络基础(1)</a></h1>
+                <a class="post-title-link" href="/2019/01/16/正则表达式/" itemprop="url">正则表达式</a></h1>
         
 
         <div class="post-meta">
@@ -826,7 +826,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T15:49:25+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T15:56:26+08:00">
                 2019-01-22
               </time>
             
@@ -1186,7 +1186,7 @@
 <p><strong>保证PV操作的原子性：</strong></p>
 <p><strong>P操作：</strong>信号量申请操作是原子的</p>
 <p><strong>V操作：</strong>信号量释放操作是原子的</p>
-<h2 id="基于环形队列的生产者消费者模型"><a href="#基于环形队列的生产者消费者模型" class="headerlink" title="基于环形队列的生产者消费者模型"></a>基于环形队列的生产者消费者模型</h2><p><img src="/2019/01/16/LinuxPOSIX信号量/基于环形队列的生产者消费者模型.png" alt="基于环形队列的生产者消费者模型"></p>
+<h2 id="基于环形队列的生产者消费者模型"><a href="#基于环形队列的生产者消费者模型" class="headerlink" title="基于环形队列的生产者消费者模型"></a>基于环形队列的生产者消费者模型</h2><p><img src="基于环形队列的生产者消费者模型.png" alt="基于环形队列的生产者消费者模型"></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/01/16/LinuxPOSIX信号量/#more" rel="contents">
@@ -1808,7 +1808,7 @@
 <li>如果多个线程同时要求执行临界区的代码时。并且临界区没有线程在执行，那么只允许一个线程进入该临界区。</li>
 <li>如果线程不在临界区中执行，那么该线程不能阻止其他线程进入临界区。</li>
 </ol>
-<p><img src="/2019/01/16/Linux多线程互斥/Lock原理图.png" alt="Lock原理图"></p>
+<p><img src="Lock原理图.png" alt="Lock原理图"></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/01/16/Linux多线程互斥/#more" rel="contents">
@@ -2208,7 +2208,7 @@
       
         
           <h1 id="在Linux查看正在运行的线程"><a href="#在Linux查看正在运行的线程" class="headerlink" title="在Linux查看正在运行的线程"></a><strong>在Linux查看正在运行的线程</strong></h1><p><strong><code>ps -aL</code></strong></p>
-<h1 id="线程ID和进程ID"><a href="#线程ID和进程ID" class="headerlink" title="线程ID和进程ID"></a>线程ID和进程ID</h1><p><img src="/2019/01/16/Linux线程ID和进程ID/线程ID和进程ID.png" alt="线程ID和进程ID"></p>
+<h1 id="线程ID和进程ID"><a href="#线程ID和进程ID" class="headerlink" title="线程ID和进程ID"></a>线程ID和进程ID</h1><p><img src="线程ID和进程ID.png" alt="线程ID和进程ID"></p>
 <p>同一个进程内部的线程（多个执行流）用getpid()返回的是一个一个PID。（用户级id）</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -2406,14 +2406,14 @@
 <li>进程是<strong>分配系统资源的基本单位</strong></li>
 <li>线程是<strong>一个标准的进程(一个执行流的进程)</strong></li>
 </ul>
-<p><img src="/2019/01/14/Linux线程概念/Linux线程图解.png" alt="Linux线程图解"></p>
+<p><img src="Linux线程图解.png" alt="Linux线程图解"></p>
 <h2 id="1-理解（Linux下）"><a href="#1-理解（Linux下）" class="headerlink" title="1.理解（Linux下）"></a>1.理解（Linux下）</h2><p><strong>线程是在进程的内部运行的：</strong>线程是在进程的地址空间内运行的，共享一份虚拟地址空间。</p>
 <p><strong>线程大部分资源都是共享的</strong>。（共用一个虚拟地址空间）</p>
 <p><strong>进程大部分资源都是独立的</strong>。（每个一个进程都有自己独自的一份虚拟地址空间）</p>
 <p>CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linux当中CPU看到的一个进程相当于一个轻量级进程（&lt;=一个标准的进程(一个执行流的进程)）</p>
 <p>Linux下没有一份真正意义的进程。使用进程模拟线程。</p>
 <p>TCB ThreadContrlClock 线程控制块</p>
-<p><img src="/2019/01/14/Linux线程概念/线程概念.png" alt="线程概念"></p>
+<p><img src="线程概念.png" alt="线程概念"></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/01/14/Linux线程概念/#more" rel="contents">

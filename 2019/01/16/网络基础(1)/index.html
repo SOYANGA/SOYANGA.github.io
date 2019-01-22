@@ -537,7 +537,7 @@
 <li>但是，它即复杂又不实用，所以我们来详细了解<strong>TCP/IP四层模型</strong>。</li>
 </ul>
 <h2 id="TCP-IP五层（或四层）模型"><a href="#TCP-IP五层（或四层）模型" class="headerlink" title="TCP/IP五层（或四层）模型"></a>TCP/IP五层（或四层）模型</h2><p>TCP/IP是一组协议的代名词，它还包括许多协议，组成了<strong>TCP/IP协议簇</strong>. TCP/IP通讯协议采⽤用了5层的层级结构，<strong>每⼀层都呼叫它的下一层所提供的网络</strong>来完成自己的需求. </p>
-<p><img src="/2019/01/16/网络基础(1)/OSI、TCP_IP参考模型.png" alt="OSI、TCP_IP参考模型"></p>
+<p><img src="OSI、TCP_IP参考模型.png" alt="OSI、TCP_IP参考模型"></p>
 <p>一般而言</p>
 <ul>
 <li>对于一台主机, 它的<strong>操作系统内核</strong>实现了从<strong>传输层到物理层</strong>的内容; </li>
@@ -598,7 +598,7 @@
 <p>传输层TCP层数据叫做：数据段</p>
 <p>传输层UDP层数据叫做：数据报</p>
 <p>两台计算机通过TCP\IP协议通讯的过程如下所示（以上是文字叙述）</p>
-<h2 id="TCP-IP通讯过程（两台主机在同一个局域网当中）"><a href="#TCP-IP通讯过程（两台主机在同一个局域网当中）" class="headerlink" title="TCP/IP通讯过程（两台主机在同一个局域网当中）"></a><strong>TCP/IP通讯过程（两台主机在同一个局域网当中）</strong></h2><p><img src="/2019/01/16/网络基础(1)/两台主机在同一个局域网当中的通信.png" alt="两台主机在同一个局域网当中的通信"></p>
+<h2 id="TCP-IP通讯过程（两台主机在同一个局域网当中）"><a href="#TCP-IP通讯过程（两台主机在同一个局域网当中）" class="headerlink" title="TCP/IP通讯过程（两台主机在同一个局域网当中）"></a><strong>TCP/IP通讯过程（两台主机在同一个局域网当中）</strong></h2><p><img src="两台主机在同一个局域网当中的通信.png" alt="两台主机在同一个局域网当中的通信"></p>
 <p>跨网段的主机的文件传输. 数据从一台计算机到另一台计算机传输过程中要经过一个或多个路由器。</p>
 <p><strong>交换机的应用</strong>: （大局域网中的应用）</p>
 <p>交换机会有效的划分，碰撞域（冲突）</p>
@@ -621,7 +621,7 @@
 <h2 id="不同局域网之间的网络传输"><a href="#不同局域网之间的网络传输" class="headerlink" title="不同局域网之间的网络传输"></a>不同局域网之间的网络传输</h2><p><strong>路由器的应用：</strong>路由器的作用连接局域网对网道网的数据进行转发。</p>
 <p>路由器横跨两个局域网，路由器至少连接两个网卡，<strong>既有两个网卡的MAC地址（硬件地址）</strong> </p>
 <p>路由器有<strong>两个的接口**</strong>两张网卡<strong>，分别连接两个</strong>（<strong>两个独立的MAC地址</strong>），一个网卡连接以太网去驱动程序，右侧的这个连接里令牌环驱动程序。</p>
-<p><img src="/2019/01/16/网络基础(1)/不同局域网内的网络通信.png" alt="不同局域网内的网络通信"></p>
+<p><img src="不同局域网内的网络通信.png" alt="不同局域网内的网络通信"></p>
 <p>A主机自顶向下进行交付，封装到网络层时（查找自己的路由表）发现要去的目标IP不再同一个局域网。</p>
 <p>所以发出数据的地址传自己的IP、MAC，目标地址传路由器的MAC地址。</p>
 <p>数据帧由A主机发送到局域网上，所有局域网内的所有主机都受到了这条消息，其他主机收到消息后要做第一件事情，解包然后对对比，对比自己的IP地址与数据帧中解包出来的目的IP地址。</p>
@@ -685,8 +685,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/16/正则表达式/" rel="next" title="网络基础(1)">
-                <i class="fa fa-chevron-left"></i> 网络基础(1)
+              <a href="/2019/01/16/正则表达式/" rel="next" title="正则表达式">
+                <i class="fa fa-chevron-left"></i> 正则表达式
               </a>
             
           </div>

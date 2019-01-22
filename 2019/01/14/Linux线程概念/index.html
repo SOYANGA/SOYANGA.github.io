@@ -486,14 +486,14 @@
 <li>进程是<strong>分配系统资源的基本单位</strong></li>
 <li>线程是<strong>一个标准的进程(一个执行流的进程)</strong></li>
 </ul>
-<p><img src="/2019/01/14/Linux线程概念/Linux线程图解.png" alt="Linux线程图解"></p>
+<p><img src="Linux线程图解.png" alt="Linux线程图解"></p>
 <h2 id="1-理解（Linux下）"><a href="#1-理解（Linux下）" class="headerlink" title="1.理解（Linux下）"></a>1.理解（Linux下）</h2><p><strong>线程是在进程的内部运行的：</strong>线程是在进程的地址空间内运行的，共享一份虚拟地址空间。</p>
 <p><strong>线程大部分资源都是共享的</strong>。（共用一个虚拟地址空间）</p>
 <p><strong>进程大部分资源都是独立的</strong>。（每个一个进程都有自己独自的一份虚拟地址空间）</p>
 <p>CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linux当中CPU看到的一个进程相当于一个轻量级进程（&lt;=一个标准的进程(一个执行流的进程)）</p>
 <p>Linux下没有一份真正意义的进程。使用进程模拟线程。</p>
 <p>TCB ThreadContrlClock 线程控制块</p>
-<p><img src="/2019/01/14/Linux线程概念/线程概念.png" alt="线程概念"></p>
+<p><img src="线程概念.png" alt="线程概念"></p>
 <a id="more"></a>
 <h2 id="2-线程的资源"><a href="#2-线程的资源" class="headerlink" title="2.线程的资源"></a>2.线程的资源</h2><ul>
 <li><strong>私有资源</strong></li>
