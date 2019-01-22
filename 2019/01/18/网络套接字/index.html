@@ -552,7 +552,7 @@
 </ul>
 </blockquote>
 <p>为了网路程序具有可以移植性，使同样的C代码在大端小端计算机上编译后都能正常运行，可以调用以下库函数<strong>做网络字节序和主机字节序的转换</strong></p>
-<p><img src="C语言大端小段转换.png" alt="1547781909980"></p>
+<p><img src="/2019/01/18/网络套接字/C语言大端小段转换.png" alt="1547781909980"></p>
 <ul>
 <li>这些函数名很好记,h表⽰示host,n表⽰示network,l表⽰示32位⻓长整数,s表⽰示16位短整数。 </li>
 <li>例如htonl表⽰示将32位的长整数从主机字节序转换为网络字节序,例如将IP地址转换后准备发送。</li>
@@ -569,7 +569,7 @@
 <li>IPv4、IPv6地址类型分别定义为常数AF_INET、AF_INET6. 这样,只要取得某种sockaddr结构体的 ⾸首地址,不需要知道具体是哪种类型的sockaddr结构体,就可以根据地址类型字段确定结构体中的内 容. </li>
 <li>socket API可以都⽤用struct sockaddr *类型表⽰示, 在使⽤用的时候<strong>需要强制转化成sockaddr_in; 这样的 好处是程序的通⽤用性,</strong> 可<strong>以接收IPv4, IPv6, 以及UNIX Domain Socket各种类型的sockaddr结构体 指针做为参数;</strong> </li>
 </ul>
-<p><img src="不同套接字结构体.png" alt="不同套接字结构体"></p>
+<p><img src="/2019/01/18/网络套接字/不同套接字结构体.png" alt="不同套接字结构体"></p>
 <h3 id="Sockaddr结构"><a href="#Sockaddr结构" class="headerlink" title="Sockaddr结构"></a>Sockaddr结构</h3><h3 id="Sckaddr-in结构"><a href="#Sckaddr-in结构" class="headerlink" title="Sckaddr_in结构"></a>Sckaddr_in结构</h3><blockquote>
 <p>虽然socket api的接⼝口是sockaddr, 但是我们真正在基于IPv4编程时, 使⽤用的数据结构是sockaddr_in; 这个结构 ⾥里主要有三部分信息: <strong>地址类型, 端口号, IP地址.</strong></p>
 </blockquote>
@@ -875,7 +875,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -991,7 +991,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">56.2k</span>
+    <span title="Site words total count">56.7k</span>
   
 </div>
 
