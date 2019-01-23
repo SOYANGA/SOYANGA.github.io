@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux网络,ICMP协议," />
 
 
 
@@ -93,18 +93,22 @@
 
 
 
+<meta name="description" content="ICMP协议网络层协议！！！！ 适用于：一个新搭建的好的网络，往往需要先进行一个简单的测试，来验证网络是否畅通；但是IP协议并不提供可靠传输。如果丢包了，IP协议并不能通知传输层是否丢包以及丢包的原因。 ICMP功能ICMP正是提供这种功能的协议；ICMP协议主要功能如下：   确认IP包是否成功到达目标地址 通知在发送过程中IP包被丢弃的原因 ICMP也是基于IP协议工作的。但是他并不是">
+<meta name="keywords" content="Linux网络,ICMP协议">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络-网络层ICMP协议">
 <meta property="og:url" content="https://soyanga.github.io/2019/01/22/网络-网络层ICMP协议/index.html">
 <meta property="og:site_name" content="SOYANGA">
+<meta property="og:description" content="ICMP协议网络层协议！！！！ 适用于：一个新搭建的好的网络，往往需要先进行一个简单的测试，来验证网络是否畅通；但是IP协议并不提供可靠传输。如果丢包了，IP协议并不能通知传输层是否丢包以及丢包的原因。 ICMP功能ICMP正是提供这种功能的协议；ICMP协议主要功能如下：   确认IP包是否成功到达目标地址 通知在发送过程中IP包被丢弃的原因 ICMP也是基于IP协议工作的。但是他并不是">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/22/网络-网络层ICMP协议/ICMP工作流程.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/22/网络-网络层ICMP协议/ICMP报文格式.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/22/网络-网络层ICMP协议/ping实际操作.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/01/22/网络-网络层ICMP协议/traceroute实际操作.png">
-<meta property="og:updated_time" content="2019-01-22T10:38:24.362Z">
+<meta property="og:updated_time" content="2019-01-23T09:43:54.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络-网络层ICMP协议">
+<meta name="twitter:description" content="ICMP协议网络层协议！！！！ 适用于：一个新搭建的好的网络，往往需要先进行一个简单的测试，来验证网络是否畅通；但是IP协议并不提供可靠传输。如果丢包了，IP协议并不能通知传输层是否丢包以及丢包的原因。 ICMP功能ICMP正是提供这种功能的协议；ICMP协议主要功能如下：   确认IP包是否成功到达目标地址 通知在发送过程中IP包被丢弃的原因 ICMP也是基于IP协议工作的。但是他并不是">
 <meta name="twitter:image" content="https://soyanga.github.io/2019/01/22/网络-网络层ICMP协议/ICMP工作流程.png">
 
 
@@ -393,12 +397,34 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T18:38:24+08:00">
-                2019-01-22
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-23T17:43:54+08:00">
+                2019-01-23
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -460,7 +486,8 @@
       
         <meta name="referrer" content="no-referrer">
 
-<a id="more"></a>
+
+
 <h1 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h1><p><strong>网络层协议！！！！</strong></p>
 <p>适用于：一个新搭建的好的网络，往往需要先进行一个简单的测试，来验证网络是否畅通；但是IP协议并不提供可靠传输。如果丢包了，IP协议并不能通知传输层是否丢包以及丢包的原因。</p>
 <h2 id="ICMP功能"><a href="#ICMP功能" class="headerlink" title="ICMP功能"></a>ICMP功能</h2><p>ICMP正是提供这种功能的协议；ICMP协议主要功能如下：</p>
@@ -474,6 +501,7 @@
 </blockquote>
 <h2 id="ICMP工作流程"><a href="#ICMP工作流程" class="headerlink" title="ICMP工作流程"></a>ICMP工作流程</h2><p><img src="/2019/01/22/网络-网络层ICMP协议/ICMP工作流程.png" alt="ICMP工作流程"></p>
 <h2 id="ICMP报文格式"><a href="#ICMP报文格式" class="headerlink" title="ICMP报文格式"></a>ICMP报文格式</h2><p><img src="/2019/01/22/网络-网络层ICMP协议/ICMP报文格式.png" alt="ICMP报文格式"></p>
+<a id="more"></a>
 <p>ICMP大概分为两类报文：</p>
 <blockquote>
 <ul>
@@ -586,6 +614,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Linux网络/" rel="tag"><i class="fa fa-tag"></i> Linux网络</a>
+          
+            <a href="/tags/ICMP协议/" rel="tag"><i class="fa fa-tag"></i> ICMP协议</a>
+          
+        </div>
+      
 
       
       
@@ -604,6 +640,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/23/网络重点知识总结/" rel="prev" title="网络重点知识总结">
+                网络重点知识总结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -684,7 +724,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -706,7 +746,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -800,7 +840,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">57.2k</span>
+    <span title="Site words total count">62.6k</span>
   
 </div>
 

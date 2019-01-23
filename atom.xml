@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-01-22T10:38:24.362Z</updated>
+  <updated>2019-01-23T09:47:08.345Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -17,20 +17,134 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>网络-网络层ICMP协议</title>
-    <link href="https://soyanga.github.io/2019/01/22/%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82ICMP%E5%8D%8F%E8%AE%AE/"/>
-    <id>https://soyanga.github.io/2019/01/22/网络-网络层ICMP协议/</id>
-    <published>2019-01-22T08:55:59.000Z</published>
-    <updated>2019-01-22T10:38:24.362Z</updated>
+    <title>在浏览器上输入URL发生什么事</title>
+    <link href="https://soyanga.github.io/2019/01/23/%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8A%E8%BE%93%E5%85%A5URL%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%E4%BA%8B/"/>
+    <id>https://soyanga.github.io/2019/01/23/在浏览器上输入URL发生什么事/</id>
+    <published>2019-01-23T09:44:44.000Z</published>
+    <updated>2019-01-23T09:47:08.345Z</updated>
     
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><a id="more"></a><h1 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h1><p><strong>网络层协议！！！！</strong></p><p>适用于：一个新搭建的好的网络，往往需要先进行一个简单的测试，来验证网络是否畅通；但是IP协议并不提供可靠传输。如果丢包了，IP协议并不能通知传输层是否丢包以及丢包的原因。</p><h2 id="ICMP功能"><a href="#ICMP功能" class="headerlink" title="ICMP功能"></a>ICMP功能</h2><p>ICMP正是提供这种功能的协议；ICMP协议主要功能如下：</p><blockquote><ul><li>确认IP包是否成功到达目标地址</li><li>通知在发送过程中IP包被丢弃的原因</li><li>ICMP也是基于IP协议工作的。但是他并不是提供传输层的功能，所以ICMP协议是网络层协议</li><li>ICMP只能搭载IPv4使用，如果是IPb6的情况要使用的是ICMPv6;</li></ul></blockquote><h2 id="ICMP工作流程"><a href="#ICMP工作流程" class="headerlink" title="ICMP工作流程"></a>ICMP工作流程</h2><p><img src="/2019/01/22/网络-网络层ICMP协议/ICMP工作流程.png" alt="ICMP工作流程"></p><h2 id="ICMP报文格式"><a href="#ICMP报文格式" class="headerlink" title="ICMP报文格式"></a>ICMP报文格式</h2><p><img src="/2019/01/22/网络-网络层ICMP协议/ICMP报文格式.png" alt="ICMP报文格式"></p><p>ICMP大概分为两类报文：</p><blockquote><ul><li>一类是通知出错原因</li><li>一类是用于诊断查询</li></ul></blockquote><h3 id="ICMP报文类型字段"><a href="#ICMP报文类型字段" class="headerlink" title="ICMP报文类型字段"></a>ICMP报文类型字段</h3><table><thead><tr><th>类型（十进制）</th><th>内容</th></tr></thead><tbody><tr><td>0</td><td>回送应答</td></tr><tr><td>3</td><td>目标不可达</td></tr><tr><td>4</td><td>原点抑制</td></tr><tr><td>5</td><td>重定向或改变路由</td></tr><tr><td>8</td><td>回送请求</td></tr><tr><td>9</td><td>路由器公告</td></tr><tr><td>10</td><td>路由器请求</td></tr><tr><td>11</td><td>超时</td></tr><tr><td>17</td><td>地址子网请求</td></tr><tr><td>18</td><td>地址子网应答</td></tr></tbody></table><h2 id="ping命令"><a href="#ping命令" class="headerlink" title="ping命令"></a>ping命令</h2><p><img src="/2019/01/22/网络-网络层ICMP协议/ping实际操作.png" alt="ping实际操作"></p><blockquote><ul><li>此处的ping连接的是一个域名，而不是一个url，一个域名可以通过DNS解析成IP地址</li><li>ping命令不光校验网络的连通性，同时也会统计响应时间和TTL（IP包中的Time TO Live,生存周周期（IP层跳跳次数））</li><li>ping命令会先发送一个ICMP回送请求给对端，即报文的类型填写的是8</li><li>‘对端接收后会返回一个ICMP 回送应答。</li></ul></blockquote><p>ping命令基于ICMP协议是是实现， 是在网络层. 而端口号, 是传输层的内容. 在ICMP中根本就不关注端口号这样的信息。</p><h2 id="traceroute命令"><a href="#traceroute命令" class="headerlink" title="traceroute命令"></a>traceroute命令</h2><p><img src="/2019/01/22/网络-网络层ICMP协议/traceroute实际操作.png" alt="traceroute实际操作"></p><p>能够打印出可执行程序主机，一直到目标主机之前经历了多少路由器。</p>]]></content>
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><p><img src="/2019/01/23/在浏览器上输入URL发生什么事/拨云见日.png" alt="醍醐灌顶"></p><a id="more"></a><h1 id="一、为主机申请IP-DHCP态主机配置协议"><a href="#一、为主机申请IP-DHCP态主机配置协议" class="headerlink" title="一、为主机申请IP:DHCP态主机配置协议"></a>一、为主机申请IP:DHCP态主机配置协议</h1><ol><li><p>假设主机最开始并没有连接网络，所以主机需要获取IP地址以及其他信息，那么就需要先使用DHCP来获取。</p></li><li><p>主机生成一个<strong>DHCP请求报文</strong>，并将这个报文放入具有<strong>目的的端口号67</strong>和<strong>源端口号68</strong>的<strong>UDP报文中。</strong></p></li><li><p>该报文文段被放入在一个具有<strong>广播IP目的地址（255.255.255.255）</strong>和<strong>源IP地址（0.0.0.0</strong>）的<strong>IP数据报中</strong></p></li><li><p>包含DHCP请求报文的IP据报则被放置在<strong>MAC帧</strong>中。这个以太网帧具有<strong>目的地址MAC地址FF.FF.FF.FF.FF.FF</strong>使该帧将广播到交换机。</p><p>| 协议层 | 数据         |<br>| —— | ———— |<br>| 应用层 | DHCP请求报文 |</p><p>| 传输层     | UDP<br>源端口：68    （ DHCP客户端的固定端口）<br><br>目的端口：67 （DHCP服务器的固定端口） |<br>| 网络层     | 源IP地址:0.0.0.0（网络号代表这个局域网）<br>目的IP地址：255.255.255.255（广播IP） |<br>| 数据链路层 | 源MAC地址：主机MAC地址<br>目的MAC地址：FF.FF.FF.FF.FF.FF (广播帧) |</p></li></ol><ol start="5"><li><p>以太网帧被发送到<strong>交换机</strong>  <em>（他是怎么找到交换机的呢？你的网线连着呢呀）</em>、<strong>交换机修改转发表</strong>（switch table）记录主机的MAC <em>（自学习：每接收到一个帧都记录该帧的MAC和到达的接口）</em>，然后广播道所有与交换机相连的设备。</p><p>| 地址        | 接口 | 时间 |<br>| ———– | —- | —- |<br>| 主机MAC地址 | 1    | …  |</p></li></ol><ul><li><strong>以上过程就是将DHCP请求报文一层一层做封装（添加了UDP报头，IP报头字段，数据帧报头字段）</strong> 发送个交换机，</li><li>交换机在其转换表中记录了一条关于主机发送的信息，然后再广播到所有与它连接的设备上去。</li></ul><ol start="6"><li><p>连接在<strong>交换机的DHCP服务器</strong>收到广播帧之后，不断向上分解得到<strong>IP数据报</strong>，<strong>UDP数据段，DHCP请求报文</strong> ，之后DHCP服务器生成<strong>DHCP,ACK报文</strong>。DHCP服务器能够以<strong>CIDR块</strong>的形式（服务器IP子 按位与 服务器子网掩码获取子网地址的范围，并取地址分配给<strong>主机IP地址</strong>）</p><blockquote><p>该报文包含以下信息：</p><ul><li><strong>IP地址</strong></li><li><strong>DNS服务器得IP地址</strong></li><li><strong>默认网关路由器的IP地址（第一跳的IP地址）</strong></li><li><strong>子网块==子网掩码</strong></li></ul></blockquote><p>| DHCP ACK报文                   |                           |<br>| —————————— | ————————- |<br>| IP地址                         | 主机IP                    |<br>| DNS服务器IP地址                | 后续进行DNS域名解析时使用 |<br>| 默认网关路由器（第一跳）IP地址 | 主机的第一跳IP地址        |<br>| 子网块（子网掩码）             |                           |</p></li></ol><ol start="7"><li><p>将ACK报文向下进行依次封装成UDP报文段，IP报文，MAC帧,这个以太网帧中<strong>目的地址为主机MAC地址</strong>，<strong>源地址为路由器中的DHCP服务器地址</strong>。</p><p>| 协议层     | 数据                                                         |<br>| ———- | ———————————————————— |<br>| 应用层     | DHCP ACK报文（响应）                                         |<br>| 传输层     | UDP <br>源端口：  67  (DHCP服务器的固定端口） <br>目的端口：68 （（ DHCP客户端的固定端口） |<br>| 网络层     | 源IP地址:0.0.0.0（网络号代表这个局域网）<br> 目的IP地址：255.255.255.255（广播IP） |<br>| 数据链路层 | 源MAC地址：主机MAC地址 <br>目的MAC地址：FF.FF.FF.FF.FF.FF (广播帧) |</p></li></ol><ul><li><strong>得到的MAC帧进行解包，分用处理，然后应用层DHCP服务器给出响应ACK报文再次向下封装发送回个给交换机上，其中包含的内容如上。</strong> </li></ul><ol start="8"><li>包含DHCP ACK报文的<strong>MAC帧</strong>由路由器发送给交换机。交换机是自学习的，并且先前从主机收到的包含DHCP请求的MAC帧，所以交换机知交换机表中查询到，该向那个接口发送该MAC帧。</li></ol><ol start="9"><li>主机接收到包含DHCP的<strong>MAC帧</strong>，从连路层层层向上解包分用，<strong>IP报文</strong>，<strong>UDP报文段</strong>，从UDP报文段中抽取<strong>DHCP ACK报文</strong>。此时主机的DHCP客户端记录其中的<strong>IP地址和DNS服务器的IP地址</strong>，在主机的<strong>IP转发表(路由表)</strong>中安装<strong>默认网关地址</strong>。此时，主机已经<strong>初始化所有网络组件</strong>，并且准备开始处理web页面的获取。</li></ol><h1 id="二、DNS域名系统-amp-查找默认网关路由器MAC地址：ARP地址转换协议"><a href="#二、DNS域名系统-amp-查找默认网关路由器MAC地址：ARP地址转换协议" class="headerlink" title="二、DNS域名系统&amp;查找默认网关路由器MAC地址：ARP地址转换协议"></a>二、DNS域名系统&amp;查找默认网关路由器MAC地址：ARP地址转换协议</h1><ol><li><p>主机通过浏览器生成一个<strong>TCP套接字</strong>，套接字用于向目的域名发送一个<strong>HTTP请求</strong>。为了生成，需要知道网站的<strong>域名对应的IP地址</strong>。使用<strong>DNS</strong>服务提供这种<strong>域名到IP的互相转换</strong>。</p></li><li><p>主机生成了一个<strong>DNS查询报文</strong>，将字符串（域名）放入DNS报文的问题段中。这个DNS报文则放置在一个具有<strong>53号（DNS服务）目的端口</strong>的<strong>UDP报文</strong>中。该UDP报文段则放入<strong>目的IP地址</strong>（之前DHCP服务器ACK报文中返回的<strong>DNS服务器地址</strong>）和<strong>源IP地址（主机地址）</strong>的I<strong>P数据报</strong>当中。该IP数据报又被放置在<strong>MAC帧</strong>中，查看主机路由表，DNS服务器所在网络并<strong>不在路由表</strong>中记载，目前需要先跳到<strong>默认网关路由器</strong>上去，但是只知道<strong>默认网关路由器的IP地址</strong>，不知道<strong>默认网关路由器的MAC地址</strong>，所以需要ARP地址转换协议提供<strong>默认网关路由器</strong>的<strong>IP到MAC地址的地址转换服务</strong>。</p></li></ol><ul><li><strong>此时先要对URL网址进行DNS域名解析得到网站的IP地址，但是要给DNS前需要发送到默认网关路由器地址出去（第一跳），发送MAC帧目前并不知道默认网关的MAC地址，只知道默认网关的IP地址（之前DHCP服务器ACK报文中返回的默认网关路由器地址）</strong></li><li><p><strong>所以需要先进行DNS服务器MAC地址获取的工作，要是使用ARP地址转换协议。</strong></p><p>| 协议层     | 数据                                                         |<br>| ———- | ———————————————————— |<br>| 应用层     | DHCP ACK报文（响应）                                         |<br>| 传输层     | TCP<br>源端口：  <br>目的端口：                              |<br>| 网络层     | 源IP地址:主机IP地址  目的IP地址：DNS服务IP地址               |<br>| 数据链路层 | 源MAC地址：主机MAC地址<br> 目的MAC地址：FF.FF.FF.FF.FF.FF (广播帧)<br>帧类型：0806（ARP请求）<br>硬件类型：1（以太网）<br>协议类型：0X0800(要转换的类型为IP类型)<br>硬件地址长度：6字节（对于MAC地址而言）<br>协议地址长度：4字节（对于IP地址而言）<br>OP:1(为IP请求) （2为应答）<br>发送端以太网地址：主机MAC地址<br>发送端IP地址：主机IP地址<br>目的以太网地址：FF.FF.FF.FF.FF.FF (广播帧)<br>目的IP地址：默认网关地址 |</p><p>注：ARP只为同一子网上的主机和路由器接口解析IP地址。DNS为因特网中的任何的主机解析为IP地址。</p></li></ul><ol start="3"><li><p>主机生一个具有<strong>目的IP地址（默认网关）</strong>的ARP查询报文，将这个ARP查询报文放置在一个<strong>广播目的地址</strong>（FF.FF.FF.FF.FF.FF）的<strong>MAC帧</strong>中，并向交换机发送这个MAC帧，交换机将这个MAC帧广播给所有与它连接的设备上去（包括网关路由）。</p><ul><li>在发送ARP请求的时候是广播（广播请求），在发送ARP应答的时候是并不是群发，而是根据主机的IP,MAC地址单播的（单播回应）</li></ul></li><li><p><strong>默认网关路由器</strong>接收到这个<strong>MAC帧</strong>，提取得到<strong>ARP报文</strong>，填写<strong>源MAC地址</strong>（默认网关路由器的MAC地址），然后根据<strong>主机IP（目的IP地址）</strong>，<strong>主机MAC地址（目的MAC地址）</strong>进行<strong>单播</strong>发送ARP应答。</p></li><li><p><strong>主机接收到后对ARP进行缓存（ARP表</strong>），<strong>MAC和IP的映射</strong>。该缓存有生命周期一般为20分钟。20分钟后操作系统重新对ARP缓存表操作。此时主机就<strong>知道</strong>了<strong>默认网关路由器的MAC地址</strong>。</p></li></ol><p>​    </p><table><thead><tr><th>IP地址</th><th>MAC地址</th><th>TTL(TIME TO LIVE)</th></tr></thead><tbody><tr><td>默认网关路由器IP地址</td><td>默认网关路由器MAC(ARP回应中的源MAC地址字段)</td><td>20</td></tr></tbody></table><p>万事具备了。现在主机能够使<strong>包含DNS查询报文的MAC帧</strong>寻址到<strong>默认网关路由器的MAC地址（第一跳）</strong>了。（继续进行DNS解析）</p><h1 id="三、查找目的域名的IP-DNS域名系统"><a href="#三、查找目的域名的IP-DNS域名系统" class="headerlink" title="三、查找目的域名的IP:DNS域名系统"></a>三、查找目的域名的IP:DNS域名系统</h1><ol><li>默认网关路由器接收到该帧并抽取DNS查询的IP数据报，并根据<strong>转发表（路由器表）</strong>决定该 IP 数据报应该转发的路由器，直至到达<strong>服务器所在局域网路由器</strong></li><li>因为路由器具有<strong>内部网关协议</strong>（<strong>RIP路由信息协议、OSPF开放最短路径优先协议</strong>）<em>和<strong>外部网关协议</strong></em>（<strong>BGP边界网关协议</strong>/以及<strong>因特网的域间协议BGP</strong>所填写）这两种路由选择协议，因此<strong>路由表</strong>中已经配置了<strong>网关路由器</strong>到达 <strong>DNS 服务器</strong>的<strong>路由表项</strong>。</li><li>到达 DNS 服务器之后，DNS 服务器抽取出 DNS 查询报文，并在 <strong>DNS 数据库</strong>中查找待解析的域名。</li><li>找到 包含这个主机名的IP地址映射的<strong>DNS回答报文</strong>之后，发送 DNS 回答报文，将该回答报文放入 UDP 报文段中，然后放入 IP 数据报中，通过<strong>路由器反向转发回网关路由器</strong>，并经过<strong>以太网交换机到达主机。</strong></li><li>主机从DNS报文中取得网占的IP地址。最终，在上面进行大量工作后，主机准备和该网站服务器建立连接。</li></ol><h1 id="四、Web客户-服务器交互：TCP和HTTP"><a href="#四、Web客户-服务器交互：TCP和HTTP" class="headerlink" title="四、Web客户-服务器交互：TCP和HTTP"></a>四、Web客户-服务器交互：TCP和HTTP</h1><ol><li>既然主机已经有了网站服务器的IP地址，则他现在可以生成TCP套接字，这个套接字用于向发送<strong>HTTP GET报文（长连接</strong>）。但是TCP是需要连接的，要跟网站服务器之间进行3次握手来建立连接。此时主机生成一个具有<strong>目的端口80</strong>的TCP <strong>SYN报文</strong>该TCP报文段 放在具有<strong>目的IP地址</strong>为<strong>域名解析后的网站服务器IP地址</strong>，数据报则放置在MAC地址为默认网关路由器的帧中，并向交换机发送该MAC帧。</li></ol><ol start="2"><li>（第一次握手）主机向目的服务器发送的连接请求报文，SYN = 1,ACK = 0,.先择一个初始序号为X。主机的状态机变为SYN_SENT。（确认客户端的发送能力，</li></ol><ol start="3"><li>（第二次握手）目的服务器收到连接请求报文段后，如果同意建立连接，则向主机发送一个连接请求报文段，SYN = 1 ACK = 1,确认序号为X+1.同时也选择一个初始序号Y。服务器的状态机由LISTEN变为SYN_RCVD（确认服务器的接收能力，确认服务器的发送能力）</li></ol><ol start="4"><li><p>（第三次握手）主机收到目的服务器的连接确认报文后，好要向目的服务器发出确认，确认序号为Y+1,序号为X+1。（确认客户端的接受能力）</p><ul><li>三次握手是TCP可靠性的重要表现，《计算机网络》第四版中说三次握手是为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。</li><li>客户端发送的连接请求如果在网络中滞留，那么就会隔很长一段时间才能收到服务器端发回的连接确认。客户端等待一个超时重传时间之后，就会重新请求连接。但是这个滞留的连接请求最后还是会到达服务器，如果不进行三次握手，那么服务器就会打开两个连接。如果有第三次握手，客户端会忽略服务器之后发送的对滞留连接请求的连接确认，不进行第三次握手，因此就不会再次打开连接</li></ul></li></ol><ul><li>但是假设不进行三次握手，只要服务器发出请求客户端回应就连接成功的化，但是一旦服务器的确认报文在发送过程中丢失了，此时服务器端认为连接已经建立，就会维护这个连接的，维护这个连接是需要花费成本的，但是服务器维护的连接并不是双方认可的连接。</li><li>如果服务器的响应报文一直丢失，客户端一直认为连接失败，一直发送连接请求。此时服务器就有了大量的闲时连接，导致服务器资源不够，服务器谈话（给攻击服务器的人提供了一种返方法）处于安全服务器考虑，将最后一个连接请求放到客户端去，即使最后一次报文丢失，也是子客户段方。</li></ul><ol start="5"><li><p>连接建立完成后，服务器会浏览器响应一个301永久重定向，这样浏览器访问“<a href="http://www./XXXX.com”而非“" target="_blank" rel="noopener">http://www./XXXX.com”而非“</a> <a href="http://XX.com&quot;。这个原因跟搜索引擎排名有关。如果一个页面有两个地址，就像http://www.igoro.com/" target="_blank" rel="noopener">http://XX.com&quot;。这个原因跟搜索引擎排名有关。如果一个页面有两个地址，就像http://www.igoro.com/</a> 和<a href="http://igoro.com/，搜索引擎会认为它们是两个网站，结果造成每一个的搜索链接都减少从而降低排名。而搜索引擎知道301永久重定向是" target="_blank" rel="noopener">http://igoro.com/，搜索引擎会认为它们是两个网站，结果造成每一个的搜索链接都减少从而降低排名。而搜索引擎知道301永久重定向是</a> 什么意思，</p><ul><li>这样就会把访问带www的和不带www的地址归到同一个网站排名下。</li><li>还有就是用不同地址会造成缓存友好性变差。当一个页面有好几个名字时。他就会在缓存里出现好几次。</li></ul></li><li><p>浏览器知道了永久重定向地址后，他就发送确认数据报。（确认应答机制）</p></li><li><p>服务器确认收到后，客户此时终于可以发送HTTP GET报文了，将请求页面的内容放入请求报头当中，并将报文端发送到TCP套接字中层层封装，数据帧的形式发送个服务器，服务器拿到数据帧，向上一步一步解包分用。</p></li><li><p>服务器生成一个Http响应报文，也层层封装，发送个客户端。这样你来我往的（确认应答机制），客户端在收到的HTTP响应报文后，抽取Web页面内容后，进行渲染，显示Web页面</p></li></ol><h1 id="五、页面渲染-lt-前端待学习-gt"><a href="#五、页面渲染-lt-前端待学习-gt" class="headerlink" title="五、页面渲染&lt;前端待学习&gt;"></a>五、页面渲染&lt;前端待学习&gt;</h1><p>现代浏览器渲染页面的过程是这样的：<strong>解析 html 以构建 DOM 树 –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树。</strong></p><p>渲染树是在 DOM 树中加入 css 或 html 中的 style 样式而形成。渲染树只包含需要显示在页面中的 DOM 元素，像 <code>&lt;head&gt;</code> 元素或 display 属性值为 none 的元素都不在渲染树中。在浏览器还没接收到完整的 html 文件时，它就开始渲染页面了。</p><p>　　在遇到外部链入的脚本标签、样式标签、图片时，会再次发送 http 请求重复上述的步骤。在收到 css 文件后，会对已经渲染的页面重新渲染，加入它们应有的样式。图片文件加载完，立刻显示在相应位置。在这一过程中可能会触发页面的重绘或重排。</p><h1 id="六、客户端断开连接（4次挥手）"><a href="#六、客户端断开连接（4次挥手）" class="headerlink" title="六、客户端断开连接（4次挥手）"></a>六、客户端断开连接（4次挥手）</h1><p>​    由于TCP连接是全双工的，因此连接双方都必须单独进行关闭。</p><ol><li><p>（第一次挥手）客户端发起一个FIN，用于关闭客端到服务器的数据传输，初始序号X</p><ul><li>此时客户端状态机从ESTABLSHED变为FIN_WAIT_1状态。close()方法</li></ul></li><li><p>（第二次挥手）：服务器收到这个FIN，它发会一个ACK，确认序号为X+1.初始序号Y</p><ul><li>此时服务器状态机从ESTABLSHED变为COLSE_WAIT 。read（）返回0</li><li>客户端收到服务器对FIN报文的确认，则状态机从FIN_WAIT_1变为FIN_WAIT_2开始等待服务器的FIN报文。确认序号Y+1.确认序号为X+1</li></ul></li><li><p>（第三次挥手）：服务器关闭客户端连接，发送一个FIN给客户端。序号Y+2,确认序号X+1</p><ul><li>服务器的状态机从COLSE_WAIT变为LAST_ACK等待最后一个ACK的到来（服务器确认受到）。</li></ul></li><li><p>（四次挥手）：客户端接收到服务器的FIN报文后,序号为X+2 确认序号为Y+2。客户端等待2MSL</p><ul><li><p>此时客户端从状态机从FIN_WAIT_2变为TIME_WAIT。</p></li><li><p>客户端要等待⼀个2MSL=120s(Max Segment Life,） 报⽂最⼤⽣存时间)的时间,才会进⼊CLOSED状态 。</p></li><li><p>客户端是在等待，保证迟到的报文尽快收到。在此等待状态下，服务器与客户端之间的连接并没有完全断开，无法重新建立新的连接。</p></li><li><p>解决允许创建端口号相同的但是IP地址不同的多个socket连接</p></li><li><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> opt = <span class="number">1</span>;</span><br><span class="line">setsockopt(listenfd,SOL_SOCKET,SO_REUSEADDR,&amp;opt,<span class="keyword">sizeof</span>(opt));</span><br></pre></td></tr></table></figure><p>为什么建立连接时是3次握手，而建立连接时却是4次挥手</p><ul><li>3次握手时，服务的对于客户端的第一次请求中（第二次握手时）服务器将连接请求SYN和响应同时进行发送（捎带应答）</li><li>而关闭连接时，当收到客户端的FIN报文时，仅仅表示客户端不再发送数据，还可以接收数据。服务器也未必已经将要发的数据全部发送完了，所以此时一次性将服务器的ACK和FIN发送就可能导致服务器要发送的书数据发送不了，所以先给客户端响应ACK后进行未发完数据发送，发送完毕后再发送FIN个客户端，表示服务器不再发送数据了。保证了TCP的可靠性。</li><li>因此，服务器的ACK和FIN一般都会分开发送。</li></ul></li></ul></li></ol><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul><li>DHCP：获取主机IP地址（局域网内广播</li><li>DNS&amp;ARP：<ul><li>获取默认网关（第一跳）（因为DNS查询外网查询）的MAC地址（ARP）</li><li>获取到默认网关地址后就可以进行封装成数据帧，利用DNS对网站的域名进行解析了。</li><li>注：ARP只为同一子网上的主机和路由器接口解析IP地址。DNS为因特网中的任何的主机解析为IP地址。</li><li>DNS域名解析过程，获得网站的IP地址</li></ul></li><li>Web客户-服务器交互：TCP和HTTP<ul><li>可以进行HTTP GET 请求了，但是TCP是面向连接的，所以需要进行3次握手</li><li>建立连接完成后要进行服务器永久重定向，浏览器跟踪重定向（确认应答机制）</li><li>建立连接后，就以确认应答机制你来我往的发送数据。</li><li>客户端收到服务器HTTP响应报文后，进行页面渲染</li></ul></li><li>页面渲染&lt;前端待学习&gt;<ul><li>解析 html 以构建 DOM 树 –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树。</li></ul></li><li>终止连接TCP4次挥手</li></ul><p>遇到问题：</p><p>小插曲：第一次链接中达到服务器的局域网内的路由器时，由于不知道服务器的MAC地址还需要进行一次ARP请求。该请求会留有ARP表</p><p>MAC帧在网络中一跳一跳的时候是网络层和网络成层直接通信的吗，不需要依赖底层数据帧的传输？，但是每跳一次都需要进行ARP地址转换？</p><p>但是ARP只为同一子网上的主机和路由器接口解析IP地址。</p><p>还是只有到达对端局域网内的路由器时，要将在路由器内IP数据报封装成以太网帧时需要进行一次ARP地址转换？</p>]]></content>
     
     <summary type="html">
     
       &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+&lt;p&gt;&lt;img src=&quot;/2019/01/23/在浏览器上输入URL发生什么事/拨云见日.png&quot; alt=&quot;醍醐灌顶&quot;&gt;&lt;/p&gt;
     
     </summary>
     
+      <category term="Linux网络" scheme="https://soyanga.github.io/categories/Linux%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="Linux网络" scheme="https://soyanga.github.io/tags/Linux%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络重点知识总结</title>
+    <link href="https://soyanga.github.io/2019/01/23/%E7%BD%91%E7%BB%9C%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"/>
+    <id>https://soyanga.github.io/2019/01/23/网络重点知识总结/</id>
+    <published>2019-01-23T09:41:22.000Z</published>
+    <updated>2019-01-23T09:42:56.128Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><blockquote><ul><li>数据链路成的作用：两个设备（同一个数据连路节点）之间进行传递数据</li><li>以太网是一种技术标准，既包含了数据链路层的内容，也包含了一些物理层的内容，例如：规定了网络拓扑结构，访问控制方式，传输率等；</li><li>以太网帧格式</li><li>理解MAC地址</li><li>理解ARP协议</li><li>理解MTU</li></ul></blockquote><h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><blockquote><ul><li>网络层的作用：在复杂的网络环境中确定一个合适的路径</li><li>理解IP地址，理解IP地址和MAC地址的区别</li><li>理解IP协议格式</li><li>了解网段划分方法</li><li>理解如何解决IP数目不足的问题，掌握网段划分的两种方案，理解私有IP和公网IP</li><li>理解网络层的IP地址路由过程。理解一个数据包如何跨越网段到达最终目的地</li><li>理解IP数据包分包原因</li><li>了解ICMP协议</li><li>了解NAT设备的工作原理</li></ul></blockquote><h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><blockquote><ul><li>传输层的作用：负责数据能够从发送断传输接收端</li><li>理解端口号的概念</li><li>认识UDP协议，了解UDP协议的特点</li><li>认识TCP协议，理解TCP协议的可靠性，理解TCP协议的状态转变</li><li>掌握TCP的连接管理，确认应答，超市重传，滑动窗口，流量控制，拥塞控制，延迟应答，捎带应答特性</li><li>理解TCP面向字节流，理解粘包问题和解决方案</li><li>能够基于UDP实现可靠传输</li><li>理解MTU对UDP/TCP的影响</li></ul></blockquote><h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><blockquote><ul><li>应用层的作用：满足我们日常需求的网络程序，都是再应用层</li><li>能够根据自己得需求，设计应用层协议</li><li>了解HTTP协议</li><li>理解DNS的原理和工作流程</li></ul></blockquote><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+
+
+&lt;h1 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h1&gt;&lt;h2 id=&quot;数据链路层&quot;&gt;&lt;a href=&quot;#数据链路层&quot; class=&quot;headerlink&quot; title=&quot;数据链路层&quot;&gt;&lt;/a&gt;数据链路层&lt;/h2&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;数据链路成的作用：两个设备（同一个数据连路节点）之间进行传递数据&lt;/li&gt;
+&lt;li&gt;以太网是一种技术标准，既包含了数据链路层的内容，也包含了一些物理层的内容，例如：规定了网络拓扑结构，访问控制方式，传输率等；&lt;/li&gt;
+&lt;li&gt;以太网帧格式&lt;/li&gt;
+&lt;li&gt;理解MAC地址&lt;/li&gt;
+&lt;li&gt;理解ARP协议&lt;/li&gt;
+&lt;li&gt;理解MTU&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;网络层&quot;&gt;&lt;a href=&quot;#网络层&quot; class=&quot;headerlink&quot; title=&quot;网络层&quot;&gt;&lt;/a&gt;网络层&lt;/h2&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;网络层的作用：在复杂的网络环境中确定一个合适的路径&lt;/li&gt;
+&lt;li&gt;理解IP地址，理解IP地址和MAC地址的区别&lt;/li&gt;
+&lt;li&gt;理解IP协议格式&lt;/li&gt;
+&lt;li&gt;了解网段划分方法&lt;/li&gt;
+&lt;li&gt;理解如何解决IP数目不足的问题，掌握网段划分的两种方案，理解私有IP和公网IP&lt;/li&gt;
+&lt;li&gt;理解网络层的IP地址路由过程。理解一个数据包如何跨越网段到达最终目的地&lt;/li&gt;
+&lt;li&gt;理解IP数据包分包原因&lt;/li&gt;
+&lt;li&gt;了解ICMP协议&lt;/li&gt;
+&lt;li&gt;了解NAT设备的工作原理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;传输层&quot;&gt;&lt;a href=&quot;#传输层&quot; class=&quot;headerlink&quot; title=&quot;传输层&quot;&gt;&lt;/a&gt;传输层&lt;/h2&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;传输层的作用：负责数据能够从发送断传输接收端&lt;/li&gt;
+&lt;li&gt;理解端口号的概念&lt;/li&gt;
+&lt;li&gt;认识UDP协议，了解UDP协议的特点&lt;/li&gt;
+&lt;li&gt;认识TCP协议，理解TCP协议的可靠性，理解TCP协议的状态转变&lt;/li&gt;
+&lt;li&gt;掌握TCP的连接管理，确认应答，超市重传，滑动窗口，流量控制，拥塞控制，延迟应答，捎带应答特性&lt;/li&gt;
+&lt;li&gt;理解TCP面向字节流，理解粘包问题和解决方案&lt;/li&gt;
+&lt;li&gt;能够基于UDP实现可靠传输&lt;/li&gt;
+&lt;li&gt;理解MTU对UDP/TCP的影响&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;应用层&quot;&gt;&lt;a href=&quot;#应用层&quot; class=&quot;headerlink&quot; title=&quot;应用层&quot;&gt;&lt;/a&gt;应用层&lt;/h2&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;应用层的作用：满足我们日常需求的网络程序，都是再应用层&lt;/li&gt;
+&lt;li&gt;能够根据自己得需求，设计应用层协议&lt;/li&gt;
+&lt;li&gt;了解HTTP协议&lt;/li&gt;
+&lt;li&gt;理解DNS的原理和工作流程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Linux网络" scheme="https://soyanga.github.io/categories/Linux%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="Linux网络" scheme="https://soyanga.github.io/tags/Linux%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络-网络层ICMP协议</title>
+    <link href="https://soyanga.github.io/2019/01/22/%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82ICMP%E5%8D%8F%E8%AE%AE/"/>
+    <id>https://soyanga.github.io/2019/01/22/网络-网络层ICMP协议/</id>
+    <published>2019-01-22T08:55:59.000Z</published>
+    <updated>2019-01-23T09:43:54.167Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h1><p><strong>网络层协议！！！！</strong></p><p>适用于：一个新搭建的好的网络，往往需要先进行一个简单的测试，来验证网络是否畅通；但是IP协议并不提供可靠传输。如果丢包了，IP协议并不能通知传输层是否丢包以及丢包的原因。</p><h2 id="ICMP功能"><a href="#ICMP功能" class="headerlink" title="ICMP功能"></a>ICMP功能</h2><p>ICMP正是提供这种功能的协议；ICMP协议主要功能如下：</p><blockquote><ul><li>确认IP包是否成功到达目标地址</li><li>通知在发送过程中IP包被丢弃的原因</li><li>ICMP也是基于IP协议工作的。但是他并不是提供传输层的功能，所以ICMP协议是网络层协议</li><li>ICMP只能搭载IPv4使用，如果是IPb6的情况要使用的是ICMPv6;</li></ul></blockquote><h2 id="ICMP工作流程"><a href="#ICMP工作流程" class="headerlink" title="ICMP工作流程"></a>ICMP工作流程</h2><p><img src="/2019/01/22/网络-网络层ICMP协议/ICMP工作流程.png" alt="ICMP工作流程"></p><h2 id="ICMP报文格式"><a href="#ICMP报文格式" class="headerlink" title="ICMP报文格式"></a>ICMP报文格式</h2><p><img src="/2019/01/22/网络-网络层ICMP协议/ICMP报文格式.png" alt="ICMP报文格式"></p><a id="more"></a><p>ICMP大概分为两类报文：</p><blockquote><ul><li>一类是通知出错原因</li><li>一类是用于诊断查询</li></ul></blockquote><h3 id="ICMP报文类型字段"><a href="#ICMP报文类型字段" class="headerlink" title="ICMP报文类型字段"></a>ICMP报文类型字段</h3><table><thead><tr><th>类型（十进制）</th><th>内容</th></tr></thead><tbody><tr><td>0</td><td>回送应答</td></tr><tr><td>3</td><td>目标不可达</td></tr><tr><td>4</td><td>原点抑制</td></tr><tr><td>5</td><td>重定向或改变路由</td></tr><tr><td>8</td><td>回送请求</td></tr><tr><td>9</td><td>路由器公告</td></tr><tr><td>10</td><td>路由器请求</td></tr><tr><td>11</td><td>超时</td></tr><tr><td>17</td><td>地址子网请求</td></tr><tr><td>18</td><td>地址子网应答</td></tr></tbody></table><h2 id="ping命令"><a href="#ping命令" class="headerlink" title="ping命令"></a>ping命令</h2><p><img src="/2019/01/22/网络-网络层ICMP协议/ping实际操作.png" alt="ping实际操作"></p><blockquote><ul><li>此处的ping连接的是一个域名，而不是一个url，一个域名可以通过DNS解析成IP地址</li><li>ping命令不光校验网络的连通性，同时也会统计响应时间和TTL（IP包中的Time TO Live,生存周周期（IP层跳跳次数））</li><li>ping命令会先发送一个ICMP回送请求给对端，即报文的类型填写的是8</li><li>‘对端接收后会返回一个ICMP 回送应答。</li></ul></blockquote><p>ping命令基于ICMP协议是是实现， 是在网络层. 而端口号, 是传输层的内容. 在ICMP中根本就不关注端口号这样的信息。</p><h2 id="traceroute命令"><a href="#traceroute命令" class="headerlink" title="traceroute命令"></a>traceroute命令</h2><p><img src="/2019/01/22/网络-网络层ICMP协议/traceroute实际操作.png" alt="traceroute实际操作"></p><p>能够打印出可执行程序主机，一直到目标主机之前经历了多少路由器。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+
+
+&lt;h1 id=&quot;ICMP协议&quot;&gt;&lt;a href=&quot;#ICMP协议&quot; class=&quot;headerlink&quot; title=&quot;ICMP协议&quot;&gt;&lt;/a&gt;ICMP协议&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;网络层协议！！！！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;适用于：一个新搭建的好的网络，往往需要先进行一个简单的测试，来验证网络是否畅通；但是IP协议并不提供可靠传输。如果丢包了，IP协议并不能通知传输层是否丢包以及丢包的原因。&lt;/p&gt;
+&lt;h2 id=&quot;ICMP功能&quot;&gt;&lt;a href=&quot;#ICMP功能&quot; class=&quot;headerlink&quot; title=&quot;ICMP功能&quot;&gt;&lt;/a&gt;ICMP功能&lt;/h2&gt;&lt;p&gt;ICMP正是提供这种功能的协议；ICMP协议主要功能如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;确认IP包是否成功到达目标地址&lt;/li&gt;
+&lt;li&gt;通知在发送过程中IP包被丢弃的原因&lt;/li&gt;
+&lt;li&gt;ICMP也是基于IP协议工作的。但是他并不是提供传输层的功能，所以ICMP协议是网络层协议&lt;/li&gt;
+&lt;li&gt;ICMP只能搭载IPv4使用，如果是IPb6的情况要使用的是ICMPv6;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;ICMP工作流程&quot;&gt;&lt;a href=&quot;#ICMP工作流程&quot; class=&quot;headerlink&quot; title=&quot;ICMP工作流程&quot;&gt;&lt;/a&gt;ICMP工作流程&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2019/01/22/网络-网络层ICMP协议/ICMP工作流程.png&quot; alt=&quot;ICMP工作流程&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;ICMP报文格式&quot;&gt;&lt;a href=&quot;#ICMP报文格式&quot; class=&quot;headerlink&quot; title=&quot;ICMP报文格式&quot;&gt;&lt;/a&gt;ICMP报文格式&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2019/01/22/网络-网络层ICMP协议/ICMP报文格式.png&quot; alt=&quot;ICMP报文格式&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux网络" scheme="https://soyanga.github.io/categories/Linux%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="Linux网络" scheme="https://soyanga.github.io/tags/Linux%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="ICMP协议" scheme="https://soyanga.github.io/tags/ICMP%E5%8D%8F%E8%AE%AE/"/>
     
   </entry>
   
@@ -783,65 +897,6 @@
 &lt;li&gt;如果线程不在临界区中执行，那么该线程不能阻止其他线程进入临界区。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;img src=&quot;/2019/01/16/Linux多线程互斥/Lock原理图.png&quot; alt=&quot;Lock原理图&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux多线程" scheme="https://soyanga.github.io/categories/Linux%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    
-      <category term="Linux操作系统" scheme="https://soyanga.github.io/tags/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux多线程控制</title>
-    <link href="https://soyanga.github.io/2019/01/16/Linux%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8E%A7%E5%88%B6/"/>
-    <id>https://soyanga.github.io/2019/01/16/Linux多线程控制/</id>
-    <published>2019-01-16T07:01:41.000Z</published>
-    <updated>2019-01-16T07:26:13.867Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="线程控制"><a href="#线程控制" class="headerlink" title="线程控制"></a>线程控制</h1><h2 id="POSIX线程库"><a href="#POSIX线程库" class="headerlink" title="POSIX线程库"></a>POSIX线程库</h2><blockquote><ul><li>与线程有关的函数构成了⼀一个完整的系列，绝⼤大多数函数的名字都是以“pthread_”打头的 </li><li>引入头文件</li><li>链接这些线程库时要使用编译命令”-lpthread”选项</li></ul></blockquote><h2 id="线程创建"><a href="#线程创建" class="headerlink" title="线程创建"></a>线程创建</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">功能：创建⼀一个新的线程 </span><br><span class="line">原型    int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*star t_routine)(void*), void *arg); </span><br><span class="line">参数    thread:返回线程ID    attr:设置线程的属性，attr为<span class="literal">NULL</span>表⽰示使⽤用默认属性    start_routine:是个函数地址，线程启动后要执⾏行的函数    arg:传给线程启动函数的参数</span><br><span class="line">返回值：成功返回<span class="number">0</span>；失败返回错误码</span><br></pre></td></tr></table></figure><p>错误检查: </p><ul><li>传统的⼀一些函数是，成功返回0，失败返回-1，并且对全局变量errno赋值以指⽰示错误。</li><li>pthreads函数出错时不会设置全局变量errno（⽽而⼤大部分其他POSIX函数会这样做）。⽽而是将错误 代码通过返回值返回 </li><li>pthreads同样也提供了线程内的errno变量，以⽀支持其它使⽤用errno的代码。对于pthreads函数的错 误，建议通过返回值判定，因为读取返回值要比读取线程内的errno变量的开销更小</li></ul><a id="more"></a><h2 id="线程等待"><a href="#线程等待" class="headerlink" title="线程等待"></a>线程等待</h2><p>pthread库中</p><p><strong>线程需要等待：</strong></p><ul><li>已经退出的线程，其空间没有被释放，仍然在进程的地址空间内。 </li><li>创建新的线程不会复用刚才退出线程的地址空间。</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">功能：等待线程结束 </span><br><span class="line">原型    <span class="function"><span class="keyword">int</span> <span class="title">pthread_join</span><span class="params">(<span class="keyword">pthread_t</span> thread, <span class="keyword">void</span> **value_ptr)</span></span>; </span><br><span class="line">参数    thread:线程ID    value_ptr:它指向一个指针，后者指向线程的返回值 </span><br><span class="line">返回值：成功返回<span class="number">0</span>；失败返回错误码</span><br></pre></td></tr></table></figure><blockquote><p><strong>线程等待，当前发起等待线程被挂起（阻塞式），等待被等待退出。</strong></p></blockquote><p>retval：被等待线程退出的返回值。（不关注就传一个NULL）</p><p>线程退出几种情况：</p><ul><li>线程运行完了结果对</li><li>线程运行完了结果不对</li><li>线程没运行完出异常</li></ul><p>但是一个进程中的线程异常退出，整个进程就退出了，发起等待线程也就被终止，所以不关注出异常情况。</p><h2 id="线程终止"><a href="#线程终止" class="headerlink" title="线程终止"></a>线程终止</h2><p>如果需要只终止某个线程而不终止整个进程,可以有三种方法:</p><ol><li>从线程函数return 退出码。这种方法对主线程不适用,从main函数return相当于调用exit。 </li><li>线程可以调用pthread_ exit（退出码）终止自己。 </li><li>一个线程可以调用pthread_ cancel终止同一进程中的另一个线程</li></ol><ul><li>pthread_exit函数</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">功能：线程终止 </span><br><span class="line">原型    <span class="function"><span class="keyword">void</span> <span class="title">pthread_exit</span><span class="params">(<span class="keyword">void</span> *value_ptr)</span></span>; </span><br><span class="line">参数    value_ptr:value_ptr不要指向一个局部变量。 </span><br><span class="line">返回值：无返回值，跟进程一样，线程结束的时候无法返回到它的调用者（自身）</span><br></pre></td></tr></table></figure><ul><li>需要注意,pthread_exit或者return返回的指针所指向的内存单元必须是全局的或者是用malloc分配的,不能在线程函数 的栈上分配,因为当其它线程得到这个返回指针时线程函数已经退出了。</li><li>pthread_cancel函数</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">功能：取消一个执行中的线程 </span><br><span class="line">原型    int pthread_cancel(pthread_t thread); </span><br><span class="line">参数    thread:线程ID </span><br><span class="line">返回值：成功返回0；失败返回错误码</span><br></pre></td></tr></table></figure><p>调用<strong>join函数</strong>的线程将挂起等待,直到id为thread的线程终止。thread线程以不同的方法终止,通过pthread_join得到的终 止状态是不同的，总结如下:</p><blockquote><p>1.如果thread线程通过<strong>return</strong>返回,value_ ptr所指向的单元里存放的是thread线程函数的返回值。 2. 如果thread线程被别的线程调用<strong>pthread_ cance</strong>l异常终掉,value_ ptr所指向的单元里存放的是常数<strong>PTHREAD_ CANCELED   ——返回值为：-1。</strong> </p><p>3.如果thread线程是自己调用<strong>pthread_exit</strong>终止的,value_ptr所指向的单元存放的是传给<strong>pthread_exit的参数。</strong> </p><p>4.如果对thread线程的<strong>终止状态不感兴趣,可以传NULL给value_ ptr参数</strong>。</p></blockquote><h2 id="分离线程"><a href="#分离线程" class="headerlink" title="分离线程"></a>分离线程</h2><ul><li>默认情况下，新创建的线程是joinable的，线程退出后，需要对其进行pthread_join操作，否则无法释放资 源，从而造成系统泄漏。</li><li>如果不关心线程的返回值，join是一种负担，这个时候，我们可以告诉系统，当线程退出时，自动释放线程 资源。</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_detach</span><span class="params">(<span class="keyword">pthread_t</span> thread)</span></span>;</span><br></pre></td></tr></table></figure><p>可以是线程组内其他线程对目标线程进行分离，也可以是线程自己分离:</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pthread_detach(pthread_self());</span><br></pre></td></tr></table></figure><p>joinable和分离是冲突的，一个线程不能既是joinable又是分离的。</p><p>joinable和分离是冲突的，一个线程不能既是joinable又是分离的。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;线程控制&quot;&gt;&lt;a href=&quot;#线程控制&quot; class=&quot;headerlink&quot; title=&quot;线程控制&quot;&gt;&lt;/a&gt;线程控制&lt;/h1&gt;&lt;h2 id=&quot;POSIX线程库&quot;&gt;&lt;a href=&quot;#POSIX线程库&quot; class=&quot;headerlink&quot; title=&quot;POSIX线程库&quot;&gt;&lt;/a&gt;POSIX线程库&lt;/h2&gt;&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;与线程有关的函数构成了⼀一个完整的系列，绝⼤大多数函数的名字都是以“pthread_”打头的 &lt;/li&gt;
-&lt;li&gt;引入头文件&lt;/li&gt;
-&lt;li&gt;链接这些线程库时要使用编译命令”-lpthread”选项&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;线程创建&quot;&gt;&lt;a href=&quot;#线程创建&quot; class=&quot;headerlink&quot; title=&quot;线程创建&quot;&gt;&lt;/a&gt;线程创建&lt;/h2&gt;&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;功能：创建⼀一个新的线程 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;原型    int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*star t_routine)(void*), void *arg); &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;参数    thread:返回线程ID    attr:设置线程的属性，attr为&lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;表⽰示使⽤用默认属性    start_routine:是个函数地址，线程启动后要执⾏行的函数    arg:传给线程启动函数的参数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;返回值：成功返回&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;；失败返回错误码&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;错误检查: &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;传统的⼀一些函数是，成功返回0，失败返回-1，并且对全局变量errno赋值以指⽰示错误。&lt;/li&gt;
-&lt;li&gt;pthreads函数出错时不会设置全局变量errno（⽽而⼤大部分其他POSIX函数会这样做）。⽽而是将错误 代码通过返回值返回 &lt;/li&gt;
-&lt;li&gt;pthreads同样也提供了线程内的errno变量，以⽀支持其它使⽤用errno的代码。对于pthreads函数的错 误，建议通过返回值判定，因为读取返回值要比读取线程内的errno变量的开销更小&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="Linux多线程" scheme="https://soyanga.github.io/categories/Linux%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    
-      <category term="Linux操作系统" scheme="https://soyanga.github.io/tags/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux线程ID和进程ID</title>
-    <link href="https://soyanga.github.io/2019/01/16/Linux%E7%BA%BF%E7%A8%8BID%E5%92%8C%E8%BF%9B%E7%A8%8BID/"/>
-    <id>https://soyanga.github.io/2019/01/16/Linux线程ID和进程ID/</id>
-    <published>2019-01-16T06:57:03.000Z</published>
-    <updated>2019-01-18T16:39:03.599Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="在Linux查看正在运行的线程"><a href="#在Linux查看正在运行的线程" class="headerlink" title="在Linux查看正在运行的线程"></a><strong>在Linux查看正在运行的线程</strong></h1><p><strong><code>ps -aL</code></strong></p><h1 id="线程ID和进程ID"><a href="#线程ID和进程ID" class="headerlink" title="线程ID和进程ID"></a>线程ID和进程ID</h1><p><img src="/2019/01/16/Linux线程ID和进程ID/线程ID和进程ID.png" alt="线程ID和进程ID"></p><p>同一个进程内部的线程（多个执行流）用getpid()返回的是一个一个PID。（用户级id）</p><a id="more"></a><ul><li>一个进程里面对应多个PCB(线程的PCB) </li></ul><table><thead><tr><th>用户态</th><th>系统调用</th><th>内核进程描述符中对应的结构</th></tr></thead><tbody><tr><td>线程ID</td><td>pid_t gettid(void);</td><td>pid_t pid(操作系统调度的线程号) 操作系统级别 //c库中被没有间接调用 tid = syscall(SYS_gettid);——<strong>LWP</strong></td></tr><tr><td>进程ID</td><td>pid_t getpid(void);</td><td>pid_t tgid (进程组ID)  用户级  直接可以调用**</td></tr></tbody></table><p><strong>LWP - getttid()  –pid</strong> (操作系统级别)</p><p><strong>ps命令中的-L选项，会显示如下信息：</strong></p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost linux]<span class="meta"># ps -eLf |head -1 &amp;&amp; ps -eLf |grep a.out |grep -v grep UID        PID  PPID   LWP  C NLWP STIME TTY          TIME CMD </span></span><br><span class="line">root     <span class="number">28543</span> <span class="number">22937</span> <span class="number">28543</span>  <span class="number">0</span>    <span class="number">2</span> <span class="number">15</span>:<span class="number">32</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> ./a.out </span><br><span class="line">root     <span class="number">28543</span> <span class="number">22937</span> <span class="number">28544</span>  <span class="number">0</span>    <span class="number">2</span> <span class="number">15</span>:<span class="number">32</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> ./a.out</span><br></pre></td></tr></table></figure><ul><li>LWP:线程ID，既gettid()系统调用的返回值。 </li><li>NLWP:线程组内线程的个</li></ul><blockquote><p>Linux提供了gettid系统调用来返回其线程ID，可是glibc并没有将该系统调用封装起来，在开放接口来共程序员使 用。如果确实需要获得线程ID，可以采用如下方法：     #include &lt;sys/syscall.h&gt;   pid_t tid;   tid = syscall(SYS_gettid);</p></blockquote><p><strong>当一个线程的pid=tgid则这个线程是主线程</strong></p><p>线程ID及进程地址空间布局</p><ul><li><p>pthread_create函数会产生一个线程ID，存放在第一个参数指向的地址中。该线程ID(库级别操作id)和前面所说的线程ID（pid）不是一回事。</p></li><li><p>前面讲的线程ID属于进程调度的范畴。因为线程是轻量级进程，是操作系统调度器的最小单位，所以需要 一个数值来唯一表示该线程。 </p></li><li><p>pthread_ create函数第一个参数指向一个虚拟内存单元，该内存单元的地址即为新创建线程的线程ID，属于 NPTL线程库的范畴。线程库的后续操作，就是根据该线程ID来操作线程的。 线程库NPTL提供了pthread_ self函数，可以获得线程自身的ID：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pthread_t</span> pthread_self(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;在Linux查看正在运行的线程&quot;&gt;&lt;a href=&quot;#在Linux查看正在运行的线程&quot; class=&quot;headerlink&quot; title=&quot;在Linux查看正在运行的线程&quot;&gt;&lt;/a&gt;&lt;strong&gt;在Linux查看正在运行的线程&lt;/strong&gt;&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;&lt;code&gt;ps -aL&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&quot;线程ID和进程ID&quot;&gt;&lt;a href=&quot;#线程ID和进程ID&quot; class=&quot;headerlink&quot; title=&quot;线程ID和进程ID&quot;&gt;&lt;/a&gt;线程ID和进程ID&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/2019/01/16/Linux线程ID和进程ID/线程ID和进程ID.png&quot; alt=&quot;线程ID和进程ID&quot;&gt;&lt;/p&gt;
-&lt;p&gt;同一个进程内部的线程（多个执行流）用getpid()返回的是一个一个PID。（用户级id）&lt;/p&gt;
     
     </summary>
     
