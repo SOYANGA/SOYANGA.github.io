@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaSE基础,Java学习笔记,JVM,重点," />
 
 
 
@@ -93,17 +93,18 @@
 
 
 
-<meta name="description" content="量变到质变是一段很长的路，如果你不走的话">
-<meta property="og:type" content="website">
-<meta property="og:title" content="top">
-<meta property="og:url" content="https://soyanga.github.io/top/index.html">
+<meta name="description" content="1.volatile型变量的特殊规则关键字volatile可以说是JVM提供的最轻量级的同步机制，JVM内存模型对volatile专门定义了一些特殊访问规则。 当一个变量被定义为volatile之后，它具备两种特性。可见性和有序性 两层语义： 第一层语义：内存可见–可见性 第二层语义：禁止指令重排–有序性  可见性：当一个线程修改了这个变量的值，新值能被其他线程可以立刻得到，而普通变量做不到这">
+<meta name="keywords" content="JavaSE基础,Java学习笔记,JVM,重点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="volatile-双重检验锁模式">
+<meta property="og:url" content="https://soyanga.github.io/2019/01/31/volatile-双重检验锁模式/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="量变到质变是一段很长的路，如果你不走的话">
+<meta property="og:description" content="1.volatile型变量的特殊规则关键字volatile可以说是JVM提供的最轻量级的同步机制，JVM内存模型对volatile专门定义了一些特殊访问规则。 当一个变量被定义为volatile之后，它具备两种特性。可见性和有序性 两层语义： 第一层语义：内存可见–可见性 第二层语义：禁止指令重排–有序性  可见性：当一个线程修改了这个变量的值，新值能被其他线程可以立刻得到，而普通变量做不到这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-22T08:36:14.416Z">
+<meta property="og:updated_time" content="2019-01-31T12:05:14.909Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="top">
-<meta name="twitter:description" content="量变到质变是一段很长的路，如果你不走的话">
+<meta name="twitter:title" content="volatile-双重检验锁模式">
+<meta name="twitter:description" content="1.volatile型变量的特殊规则关键字volatile可以说是JVM提供的最轻量级的同步机制，JVM内存模型对volatile专门定义了一些特殊访问规则。 当一个变量被定义为volatile之后，它具备两种特性。可见性和有序性 两层语义： 第一层语义：内存可见–可见性 第二层语义：禁止指令重排–有序性  可见性：当一个线程修改了这个变量的值，新值能被其他线程可以立刻得到，而普通变量做不到这">
 
 
 
@@ -133,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://soyanga.github.io/top/"/>
+  <link rel="canonical" href="https://soyanga.github.io/2019/01/31/volatile-双重检验锁模式/"/>
 
 
 
 
 
-  <title>top | SOYANGA</title>
+  <title>volatile-双重检验锁模式 | SOYANGA</title>
   
 
 
@@ -333,33 +334,286 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/31/volatile-双重检验锁模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">top</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">volatile-双重检验锁模式</h1>
+        
+
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-31T18:10:53+08:00">
+                2019-01-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-31T20:05:14+08:00">
+                2019-01-31
+              </time>
+            
+          </span>
+
           
-        
-      </div>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVASE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <meta name="referrer" content="no-referrer">
+
+<h2 id="1-volatile型变量的特殊规则"><a href="#1-volatile型变量的特殊规则" class="headerlink" title="1.volatile型变量的特殊规则"></a>1.volatile型变量的特殊规则</h2><p>关键字volatile可以说是JVM提供的最轻量级的同步机制，JVM内存模型对volatile专门定义了一些特殊访问规则。</p>
+<p>当一个变量被定义为volatile之后，它具备两种特性。可见性和有序性</p>
+<h2 id="两层语义："><a href="#两层语义：" class="headerlink" title="两层语义："></a>两层语义：</h2><ul>
+<li><strong>第一层语义：</strong>内存可见–可见性</li>
+<li><strong>第二层语义：</strong>禁止指令重排–有序性</li>
+</ul>
+<p><strong>可见性：</strong>当一个线程修改了这个变量的值，新值能被其他线程可以立刻得到，而普通变量做不到这一点，普通变量的值在线程之间传递需要通过主内存来完成。</p>
+<p>具体来说，volatile的作用是：<strong>在本CPU对变量的修改直写入主内存中，同时这个写操作使得其他CPU中对应的变量的缓存行无效</strong>，<strong>这样其他线程在读取这个变量时候必须从主内存中读取，所以读取得到的是最新的</strong>，这就是上面说的能被立即“看到”。</p>
+<p>volatile修饰的变量仅仅只拥有这两个性质，<strong>并不拥有原子性，volatile变量的运算在并发下是不安全的，原因java里面的运算并非原子操作。</strong></p>
+<h2 id="volatile修饰的变量如何确保原子性"><a href="#volatile修饰的变量如何确保原子性" class="headerlink" title="volatile修饰的变量如何确保原子性"></a>volatile修饰的变量如何确保原子性</h2><p>由于volatile只保证了可见习性和，有序性。子在不符合以下两条规则的运算场景中，我们仍然需要<strong>通过加锁(synchronized或lock)来保证原子性</strong></p>
+<ol>
+<li>运算结果并不依赖变量的当前值，或者能够确保只有单一线程修改变量的值</li>
+<li>变量不需要与其他的状态变量共同参与不变约束</li>
+</ol>
+<p><strong>并发场景下对于类似++操作如何保证原子性</strong></p>
+<ul>
+<li><strong>加锁，结合synchronized或者lock体系</strong></li>
+<li><strong>使用原子类（java.util.current.atomic包下的所有类-内部使用CAS保证原子性）</strong></li>
+</ul>
+<p><strong>有序性：volatile可以禁止指令重排</strong> 。volatile在其汇编代码中有一个lock操作，这个操作相当一个<strong>内存屏障</strong>，<strong>指令重排不能越过内存屏障</strong>，具体来</p>
+<ul>
+<li><strong>说在执行volatile变量时，内存屏障之前的语句一定被执行过了且结果对后面执行的语句时已知的，而内存屏障后面的语句一定还没有执行到</strong>；</li>
+<li>在进行指令优化时，<strong>在volatile变量之前的语句不能能被重排其之后，相反的其后的语句也必能被重排到之前。</strong></li>
+</ul>
+<h1 id="2-双重检验锁模式（懒汉单例模式）"><a href="#2-双重检验锁模式（懒汉单例模式）" class="headerlink" title="2.双重检验锁模式（懒汉单例模式）"></a>2.双重检验锁模式（懒汉单例模式）</h1><p>双重检验锁模式(double checked locking pattern),是一种使用同步块加锁的方式。程序员称其为双重检查</p>
+<p>锁，因为会有两次检查，一次是在同步块外，一次是在同步块内。</p>
+<h2 id="为什么在同步块内还要再检验一次？"><a href="#为什么在同步块内还要再检验一次？" class="headerlink" title="为什么在同步块内还要再检验一次？"></a>为什么在同步块内还要再检验一次？</h2><p>因为可能会有多个线程一起进入到同步块外的if，如果在同步块内不进行二次检验就会生成多个实例。</p>
+<h2 id="volatile在单例模式中起了什么作用？"><a href="#volatile在单例模式中起了什么作用？" class="headerlink" title="volatile在单例模式中起了什么作用？"></a>volatile在单例模式中起了什么作用？</h2><p>主要是因为懒汉模式，用时再new，但是instance = new Singleto()这句，并非是一个原子操作，事实上再JVM中这句话大概做了以下3件事</p>
+<ol>
+<li><p>给instance分配内存，</p>
+</li>
+<li><p>调用Singleton的构造函数来初始化成员变量</p>
+</li>
+<li><p>将instance对象指向分配的内存空间（执行完这步instance就为非null了）</p>
+<p>但是在JVM的即时编译器中存在指令重排优化。也就事说上面第二步和第三步的顺序是不能保证的，</p>
+<p>最终的执行顺序可能是1-2-3也可能是1-3-2</p>
+<p>如果是后者(1-3-2)，则3执行完毕，2未执行之前，被线程二抢占了，这时instance已经是非null了(但是却没有初始化)，所以哦线程二直接返回instance，然后使用，就会报错。我们只需要将instance变量声明成volatile就可以了。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> JVMReview;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: java-SE</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SOYANGA</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Create</span>: 2019-01-31 19:59</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;   <span class="comment">//Single Checked</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  <span class="comment">//Double Checked</span></span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hahah"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Singleton singleton = Singleton.getInstance();</span><br><span class="line">        singleton.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
       
     </div>
     
     
     
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+  
+</div>
+	
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    SOYANGA
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://soyanga.github.io/2019/01/31/volatile-双重检验锁模式/" title="volatile-双重检验锁模式">https://soyanga.github.io/2019/01/31/volatile-双重检验锁模式/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaSE基础/" rel="tag"><i class="fa fa-tag"></i> JavaSE基础</a>
+          
+            <a href="/tags/Java学习笔记/" rel="tag"><i class="fa fa-tag"></i> Java学习笔记</a>
+          
+            <a href="/tags/JVM/" rel="tag"><i class="fa fa-tag"></i> JVM</a>
+          
+            <a href="/tags/重点/" rel="tag"><i class="fa fa-tag"></i> 重点</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/28/再识Java-JVM/" rel="next" title="再识Java-JVM">
+                <i class="fa fa-chevron-left"></i> 再识Java-JVM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -392,8 +646,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -480,6 +743,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-volatile型变量的特殊规则"><span class="nav-number">1.</span> <span class="nav-text">1.volatile型变量的特殊规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两层语义："><span class="nav-number">2.</span> <span class="nav-text">两层语义：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile修饰的变量如何确保原子性"><span class="nav-number">3.</span> <span class="nav-text">volatile修饰的变量如何确保原子性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-双重检验锁模式（懒汉单例模式）"><span class="nav-number"></span> <span class="nav-text">2.双重检验锁模式（懒汉单例模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么在同步块内还要再检验一次？"><span class="nav-number">1.</span> <span class="nav-text">为什么在同步块内还要再检验一次？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile在单例模式中起了什么作用？"><span class="nav-number">2.</span> <span class="nav-text">volatile在单例模式中起了什么作用？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
