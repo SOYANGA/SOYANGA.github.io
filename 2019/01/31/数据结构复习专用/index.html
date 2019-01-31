@@ -14,8 +14,8 @@
 
 <script>
     (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
+        if('sjjg'){
+            if (prompt('请输入文章密码') !== 'sjjg'){
                 alert('密码错误！');
                 history.back();
             }
@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="Linux网络,IP协议," />
+  <meta name="keywords" content="数据结构与算法,LeetCode," />
 
 
 
@@ -93,22 +93,23 @@
 
 
 
-<meta name="description" content="网络层在复杂的网络环境中确定一个合适的路径，路径选择能力。 IP协议IP地址是路由选择的作用，怎么走就是下层协议决定。 基本概念主机：配有IP地址，但是不进行路由控制的设备； 路由器：配有IP地址，又能进行路由控制； 节点：主机和路由器的统称。 IP协议头格式  4位版本号（version）：只当IP协议的版本，对于IPv4来说就是4 4位头部长度（hearer length）:以4字节（一行">
-<meta name="keywords" content="Linux网络,IP协议">
+<meta name="description" content="数据结构链表">
+<meta name="keywords" content="数据结构与算法,LeetCode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络-网络层IP协议">
-<meta property="og:url" content="https://soyanga.github.io/2019/01/21/网络-网络层IP协议/index.html">
+<meta property="og:title" content="数据结构复习专用">
+<meta property="og:url" content="https://soyanga.github.io/2019/01/31/数据结构复习专用/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="网络层在复杂的网络环境中确定一个合适的路径，路径选择能力。 IP协议IP地址是路由选择的作用，怎么走就是下层协议决定。 基本概念主机：配有IP地址，但是不进行路由控制的设备； 路由器：配有IP地址，又能进行路由控制； 节点：主机和路由器的统称。 IP协议头格式  4位版本号（version）：只当IP协议的版本，对于IPv4来说就是4 4位头部长度（hearer length）:以4字节（一行">
+<meta property="og:description" content="数据结构链表">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/21/网络-网络层IP协议/IP协议头格式.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/21/网络-网络层IP协议/IP报头的分片行.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/01/21/网络-网络层IP协议/路由表.png">
-<meta property="og:updated_time" content="2019-01-22T11:33:02.701Z">
+<meta property="og:image" content="https://soyanga.github.io/2019/01/31/数据结构复习专用/反转单链表图解.png">
+<meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png">
+<meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png">
+<meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png">
+<meta property="og:updated_time" content="2019-01-31T15:36:23.155Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="网络-网络层IP协议">
-<meta name="twitter:description" content="网络层在复杂的网络环境中确定一个合适的路径，路径选择能力。 IP协议IP地址是路由选择的作用，怎么走就是下层协议决定。 基本概念主机：配有IP地址，但是不进行路由控制的设备； 路由器：配有IP地址，又能进行路由控制； 节点：主机和路由器的统称。 IP协议头格式  4位版本号（version）：只当IP协议的版本，对于IPv4来说就是4 4位头部长度（hearer length）:以4字节（一行">
-<meta name="twitter:image" content="https://soyanga.github.io/2019/01/21/网络-网络层IP协议/IP协议头格式.png">
+<meta name="twitter:title" content="数据结构复习专用">
+<meta name="twitter:description" content="数据结构链表">
+<meta name="twitter:image" content="https://soyanga.github.io/2019/01/31/数据结构复习专用/反转单链表图解.png">
 
 
 
@@ -138,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="https://soyanga.github.io/2019/01/21/网络-网络层IP协议/"/>
+  <link rel="canonical" href="https://soyanga.github.io/2019/01/31/数据结构复习专用/"/>
 
 
 
 
 
-  <title>网络-网络层IP协议 | SOYANGA</title>
+  <title>数据结构复习专用 | SOYANGA</title>
   
 
 
@@ -350,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/21/网络-网络层IP协议/">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/31/数据结构复习专用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SOYANGA">
@@ -367,11 +368,15 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">网络-网络层IP协议</h1>
+          <h1 class="post-title" itemprop="name headline">数据结构复习专用</h1>
         
 
         <div class="post-meta">
 		    
+            <i class="fa fa-thumb-tack"></i>
+            <font color=7D26CD>置顶</font>
+            <span class="post-meta-divider">|</span>
+            
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -380,8 +385,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T23:51:46+08:00">
-                2019-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-31T23:33:16+08:00">
+                2019-01-31
               </time>
             
 
@@ -396,8 +401,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T19:33:02+08:00">
-                2019-01-22
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-31T23:36:23+08:00">
+                2019-01-31
               </time>
             
           </span>
@@ -415,8 +420,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux网络</span>
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
                   </a>
                 </span>
 
@@ -446,7 +451,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.5k
+                  1.2k
                 </span>
               
 
@@ -462,7 +467,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  12
+                  5
                 </span>
               
             </div>
@@ -485,178 +490,64 @@
       
         <meta name="referrer" content="no-referrer">
 
-<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p>在复杂的网络环境中<strong>确定一个合适的路径</strong>，路径选择能力。</p>
-<h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><p>IP地址是<strong>路由选择的作用</strong>，怎么走就是下层协议决定。</p>
-<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>主机：配有IP地址，但是不进行路由控制的设备；</p>
-<p>路由器：配有IP地址，又能进行路由控制；</p>
-<p>节点：主机和路由器的统称。</p>
-<h3 id="IP协议头格式"><a href="#IP协议头格式" class="headerlink" title="IP协议头格式"></a>IP协议头格式</h3><p><img src="/2019/01/21/网络-网络层IP协议/IP协议头格式.png" alt="IP协议头格式"></p>
-<ul>
-<li><strong>4位版本号（version）：</strong>只当IP协议的版本，对于IPv4来说就是4</li>
-<li><strong>4位头部长度（hearer length）:</strong>以4字节（一行）为单位，4位头部长度能表示的最大数字是15，即IP头部最大长度是15*4 = 60字节。</li>
-<li><strong>8位服务类型(Type Of Servier):</strong> 3位优先权字段（已经弃用了），4位TOS字段，和一位保留字段（必须置为0），4为TOS分别表示，最小延时，最大吞吐量，最高可靠性，最小成本，这四者互相冲突，只能选择一个，对于ssh/telnet这样的应用程序，最小延迟比较重要，对于ftp这样的程序，最大吞吐量比较重要。</li>
-<li><strong>16位总长度（total length）:I</strong>P数据报整体占多少个字节。</li>
-<li><strong>16位标识（id）:</strong>唯一的标识住居发送的报文，如果IP报文在数据链路层被分片了，那么每一个片里面的这个id都是相同的。</li>
-<li><strong>3位标志位字段：</strong>第一位保留（保留的意思就是现在不用，但是还没想好说不定以后要用到），第二位置为1标识禁止分片，这时候如果报文长度超过<strong>MTU</strong>, IP模块就会丢弃报文。第三位表示”更多分片”, 如果分片了的话, 最后一个分片置为1, 其他是0. 类似于一个结束标记. </li>
-<li><strong>13位分片偏移(framegament offset):</strong> 是分片相对于原始IP报文开始处的偏移. 其实就是在表示当前 分片在原报文中处在哪个位置. 实际偏移的字节数是这个值 * 8 得到的. 因此, 除了最后一个报文之 外, 其他报文的长度必须是8的整数倍(否则报⽂文就不连续了)。</li>
-<li><strong>8位生存时间(Time To Live, TTL):</strong> 数据报到达目的地的最大报文跳数. 一般是64. 每次经过一个路由, TTL -= 1, 一直减到0还没到达, 那么就丢弃了. 这个字段主要是用来防止出现路由循环 。</li>
-<li><strong>8位协议:</strong> 表示上层协议的类型 。</li>
-<li><strong>16位头部校验和:</strong> 使用CRC进行校验, 来鉴别头部是否损坏.。</li>
-<li><strong>32位源地址和32位目标地址:</strong> 表示发送端和接收端。</li>
-<li><strong>选项字段(不定⻓长, 最多40字节):</strong> 略 </li>
-</ul>
-<a id="more"></a>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
-<li><p><strong>IP报文有效载荷和包头分离</strong></p>
-<p>4位的首部长度，16位的总长度</p>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><a id="more"></a>
+<h3 id="反转单链表-LeetCode206"><a href="#反转单链表-LeetCode206" class="headerlink" title="反转单链表 [LeetCode206]"></a>反转单链表 [LeetCode206]</h3><p><strong>示例：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL</span><br><span class="line">输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</span><br></pre></td></tr></table></figure>
+<p><strong>解答：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        ListNode per = <span class="keyword">null</span>;</span><br><span class="line">        ListNode next = <span class="keyword">null</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            next = cur.next;</span><br><span class="line">            cur.next = per;</span><br><span class="line">            per = cur;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> per;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如图：</p>
+<p>其实就只一直在将<code>cur.next=pre</code>，然后pre变为cur,cur变为next。</p>
+<p><img src="/2019/01/31/数据结构复习专用/反转单链表图解.png" alt="反转单链表图解"></p>
+<h3 id="环形链表（链表是否带环）-LeetCode141"><a href="#环形链表（链表是否带环）-LeetCode141" class="headerlink" title="环形链表（链表是否带环）[LeetCode141]"></a>环形链表（链表是否带环）[LeetCode141]</h3><p><strong>示例1：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [3,2,0,-4], pos = 1</span><br><span class="line">输出：true</span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png" alt="img"></p>
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2], pos = 0</span><br><span class="line">输出：true</span><br><span class="line">解释：链表中有一个环，其尾部连接到第一个节点。</span><br></pre></td></tr></table></figure>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png" alt="img"></p>
+<p><strong>示例 3：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1], pos = -1</span><br><span class="line">输出：false</span><br><span class="line">解释：链表中没有环。</span><br></pre></td></tr></table></figure>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png" alt="img"></p>
+<p><strong>解答：</strong></p>
+<ol>
+<li><p>利用哈希表Set（无重复值）存储链表节点，头节点向后遍历，只要走到相同的节点，就带环</p>
+<p>反之只要头节点向后遍历到null，则链表无环。</p>
+<p>时间复杂度O(n) 空间复杂度O(n)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        Set&lt;ListNode&gt; set = <span class="keyword">new</span> HashSet();</span><br><span class="line">        <span class="keyword">while</span>(head!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(set.contains(head))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                set.add(head);</span><br><span class="line">            &#125;</span><br><span class="line">            head=head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>如何给上层交付</strong></p>
-<p><strong>8位协议</strong></p>
+</ol>
+<ol start="2">
+<li><p>利用快慢指针，相差一步的快慢指针，</p>
+<p>时间复杂度O(n) 空间复杂度O(n)</p>
+<p>关于为什么是一个走两步，一个走一步的原因：既然是要相遇，如果快指针走三步，它每次会跳过两个节点，慢指针一次只能走一步，这就可能会错过。快指针每次走两步的话，只会跳过一个节点，无论如何后都会和慢指针相遇。</p>
 </li>
-</ul>
-<h4 id="IP层第二行整体是用来分片与组装的"><a href="#IP层第二行整体是用来分片与组装的" class="headerlink" title="IP层第二行整体是用来分片与组装的"></a>IP层第二行整体是用来分片与组装的</h4><p>例如：发快递一个快递发不下，拆分成个包裹快递发送。接收方也得把这个10个包裹组装起来。</p>
-<p>链路层一次最大发送报文的大小位MTU：一般的大小为1500字节</p>
-<p>在同层分片，就应该在同层组装。</p>
-<p><img src="/2019/01/21/网络-网络层IP协议/IP报头的分片行.png" alt="IP报头的分片行"></p>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="keyword">null</span>&amp;&amp;fast.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">            <span class="keyword">while</span>(fast==slow)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="合并两个有序链表-LeetCode21"><a href="#合并两个有序链表-LeetCode21" class="headerlink" title="合并两个有序链表[LeetCode21]"></a>合并两个有序链表[LeetCode21]</h3><p><strong>示例：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4</span><br><span class="line">输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</span><br></pre></td></tr></table></figure>
+<p><strong>解答：</strong></p>
+<p>时间复杂度：O(n)</p>
+<p>空间复杂度：O(1)  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        ListNode newNode = <span class="keyword">new</span> ListNode(<span class="number">0</span>); <span class="comment">//带头结点的新链表</span></span><br><span class="line">        ListNode cur = newNode;</span><br><span class="line">        <span class="keyword">while</span>(l1!=<span class="keyword">null</span>&amp;&amp;l2!=<span class="keyword">null</span>)&#123;<span class="comment">//谁小，新链表接谁</span></span><br><span class="line">            <span class="keyword">if</span>(l1.val&gt;l2.val)&#123;</span><br><span class="line">                 cur.next = l2;</span><br><span class="line">                l2 = l2.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                cur.next = l1;</span><br><span class="line">                l1 = l1.next;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(l1==<span class="keyword">null</span>)&#123;     <span class="comment">//一个链表完了直接接另一个有序列表</span></span><br><span class="line">            cur.next=l2;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            cur.next = l1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> newNode.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="删除链表的倒数第N个节点-LeetCode19"><a href="#删除链表的倒数第N个节点-LeetCode19" class="headerlink" title="删除链表的倒数第N个节点[LeetCode19]"></a>删除链表的倒数第N个节点[LeetCode19]</h3><p><strong>示例：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.</span><br><span class="line"></span><br><span class="line">当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</span><br></pre></td></tr></table></figure>
+<p><strong>解答：</strong> </p>
+<p>时间复杂度：O(n)</p>
+<p>空间复杂度：O(1)  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeNthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode newhead = <span class="keyword">new</span> ListNode(<span class="number">0</span>);<span class="comment">//带头节点</span></span><br><span class="line">        newhead.next = head;</span><br><span class="line">        ListNode fast = newhead;</span><br><span class="line">        ListNode slow = newhead;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n + <span class="number">1</span>; i++) &#123; <span class="comment">//快指针先走n+1步</span></span><br><span class="line">            fast = fast.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="keyword">null</span>)&#123;  <span class="comment">//同时走</span></span><br><span class="line">            slow = slow.next;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">        &#125;</span><br><span class="line">        slow.next = slow.next.next;  倒数第n个节点的前一个节点</span><br><span class="line">        <span class="keyword">return</span> newhead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="求链表的中间结点-LeetCode876"><a href="#求链表的中间结点-LeetCode876" class="headerlink" title="求链表的中间结点[LeetCode876]"></a>求链表的中间结点[LeetCode876]</h3><p><strong>示例：</strong></p>
+<p>给定一个带有头结点 <code>head</code> 的非空单链表，返回链表的中间结点。</p>
+<p>如果有两个中间结点，则返回第二个中间结点。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,2,3,4,5]</span><br><span class="line">输出：此列表中的结点 3 (序列化形式：[3,4,5])</span><br><span class="line">返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。</span><br><span class="line">注意，我们返回了一个 ListNode 类型的对象 ans，这样：</span><br><span class="line">ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next = NULL.</span><br></pre></td></tr></table></figure>
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,2,3,4,5,6]</span><br><span class="line">输出：此列表中的结点 4 (序列化形式：[4,5,6])</span><br><span class="line">由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。</span><br></pre></td></tr></table></figure>
+<p><strong>解答：</strong></p>
+<p><strong>快慢指针法</strong></p>
 <ul>
-<li><strong>16位标志是分片报文的序号</strong>，同一个IP报文的值是一样的。（甄别分片报文和正常报文）。</li>
-<li><strong>13位片移量解决报文的先后顺序</strong>，是分片相对于原始IP报文开始处的偏移. 其实就是在表示当前 分片在原报文中处在哪个位置. 实际偏移的字节数是这个值 * 8 得到的. 因此, 除了最后一个报文之 外, 其他报文的长度必须是8的整数倍(否则报⽂文就不连续了)。</li>
-<li>3位标志位表示”更多分片”, 如果分片了的话, 最后一个分片置为1, 其他是0. <strong>类似于一个结束标记</strong>。</li>
-<li>如果报文不完整，则就将不完整的报文丢弃（发送失败），触发TCP超时重发。</li>
+<li>时间复杂度：O(N)<em>O</em>(<em>N</em>)，其中 N<em>N</em> 是给定列表的结点数目</li>
+<li>空间复杂度：O(1)<em>O</em>(1)，<code>slow</code> 和 <code>fast</code> 用去的空间</li>
 </ul>
-<p>分片并不好，会大大增加丢包概率。解决这个问题，要从上层入手（TCP）。传输时候，TCP也会尽量减少这种情况，让TCP发送小于1460字节（MSS）的报文，因为标准TCP报头为20字节，IP表准报头也为20字节。分片还要花费时间</p>
-<p>MSS:最大段尺寸1460字节。（MUT）决定IP分片，TCP最好的发送报文的大小。</p>
-<h3 id="网段划分"><a href="#网段划分" class="headerlink" title="网段划分"></a>网段划分</h3><p>IP地址分为两个部分，网络号和主机号</p>
-<blockquote>
-<ul>
-<li><strong>网络号</strong>：保证相连接的两个网段具有不同的标识</li>
-<li><strong>主机号</strong>：同一网段，主机之间具有相同的网络号，但是必须有不同的主机号。</li>
-</ul>
-</blockquote>
-<p>路由前期一直在进行目标网络的查找</p>
-<blockquote>
-<ul>
-<li>同一局域网内他们的网络号绝对一样，主机号绝对不一样。</li>
-<li>不同局域网内他们的网络号不一样，主机号可以一样。</li>
-</ul>
-</blockquote>
-<p>合理设置主机号和网络号，可以保证相互连接在网络中，每台主机的IP地址都不相同。</p>
-<p>手动管理子网内的IP，是一个相当麻烦的事情。</p>
-<blockquote>
-<ul>
-<li>有一种技术叫做<strong>DHCP</strong>，能够自动的给子网内新增主机节点分配IP地址，避免了手动管理IP的不方便。</li>
-<li>一般路由器都带有DHCP功能，因此路由器也可以看作成一个DHCP服务。</li>
-</ul>
-</blockquote>
-<p>早期划分子网，用的是分类方案，把所有IP地址分为5类</p>
-<blockquote>
-<ul>
-<li>A类 0.0.0.0到127.255.255.255 </li>
-<li>B类 128.0.0.0到191.255.255.255</li>
-<li>C类 192.0.0.0到223.255.255.255 </li>
-<li>D类 224.0.0.0到239.255.255.255 </li>
-<li>E类 240.0.0.0到247.255.255.255 </li>
-</ul>
-</blockquote>
-<p>加入申请的是B类地址，主机号有16位<strong>2^16</strong> -2=65534 能够用的主机IP地址，这种方式浪费太大了，针对这种情况提出了新的方案吗，称为<strong>CIDR(Classless Interdomain Routing):</strong> <strong>子网掩码</strong></p>
-<h3 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h3><blockquote>
-<ul>
-<li>引入一个额外的子网掩码(subnet mask)来区分网络号和主机号; </li>
-<li>⼦网掩码也是一个32位的正整数. 通常用一串 “0” 来结尾; </li>
-<li>将IP地址和子网掩码进⾏行 <strong>“按位与”</strong> 操作, 得到的结果就是网络号; </li>
-<li>网络号和主机号的划分与这个IP地址是A类、B类还是C类无关; </li>
-</ul>
-</blockquote>
-<p>主机号可以有2^4 = 16的台数，第一台主机编号为全0的主机不用，最后一台主机编号为全1的主机也不用，经过子网掩码计算后，的主机台数也是16台，子网地址范围就是在计算出子网掩码后+16。可以使用的有14台主机（掐头去尾）</p>
-<p>可⻅见,IP地址与⼦网掩码做与运算可以得<strong>到网络号</strong>, 主机号从全0到全1就是子网的地址范围; IP地址和子网掩码还有一种更<strong>简洁的表示方法</strong>,<strong>例如140.252.20.68/24,表示IP地址为140.252.20.68, 子网掩码的高24位是1,也就255.255.255.0</strong></p>
-<h3 id="特殊的IP地址"><a href="#特殊的IP地址" class="headerlink" title="特殊的IP地址"></a>特殊的IP地址</h3><blockquote>
-<ul>
-<li><strong>将IP地址中的主机地址全部设为0，就成为了网络号，代表这个局域网；</strong> </li>
-<li><strong>将IP地址中的主机地址全部设为1，就成为了广播地址，用于给同一个用于给同一个链路中相互连接的所有主机发送数据包;</strong> </li>
-<li>127.*的IP地址用于本地环回(loop back)测试,通常是127.0.0.1</li>
-</ul>
-</blockquote>
-<h4 id="IP地址的数量限制"><a href="#IP地址的数量限制" class="headerlink" title="IP地址的数量限制"></a>IP地址的数量限制</h4><p>IP地址是一个4字节32位整数，那么一共只有2的32次方个IP地址，大概43亿左右，而TCP/IP协议规定，每个主机都需要有一个IP地址。</p>
-<p>这意味着，一共只有43亿台主机能接入网络？</p>
-<p>实际上，由于一些实际上, 由于一些特殊的IP地址的存在, 数量远不⾜足43亿; 另外IP地址并非是按照主机台数来配置的, 而是每一 个网卡都需要配置一个或多个IP地址. <strong>CIDR</strong>在一定程度上缓解了IP地址不够用的问题(提⾼高了利用率, 减少了浪费, 但是IP地址的绝对上限并没有增加), 仍然不是很够用. 这时候有三种⽅方式来解决:</p>
-<blockquote>
-<ul>
-<li>动态分配IP地址: 只给接网络的设备分配IP地址. 因此同一个MAC地址的设备, 每次接入互联网中，得到的IP地址不一定是相同的；</li>
-<li>NAT技术； </li>
-<li>IPv6: IPv6并不是IPv4的简单升级版. 这是互不相干的两个协议, 彼此并不兼容; IPv6⽤用16字节128位 来表示一个IP地址; 但是目前IPv6还没有普及;</li>
-</ul>
-</blockquote>
-<h3 id="私有IP地址和公网IP地址"><a href="#私有IP地址和公网IP地址" class="headerlink" title="私有IP地址和公网IP地址"></a>私有IP地址和公网IP地址</h3><p>一个组织内部组建局域网，IP地址只用于局域网内的通信，而不直接连到Internet上，理论上使用任意的IP地址都可以，但是RFC 1918规定了用于组建局域网的私有IP地址</p>
-<blockquote>
-<ul>
-<li>10.*,前8位是网络号,共16,777,216个地址 </li>
-<li>172.16. 到 172.31.,前12位是网络号,共1,048,576个地址 </li>
-<li>192.168.*,前16位是网络号,共65,536个地址,包含在这个范围中的, 都成为<strong>私有IP</strong>, <strong>其余的则称为全局IP(或公网IP);</strong> </li>
-</ul>
-</blockquote>
-<p>不同局域网内的IP有可能重复。</p>
-<blockquote>
-<ul>
-<li>一个路由器可以配置两个IP地址, 一个是<strong>WAN口IP</strong>, 一个是<strong>LAN口IP</strong>(<strong>子网IP</strong>).</li>
-<li>路由器LAN口连接的主机, 都从属于当前这个路由器的子网中. 不同的路由器, 子网IP其实都是一样的(通常都是192.168.1.1). <strong>子网内的主机IP地址不能重复. 但是子网之间的IP地址就可以重复了.</strong>  </li>
-<li>每一个家用路由器, 其实又作为运营商路由器的子网中的一个节点. 这样的运营商路由器可能会有 很多级, 最外层的运营商路由器, <strong>WAN口IP就是一个公网IP</strong> 。</li>
-<li><strong>子网内的主机需要和外网进行通信时</strong> , 路由器将<strong>IP首部中的IP地址</strong>进行替换(<strong>替换成WAN口IP</strong> ), 这样<strong>逐级替换</strong> , 最终数据包中的IP地址成为一个网IP. 这种技术称为<strong>NAT(Network Address Translation，网络地址转换).</strong>  </li>
-<li>如果希望我们自己实现的服务器程序, 能够在公网上被访问到, 就需要把程序部署在一台具有外网IP 的服务器上. 这样的服务器可以在阿⾥里云/腾讯云上进行购买。</li>
-</ul>
-</blockquote>
-<p>NAT 解决IP地址不足。</p>
-<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><p>在复杂的网络结构中，找出一条通往目的IP有效路径的路线的过程；</p>
-<p>[唐僧取经问路例子1]</p>
-<p>路由的过程，就是（Hop by Hop）一跳一跳“问路”的过程。跳一下，就是数据链路层的一个区间。具体在以太网上指源MAC地址到目的MAC地址之间的帧出传输区间。</p>
-<p>IP数据包的传输过程也跟问路是一样的。</p>
-<blockquote>
-<ul>
-<li>当IP数据包, 到达路由器时, 路由器会先查看目的IP; </li>
-<li>路由器决定这个数据包是能直接发送给目标主机, 还是需要发送给下一个路由器; </li>
-<li>依次反复, 一直到达目标IP地址; </li>
-</ul>
-</blockquote>
-<p>那么如<strong>何判定当前这个数据包应该发送到哪里</strong>？<strong>这个就依靠每个节点内部维护一个路由表</strong>；</p>
-<p>[唐僧取经问路例子2]</p>
-<blockquote>
-<ul>
-<li>路由表可以使⽤用route命令查看 </li>
-<li>如果目的IP命中了路由表, 就直接转发即可; </li>
-<li>路由表中的最后一行,主要由<strong>下一跳地址和发送接口两部分</strong>组成,当目的地址与路由表中其它行都不匹配时,就按缺省路由条目规定的接口发送到下一跳地址。 </li>
-</ul>
-</blockquote>
-<p><img src="/2019/01/21/网络-网络层IP协议/路由表.png" alt="路由表"></p>
-<blockquote>
-<ul>
-<li>这台主机一个网络接口，连接到192.168.245.0/24 网络。</li>
-<li>路由表的Destination是目的网络地址，default:默认网关</li>
-<li>Genmask是子网掩码，</li>
-<li>Gateway是下一跳地址， *：代表局域网和路由器直接相连，不用跳到其他路由器</li>
-<li>Iface是发送接口，</li>
-<li>Flags中的U标志表示此条目有效（可以禁用某些条目），G标志标志此条目的下一条地址是某个路由器的地址，没有G标识的条目表示目的网络地址是与本机接口直接相连的网络，不必经过路由器转发；</li>
-</ul>
-</blockquote>
-<p>例1：如果要发送的地址是192.168.245.3</p>
-<blockquote>
-<ul>
-<li>跟第一行子网掩码进行按位与运算得到192.168.245.0，与第一行的目的网络地址相符。</li>
-<li>假如不符合再跟第二行子网掩码进行按位与运算，看是否与第二行的目的网络地址相符。</li>
-<li>由于192.168.245.0/24正是与eth0接口直接相连的网络，且Flags被没有G标识，因此可以直接发到目的主机，不需要经路由器转发。</li>
-</ul>
-</blockquote>
-<p>例2：如果要发送的数据包的目的地址是202.10.1.2 </p>
-<blockquote>
-<ul>
-<li>依次和路由表前几行进行子网掩码进行按位与运算，得到的网络号进行对比发现都不匹配</li>
-<li>按缺省路由条目，从eth0发送出去，发往192.168.245.2路由器</li>
-<li>由192.168.245.2路由器根据它的路由表决定下一跳的地址；</li>
-</ul>
-</blockquote>
-<h3 id="路由表生成算法"><a href="#路由表生成算法" class="headerlink" title="路由表生成算法"></a>路由表生成算法</h3><ul>
-<li><strong>距离向量算法</strong></li>
-<li><strong>LS算法</strong></li>
-<li><strong>Dijkstra算法</strong></li>
-</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">middleNode</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="keyword">null</span>&amp;&amp;fast.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            fast =fast.next.next;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -687,7 +578,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://soyanga.github.io/2019/01/21/网络-网络层IP协议/" title="网络-网络层IP协议">https://soyanga.github.io/2019/01/21/网络-网络层IP协议/</a>
+    <a href="https://soyanga.github.io/2019/01/31/数据结构复习专用/" title="数据结构复习专用">https://soyanga.github.io/2019/01/31/数据结构复习专用/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -702,9 +593,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux网络/" rel="tag"><i class="fa fa-tag"></i> Linux网络</a>
+            <a href="/tags/数据结构与算法/" rel="tag"><i class="fa fa-tag"></i> 数据结构与算法</a>
           
-            <a href="/tags/IP协议/" rel="tag"><i class="fa fa-tag"></i> IP协议</a>
+            <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
           
         </div>
       
@@ -717,8 +608,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/20/网络-TCP扩展/" rel="next" title="网络-TCP扩展">
-                <i class="fa fa-chevron-left"></i> 网络-TCP扩展
+              <a href="/2019/01/31/volatile-双重检验锁模式/" rel="next" title="volatile-双重检验锁模式">
+                <i class="fa fa-chevron-left"></i> volatile-双重检验锁模式
               </a>
             
           </div>
@@ -726,10 +617,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/22/网络-数据链路层以太网协议/" rel="prev" title="网络-数据链路层以太网协议">
-                网络-数据链路层以太网协议 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -888,7 +775,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络层"><span class="nav-number">1.</span> <span class="nav-text">网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP协议"><span class="nav-number">1.1.</span> <span class="nav-text">IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP协议头格式"><span class="nav-number">1.1.2.</span> <span class="nav-text">IP协议头格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.1.3.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IP层第二行整体是用来分片与组装的"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">IP层第二行整体是用来分片与组装的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网段划分"><span class="nav-number">1.1.4.</span> <span class="nav-text">网段划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子网掩码"><span class="nav-number">1.1.5.</span> <span class="nav-text">子网掩码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊的IP地址"><span class="nav-number">1.1.6.</span> <span class="nav-text">特殊的IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IP地址的数量限制"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">IP地址的数量限制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#私有IP地址和公网IP地址"><span class="nav-number">1.1.7.</span> <span class="nav-text">私有IP地址和公网IP地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由"><span class="nav-number">1.1.8.</span> <span class="nav-text">路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由表生成算法"><span class="nav-number">1.1.9.</span> <span class="nav-text">路由表生成算法</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#链表"><span class="nav-number">1.1.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反转单链表-LeetCode206"><span class="nav-number">1.1.1.</span> <span class="nav-text">反转单链表 [LeetCode206]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环形链表（链表是否带环）-LeetCode141"><span class="nav-number">1.1.2.</span> <span class="nav-text">环形链表（链表是否带环）[LeetCode141]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并两个有序链表-LeetCode21"><span class="nav-number">1.1.3.</span> <span class="nav-text">合并两个有序链表[LeetCode21]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除链表的倒数第N个节点-LeetCode19"><span class="nav-number">1.1.4.</span> <span class="nav-text">删除链表的倒数第N个节点[LeetCode19]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求链表的中间结点-LeetCode876"><span class="nav-number">1.1.5.</span> <span class="nav-text">求链表的中间结点[LeetCode876]</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
