@@ -93,18 +93,18 @@
 
 
 
-<meta name="description" content="1.volatile型变量的特殊规则关键字volatile可以说是JVM提供的最轻量级的同步机制，JVM内存模型对volatile专门定义了一些特殊访问规则。 当一个变量被定义为volatile之后，它具备两种特性。可见性和有序性 两层语义： 第一层语义：内存可见–可见性 第二层语义：禁止指令重排–有序性  可见性：当一个线程修改了这个变量的值，新值能被其他线程可以立刻得到，而普通变量做不到这">
+<meta name="description" content="1.volatile型变量的特殊规则关键字volatile可以说是JVM提供的最轻量级的同步机制，JVM内存模型对volatile专门定义了一些特殊访问规则。 当一个变量被定义为volatile之后，它具备两种特性。可见性和有序性 两层语义： 第一层语义：内存可见–可见性 第二层语义：禁止指令重排–有序性">
 <meta name="keywords" content="JavaSE基础,Java学习笔记,JVM,重点">
 <meta property="og:type" content="article">
 <meta property="og:title" content="volatile-双重检验锁模式">
 <meta property="og:url" content="https://soyanga.github.io/2019/01/31/volatile-双重检验锁模式/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="1.volatile型变量的特殊规则关键字volatile可以说是JVM提供的最轻量级的同步机制，JVM内存模型对volatile专门定义了一些特殊访问规则。 当一个变量被定义为volatile之后，它具备两种特性。可见性和有序性 两层语义： 第一层语义：内存可见–可见性 第二层语义：禁止指令重排–有序性  可见性：当一个线程修改了这个变量的值，新值能被其他线程可以立刻得到，而普通变量做不到这">
+<meta property="og:description" content="1.volatile型变量的特殊规则关键字volatile可以说是JVM提供的最轻量级的同步机制，JVM内存模型对volatile专门定义了一些特殊访问规则。 当一个变量被定义为volatile之后，它具备两种特性。可见性和有序性 两层语义： 第一层语义：内存可见–可见性 第二层语义：禁止指令重排–有序性">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-31T12:05:14.909Z">
+<meta property="og:updated_time" content="2019-01-31T15:37:43.200Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile-双重检验锁模式">
-<meta name="twitter:description" content="1.volatile型变量的特殊规则关键字volatile可以说是JVM提供的最轻量级的同步机制，JVM内存模型对volatile专门定义了一些特殊访问规则。 当一个变量被定义为volatile之后，它具备两种特性。可见性和有序性 两层语义： 第一层语义：内存可见–可见性 第二层语义：禁止指令重排–有序性  可见性：当一个线程修改了这个变量的值，新值能被其他线程可以立刻得到，而普通变量做不到这">
+<meta name="twitter:description" content="1.volatile型变量的特殊规则关键字volatile可以说是JVM提供的最轻量级的同步机制，JVM内存模型对volatile专门定义了一些特殊访问规则。 当一个变量被定义为volatile之后，它具备两种特性。可见性和有序性 两层语义： 第一层语义：内存可见–可见性 第二层语义：禁止指令重排–有序性">
 
 
 
@@ -392,7 +392,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-31T20:05:14+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-31T23:37:43+08:00">
                 2019-01-31
               </time>
             
@@ -487,6 +487,7 @@
 <li><strong>第一层语义：</strong>内存可见–可见性</li>
 <li><strong>第二层语义：</strong>禁止指令重排–有序性</li>
 </ul>
+<a id="more"></a>
 <p><strong>可见性：</strong>当一个线程修改了这个变量的值，新值能被其他线程可以立刻得到，而普通变量做不到这一点，普通变量的值在线程之间传递需要通过主内存来完成。</p>
 <p>具体来说，volatile的作用是：<strong>在本CPU对变量的修改直写入主内存中，同时这个写操作使得其他CPU中对应的变量的缓存行无效</strong>，<strong>这样其他线程在读取这个变量时候必须从主内存中读取，所以读取得到的是最新的</strong>，这就是上面说的能被立即“看到”。</p>
 <p>volatile修饰的变量仅仅只拥有这两个性质，<strong>并不拥有原子性，volatile变量的运算在并发下是不安全的，原因java里面的运算并非原子操作。</strong></p>
@@ -521,7 +522,6 @@
 </li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> JVMReview;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: java-SE</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SOYANGA</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Create</span>: 2019-01-31 19:59</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;   <span class="comment">//Single Checked</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  <span class="comment">//Double Checked</span></span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hahah"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Singleton singleton = Singleton.getInstance();</span><br><span class="line">        singleton.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
 
       
     </div>
