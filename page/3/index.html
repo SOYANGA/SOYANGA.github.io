@@ -345,6 +345,226 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/18/网络套接字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/18/网络套接字/" itemprop="url">Linux网络套接字</a></h1>
+        
+
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T01:09:38+08:00">
+                2019-01-18
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T14:57:40+08:00">
+                2019-01-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <meta name="referrer" content="no-referrer">
+
+<h1 id="网络编程套接字"><a href="#网络编程套接字" class="headerlink" title="网络编程套接字"></a>网络编程套接字</h1><h2 id="学习要点："><a href="#学习要点：" class="headerlink" title="学习要点："></a>学习要点：</h2><ul>
+<li>认识IP地址，端口号，网络字节序等网络编程中的基本概念；</li>
+<li>学习socket api的基本用法；</li>
+<li>能够实现一个简单的udp客户端/服务器；</li>
+<li>能够实现一个简单的tcp客户端/服务器（单连接版本，多进程版本，多线程版本）；</li>
+<li>理解tcp服务器建立连接，发送数据，断开连接的流程；</li>
+</ul>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>IP协议有两个版本，IPv4和IPv6。我们整个的课程，凡是提到IP协议，没有特殊说明的，默认都是IPv4</p>
+<ul>
+<li>IP地址是IP协议中，用来标识网络中不同主机地址；</li>
+<li>对于IPv4来说，IP地址是一个4字节，32位整数；</li>
+<li>我们通常也常用也使用“点分十进制”的字符串表示IP地址，例如 198.168.0.1;用点分割的每一个数字表示一个字节，范围是0-255；</li>
+</ul>
+<h3 id="理解源IP地址和目的的IP地址"><a href="#理解源IP地址和目的的IP地址" class="headerlink" title="理解源IP地址和目的的IP地址"></a>理解<strong>源IP地址</strong>和目的的IP地址</h3><p>IP数据包头部中，有两个IP地址，分别叫做源IP地址，和目的IP地址。</p>
+<p>网络通信信息，不止只用IP地址标识，不能标识主机中的那个应用发送接收的消息。</p>
+<h2 id="端口号"><a href="#端口号" class="headerlink" title="端口号"></a>端口号</h2><p>端口号（port）是传输层协议内容</p>
+<ul>
+<li>端口号是一个2字节16位的整数</li>
+<li>端口号是用来标识一个进程，告诉操作系统，当前的这个数据要交给那一个进程来处理</li>
+<li>IP地址+端口号能够标识网络上的某一台主机的某个进程</li>
+<li>一个端口号能被一个进程占用</li>
+</ul>
+<p><strong>IP地址+端口号称之为socket</strong>  </p>
+<p>socket是进程通信（跨网络）</p>
+<p><strong>一个进程可以绑定多个端口号；单一个端口号不能被多个进程绑定</strong></p>
+<h3 id="理解源端口号和目的端口号"><a href="#理解源端口号和目的端口号" class="headerlink" title="理解源端口号和目的端口号"></a>理解源端口号和目的端口号</h3><p>传输层协议（TCP和 UDP ）的数据段中有两个端口号，分别叫做源端口号和目的端口号，就是在描述“数据是谁发的，要发个给是谁”。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/18/网络套接字/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/网络基础(1)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2237,211 +2457,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/06/14-javaIO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/06/14-javaIO/" itemprop="url">14-javaIO</a></h1>
-        
-
-        <div class="post-meta">
-		    
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T22:09:59+08:00">
-                2019-01-06
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-14T18:39:37+08:00">
-                2019-01-14
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVASE</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  256
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Java高级开发之JavaIO"><a href="#Java高级开发之JavaIO" class="headerlink" title="Java高级开发之JavaIO"></a>Java高级开发之JavaIO</h1><p>IO部分的重点：五个类（File、OutputStream、InputStream、Reader、Writer）一个接口（Serializable）</p>
-<h1 id="1-File文件操作类"><a href="#1-File文件操作类" class="headerlink" title="1.File文件操作类"></a>1.File文件操作类</h1><p>在java.io包中，File类是唯一一个与文件本身操作（创建，删除，取得信息）有关的程序类</p>
-<h2 id="1-1File类的基本使用"><a href="#1-1File类的基本使用" class="headerlink" title="1.1File类的基本使用"></a>1.1File类的基本使用</h2><p>java.io.File类是一个普通的类，直接产生实例化对象即可，两个构造方法如下：</p>
-<blockquote>
-<p>public File(String pathname);</p>
-<p>public File(String parent,String child); //设置父路径和子类</p>
-</blockquote>
-<p>如果要进行文件的基本操作，可以使用FIle类的如下方法；</p>
-<blockquote>
-<p>创建一个新文件</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">createNewFile</span><span class="params">()</span> <span class="keyword">throws</span> IOExcepotion</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>判断一个文件是否存在</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> bollean <span class="title">exists</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-<p>由于java具有跨平台特性但是，在实际项目部署环境可能与开发环境不同.那么这个时候路径的问题就很麻烦。Windows下面使用的是“\”,而Unix系统下使用的是“/”。所以使用路径分隔符时都会采用File类的一个常量”<code>public static final String separator</code>“来描述</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2496,7 +2511,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2518,7 +2533,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2596,7 +2611,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.7k</span>
+    <span title="Site words total count">81.6k</span>
   
 </div>
 

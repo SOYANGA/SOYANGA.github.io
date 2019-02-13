@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaSE基础,Java学习笔记,包装类-自动拆装箱," />
 
 
 
@@ -93,16 +93,18 @@
 
 
 
-<meta name="description" content="量变到质变是一段很长的路，如果你不走的话">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SOYANGA">
-<meta property="og:url" content="https://soyanga.github.io/categories/JAVASE/index.html">
+<meta name="description" content="​      包装类（Java三个特殊类）Object 类可以接收所有引用类型，但是不能接收基本数据类型。包装类就是给基本数据的处理来使用。 包装类的基本使用包装类就将基本数据类型封装到类中 自定义一个包装类 123456789class IntDemo&amp;#123;    private int num;    public IntDemo(int num)&amp;#123;        this">
+<meta name="keywords" content="JavaSE基础,Java学习笔记,包装类-自动拆装箱">
+<meta property="og:type" content="article">
+<meta property="og:title" content="再识java包装类">
+<meta property="og:url" content="https://soyanga.github.io/2019/02/13/再识java包装类/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="量变到质变是一段很长的路，如果你不走的话">
+<meta property="og:description" content="​      包装类（Java三个特殊类）Object 类可以接收所有引用类型，但是不能接收基本数据类型。包装类就是给基本数据的处理来使用。 包装类的基本使用包装类就将基本数据类型封装到类中 自定义一个包装类 123456789class IntDemo&amp;#123;    private int num;    public IntDemo(int num)&amp;#123;        this">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-13T15:04:57.568Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SOYANGA">
-<meta name="twitter:description" content="量变到质变是一段很长的路，如果你不走的话">
+<meta name="twitter:title" content="再识java包装类">
+<meta name="twitter:description" content="​      包装类（Java三个特殊类）Object 类可以接收所有引用类型，但是不能接收基本数据类型。包装类就是给基本数据的处理来使用。 包装类的基本使用包装类就将基本数据类型封装到类中 自定义一个包装类 123456789class IntDemo&amp;#123;    private int num;    public IntDemo(int num)&amp;#123;        this">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://soyanga.github.io/categories/JAVASE/"/>
+  <link rel="canonical" href="https://soyanga.github.io/2019/02/13/再识java包装类/"/>
 
 
 
 
 
-  <title>分类: JAVASE | SOYANGA</title>
+  <title>再识java包装类 | SOYANGA</title>
   
 
 
@@ -158,7 +160,7 @@
   
 
   
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/SOYANGA" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 	
@@ -330,195 +332,288 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>JAVASE<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/02/13/再识java包装类/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/02/13/再识java包装类/" itemprop="url">
-              
-                <span itemprop="name">再识java包装类</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">再识java包装类</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-02-13T20:14:04+08:00"
-              content="2019-02-13" >
-          02-13
-        </time>
-      </div>
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T20:14:04+08:00">
+                2019-02-13
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-13T23:04:57+08:00">
+                2019-02-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVASE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  923
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/31/volatile-双重检验锁模式/" itemprop="url">
-              
-                <span itemprop="name">volatile-双重检验锁模式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-31T18:10:53+08:00"
-              content="2019-01-31" >
-          01-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <meta name="referrer" content="no-referrer">
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/28/再识Java-JVM/" itemprop="url">
-              
-                <span itemprop="name">再识Java-JVM</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-28T13:14:59+08:00"
-              content="2019-01-28" >
-          01-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/28/再识Java-02面向对象/" itemprop="url">
-              
-                <span itemprop="name">再识Java-02面向对象</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-28T12:57:28+08:00"
-              content="2019-01-28" >
-          01-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/27/再识java-01/" itemprop="url">
-              
-                <span itemprop="name">再识java-01</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-27T21:40:41+08:00"
-              content="2019-01-27" >
-          01-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/06/14-javaIO/" itemprop="url">
-              
-                <span itemprop="name">14-javaIO</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-06T22:09:59+08:00"
-              content="2019-01-06" >
-          01-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<p>​     </p>
+<h1 id="包装类（Java三个特殊类）"><a href="#包装类（Java三个特殊类）" class="headerlink" title="包装类（Java三个特殊类）"></a>包装类（Java三个特殊类）</h1><p>Object 类可以接收所有引用类型，但是不能接收基本数据类型。包装类就是给基本数据的处理来使用。</p>
+<h2 id="包装类的基本使用"><a href="#包装类的基本使用" class="headerlink" title="包装类的基本使用"></a>包装类的基本使用</h2><p>包装类就将基本数据类型封装到类中</p>
+<p>自定义一个包装类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IntDemo</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IntDemo</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.num = num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">intValue</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​         这时IntDemo就像相当于int数据类型的包装类，利用IntValue就可以实现基本的数据类型变为对象的需求了（供Obejct使用）</p>
+<a id="more"></a> 
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;        </span><br><span class="line">	<span class="comment">// 子类对象向上转型        </span></span><br><span class="line">	Object obj = <span class="keyword">new</span> IntDemo(<span class="number">55</span>) ;         </span><br><span class="line">	IntDemo temp = (IntDemo) obj ; <span class="comment">// 向下转型        	</span></span><br><span class="line">	System.out.println(temp.intValue()); <span class="comment">// 取出里面的基本数据类型操作  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结论：将基本数据类型包装为一个包装类一个类对象的本质就是使用Object进行接收处理</p>
+<p>但是Java中有8个数据类型，如果以上都需要进行认为编写，则会存在以下问题</p>
+<blockquote>
+<ol>
+<li>开发中代码重复太多</li>
+<li>进行数学计算的时候，必须利用明确的方法将包装的数据取出后才进行运算。</li>
+</ol>
+</blockquote>
+<p>为了方便开发，Java引入包装类的使用，以下提供了两种类型</p>
+<ul>
+<li>对象型(Object的直接子类):Boolean,Character(char);</li>
+<li>数值型(Number的直接子类):Byte,Short,Long,Integer(int),Float;</li>
+</ul>
+<h2 id="装箱与拆箱"><a href="#装箱与拆箱" class="headerlink" title="装箱与拆箱"></a>装箱与拆箱</h2><p>在包装类于基本数据类型处理中存有两个概念：</p>
+<ul>
+<li><strong>装箱：</strong>将基本数据类型变为包装类对象，利用每一个<strong>包装类提供的构造方法实现装箱处理</strong>。</li>
+<li><strong>拆箱：</strong>将包装类中包装的基本数据类型取出。利用<strong>Number类中提供的6中方法</strong>。</li>
+</ul>
+<p><strong>eg:以int和Integer为例</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer num = <span class="keyword">new</span> Integer(<span class="number">55</span>);<span class="comment">//装箱</span></span><br><span class="line"><span class="keyword">int</span> data = num.intValue();<span class="comment">//拆箱</span></span><br><span class="line">System.out.println(data);</span><br></pre></td></tr></table></figure>
+<p>以上操作采用的时手工的装箱和拆箱。<strong>在JDK1.5之后，提供了自动拆装箱的机制</strong>，最为重要的是，由于此类机制的存在，可以直接利用包装类的对象进行各种数学计算。</p>
+<p><strong>eg:自动拆装箱</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自动装箱</span></span><br><span class="line">Integer x = <span class="number">55</span>;</span><br><span class="line"><span class="comment">//可以直接理应包装类对象操作(自动拆箱)</span></span><br><span class="line">System.out.println(++x*<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="引出问题："><a href="#引出问题：" class="headerlink" title="引出问题："></a>引出问题：</h3><p><strong>阿里编码规范—：</strong> 相同类型的包装类对象之间值的比较，全部使用equals方法比较</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">      Integer num1 = <span class="keyword">new</span> Integer(<span class="number">10</span>) ;         </span><br><span class="line">      Integer num2 = <span class="keyword">new</span> Integer(<span class="number">10</span>) ;</span><br><span class="line">Integer num3 = <span class="number">10</span>;</span><br><span class="line">Integer num4 = <span class="number">10</span>；</span><br><span class="line"><span class="keyword">int</span> num5 = <span class="number">10</span>;</span><br><span class="line">      System.out.println(num1 == num2);<span class="comment">//false  原因-128&lt;10&lt;127 //比较对象</span></span><br><span class="line">      System.out.println(num1 == <span class="keyword">new</span> Integer(<span class="number">10</span>)); <span class="comment">//false     //比较对象</span></span><br><span class="line">System.out.println(num3 == num4);<span class="comment">//true      //Integer最小缓存机制</span></span><br><span class="line">System.out.println(num1 == num3);<span class="comment">//false //其中一个是对象则就是对象比较</span></span><br><span class="line">System.out.println(num1 == num5);<span class="comment">//自动拆箱，Integer类型与int类型比较，Integer类型自动拆箱变为int类型</span></span><br><span class="line">System.out.println(num3 == num5);<span class="comment">//同上</span></span><br><span class="line">      System.out.println(num1.equals(<span class="keyword">new</span> Integer(<span class="number">10</span>)));<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>说明：对于Integer var = ?在-128~128范围内的赋值，Integer对象是在IntegerCache.cache产生，会复用已有对象，这个区间内的Integer值可以直接使用==进行判断，但是这个区间之外所有的数据，都会在堆上产生，并不会复用已有对象。</p>
+<p>【强力推荐】相同类型的包装类对象之间值的比较，全部使用equals方法比较</p>
+<h2 id="阿里编码规范："><a href="#阿里编码规范：" class="headerlink" title="阿里编码规范："></a>阿里编码规范：</h2><p>关于基本数据类型与包装类型的使用标准如下：</p>
+<ol>
+<li>【强制】所有POJO类属性必须使用包装类数据类型。</li>
+<li>【强制】RPC方法的返回值和参数必须使用包装类数据类型。</li>
+<li>【推荐】所有的局部变量使用基本数据类型。</li>
+</ol>
 
       
     </div>
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
 
+  
+</div>
+	
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    SOYANGA
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://soyanga.github.io/2019/02/13/再识java包装类/" title="再识java包装类">https://soyanga.github.io/2019/02/13/再识java包装类/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaSE基础/" rel="tag"><i class="fa fa-tag"></i> JavaSE基础</a>
+          
+            <a href="/tags/Java学习笔记/" rel="tag"><i class="fa fa-tag"></i> Java学习笔记</a>
+          
+            <a href="/tags/包装类-自动拆装箱/" rel="tag"><i class="fa fa-tag"></i> 包装类-自动拆装箱</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/31/数据结构复习专用/" rel="next" title="数据结构复习专用">
+                <i class="fa fa-chevron-left"></i> 数据结构复习专用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -526,6 +621,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -546,8 +645,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -634,6 +742,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#包装类（Java三个特殊类）"><span class="nav-number">1.</span> <span class="nav-text">包装类（Java三个特殊类）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包装类的基本使用"><span class="nav-number">1.1.</span> <span class="nav-text">包装类的基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装箱与拆箱"><span class="nav-number">1.2.</span> <span class="nav-text">装箱与拆箱</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引出问题："><span class="nav-number">1.2.1.</span> <span class="nav-text">引出问题：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阿里编码规范："><span class="nav-number">1.3.</span> <span class="nav-text">阿里编码规范：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -782,6 +906,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
