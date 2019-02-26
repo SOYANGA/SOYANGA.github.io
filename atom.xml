@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-02-26T14:43:36.034Z</updated>
+  <updated>2019-02-26T14:50:19.512Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -21,16 +21,32 @@
     <link href="https://soyanga.github.io/2019/02/26/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90-%E4%B8%8B/"/>
     <id>https://soyanga.github.io/2019/02/26/时间复杂度分析-下/</id>
     <published>2019-02-26T14:43:36.000Z</published>
-    <updated>2019-02-26T14:43:36.034Z</updated>
+    <updated>2019-02-26T14:50:19.512Z</updated>
     
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="复杂度分析（下）：浅析、最坏、平均、均摊时间复杂度"><a href="#复杂度分析（下）：浅析、最坏、平均、均摊时间复杂度" class="headerlink" title="复杂度分析（下）：浅析、最坏、平均、均摊时间复杂度"></a>复杂度分析（下）：浅析、最坏、平均、均摊时间复杂度</h1><p>应用场景主键增加：</p><h2 id="最好时间复杂度："><a href="#最好时间复杂度：" class="headerlink" title="最好时间复杂度："></a>最好时间复杂度：</h2><blockquote><p>在最理想的情况下，执行这段代码的时间复杂度。</p></blockquote><h2 id="最坏时间复杂度："><a href="#最坏时间复杂度：" class="headerlink" title="最坏时间复杂度："></a>最坏时间复杂度：</h2><blockquote><p>在最糟糕的情况下，执行这段代码的时间复杂度</p></blockquote><h2 id="平均时间复杂度："><a href="#平均时间复杂度：" class="headerlink" title="平均时间复杂度："></a>平均时间复杂度：</h2><blockquote><p>使用概率论知识计算每一个情况出现的概率这个值就是概率论中的加权平均值，也称作期望值，所以平均时间复杂度的全称应该是  <strong>加权平均时间复杂度</strong>或者 <strong>期望时间复杂度。</strong></p></blockquote><h2 id="均摊时间复杂度：平均时间复杂度的特殊情况"><a href="#均摊时间复杂度：平均时间复杂度的特殊情况" class="headerlink" title="均摊时间复杂度：平均时间复杂度的特殊情况"></a>均摊时间复杂度：平均时间复杂度的特殊情况</h2><p>均摊时间复杂度就是一种特殊的平均时间复杂度</p><a id="more"></a><blockquote><p>通过摊还分析：对一个数据结构进行一组连续操作中，大部分情况下时间复杂度有都很低，只有个别情况下时间复杂度比较高而且这个操作之间存在前后连贯的时序问题，<strong>这个时候，我们就可以将这组操作放在一块分析，看能否能将较高时间复杂度的那次操作的耗时，平摊到其他时间复杂度比较低的操作上。</strong>而且，在能够应用均摊时间复杂度分析的场合，一般均摊时间时间复杂度就等于最好时间复杂度。</p></blockquote><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局变量，大小为 10 的数组 array，长度 len，下标 i。</span></span><br><span class="line"><span class="keyword">int</span> <span class="built_in">array</span>[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>]; </span><br><span class="line"><span class="keyword">int</span> len = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 往数组中添加一个元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> element)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (i &gt;= len) &#123; <span class="comment">// 数组空间不够了</span></span><br><span class="line">     <span class="comment">// 重新申请一个 2 倍大小的数组空间</span></span><br><span class="line">     <span class="keyword">int</span> new_array[] = <span class="keyword">new</span> <span class="keyword">int</span>[len*<span class="number">2</span>];</span><br><span class="line">     <span class="comment">// 把原来 array 数组中的数据依次 copy 到 new_array</span></span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len; ++j) &#123;</span><br><span class="line">       new_array[j] = <span class="built_in">array</span>[j];</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">// new_array 复制给 array，array 现在大小就是 2 倍 len 了</span></span><br><span class="line">     <span class="built_in">array</span> = new_array;</span><br><span class="line">     len = <span class="number">2</span> * len;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 将 element 放到下标为 i 的位置，下标 i 加 1</span></span><br><span class="line">   <span class="built_in">array</span>[i] = element;</span><br><span class="line">   ++i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>分析：</strong></p><blockquote><p>最好时间复杂度分析：O(1)：没有扩容存储数据的的时候</p><p>最坏时间复杂度分析：O(n)：扩容存储数据的时候</p><p>平均时间复杂度分析：归为一类分析其中一种即可</p></blockquote><blockquote><p>均摊时间复杂度分析：O(1)(为扩容)、 O(n)（扩容时） 均摊后O(1)</p></blockquote>]]></content>
     
     <summary type="html">
     
       &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+&lt;h1 id=&quot;复杂度分析（下）：浅析、最坏、平均、均摊时间复杂度&quot;&gt;&lt;a href=&quot;#复杂度分析（下）：浅析、最坏、平均、均摊时间复杂度&quot; class=&quot;headerlink&quot; title=&quot;复杂度分析（下）：浅析、最坏、平均、均摊时间复杂度&quot;&gt;&lt;/a&gt;复杂度分析（下）：浅析、最坏、平均、均摊时间复杂度&lt;/h1&gt;&lt;p&gt;应用场景主键增加：&lt;/p&gt;
+&lt;h2 id=&quot;最好时间复杂度：&quot;&gt;&lt;a href=&quot;#最好时间复杂度：&quot; class=&quot;headerlink&quot; title=&quot;最好时间复杂度：&quot;&gt;&lt;/a&gt;最好时间复杂度：&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在最理想的情况下，执行这段代码的时间复杂度。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;最坏时间复杂度：&quot;&gt;&lt;a href=&quot;#最坏时间复杂度：&quot; class=&quot;headerlink&quot; title=&quot;最坏时间复杂度：&quot;&gt;&lt;/a&gt;最坏时间复杂度：&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在最糟糕的情况下，执行这段代码的时间复杂度&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;平均时间复杂度：&quot;&gt;&lt;a href=&quot;#平均时间复杂度：&quot; class=&quot;headerlink&quot; title=&quot;平均时间复杂度：&quot;&gt;&lt;/a&gt;平均时间复杂度：&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;使用概率论知识计算每一个情况出现的概率这个值就是概率论中的加权平均值，也称作期望值，所以平均时间复杂度的全称应该是  &lt;strong&gt;加权平均时间复杂度&lt;/strong&gt;或者 &lt;strong&gt;期望时间复杂度。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;均摊时间复杂度：平均时间复杂度的特殊情况&quot;&gt;&lt;a href=&quot;#均摊时间复杂度：平均时间复杂度的特殊情况&quot; class=&quot;headerlink&quot; title=&quot;均摊时间复杂度：平均时间复杂度的特殊情况&quot;&gt;&lt;/a&gt;均摊时间复杂度：平均时间复杂度的特殊情况&lt;/h2&gt;&lt;p&gt;均摊时间复杂度就是一种特殊的平均时间复杂度&lt;/p&gt;
     
     </summary>
     
+      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
     
   </entry>
   
@@ -39,9 +55,9 @@
     <link href="https://soyanga.github.io/2019/02/26/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90-%E4%B8%8A/"/>
     <id>https://soyanga.github.io/2019/02/26/时间复杂度分析-上/</id>
     <published>2019-02-26T14:43:16.000Z</published>
-    <updated>2019-02-26T14:48:24.701Z</updated>
+    <updated>2019-02-26T14:51:51.754Z</updated>
     
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h1><h1 id="常见时间复杂度"><a href="#常见时间复杂度" class="headerlink" title="常见时间复杂度"></a>常见时间复杂度</h1><h2 id="1-O-1-常量阶时间复杂度"><a href="#1-O-1-常量阶时间复杂度" class="headerlink" title="1.O(1):常量阶时间复杂度"></a><strong>1.O(1):常量阶时间复杂度</strong></h2><p>算法中存在循环语句，递归语句，时间复杂度不会随着n的增加而增加。</p><h2 id="2-O-logn-、O-nlogn"><a href="#2-O-logn-、O-nlogn" class="headerlink" title="2.O(logn)、O(nlogn):"></a><strong>2.O(logn)、O(nlogn):</strong></h2><p>对数阶时间复杂度<br>$$<br>判断循环条件不满足时，将变量的变化的过程用函数表示，表示出来的公式是一个\logx_n判断变化了多少此即可。<br>$$</p><p>$$<br>即使\log_2 n,\log_3n,\log_4n——&gt;都是\log_n对数之间可以进行转换。为什么，可使用O(logn)表示呢，因为如下：<br>$$</p><p>$$<br>\log_3n= \log_32 <em> \log_2n =O(C</em>\log_2n) 其中C = \log_32是一个常量。基于我们前面的一个理论：在采用大O(\log_n)标记复<br>$$</p><p>$$<br>杂度的时候，可以忽略系数，即O(Cf(n)) = O(f(n))。所以，O(\log_2n)就等于O(\log_3n)。因此，在对数阶时间复杂度的表示放法里，我们忽略对数的“底”,统一表示为O(\log_n)。<br>$$</p><p>如果一段代码的时间复杂度是 O(logn)，我们循环执行 我们循环执行 n 遍，时间复杂度就是 O(nlogn) 了。</p><p><strong>时间复杂度的全称是渐进时间复杂度，表示算法的执行时间与数据规模之间的增长关系。类比一下，空间复杂度全称就是渐进空间复杂度（asymptotic space complexity），表示算法的存储空间与数据规模之间的增长的关系。</strong></p><a id="more"></a><h1 id="2-空间复杂度"><a href="#2-空间复杂度" class="headerlink" title="2.空间复杂度"></a>2.空间复杂度</h1><p>类比时间复杂度，空间复杂度主要取决于，空间存储变量的开辟的大小</p><p><img src="/2019/02/26/时间复杂度分析-上/hexo\source\_posts\时间复杂度分析-上\常用时间复杂度.png" alt="常用时间复杂度"></p>]]></content>
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h1><h1 id="常见时间复杂度"><a href="#常见时间复杂度" class="headerlink" title="常见时间复杂度"></a>常见时间复杂度</h1><h2 id="1-O-1-常量阶时间复杂度"><a href="#1-O-1-常量阶时间复杂度" class="headerlink" title="1.O(1):常量阶时间复杂度"></a><strong>1.O(1):常量阶时间复杂度</strong></h2><p>算法中存在循环语句，递归语句，时间复杂度不会随着n的增加而增加。</p><h2 id="2-O-logn-、O-nlogn"><a href="#2-O-logn-、O-nlogn" class="headerlink" title="2.O(logn)、O(nlogn):"></a><strong>2.O(logn)、O(nlogn):</strong></h2><p>对数阶时间复杂度<br>$$<br>判断循环条件不满足时，将变量的变化的过程用函数表示，表示出来的公式是一个\logx_n判断变化了多少此即可。<br>$$</p><p>$$<br>即使\log_2 n,\log_3n,\log_4n——&gt;都是\log_n对数之间可以进行转换。为什么，可使用O(logn)表示呢，因为如下：<br>$$</p><p>$$<br>\log_3n= \log_32 <em> \log_2n =O(C</em>\log_2n) 其中C = \log_32是一个常量。基于我们前面的一个理论：在采用大O(\log_n)标记复<br>$$</p><p>$$<br>杂度的时候，可以忽略系数，即O(Cf(n)) = O(f(n))。所以，O(\log_2n)就等于O(\log_3n)。因此，在对数阶时间复杂度的表示放法里，我们忽略对数的“底”,统一表示为O(\log_n)。<br>$$</p><p>如果一段代码的时间复杂度是 O(logn)，我们循环执行 我们循环执行 n 遍，时间复杂度就是 O(nlogn) 了。</p><p><strong>时间复杂度的全称是渐进时间复杂度，表示算法的执行时间与数据规模之间的增长关系。类比一下，空间复杂度全称就是渐进空间复杂度（asymptotic space complexity），表示算法的存储空间与数据规模之间的增长的关系。</strong></p><a id="more"></a><h1 id="2-空间复杂度"><a href="#2-空间复杂度" class="headerlink" title="2.空间复杂度"></a>2.空间复杂度</h1><p>类比时间复杂度，空间复杂度主要取决于，空间存储变量的开辟的大小</p><p><img src="/2019/02/26/时间复杂度分析-上/常用时间复杂度.png" alt="常用时间复杂度"></p>]]></content>
     
     <summary type="html">
     
