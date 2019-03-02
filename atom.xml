@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-02-28T15:03:04.504Z</updated>
+  <updated>2019-03-02T15:56:15.401Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -15,6 +15,57 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>排序(下)</title>
+    <link href="https://soyanga.github.io/2019/03/02/%E6%8E%92%E5%BA%8F(%E4%B8%8B)/"/>
+    <id>https://soyanga.github.io/2019/03/02/排序(下)/</id>
+    <published>2019-03-02T15:54:52.000Z</published>
+    <updated>2019-03-02T15:56:15.401Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="13-排序-下-线性排序-strawberry"><a href="#13-排序-下-线性排序-strawberry" class="headerlink" title="[13]排序(下)-线性排序:strawberry:"></a>[13]排序(下)-线性排序:strawberry:</h1><table><thead><tr><th>非基于比较的 线性排序</th><th>时间复杂度</th><th>适用场合</th></tr></thead><tbody><tr><td>桶排序</td><td>O(n)</td><td><strong>数据量大，数据存储在磁盘上，内存有限（数据范围不大）</strong></td></tr><tr><td>计数排序</td><td>O(n)</td><td><strong>计数排序只能用在数据范围不大的场景中</strong></td></tr><tr><td>基数排序</td><td>O(n)</td><td><strong>数据可以划分高低位，且每一位之间后递进关系，每一位范围不能大，因为每一位的稳定排序依赖桶排或者计数排序</strong></td></tr></tbody></table><a id="more"></a><p>桶排序，计数排序，基数排序都是线程排序。之所以可以做到线程的时间复杂度，主要原因是，这三个算法是基于<strong>非比较</strong> 的排序算法，都不设计元素之间的比较操作。</p><p><strong>这几种排序对要排序的数据要求很苛刻，我们重点要学习的是这三种排序的适用场景。</strong> </p><h1 id="思考题-thinking"><a href="#思考题-thinking" class="headerlink" title="思考题:thinking:"></a>思考题:thinking:</h1><p>如何根据年龄给100万用户排序？O(n)</p><h1 id="桶排序-Bucket-Sort-package"><a href="#桶排序-Bucket-Sort-package" class="headerlink" title="桶排序(Bucket Sort):package:"></a>桶排序(Bucket Sort):package:</h1><h2 id="核心思想-collision"><a href="#核心思想-collision" class="headerlink" title="核心思想:collision:"></a><strong>核心思想:collision:</strong></h2><p>将要排序的数据分到几个有序桶中，每个桶里的数据再单独进行排序<strong>。桶内排完序后，再把</strong>每个桶里的数据按照顺序依次取出**，组成的序列就是有序的了。</p><ul><li>将要排序数据分到<strong>有序桶中</strong> </li><li><strong>每个桶中数据进行排序</strong></li><li>桶内排完序后，再把<strong>每个桶里的数据按照顺序依次取出</strong>。</li></ul><h3 id="桶排序为什么是O-n-时间复杂度"><a href="#桶排序为什么是O-n-时间复杂度" class="headerlink" title="桶排序为什么是O(n)时间复杂度"></a><strong>桶排序为什么是O(n)时间复杂度</strong></h3><p><img src="/2019/03/02/排序(下)/婕\数据结构与算法之美\picture\桶排序示例.png" alt="桶排序示例"></p><h3 id="分析："><a href="#分析：" class="headerlink" title="分析："></a><strong>分析：</strong></h3><p>排序的数据有n个，我们把他们均匀的划分到m个桶内，每个桶就有k=n/m个元素。每个桶内部使用快排，时间复杂度O(K<em>logk)。m个桶排序的时间复杂度就是O(m\</em>klogk),因为k = n/m,所以整个桶排序的时间复杂度就是O(n*log(n/m))。<strong>当桶的个数接近与数据个数n时，log(n/m)就是一个非常小的常量，这时候桶排序的时间复杂度接近O(n)。</strong></p><p><strong>但是</strong>以上能实现O(n)时间复杂度的<strong>前提是</strong></p><p><strong>一是：</strong> </p><blockquote><ul><li><strong>能将数据很容易的划分成n个桶，</strong></li><li><strong>桶与桶之间有着天然的大小顺序。</strong></li></ul></blockquote><p><strong>这样每个桶内的数据都排完序后，桶与桶之间的数据就不需要再进行排序了。</strong></p><p><strong>二是：</strong> </p><blockquote><ul><li><strong>数据再各个桶之间的分布是比较平均的。</strong></li></ul></blockquote><p>如果数据经过桶的划分之后，有些桶里的数据非常多，有些桶里的数据非常的少，很不平均，那通内数据排序的时间复杂度就不是常量级了。在极端情况下，如果数据都被划分到一个桶里，那就退化为O(nlogn)排序算法了。</p><h2 id="适应场景-sun-with-face"><a href="#适应场景-sun-with-face" class="headerlink" title="适应场景:sun_with_face:"></a>适应场景:sun_with_face:</h2><p><strong>桶排序比较适合用在外部排序中。</strong> <strong><em>所谓的外部排序就是数据存储啊在外部磁盘中，数据量比较大，内存有限，无法将数据全部加载到内存中。</em></strong> </p><h2 id="借助桶排序来处理问题：10G订单数据按照订单金额进行排序"><a href="#借助桶排序来处理问题：10G订单数据按照订单金额进行排序" class="headerlink" title="借助桶排序来处理问题：10G订单数据按照订单金额进行排序"></a>借助桶排序来处理问题：10G订单数据按照订单金额进行排序</h2><p>我们只有几百MB，没办法一次性把10G数据都加载到内存中。这时我们可以利用桶排序的思想来处理这个问题。</p><ol><li><p>我们可以先扫描一遍晚间，看订单金额所处于在金额范围，将订单分到固定个数的桶中</p><blockquote><p>假设我们得到订单金额的范围是<strong>最小是1元到最多是10多万元</strong>，我们根据订单金额将订单分到<strong>100个桶中</strong>去，第一个通我们存储1元~1000之内的定单，第二个桶中存储1001~2000元之内的订单以此类推。</p></blockquote></li><li><p>每个桶对应一个文件（文件有序号），并且按照金额范围大小顺序编号命名(00,01,02…,99).</p><blockquote><p>在理想情况下，如果订单金额从1到10万元之间均匀分布，那么订单会被均匀划分到100个文件中，每个小文件中存储大约100MB的订单数据，我们就可以将100个小文件依次存放到内存中用快排来进行排序，等所有文件都排好序之后，我们只需要按照文件编号，从小到大依次读取每个文件中的订单数据，并将其写入一个大文件中，那么这个文件中存储的就是按照金额从小到达的订单数据了</p></blockquote></li></ol><h3 id="问题：订单金额很有可能并不是均匀分布在1-10万元的内"><a href="#问题：订单金额很有可能并不是均匀分布在1-10万元的内" class="headerlink" title="问题：订单金额很有可能并不是均匀分布在1~10万元的内"></a>问题：订单金额很有可能并不是均匀分布在1~10万元的内</h3><p><strong>递归式划分大文件，直到所有文件都可以被读取到内存中进行快排。</strong></p><p>所以10G订单数据是无法均匀地被划分到100个文件中的。有可能某个金额区间的数据特别多，划分之后对用的文件就会很大，没法一次性读取到内存中。</p><p>此时我们需要针对比较大的文件，继续对其进行划分，比如，订单金额咋子1元到1000元之间的比较多，我们就将这个区间继续划分你为10个区间，1元到100元，101到200元…</p><p>假如谋个区间内订单还是太多了，无法一次性读入到内存中，我们就继续划分，直到所有文件都能读入到内存中进行快排。</p><h1 id="计数排序-Counting-Sort-desktop-computer"><a href="#计数排序-Counting-Sort-desktop-computer" class="headerlink" title="计数排序(Counting Sort):desktop_computer:"></a>计数排序(Counting Sort):desktop_computer:</h1><h2 id="适用场景-sunny"><a href="#适用场景-sunny" class="headerlink" title="适用场景:sunny:"></a>适用场景:sunny:</h2><p>计数排序是桶排的一种特殊情况。<strong><em>当要排序的n个数据，所处的范围并不大的时候</em>，比如最大值是k,此时我们就可以把数据划分成k个桶，每个桶内的数据值都是相同的，省略到了桶内排序的时间。</strong> </p><h2 id="高考考生50万排名问题："><a href="#高考考生50万排名问题：" class="headerlink" title="高考考生50万排名问题："></a>高考考生50万排名问题：</h2><p>高考总成绩是900分，最小是0分，这个数据的范围很小，所以我们可以分成901个桶，桶中存储的是对哟个分数的人数。桶内考生的分数相同所以的并不需要再进行排序。我们只需要依次扫描完每个桶，将桶内的考生依次输出到一个数组中，就实现了50万考生的排序。因为只涉及扫描遍历操作，所以时间复杂度是O(n)。</p><h2 id="如何实现计数排序？"><a href="#如何实现计数排序？" class="headerlink" title="如何实现计数排序？"></a>如何实现计数排序？</h2><p>我们要实现稳定的计数排序不能单从某个数据对应个数进行对数据的分组。因为那样不能保证相等数据排序前后的相对前后位置不变，所以我们需要两个辅助数组。</p><h3 id="辅助数组C-的创建"><a href="#辅助数组C-的创建" class="headerlink" title="辅助数组C[]的创建"></a>辅助数组C[]的创建</h3><p>一个辅助数组下标表示的是分数，数组内容是小于等于当前下标（分数）的数据个数。</p><p><img src="/2019/03/02/排序(下)/婕\数据结构与算法之美\picture\计数排序辅助数组C.jpg" alt="计数排序辅助数组C"></p><ul><li>排序细节</li></ul><p>我们从后到前依次扫描数组A，为什么从后向前是因为保证计数排序的稳定性。比如我们从后扫描遇到3时，我们可以从数组C中取出下标为3的值7，也就时说，到目前为止，包括这个3在内，分数小于等于3的考生有7个，也就是说3时数组R（排好序的数组）的第7个元素（也就是数组R中下标为6的为止）。当3放入到数组R中后，小于等于3的元素就只剩下了6个，所以相应的C[3]中存储的数值要减1，变成6。</p><p>依次类推，当我们扫描到第2个分数为3的考生的时候，就会把它放入数组R中的第6个元素的位置（也就是排序数组下标为5的位置）。当我们扫描完整个数组A后，数组R内的数据就是按照分数从小到大的有序排列了。</p><p><img src="/2019/03/02/排序(下)/婕\数据结构与算法之美\picture\计数排序细节.jpg" alt="计数排序细节"></p><p>代码如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//计数排序，a是数组，n是数组的大小。假设数组存储的都是非负整数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">countingSorot</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//查找数组中数据的范围</span></span><br><span class="line">    <span class="keyword">int</span> max = a[o];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(max &lt; a[i])&#123;</span><br><span class="line">            max = a[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//1.创建辅助数组C[]</span></span><br><span class="line">    <span class="keyword">int</span>[] c = <span class="keyword">new</span> <span class="keyword">int</span>[max+<span class="number">1</span>];<span class="comment">//申请一个计数数组，下标大小[0,max]</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= max; i++)&#123;</span><br><span class="line">        c[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//计算每个元素的个数，放入C中</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        c[a[i]]++;     <span class="comment">//拆解 c[下标为分数] 分数=a[i]  c[下标]：分数为下标数的个数++</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//依次累加  得到辅助数组C[]中存储的是小于等于该数的数据个数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= max; i++)&#123;</span><br><span class="line">        c[i] = c[i-<span class="number">1</span>]+c[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//2.排序数组的创建，排序之后的结果</span></span><br><span class="line">    <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    <span class="comment">//计算排序的关键步骤！！！</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n- <span class="number">1</span>; i &gt;= <span class="number">0</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> index = c[a[i]]-<span class="number">1</span>;  <span class="comment">//该分数对应放在排序数组的下标位置</span></span><br><span class="line">        r[index] = a[i];</span><br><span class="line">        c[a[i]]--;<span class="comment">//小于等于该分数的数据个数-1；</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将结果拷贝给a数组</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>； i &lt; n; i++)&#123;</span><br><span class="line">        a[i] = r[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="计数排序详解"><a href="#计数排序详解" class="headerlink" title="计数排序详解"></a>计数排序详解</h2><p><strong>计数排序只能用在数据范围不大的场景中，如果数据范围k比要排序的数据n大很多，就不使用计数排序了。而且，计数排序只能给非负整数排序，如果要排序的数据是其他类型的，要将其在不改变相对大小的情况下，转化为非负整数。</strong> </p><p>关于将数据转化为能使用计数排序的方法如下：</p><ol><li>如果是分数就将分数化为整数。*10的倍数</li><li>如果是负数就将分数化为整数。+整数</li></ol><h1 id="基数排序（Radix-sort）"><a href="#基数排序（Radix-sort）" class="headerlink" title="基数排序（Radix sort）"></a>基数排序（Radix sort）</h1><p>假设我们要对10万个手机号码进行排序，希望将这10万个手机号码从小到大进行排序？</p><h2 id="对10万个手机号码进行排序"><a href="#对10万个手机号码进行排序" class="headerlink" title="对10万个手机号码进行排序"></a>对10万个手机号码进行排序</h2><p>问题主要特点：</p><ul><li>手机号有11位，假如当作整数来处理范围太大了。我们不能使用桶排，或者计数排序。</li><li>假设我们要比较两个手机号码的a,b的大小，如果在前面几位中，a手机号码已将比b手机号大了，那么后面的几位就不用看了。</li></ul><p>借助稳定排序算法，借助[11]节中举的订单金额时间排序例子，先按照最后一位来排序手机号，然后，再按照倒数地二位重新排序，以此类推，最后按照第一位重新排序。经过11次排序之后，手机号码就有序了。</p><p><img src="/2019/03/02/排序(下)/婕\数据结构与算法之美\picture\基数排序.jpg" alt="基数排序"></p><p>我们每次进行的排序必须是稳定的，这样才不会影响后续位数的排列。</p><p>根据每一位来进行排序，我们可以用到桶排或者计数排序，他们时间复杂度是O(n)。如果要排序的数据位数有k位，那么我们就需要K次桶排序或者计数排序，总时间复杂度就是O(k*n)。当K不大时，比如手机号码的例子，k最大就是11.所以基数排序的时间复杂度就近似与O(n)。</p><h2 id="特殊例子：对字典中20万单词进行排序"><a href="#特殊例子：对字典中20万单词进行排序" class="headerlink" title="特殊例子：对字典中20万单词进行排序"></a><strong>特殊例子</strong>：对字典中20万单词进行排序</h2><ul><li>我们可以把所有单词补齐到相同长度，位数不够的可以在后面补”0”，</li><li>因为根据ASCII值，所有字母大于”0”,所以补”0”不会影响到原有的大小顺序。这样就可以继续用基数排序了。</li></ul><h2 id="适用场景-cat2"><a href="#适用场景-cat2" class="headerlink" title="适用场景:cat2:"></a>适用场景:cat2:</h2><p>基数排序对排序数据又要求<strong>，</strong></p><ul><li><strong>需要分隔出独立的”位”来进行比较，而且位之间有递进的关系</strong>，</li><li><em>如果a数据的高位比b数据大，那剩下的低位就不用比较了</em>。</li><li>除此之外<em>，每一位的数据范围不能太大了</em>，要可以用线性排序算法来排序，否则，基数排序的时间复杂度就无法做到O(n)了。</li></ul><h1 id="解答-key"><a href="#解答-key" class="headerlink" title="解答:key:"></a>解答:key:</h1><p>给根据年龄100万用户排序</p><p>类似给50万考生排序，先找到数据的范围,例如最小1岁最大120岁。我们可以遍历100万用户，根据年龄将其划分到这120个桶里，然后依次顺序遍历这个120个桶中的元素。这样就可以得到按照年龄排序100万用户的数据了。</p><h1 id="内容小结"><a href="#内容小结" class="headerlink" title="内容小结"></a>内容小结</h1><p>桶排序，计数排序，基数排序3种排序对要排序的数据都有比较严苛的要求，应用的不是非常广泛。但是如果数据符合这些排序算法的要求，应用这些算法，会非常高效，线性时间复杂度可以达到O(n)。</p><p><strong>桶排序和计数排序的排序思想非常相似的，都是针对范围不大的数据，将数据划分为不同的桶来实现排序。</strong></p><p>基数排序要求数据可以划分成<strong>高低位</strong>，<strong>位于位之间有递进关系</strong>。比较两个数，我们只需要比较高位，高位相同的再比较低位。且<strong>每一位得到数据范围不能太大</strong>，因为基数排序算法<strong>需要借助桶排序或者计数排序来完成每一位的排序工作。</strong></p><h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p><strong>对大小写字母进行排序，要求大写在前，小写在后。大小写字母内部不要求有序。</strong></p><p>==双指针法（前后指针)==  </p><blockquote><p>前指针从前向后找找到大写字母，后指针从后向前找找到小写字母。然后进行交换，直到两个指针相遇就停止，完成排序。</p></blockquote><p><strong>进阶其中在添加数字，要求数字在中间。</strong></p><p>==分类，两次双指针（前后指针）==</p><blockquote><p>先将数据非为小写字母和非小写字母进行排序，然后再对非小写字母进行数字和大写字母的双指针算法。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+&lt;h1 id=&quot;13-排序-下-线性排序-strawberry&quot;&gt;&lt;a href=&quot;#13-排序-下-线性排序-strawberry&quot; class=&quot;headerlink&quot; title=&quot;[13]排序(下)-线性排序:strawberry:&quot;&gt;&lt;/a&gt;[13]排序(下)-线性排序:strawberry:&lt;/h1&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;非基于比较的 线性排序&lt;/th&gt;
+&lt;th&gt;时间复杂度&lt;/th&gt;
+&lt;th&gt;适用场合&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;桶排序&lt;/td&gt;
+&lt;td&gt;O(n)&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;数据量大，数据存储在磁盘上，内存有限（数据范围不大）&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;计数排序&lt;/td&gt;
+&lt;td&gt;O(n)&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;计数排序只能用在数据范围不大的场景中&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;基数排序&lt;/td&gt;
+&lt;td&gt;O(n)&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;数据可以划分高低位，且每一位之间后递进关系，每一位范围不能大，因为每一位的稳定排序依赖桶排或者计数排序&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+    
+    </summary>
+    
+      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+      <category term="排序" scheme="https://soyanga.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>排序(中)</title>
@@ -766,43 +817,6 @@
       <category term="Linux网络" scheme="https://soyanga.github.io/tags/Linux%E7%BD%91%E7%BB%9C/"/>
     
       <category term="IP协议" scheme="https://soyanga.github.io/tags/IP%E5%8D%8F%E8%AE%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>网络-TCP扩展</title>
-    <link href="https://soyanga.github.io/2019/01/20/%E7%BD%91%E7%BB%9C-TCP%E6%89%A9%E5%B1%95/"/>
-    <id>https://soyanga.github.io/2019/01/20/网络-TCP扩展/</id>
-    <published>2019-01-20T15:35:13.000Z</published>
-    <updated>2019-01-20T15:55:58.876Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="用UDP实现可靠传输（经典面试题）"><a href="#用UDP实现可靠传输（经典面试题）" class="headerlink" title="用UDP实现可靠传输（经典面试题）"></a>用UDP实现可靠传输（经典面试题）</h2><p>参考TCP的可靠性机制，在应用层实现类似的逻辑</p><p>例如：</p><blockquote><ul><li>引入确认应答，确保对端收到数据（可靠性）</li><li>引入序列号，保证顺序顺序</li><li>引入超时重传，如果隔一段时间没有应答，就重发数据；</li><li>….</li></ul></blockquote><a id="more"></a><h2 id="面向字节流"><a href="#面向字节流" class="headerlink" title="面向字节流"></a>面向字节流</h2><p>创建一个TCP的socket，同时在内核中创建一个发送缓冲区和一个接收缓冲区；</p><blockquote><ul><li>调用write时，数据先回发送到缓冲区中</li><li>如果发送的字节数<strong>太⻓</strong>, <strong>会被拆分成多个TCP的数据包发出</strong> </li><li>如果发送的字节数<strong>太短</strong>, <strong>就会先在缓冲区⾥等待, 等到缓冲区长度差不多了, 或者其他合适的时机发送出去</strong> </li><li><strong>接收数据的时候, 数据也是从网络卡驱动程序到达内核的接收缓冲区</strong> </li><li>然后应用程序可以掉调用read从接收缓冲区拿到数据；</li><li>另一个方面，TCP的一个连接，既然有发送缓冲区，也有接收缓冲区，那么对于这一个连接，既可以读数据也可以写数据，这个概念叫做<strong>全双工</strong> </li></ul></blockquote><p>由于缓冲区的存在，TCP程序的读和写不需要一一匹配，例如：</p><blockquote><ul><li>写100个字节数据时, 可以调⽤⼀次write写100个字节, 也可以调⽤100次write, 每次写⼀个字节;</li><li>读100个字节数据时, 也完全不需要考虑写的时候是怎么写的, 既可以⼀次read 100个字节, 也可以<br>⼀次read⼀个字节, 重复100次; </li></ul></blockquote><p>例子：</p><p>TCP:自来水公司供水的例子，例如TCP的传输，水被用于做什么，怎么接的。自来水公司（TCP）不关心。完全由商铺，饭店，奶茶店，养猪厂（等上层应用决定）。</p><p>UDP：饮水机的送水，一桶一桶的。</p><p>粘包问题</p><p>[八戒吃馒头例子]</p><blockquote><ul><li>首先要明确，粘包问题中的包“包”，是指的应用等的数据包</li><li>在TCP的协议中，没有如图UDP一样的“报文长度”这样的字段，但是有一个序号这样的字段。</li><li>站在传输层的角度，TCP是一个一个报文过来的，按照序号排好在缓冲区中。</li><li>站在应用层的角度，看到的只是一串连续的字节数组</li><li>那么应用层看到了这么一连串的字节数据，就不知道从哪个部分开始到哪个部分，是一个完整的应用层结构。</li></ul></blockquote><p>解决粘包问腿，明确每个报文的边界</p><blockquote><ul><li>对于定长的包，保证每次都按固定大小读取即可；例如上面的Request结构，是固定大小的，那么从缓冲区从头开始按sizeof(Request)一次读取即可；</li><li>对于变长的包，可以在包头位置，约定一个总包文长度的字段，从而就知道了包的结束位置；</li><li>对于变长的包，还可以在包和包之间使用明确的分割符（应用协议是程序猿⾃⼰来定的, 只要保证分隔符不和正⽂冲突即可) ；</li></ul></blockquote><p>UDP报头，报文是定长的，且报头有一个16位的UDP长度。就可以明确每个报文的边界。</p><p>且站在应用层的角度上在使用UDP发送数据报的时候数据报一定是完整的或者数据包丢失，不会出现“半个”报文的情况。</p><h2 id="TCP异常情况"><a href="#TCP异常情况" class="headerlink" title="TCP异常情况"></a>TCP异常情况</h2><p><strong>进程终止：</strong>进程终止会释放文件描述符，任然可以发送FIN，和正常关闭没有什么区别。</p><p>会被操作系统底层正常关闭，操作系统底层会帮你进行4挥手，正常关闭。</p><p><strong>机器重启:</strong> 和进程终止的情况相同 。</p><p><strong>机器断电/网络断开：</strong>接收端认为连接还在，一旦接收端有写⼊操作, 接收端发现连接已经不在了, <strong>就会进行reset</strong>发送含有RST. 即使没有写⼊操作, TCP⾃⼰也内置了⼀个保活定时器, 会定期询问对⽅是否还在. 如果对⽅不在, 也会把连接释放 。</p><p>另外, 应⽤层的某些协议, 也有⼀些这样的检测机制. 例如HTTP长连接中, 也会定期检测对⽅的状态. 例如QQ,在QQ断线之后, 也会定期尝试重新连接 。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-&lt;h2 id=&quot;用UDP实现可靠传输（经典面试题）&quot;&gt;&lt;a href=&quot;#用UDP实现可靠传输（经典面试题）&quot; class=&quot;headerlink&quot; title=&quot;用UDP实现可靠传输（经典面试题）&quot;&gt;&lt;/a&gt;用UDP实现可靠传输（经典面试题）&lt;/h2&gt;&lt;p&gt;参考TCP的可靠性机制，在应用层实现类似的逻辑&lt;/p&gt;
-&lt;p&gt;例如：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;引入确认应答，确保对端收到数据（可靠性）&lt;/li&gt;
-&lt;li&gt;引入序列号，保证顺序顺序&lt;/li&gt;
-&lt;li&gt;引入超时重传，如果隔一段时间没有应答，就重发数据；&lt;/li&gt;
-&lt;li&gt;….&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Linux网络" scheme="https://soyanga.github.io/categories/Linux%E7%BD%91%E7%BB%9C/"/>
-    
-      <category term="TCP/UDP" scheme="https://soyanga.github.io/categories/Linux%E7%BD%91%E7%BB%9C/TCP-UDP/"/>
-    
-    
-      <category term="Linux网络" scheme="https://soyanga.github.io/tags/Linux%E7%BD%91%E7%BB%9C/"/>
-    
-      <category term="TCP" scheme="https://soyanga.github.io/tags/TCP/"/>
     
   </entry>
   
