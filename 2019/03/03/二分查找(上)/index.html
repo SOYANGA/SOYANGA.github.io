@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="JavaSE基础,Java学习笔记,集合框架学习+源码分析," />
+  <meta name="keywords" content="数据结构与算法之美,二分查找," />
 
 
 
@@ -93,18 +93,20 @@
 
 
 
-<meta name="description" content="集合产生原因 集合产生背景：  JDK1.2-产生集合框架类集   集合的作用  保存数据 数组定长问题，集合本质上是一个动态数组    Collection接口:保存单个元素的最大父接口常用方法1234561.public bollean add(); //添加元素2.public bollean remove();//删除集合中元素3.public bollean contains();//">
-<meta name="keywords" content="JavaSE基础,Java学习笔记,集合框架学习+源码分析">
+<meta name="description" content="[15]二分查找(上)：如何用最省内存的方式实现快速查找功能二分查找(Binary Search) :open_book:Binary Search 算法，也称折半查找。二分查找的思想很简单-类似与小时候玩的猜数字游戏。 一个人先确定一个数组，另一个随便猜一个数字(中间数)。确定数字的那个人只需要说大了还是小了就行。每说一次就能让可能存在这个数的区间减小一半，知道区间减小到只有一个数字即猜对了">
+<meta name="keywords" content="数据结构与算法之美,二分查找">
 <meta property="og:type" content="article">
-<meta property="og:title" content="再识java--集合框架">
-<meta property="og:url" content="https://soyanga.github.io/2019/02/19/再识java-集合框架/index.html">
+<meta property="og:title" content="二分查找(上)">
+<meta property="og:url" content="https://soyanga.github.io/2019/03/03/二分查找(上)/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="集合产生原因 集合产生背景：  JDK1.2-产生集合框架类集   集合的作用  保存数据 数组定长问题，集合本质上是一个动态数组    Collection接口:保存单个元素的最大父接口常用方法1234561.public bollean add(); //添加元素2.public bollean remove();//删除集合中元素3.public bollean contains();//">
+<meta property="og:description" content="[15]二分查找(上)：如何用最省内存的方式实现快速查找功能二分查找(Binary Search) :open_book:Binary Search 算法，也称折半查找。二分查找的思想很简单-类似与小时候玩的猜数字游戏。 一个人先确定一个数组，另一个随便猜一个数字(中间数)。确定数字的那个人只需要说大了还是小了就行。每说一次就能让可能存在这个数的区间减小一半，知道区间减小到只有一个数字即猜对了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-19T05:29:30.472Z">
+<meta property="og:image" content="https://soyanga.github.io/2019/03/03/二分查找(上)/婕/数据结构与算法之美/picture/二分查找猜数字游戏.png">
+<meta property="og:updated_time" content="2019-03-03T15:20:44.750Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="再识java--集合框架">
-<meta name="twitter:description" content="集合产生原因 集合产生背景：  JDK1.2-产生集合框架类集   集合的作用  保存数据 数组定长问题，集合本质上是一个动态数组    Collection接口:保存单个元素的最大父接口常用方法1234561.public bollean add(); //添加元素2.public bollean remove();//删除集合中元素3.public bollean contains();//">
+<meta name="twitter:title" content="二分查找(上)">
+<meta name="twitter:description" content="[15]二分查找(上)：如何用最省内存的方式实现快速查找功能二分查找(Binary Search) :open_book:Binary Search 算法，也称折半查找。二分查找的思想很简单-类似与小时候玩的猜数字游戏。 一个人先确定一个数组，另一个随便猜一个数字(中间数)。确定数字的那个人只需要说大了还是小了就行。每说一次就能让可能存在这个数的区间减小一半，知道区间减小到只有一个数字即猜对了">
+<meta name="twitter:image" content="https://soyanga.github.io/2019/03/03/二分查找(上)/婕/数据结构与算法之美/picture/二分查找猜数字游戏.png">
 
 
 
@@ -134,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://soyanga.github.io/2019/02/19/再识java-集合框架/"/>
+  <link rel="canonical" href="https://soyanga.github.io/2019/03/03/二分查找(上)/"/>
 
 
 
 
 
-  <title>再识java--集合框架 | SOYANGA</title>
+  <title>二分查找(上) | SOYANGA</title>
   
 
 
@@ -346,7 +348,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/02/19/再识java-集合框架/">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/03/03/二分查找(上)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SOYANGA">
@@ -363,7 +365,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">再识java--集合框架</h1>
+          <h1 class="post-title" itemprop="name headline">二分查找(上)</h1>
         
 
         <div class="post-meta">
@@ -376,8 +378,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-19T12:05:45+08:00">
-                2019-02-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-03T23:18:53+08:00">
+                2019-03-03
               </time>
             
 
@@ -392,8 +394,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-02-19T13:29:30+08:00">
-                2019-02-19
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-03T23:20:44+08:00">
+                2019-03-03
               </time>
             
           </span>
@@ -411,19 +413,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVASE</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVASE/Java集合/" itemprop="url" rel="index">
-                    <span itemprop="name">Java集合</span>
+                  <a href="/categories/数据结构与算法之美/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法之美</span>
                   </a>
                 </span>
 
@@ -453,7 +444,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  197
+                  1.9k
                 </span>
               
 
@@ -469,7 +460,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  7
                 </span>
               
             </div>
@@ -490,23 +481,58 @@
       
 
       
-        <a id="more"></a>
-<h1 id="集合产生原因"><a href="#集合产生原因" class="headerlink" title="集合产生原因"></a>集合产生原因</h1><ul>
-<li><p>集合产生背景：</p>
+        <meta name="referrer" content="no-referrer">
+
+<h1 id="15-二分查找-上-：如何用最省内存的方式实现快速查找功能"><a href="#15-二分查找-上-：如何用最省内存的方式实现快速查找功能" class="headerlink" title="[15]二分查找(上)：如何用最省内存的方式实现快速查找功能"></a>[15]二分查找(上)：如何用最省内存的方式实现快速查找功能</h1><h2 id="二分查找-Binary-Search-open-book"><a href="#二分查找-Binary-Search-open-book" class="headerlink" title="二分查找(Binary Search) :open_book:"></a>二分查找(Binary Search) :open_book:</h2><p>Binary Search 算法，也称折半查找。二分查找的思想很简单-类似与小时候玩的猜数字游戏。</p>
+<p>一个人先确定一个数组，另一个随便猜一个数字(中间数)。确定数字的那个人只需要说大了还是小了就行。每说一次就能让可能存在这个数的区间减小一半，知道区间减小到只有一个数字即猜对了这个数。(最坏情况)</p>
+<a id="more"></a>
+<p><img src="/2019/03/03/二分查找(上)/婕\数据结构与算法之美\picture\二分查找猜数字游戏.png" alt="二分查找猜数字游戏"></p>
+<h3 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h3><p><strong>二分查找针对的是一个==有序的数据结合==，查找思想有点类似分治思想，每次都通过跟区间的==中间元素==对比，将待查找的区间缩小为之前的一半，直到找到要查找的元素，或者区间被缩小为0</strong></p>
+<p>二分查找的时间复杂度：O(logn)</p>
+<blockquote>
+<p>被查找期间的大小变化</p>
+<p>n ，n/2 , n/4 , n/8 , n/2^k…</p>
+</blockquote>
+<p>可以看出，这是一个等比数列。其中n/2^k=1时，k的值就是总共缩小的次数，而每次缩小操作只涉及两个数据的大小比较，所以，经过k次区间缩小操作，时间复杂度就时O(k)。又因为n/2^k=1,我们可以求出k=log2n，所以时间复杂度就是O(logn)。</p>
+<p>O(logn) 的时间复杂度比一定比O(1)时间复杂度的算法执行效率高。大O标记法表示时间复杂度得到时候，会忽略掉低阶，常数，系数。对于常量级的时间复杂度算法来说。O(1)可能表示的是一个非常大的常量值,比如O(1000),O(10000).所以常量级时间复杂度算法有时候可能还没有O(logn)的算法执行效率高。</p>
+<h2 id="简单版本二分查找的递归与非递归实现"><a href="#简单版本二分查找的递归与非递归实现" class="headerlink" title="简单版本二分查找的递归与非递归实现"></a>简单版本二分查找的递归与非递归实现</h2><p>最简单的情况就是有序数组中不存在重复元素。</p>
+<h3 id="非递归版"><a href="#非递归版" class="headerlink" title="非递归版"></a>非递归版</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bsearch</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> n,<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> high = n-<span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(low &lt;= high)&#123;</span><br><span class="line">		<span class="keyword">int</span> mid = low + ((high-low) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">if</span>(a[mid] == vaule)&#123;</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(a[mid]&lt;value)&#123;</span><br><span class="line">            low= mid - <span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            high = mid - <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><h5 id="循环的条件"><a href="#循环的条件" class="headerlink" title="循环的条件"></a>循环的条件</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">low&lt;=high</span><br></pre></td></tr></table></figure>
+<h5 id="mid的取值"><a href="#mid的取值" class="headerlink" title="mid的取值"></a>mid的取值</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果使用mid = (low+high)/2，可能会导致数据的溢出。改进方法有三种</span><br><span class="line">1.mid = low +(high-low)/2;</span><br><span class="line">2.mid = low+((high-low)&gt;&gt;1);</span><br><span class="line">3.mid = (low&amp;high)+((low^high)&gt;&gt;1);</span><br></pre></td></tr></table></figure>
+<h5 id="low和high值的更新"><a href="#low和high值的更新" class="headerlink" title="low和high值的更新"></a>low和high值的更新</h5><p>low=mid+1,high=mid-1。注意这里的+1和-1.如果直接写成low=mid或者high=mid，就可能造成死循环，因为当low=3,high=3时但是a[3]不能与value,本应该就跳出循环，但是如果low和high的更新值错误导致死循环。</p>
+<h3 id="递归版"><a href="#递归版" class="headerlink" title="递归版"></a>递归版</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二分查找递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bsearch</span><span class="params">(<span class="keyword">int</span>[]a,<span class="keyword">int</span> n,<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> brearchInternally(a,<span class="number">0</span>,n-<span class="number">1</span>,val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">brearchInternally</span><span class="params">(<span class="keyword">int</span>[]a,<span class="keyword">int</span> low,<span class="keyword">int</span> high,<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(low&gt;high)&#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid = low+((high-low)&gt;&gt;<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(a[mid]==value)&#123;</span><br><span class="line">        reutrn value;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a[mid]&lt;vlaue)&#123;</span><br><span class="line">    	<span class="keyword">return</span> brearchInternally(a,mid+<span class="number">1</span>,high,value);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> brearchInternally(a,low,mid-<span class="number">1</span>,value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二分查找的应用场景的局限性"><a href="#二分查找的应用场景的局限性" class="headerlink" title="二分查找的应用场景的局限性"></a>二分查找的应用场景的局限性</h2><table>
+<thead>
+<tr>
+<th>时间复杂度</th>
+<th>使用特定数据结构存储数据</th>
+<th>数据必须达到的特殊要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O(logn)</td>
+<td>二分查找依赖舒顺序表(数组)，按下标随机访问数据时间复杂度O(1)</td>
+<td>二分查找针对的有序数据，且不能频繁的删除，插入。一次排序，多次二分查找</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特定的数据结构顺序表-数组"><a href="#特定的数据结构顺序表-数组" class="headerlink" title="特定的数据结构顺序表-数组"></a>特定的数据结构顺序表-数组</h3><p>二分查找需要按照下标随机访问。数组按照下标随机访问数据时间复杂度是O(1),而链表随机访问时间复杂度是O(n)。所以，如果数据使用链表存储，二分查找的时间复杂度就会变得很高。</p>
+<h3 id="针对的数据必须是有序的"><a href="#针对的数据必须是有序的" class="headerlink" title="针对的数据必须是有序的"></a>针对的数据必须是有序的</h3><p>要想使用二分查找时，数据必须是有序的。如果数据没有序，我们需要先排序。排序最低的时间复杂度是O(nlogn)。如果我们针对的是一个静态的数据，没有频繁的插入，删除，我们可以进行一次排序，多次二分查找。这样排序成本被均摊了，二分查找的边际成本就会比较低。</p>
+<p>但是针对动态的数据，一直有数据的频繁的插入和删除操作，要想使用二分查找，要么每次插入，删除操作后保证数据仍有序，要么在每次二分查找前必须进行排序。这种动态数据集合，无论那种方法，维护有序的成本都很高。</p>
+<p>二分查找只能应用在插入和删除操作不频繁，一次排序多次查找的场景中。针对动态变化的数据集合，二分查找不再适用。我们将适用二叉树。</p>
+<h3 id="数据量太小不适合二分查找"><a href="#数据量太小不适合二分查找" class="headerlink" title="数据量太小不适合二分查找"></a>数据量太小不适合二分查找</h3><p>如果要处理的是数据量很小的数据，没有必要适用二分插找，直接使用顺序遍历就可以了。只有数据量比较大时，二分查找的优势才会比较明显。</p>
+<p>但是有一个特例：</p>
+<p>比如数据之间的比较操作比较耗时，不管数据量大小，我都推荐使用二分查找。比如，数组中存储的都是长度超过300的字符串，如此长的两个字符串之间对比就会非常耗时。我们需要尽可能的减少比较次数，而比较次数的减少会大大提高性能，此时使用二分查找效果更好。</p>
+<h3 id="数据量太大也不适合二分查找"><a href="#数据量太大也不适合二分查找" class="headerlink" title="数据量太大也不适合二分查找"></a>数据量太大也不适合二分查找</h3><p>原因二分查找依赖的数据结构，数组为了支持随机访问的特性，要求内存空间连续，对没存的要求比较严格。我们有1GB大小的数据，如果希望用数组来存储，那就需要1GB的连续内存空间。</p>
+<p>“连续”的意思就是，即便有2GB的内存空间剩余但是，如果剩余的2GB的内存空间时不连续的，没有一块连续的1GB内存空间，那样照样无法申请一个1GB大小的数组。因为基于数组数据结构的原因，所以太大的数据用数组存储就比较吃力了，所以就不能使用二分查找了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>二分查找的核心思想理解起来非常简单，有点类似分治思想。即每次都通过跟区间中的中间元素对比，将待查找区间缩小为一半，直到找到要查找的元素，或者区间被缩小为0。但是二分查找的代码实现比较容易写错。你需要着重掌握它的三个容易错的地方：</p>
 <ul>
-<li>JDK1.2-产生集合框架类集</li>
+<li>循环退出条件</li>
+<li>mid取值（求了两个数的平均值）</li>
+<li>low和high的更新</li>
 </ul>
-</li>
-<li><p>集合的作用</p>
-<ul>
-<li>保存数据</li>
-<li>数组定长问题，集合本质上是一个动态数组</li>
-</ul>
-</li>
-</ul>
-<h2 id="Collection接口-保存单个元素的最大父接口"><a href="#Collection接口-保存单个元素的最大父接口" class="headerlink" title="Collection接口:保存单个元素的最大父接口"></a>Collection接口:保存单个元素的最大父接口</h2><h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.<span class="function"><span class="keyword">public</span> bollean <span class="title">add</span><span class="params">()</span></span>; <span class="comment">//添加元素</span></span><br><span class="line"><span class="number">2</span>.<span class="function"><span class="keyword">public</span> bollean <span class="title">remove</span><span class="params">()</span></span>;<span class="comment">//删除集合中元素</span></span><br><span class="line"><span class="number">3</span>.<span class="function"><span class="keyword">public</span> bollean <span class="title">contains</span><span class="params">()</span></span>;<span class="comment">//查看集合中是否有这个元素</span></span><br><span class="line"><span class="number">4</span>.<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;<span class="comment">//清空集合元素</span></span><br><span class="line"><span class="number">6</span>.<span class="keyword">public</span> Object[] toArray();<span class="comment">//将集合转变为对象数组</span></span><br><span class="line"><span class="number">5</span>.<span class="keyword">public</span> Iterator&lt;?&gt;iterator();<span class="comment">//获得集合的迭代器</span></span><br></pre></td></tr></table></figure>
-<h3 id="List：允许数据重复"><a href="#List：允许数据重复" class="headerlink" title="List：允许数据重复"></a>List：允许数据重复</h3><h4 id="独有的方法"><a href="#独有的方法" class="headerlink" title="独有的方法:"></a>独有的方法:</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span>：<span class="comment">//根据索引下标取得数据</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E set（<span class="keyword">int</span> index,E element)<span class="comment">//根据索引下标更新数据，返回修改之前的数据</span></span></span><br></pre></td></tr></table></figure>
-<p><a href="http://naotu.baidu.com/file/7e2ce9e67efeed3fc5b3f442c30d27c3" target="_blank" rel="noopener">ArrayList,Vectory,LinkedList</a></p>
+<p>二分查找虽然性能优秀，但是应用场景也比较有限。底层必须依赖数组，并且还要求数据时有序的。对于较小规模的数据查找，我们直接使用顺序遍历就可以了，二分查找的优势并不明显。二分查找更适合处理静态数据，也就是没有频繁的数据的插入，删除操作。</p>
 
       
     </div>
@@ -537,7 +563,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://soyanga.github.io/2019/02/19/再识java-集合框架/" title="再识java--集合框架">https://soyanga.github.io/2019/02/19/再识java-集合框架/</a>
+    <a href="https://soyanga.github.io/2019/03/03/二分查找(上)/" title="二分查找(上)">https://soyanga.github.io/2019/03/03/二分查找(上)/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -552,11 +578,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaSE基础/" rel="tag"><i class="fa fa-tag"></i> JavaSE基础</a>
+            <a href="/tags/数据结构与算法之美/" rel="tag"><i class="fa fa-tag"></i> 数据结构与算法之美</a>
           
-            <a href="/tags/Java学习笔记/" rel="tag"><i class="fa fa-tag"></i> Java学习笔记</a>
-          
-            <a href="/tags/集合框架学习-源码分析/" rel="tag"><i class="fa fa-tag"></i> 集合框架学习+源码分析</a>
+            <a href="/tags/二分查找/" rel="tag"><i class="fa fa-tag"></i> 二分查找</a>
           
         </div>
       
@@ -569,8 +593,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/13/再识java包装类/" rel="next" title="再识java包装类">
-                <i class="fa fa-chevron-left"></i> 再识java包装类
+              <a href="/2019/03/02/排序(下)/" rel="next" title="排序(下)">
+                <i class="fa fa-chevron-left"></i> 排序(下)
               </a>
             
           </div>
@@ -578,10 +602,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/26/时间复杂度分析-上/" rel="prev" title="时间复杂度分析(上)">
-                时间复杂度分析(上) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -740,7 +760,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#集合产生原因"><span class="nav-number">1.</span> <span class="nav-text">集合产生原因</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Collection接口-保存单个元素的最大父接口"><span class="nav-number">1.1.</span> <span class="nav-text">Collection接口:保存单个元素的最大父接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用方法"><span class="nav-number">1.1.1.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List：允许数据重复"><span class="nav-number">1.1.2.</span> <span class="nav-text">List：允许数据重复</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#独有的方法"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">独有的方法:</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#15-二分查找-上-：如何用最省内存的方式实现快速查找功能"><span class="nav-number">1.</span> <span class="nav-text">[15]二分查找(上)：如何用最省内存的方式实现快速查找功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二分查找-Binary-Search-open-book"><span class="nav-number">1.1.</span> <span class="nav-text">二分查找(Binary Search) :open_book:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小总结"><span class="nav-number">1.1.1.</span> <span class="nav-text">小总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单版本二分查找的递归与非递归实现"><span class="nav-number">1.2.</span> <span class="nav-text">简单版本二分查找的递归与非递归实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#非递归版"><span class="nav-number">1.2.1.</span> <span class="nav-text">非递归版</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意："><span class="nav-number">1.2.1.1.</span> <span class="nav-text">注意：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#循环的条件"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">循环的条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mid的取值"><span class="nav-number">1.2.1.1.2.</span> <span class="nav-text">mid的取值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#low和high值的更新"><span class="nav-number">1.2.1.1.3.</span> <span class="nav-text">low和high值的更新</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归版"><span class="nav-number">1.2.2.</span> <span class="nav-text">递归版</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分查找的应用场景的局限性"><span class="nav-number">1.3.</span> <span class="nav-text">二分查找的应用场景的局限性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特定的数据结构顺序表-数组"><span class="nav-number">1.3.1.</span> <span class="nav-text">特定的数据结构顺序表-数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#针对的数据必须是有序的"><span class="nav-number">1.3.2.</span> <span class="nav-text">针对的数据必须是有序的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据量太小不适合二分查找"><span class="nav-number">1.3.3.</span> <span class="nav-text">数据量太小不适合二分查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据量太大也不适合二分查找"><span class="nav-number">1.3.4.</span> <span class="nav-text">数据量太大也不适合二分查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.4.</span> <span class="nav-text">总结:</span></a></li></ol></li></ol></div>
             
 
           </div>
