@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="Linux网络,TCP," />
+  <meta name="keywords" content="数据结构与算法之美,二分查找," />
 
 
 
@@ -93,18 +93,18 @@
 
 
 
-<meta name="description" content="用UDP实现可靠传输（经典面试题）参考TCP的可靠性机制，在应用层实现类似的逻辑 例如：   引入确认应答，确保对端收到数据（可靠性） 引入序列号，保证顺序顺序 引入超时重传，如果隔一段时间没有应答，就重发数据； ….">
-<meta name="keywords" content="Linux网络,TCP">
+<meta name="description" content="[16]二分查找(下)：如何快速定位IP对应的省份地址4种常见的二分查找变形问题:four:  查找第一个值等于给定值的元素 查找对后一个值等于给定值的元素 查找第一个大于等于给定值的元素 查找最后一个小于等于给定值的元素">
+<meta name="keywords" content="数据结构与算法之美,二分查找">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络-TCP扩展">
-<meta property="og:url" content="https://soyanga.github.io/2019/01/20/网络-TCP扩展/index.html">
+<meta property="og:title" content="二分查找(下)">
+<meta property="og:url" content="https://soyanga.github.io/2019/03/05/二分查找(下)/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="用UDP实现可靠传输（经典面试题）参考TCP的可靠性机制，在应用层实现类似的逻辑 例如：   引入确认应答，确保对端收到数据（可靠性） 引入序列号，保证顺序顺序 引入超时重传，如果隔一段时间没有应答，就重发数据； ….">
+<meta property="og:description" content="[16]二分查找(下)：如何快速定位IP对应的省份地址4种常见的二分查找变形问题:four:  查找第一个值等于给定值的元素 查找对后一个值等于给定值的元素 查找第一个大于等于给定值的元素 查找最后一个小于等于给定值的元素">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-20T15:55:58.876Z">
+<meta property="og:updated_time" content="2019-03-05T14:05:40.481Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="网络-TCP扩展">
-<meta name="twitter:description" content="用UDP实现可靠传输（经典面试题）参考TCP的可靠性机制，在应用层实现类似的逻辑 例如：   引入确认应答，确保对端收到数据（可靠性） 引入序列号，保证顺序顺序 引入超时重传，如果隔一段时间没有应答，就重发数据； ….">
+<meta name="twitter:title" content="二分查找(下)">
+<meta name="twitter:description" content="[16]二分查找(下)：如何快速定位IP对应的省份地址4种常见的二分查找变形问题:four:  查找第一个值等于给定值的元素 查找对后一个值等于给定值的元素 查找第一个大于等于给定值的元素 查找最后一个小于等于给定值的元素">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://soyanga.github.io/2019/01/20/网络-TCP扩展/"/>
+  <link rel="canonical" href="https://soyanga.github.io/2019/03/05/二分查找(下)/"/>
 
 
 
 
 
-  <title>网络-TCP扩展 | SOYANGA</title>
+  <title>二分查找(下) | SOYANGA</title>
   
 
 
@@ -346,7 +346,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/20/网络-TCP扩展/">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/03/05/二分查找(下)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SOYANGA">
@@ -363,7 +363,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">网络-TCP扩展</h1>
+          <h1 class="post-title" itemprop="name headline">二分查找(下)</h1>
         
 
         <div class="post-meta">
@@ -376,8 +376,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-20T23:35:13+08:00">
-                2019-01-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-05T22:04:49+08:00">
+                2019-03-05
               </time>
             
 
@@ -392,8 +392,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T23:55:58+08:00">
-                2019-01-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-05T22:05:40+08:00">
+                2019-03-05
               </time>
             
           </span>
@@ -411,19 +411,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux网络</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux网络/TCP-UDP/" itemprop="url" rel="index">
-                    <span itemprop="name">TCP/UDP</span>
+                  <a href="/categories/数据结构与算法之美/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法之美</span>
                   </a>
                 </span>
 
@@ -453,7 +442,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  1k
                 </span>
               
 
@@ -469,7 +458,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  4
                 </span>
               
             </div>
@@ -492,64 +481,54 @@
       
         <meta name="referrer" content="no-referrer">
 
-<h2 id="用UDP实现可靠传输（经典面试题）"><a href="#用UDP实现可靠传输（经典面试题）" class="headerlink" title="用UDP实现可靠传输（经典面试题）"></a>用UDP实现可靠传输（经典面试题）</h2><p>参考TCP的可靠性机制，在应用层实现类似的逻辑</p>
-<p>例如：</p>
-<blockquote>
+<h1 id="16-二分查找-下-：如何快速定位IP对应的省份地址"><a href="#16-二分查找-下-：如何快速定位IP对应的省份地址" class="headerlink" title="[16]二分查找(下)：如何快速定位IP对应的省份地址"></a>[16]二分查找(下)：如何快速定位IP对应的省份地址</h1><h2 id="4种常见的二分查找变形问题-four"><a href="#4种常见的二分查找变形问题-four" class="headerlink" title="4种常见的二分查找变形问题:four:"></a>4种常见的二分查找变形问题:four:</h2><blockquote>
 <ul>
-<li>引入确认应答，确保对端收到数据（可靠性）</li>
-<li>引入序列号，保证顺序顺序</li>
-<li>引入超时重传，如果隔一段时间没有应答，就重发数据；</li>
-<li>….</li>
+<li>查找第一个值等于给定值的元素</li>
+<li>查找对后一个值等于给定值的元素</li>
+<li>查找第一个大于等于给定值的元素</li>
+<li>查找最后一个小于等于给定值的元素</li>
 </ul>
 </blockquote>
 <a id="more"></a>
-<h2 id="面向字节流"><a href="#面向字节流" class="headerlink" title="面向字节流"></a>面向字节流</h2><p>创建一个TCP的socket，同时在内核中创建一个发送缓冲区和一个接收缓冲区；</p>
-<blockquote>
+<h3 id="查找第一个值等于给定值的元素"><a href="#查找第一个值等于给定值的元素" class="headerlink" title="查找第一个值等于给定值的元素"></a>查找第一个值等于给定值的元素</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bsearch</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> n, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> high = n - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">    <span class="keyword">int</span> mid = low + ((high - low) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (a[mid] &gt;= value) &#123;</span><br><span class="line">      high = mid - <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      low = mid + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (low &lt; n &amp;&amp; a[low]==value)&#123;</span><br><span class="line">        <span class="keyword">return</span> low;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bsearch</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> n,<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> high = n-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(low &lt;= high)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = low+((high-low)&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(a[mid]&gt;value)&#123;</span><br><span class="line">            high = mid-<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a[mid] &lt;value)&#123;</span><br><span class="line">            low = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>((mid == <span class="number">0</span>)||(a[mid-<span class="number">1</span>]!=value))&#123;</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                high = mid -<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="稍加解释："><a href="#稍加解释：" class="headerlink" title="稍加解释："></a>稍加解释：</h4><p>区间mid值判断只有三种情况</p>
 <ul>
-<li>调用write时，数据先回发送到缓冲区中</li>
-<li>如果发送的字节数<strong>太⻓</strong>, <strong>会被拆分成多个TCP的数据包发出</strong> </li>
-<li>如果发送的字节数<strong>太短</strong>, <strong>就会先在缓冲区⾥等待, 等到缓冲区长度差不多了, 或者其他合适的时机发送出去</strong> </li>
-<li><strong>接收数据的时候, 数据也是从网络卡驱动程序到达内核的接收缓冲区</strong> </li>
-<li>然后应用程序可以掉调用read从接收缓冲区拿到数据；</li>
-<li>另一个方面，TCP的一个连接，既然有发送缓冲区，也有接收缓冲区，那么对于这一个连接，既可以读数据也可以写数据，这个概念叫做<strong>全双工</strong> </li>
+<li>mid值大于value值<ul>
+<li>high = mid -1;</li>
 </ul>
-</blockquote>
-<p>由于缓冲区的存在，TCP程序的读和写不需要一一匹配，例如：</p>
-<blockquote>
+</li>
+<li>mid值小于value值<ul>
+<li>low = mid+1;</li>
+</ul>
+</li>
+<li>mid值等于value值<ul>
+<li>mid值==0    说明value对应的值已经是数组第一个元素前面没有相同的元素</li>
+<li>a[mid-1]对应的不是value值  说明value对应的值已经是肯定是查找到的第一个元素</li>
+<li>不符合以上两种的  说明当前下标对应的元素不是找到的第一个元素，前面还有相同的值<ul>
+<li>high = mid - 1;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="查找对后一个值等于给定值的元素"><a href="#查找对后一个值等于给定值的元素" class="headerlink" title="查找对后一个值等于给定值的元素"></a>查找对后一个值等于给定值的元素</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bsearch</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> n,<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> high = n-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(low &lt;= high)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = low+((high-low)&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(a[mid] &gt; value)&#123;</span><br><span class="line">            high = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(a[mid] &lt; value)&#123;</span><br><span class="line">            low = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>((mid==n-<span class="number">1</span>) || (a[mid+<span class="number">1</span>]!=value))&#123;</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                low = mid +<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>跟第一种思路差不多</p>
+<h3 id="查找第一个大于等于给定值的元素"><a href="#查找第一个大于等于给定值的元素" class="headerlink" title="查找第一个大于等于给定值的元素"></a>查找第一个大于等于给定值的元素</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bsearch</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> n,<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> high = n-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(low &lt;= high)&#123;</span><br><span class="line">    	<span class="keyword">int</span> mid = low+((high-low)&gt;&gt;<span class="number">1</span>); </span><br><span class="line">        <span class="keyword">if</span>(a[mid] &gt;= value)&#123;</span><br><span class="line">            <span class="keyword">if</span>((mid == <span class="number">0</span>)|| (a[mid -<span class="number">1</span>] &lt; value))&#123;</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                high = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            low = mid +<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>稍加解释；</p>
 <ul>
-<li>写100个字节数据时, 可以调⽤⼀次write写100个字节, 也可以调⽤100次write, 每次写⼀个字节;</li>
-<li>读100个字节数据时, 也完全不需要考虑写的时候是怎么写的, 既可以⼀次read 100个字节, 也可以<br>⼀次read⼀个字节, 重复100次; </li>
+<li>如果a[mid]小于要查找的值value,那么查找的值肯定在[mid+1,high]之间，更新 low = mid+1;</li>
+<li>如果a[mid]大于要查找的值value，那么我们先看一下这个a[mid]是不是我们要找的第一个值大于等于给定值得元素。如果a[mid]前面已经没有元素，或者前面一个元素小于要查找的值value,那么a[mid]就是我们要查找的元素。</li>
+<li>如果a[mid - 1]也大于等于要查找的值value,那么说明要查找的元素在[low,mid-1]之间，更新high = mid-1;</li>
 </ul>
-</blockquote>
-<p>例子：</p>
-<p>TCP:自来水公司供水的例子，例如TCP的传输，水被用于做什么，怎么接的。自来水公司（TCP）不关心。完全由商铺，饭店，奶茶店，养猪厂（等上层应用决定）。</p>
-<p>UDP：饮水机的送水，一桶一桶的。</p>
-<p>粘包问题</p>
-<p>[八戒吃馒头例子]</p>
-<blockquote>
-<ul>
-<li>首先要明确，粘包问题中的包“包”，是指的应用等的数据包</li>
-<li>在TCP的协议中，没有如图UDP一样的“报文长度”这样的字段，但是有一个序号这样的字段。</li>
-<li>站在传输层的角度，TCP是一个一个报文过来的，按照序号排好在缓冲区中。</li>
-<li>站在应用层的角度，看到的只是一串连续的字节数组</li>
-<li>那么应用层看到了这么一连串的字节数据，就不知道从哪个部分开始到哪个部分，是一个完整的应用层结构。</li>
-</ul>
-</blockquote>
-<p>解决粘包问腿，明确每个报文的边界</p>
-<blockquote>
-<ul>
-<li>对于定长的包，保证每次都按固定大小读取即可；例如上面的Request结构，是固定大小的，那么从缓冲区从头开始按sizeof(Request)一次读取即可；</li>
-<li>对于变长的包，可以在包头位置，约定一个总包文长度的字段，从而就知道了包的结束位置；</li>
-<li>对于变长的包，还可以在包和包之间使用明确的分割符（应用协议是程序猿⾃⼰来定的, 只要保证分隔符不和正⽂冲突即可) ；</li>
-</ul>
-</blockquote>
-<p>UDP报头，报文是定长的，且报头有一个16位的UDP长度。就可以明确每个报文的边界。</p>
-<p>且站在应用层的角度上在使用UDP发送数据报的时候数据报一定是完整的或者数据包丢失，不会出现“半个”报文的情况。</p>
-<h2 id="TCP异常情况"><a href="#TCP异常情况" class="headerlink" title="TCP异常情况"></a>TCP异常情况</h2><p><strong>进程终止：</strong>进程终止会释放文件描述符，任然可以发送FIN，和正常关闭没有什么区别。</p>
-<p>会被操作系统底层正常关闭，操作系统底层会帮你进行4挥手，正常关闭。</p>
-<p><strong>机器重启:</strong> 和进程终止的情况相同 。</p>
-<p><strong>机器断电/网络断开：</strong>接收端认为连接还在，一旦接收端有写⼊操作, 接收端发现连接已经不在了, <strong>就会进行reset</strong>发送含有RST. 即使没有写⼊操作, TCP⾃⼰也内置了⼀个保活定时器, 会定期询问对⽅是否还在. 如果对⽅不在, 也会把连接释放 。</p>
-<p>另外, 应⽤层的某些协议, 也有⼀些这样的检测机制. 例如HTTP长连接中, 也会定期检测对⽅的状态. 例如QQ,在QQ断线之后, 也会定期尝试重新连接 。</p>
+<h3 id="查找最后一个小于等于给定值的元素"><a href="#查找最后一个小于等于给定值的元素" class="headerlink" title="查找最后一个小于等于给定值的元素"></a>查找最后一个小于等于给定值的元素</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bsearch</span> <span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> n,<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> high = n-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(low &lt;= high)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = low+((high-low)&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(a[mid] &gt; value)&#123;</span><br><span class="line">            high = mid -<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>((mid == n-<span class="number">1</span>)|| (a[mid+<span class="number">1</span>] &gt; value))&#123;</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                low = mid+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解决思考题：查找12万条IP归属地中目标IP归属地</p>
+<p>假设IP地址与归属地的对应关系不经常更新，我们可以预先处理12万条数据，让其按照IP从小到大排序。ip地址可以转化为12万条数据，让其按其实IP从小到大排序。</p>
+<p>然后查找在有序数组中，最后一个小于等于某个给定值的元素。</p>
+<p>找到最后一个其实Ip小于等于这个IP的IP区间，检查这个IP是否在这个IP区间内，如果在，我们就取出对应的归属地显示；如果不在，就返回未查找到。-1</p>
+<h3 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h3><p>二分查找的表中容易出错</p>
+<p>处理<strong>好终止条件 ，区间上下界更新的方法，返回值的选择。</strong></p>
+<p>LeetCode 33题</p>
 
       
     </div>
@@ -580,7 +559,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://soyanga.github.io/2019/01/20/网络-TCP扩展/" title="网络-TCP扩展">https://soyanga.github.io/2019/01/20/网络-TCP扩展/</a>
+    <a href="https://soyanga.github.io/2019/03/05/二分查找(下)/" title="二分查找(下)">https://soyanga.github.io/2019/03/05/二分查找(下)/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -595,9 +574,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux网络/" rel="tag"><i class="fa fa-tag"></i> Linux网络</a>
+            <a href="/tags/数据结构与算法之美/" rel="tag"><i class="fa fa-tag"></i> 数据结构与算法之美</a>
           
-            <a href="/tags/TCP/" rel="tag"><i class="fa fa-tag"></i> TCP</a>
+            <a href="/tags/二分查找/" rel="tag"><i class="fa fa-tag"></i> 二分查找</a>
           
         </div>
       
@@ -610,8 +589,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/20/网络-传输层TCP协议(2)/" rel="next" title="网络-传输层TCP协议(2)">
-                <i class="fa fa-chevron-left"></i> 网络-传输层TCP协议(2)
+              <a href="/2019/03/03/二分查找(上)/" rel="next" title="二分查找(上)">
+                <i class="fa fa-chevron-left"></i> 二分查找(上)
               </a>
             
           </div>
@@ -619,10 +598,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/21/网络-网络层IP协议/" rel="prev" title="网络-网络层IP协议">
-                网络-网络层IP协议 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -781,7 +756,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用UDP实现可靠传输（经典面试题）"><span class="nav-number">1.</span> <span class="nav-text">用UDP实现可靠传输（经典面试题）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向字节流"><span class="nav-number">2.</span> <span class="nav-text">面向字节流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP异常情况"><span class="nav-number">3.</span> <span class="nav-text">TCP异常情况</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#16-二分查找-下-：如何快速定位IP对应的省份地址"><span class="nav-number">1.</span> <span class="nav-text">[16]二分查找(下)：如何快速定位IP对应的省份地址</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4种常见的二分查找变形问题-four"><span class="nav-number">1.1.</span> <span class="nav-text">4种常见的二分查找变形问题:four:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找第一个值等于给定值的元素"><span class="nav-number">1.1.1.</span> <span class="nav-text">查找第一个值等于给定值的元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#稍加解释："><span class="nav-number">1.1.1.1.</span> <span class="nav-text">稍加解释：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找对后一个值等于给定值的元素"><span class="nav-number">1.1.2.</span> <span class="nav-text">查找对后一个值等于给定值的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找第一个大于等于给定值的元素"><span class="nav-number">1.1.3.</span> <span class="nav-text">查找第一个大于等于给定值的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找最后一个小于等于给定值的元素"><span class="nav-number">1.1.4.</span> <span class="nav-text">查找最后一个小于等于给定值的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结："><span class="nav-number">1.1.5.</span> <span class="nav-text">小结：</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
