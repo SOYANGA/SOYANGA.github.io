@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-03-12T14:48:59.338Z</updated>
+  <updated>2019-03-19T15:54:33.153Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>散列表(上)</title>
+    <link href="https://soyanga.github.io/2019/03/19/%E6%95%A3%E5%88%97%E8%A1%A8(%E4%B8%8A)/"/>
+    <id>https://soyanga.github.io/2019/03/19/散列表(上)/</id>
+    <published>2019-03-19T15:51:40.000Z</published>
+    <updated>2019-03-19T15:54:33.153Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="18-散列表-上"><a href="#18-散列表-上" class="headerlink" title="[18]散列表(上)"></a>[18]散列表(上)</h1><p>Word 单词检查功能-Hash Table</p><p>利用数组的下标随机访问，时间复杂度O(1)这个特性，就可以实现快速查找编号对应大的选手信息。</p><p><strong>散列表用的是数组支持按照下标随机访问数据的特性，所以散列表其实就是数组的一种扩展，由数组演化而来。可以说，如果没有数组，就没有散列表。</strong></p><p><strong>散列表键(key)或者关键字</strong>来表示一组数据的关键信息。然后利用<strong>散列函数(Hash函数)</strong>来转化为数组下标。而散列函数计算得到的值就是<strong>散列值(Hash值，哈希值)</strong>。数组下标中存储的值称为<strong>value</strong>。</p><p><img src="/2019/03/19/散列表(上)/哈希表原理.png" alt="哈希表原理"></p><p>由于<strong>散列表用的是数组支持按照下标随机访问的时候</strong>，时间复杂符是<strong>O(1)</strong>的特性。我们通散列函数把元素的建制映射为下标，然后将数据存储在数组中对应的下标的位置。当我们按照键值查询元素时，我们用同样的散列函数，将建值转化为数组下标，从对应的数组下标的位置取数据。</p><a id="more"></a><h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><p>散列函数的表现形式有多种，其中最为常用的取模（按照基本数组的长度)。</p><p>还有其他的散列函数</p><h2 id="如何构造散列函数"><a href="#如何构造散列函数" class="headerlink" title="如何构造散列函数"></a>如何构造散列函数</h2><ul><li>散列函数计算得到的散列值是一个非负数</li><li>如果key1 = key2,那hash(key1) == hash(key2);</li><li>如果key1 != key2，那hash(key1) !=hash(key2);</li></ul><p>其中第三点的很难做到，想要找到一个不同的key对应的散列值都不一样的散列函数，几乎时不可能的。</p><p>因为数组的存储空间有限，也会加大<strong>散列冲突</strong>的概率。</p><h2 id="如何解决散列冲突问题"><a href="#如何解决散列冲突问题" class="headerlink" title="如何解决散列冲突问题"></a>如何解决散列冲突问题</h2><p> 常用解决散列冲突的方法有两类，开放寻址法和链表法。</p><h3 id="开发寻址法"><a href="#开发寻址法" class="headerlink" title="开发寻址法"></a>开发寻址法</h3><p>开放寻址法的核心思想就i是，如果出现散列冲突，我们就重新探测一个空闲的位置，将其插入。探测的方法有多种，比如<strong>线性探测</strong>，<strong>二次探测</strong>，<strong>双重散列</strong>。</p><h4 id="线性探测"><a href="#线性探测" class="headerlink" title="线性探测"></a>线性探测</h4><p>假如要存储的值经过hash算法计算后得到的下标已经被占用，就向后线性一个一个向后进行探测。</p><p>所谓探测，有三点要求</p><blockquote><p>哈希冲突的下标后也已经被占用则就继续向后探测，直到找到数组中没有被占用的下标将冲突的数据插入。</p></blockquote><blockquote><p>假如从发生哈希冲突的那个点开始，向后进行线性探测，探测到数组的末尾后就又从数组的头开始进行探测。</p><p>假如从在Hashtable中删除了某个元素，我们就需要将当前删除的元素做一个标记（falg）。</p></blockquote><p>只有满足探测的位置为空且探测位置没有flag标记，才进行数据的存储。</p><h4 id="二次探测"><a href="#二次探测" class="headerlink" title="二次探测"></a>二次探测</h4><p>在线性探测的基础上，只是改变了探测的规则，每次探测相隔的距离不同。比如说每次探测的跨度为2。</p><h4 id="双重散列"><a href="#双重散列" class="headerlink" title="双重散列"></a>双重散列</h4><p>当插入数据的时候使用hash1(),当发生散列冲突的时候就要使用hash2()，再次发生散列冲突的时候再次使用hash3()。</p><h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><p>开发地址法：<strong>有一个致命的缺点，就是他只能缓解少量散列冲突，当散列冲突发生多次时，后续对Hash表的插入发生散列冲突的概率就会大大提高</strong>，<strong>散列表的性能就会下降</strong>。进而为了保证散列表的操作效率，一般情况下，我们会尽可能保证散列表中有一定的比例的空闲槽位。我们引入了<strong>装载因子</strong>来表示空位的多少。</p><p>装载因子的计算公式是:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">散列表的装载因子 = 填入表中的元素个数/散列表的长度</span><br></pre></td></tr></table></figure><p>装载因子越大，说明空闲位置越少，冲突越多，散列表的性能就会下降。</p><h3 id="链表法"><a href="#链表法" class="headerlink" title="链表法"></a>链表法</h3><p>链表法是一种更加常用的散列冲突解决方法，相比开放寻址法，它更为有效，采用空间换时间的原理。</p><p><strong>数组+链表存储结构</strong></p><p>每当发生散列冲突时，就将发生冲突的数据存储在链表中。链表插入操作时间复杂度O(1),查找删除一个元素怒时，我们同样通过散列函数计算出对应的槽，然后遍历链表查找或者删除。那查找或者删除时间复杂度实际上跟链表长度K成正比，也就是O(k)。</p><p>对于散列表均匀的散列表来说，理论上讲，k = n/m,其中n表示表示散列中数据的个数，m表示散列表中的槽数。</p><h2 id="Word文档中单词检查拼写功能是如何实现的？"><a href="#Word文档中单词检查拼写功能是如何实现的？" class="headerlink" title="Word文档中单词检查拼写功能是如何实现的？"></a>Word文档中单词检查拼写功能是如何实现的？</h2><p>将常用单词(约20万)存放到散列表中，平均一个单词10字节的内存空间，那么20万英文单词约占2MB空间，将2MB的数据存储在内存中。</p><p>当我们输入英文单词时，我们就拿用户输入的单词去散列表中进行查找。如果查找到，说明拼写正确；如果没有查找到，则说明拼写可能有误，给予提示，借助散列表这种数据结构，我们就可以轻松实现快速判断是否存在拼写错误。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+&lt;h1 id=&quot;18-散列表-上&quot;&gt;&lt;a href=&quot;#18-散列表-上&quot; class=&quot;headerlink&quot; title=&quot;[18]散列表(上)&quot;&gt;&lt;/a&gt;[18]散列表(上)&lt;/h1&gt;&lt;p&gt;Word 单词检查功能-Hash Table&lt;/p&gt;
+&lt;p&gt;利用数组的下标随机访问，时间复杂度O(1)这个特性，就可以实现快速查找编号对应大的选手信息。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;散列表用的是数组支持按照下标随机访问数据的特性，所以散列表其实就是数组的一种扩展，由数组演化而来。可以说，如果没有数组，就没有散列表。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;散列表键(key)或者关键字&lt;/strong&gt;来表示一组数据的关键信息。然后利用&lt;strong&gt;散列函数(Hash函数)&lt;/strong&gt;来转化为数组下标。而散列函数计算得到的值就是&lt;strong&gt;散列值(Hash值，哈希值)&lt;/strong&gt;。数组下标中存储的值称为&lt;strong&gt;value&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2019/03/19/散列表(上)/哈希表原理.png&quot; alt=&quot;哈希表原理&quot;&gt;&lt;/p&gt;
+&lt;p&gt;由于&lt;strong&gt;散列表用的是数组支持按照下标随机访问的时候&lt;/strong&gt;，时间复杂符是&lt;strong&gt;O(1)&lt;/strong&gt;的特性。我们通散列函数把元素的建制映射为下标，然后将数据存储在数组中对应的下标的位置。当我们按照键值查询元素时，我们用同样的散列函数，将建值转化为数组下标，从对应的数组下标的位置取数据。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+      <category term="散列表" scheme="https://soyanga.github.io/tags/%E6%95%A3%E5%88%97%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>跳表</title>
@@ -738,53 +769,6 @@
       <category term="Linux网络" scheme="https://soyanga.github.io/tags/Linux%E7%BD%91%E7%BB%9C/"/>
     
       <category term="ICMP协议" scheme="https://soyanga.github.io/tags/ICMP%E5%8D%8F%E8%AE%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>其他重要协议和技术</title>
-    <link href="https://soyanga.github.io/2019/01/22/%E5%85%B6%E4%BB%96%E9%87%8D%E8%A6%81%E5%8D%8F%E8%AE%AE%E5%92%8C%E6%8A%80%E6%9C%AF/"/>
-    <id>https://soyanga.github.io/2019/01/22/其他重要协议和技术/</id>
-    <published>2019-01-21T16:20:17.000Z</published>
-    <updated>2019-01-21T16:23:49.299Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="DNS-Domain-Name-System"><a href="#DNS-Domain-Name-System" class="headerlink" title="DNS(Domain Name System)"></a>DNS(Domain Name System)</h1><p>应用层协议-DNS是一整套从域名映射到IP的系统</p><h2 id="DNS背景"><a href="#DNS背景" class="headerlink" title="DNS背景"></a>DNS背景</h2><p>TCP/IP中使用IP地址和端口号来确定网络上的一台主机的一个程序，但是<strong>IP地址不方便于是人们发明了一种叫主机名的东西, 是一个字符串, 并且使用hosts文件来描述主机名和IP地址的关系.</strong></p><p><strong>hosts文件来描述主机名和IP地址的关系</strong></p><h2 id="DNS服务器"><a href="#DNS服务器" class="headerlink" title="DNS服务器"></a>DNS服务器</h2><blockquote><ul><li>一个组织的系统管理机构, 维护系统内的每个主机的IP和主机名的对应关系.</li><li>如果新计算机接入网络, 将这个信息注册到数据库中; </li><li>⽤用户输入域名的时候, 会自动查询DNS服务器, 由DNS服务器检索数据库, 得到对应的IP地址.</li></ul></blockquote><h2 id="域名简介"><a href="#域名简介" class="headerlink" title="域名简介"></a>域名简介</h2><p><strong>主域名</strong>是用来<strong>识别主机名称和主机所属的组织机构的一种分层结构的名称</strong></p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.baidu.com</span><br></pre></td></tr></table></figure><p>域名使用.连接</p><blockquote><ul><li>com:一级域名，表示这是一个企业域名，同级的还有 “net”(网络提供商), “org”(非盈利组织) 等. </li><li>baidu: 二级域名, 公司名. </li><li>www: 只是一种习惯用法. 之前人们在使⽤用域名时, 往往命名成类似于ftp.xxx.xxx/<a href="http://www.xxx.xxx这样" target="_blank" rel="noopener">www.xxx.xxx这样</a> 的格式, 来表示主机支持的协议。</li></ul></blockquote><a id="more"></a><h2 id="域名服务器"><a href="#域名服务器" class="headerlink" title="域名服务器"></a>域名服务器</h2><p>域名是分层结构，域名服务器也是对应的层级结构。</p><p>每个层的域名上都有自己的域名服务器. 最顶层的是根域名服务器</p><p>每一级域名服务器都知道下级域名服务器的IP地址 </p><p>为了容灾, 每一级至少设置两个或以上的域名服务器</p><h2 id="域名解析过程"><a href="#域名解析过程" class="headerlink" title="域名解析过程"></a>域名解析过程</h2><ol><li>输入域名后，先查到<strong>自己对主机对应的域名服务器</strong></li><li>域名服务器先查找自己的数据库中的数据，如果没有，就向上级域名服务器进行查找，依次类推；</li><li>最多回溯到根域名服务器, 肯定能找到这个域名的IP地址</li><li>将查到的IP地址返回给客户端。</li><li>最后就可以进行通信。</li><li>域名服务器自身也会进行一些缓存. 把曾经访问过的域名和对应的IP地址缓存起来, 可以加速查找过 程.</li></ol><h1 id="浏览器中输入URL之后，发生的事情"><a href="#浏览器中输入URL之后，发生的事情" class="headerlink" title="浏览器中输入URL之后，发生的事情"></a>浏览器中输入URL之后，发生的事情</h1><p>越详细越好</p><p>Http服务器是基于TCP/IP的，</p><ul><li>DNS域名解析</li><li>所以就要先建立连接（三次握手）</li><li>然后发起HTTP请求，基于TCP连接基于应用底层向对方发数据，</li><li>构建HTTP报头(请求行，请求报头，空行，正文（无）)，通过TCP连接发送过去</li><li>不断向下进行封装交付，经过路由器路跳跳式由到对方路由器，（路由器对进行ARP请求）</li><li>对方路由器进行解包分用向上交付，应用层解析发现要请求的是首页，然后对主机进行其响应，</li><li>数据传输过程中会生TCP的分片重组，丢包，重复问题，缓冲区满了等问题</li></ul><p><strong>==下来单独写一篇博客==</strong> </p><h1 id="NAT技术"><a href="#NAT技术" class="headerlink" title="NAT技术"></a>NAT技术</h1><h2 id="NAT技术背景"><a href="#NAT技术背景" class="headerlink" title="NAT技术背景"></a>NAT技术背景</h2><p>网路层协议</p><p><strong>IPv4协议中, IP地址数量不充足的问题 NAT技术当前解决IP地址不够用的主要手段, 是路由器的一个重要功能 ; </strong>  </p><blockquote><ul><li>NAT能够将私有IP对外通信时转为全局IP. 也就是就是一种<strong>将私有IP和全局IP相互转化的技术</strong></li><li>方法: 很多学校, 家庭, 公司内部采用<strong>每个终端设置私有IP</strong>, 而在<strong>路由器或必要的服务器</strong>上设置全局IP; </li><li><strong>全局IP要求唯一, 但是私有IP不需要; 在不同的局域网中出现相同的私有IP是完全不影响的;</strong></li></ul></blockquote><h2 id="NAT-IP转换过程"><a href="#NAT-IP转换过程" class="headerlink" title="NAT IP转换过程"></a>NAT IP转换过程</h2><p>欠一张转换图</p><p>NAPT</p><blockquote><ul><li>NAT路由器将源地址从10.0.0.10替换成全局的IP 202.244.174.37; </li><li>NAT路由器收到外部的数据时, 又会把目标IP从202.244.174.37替换回10.0.0.10; </li><li>在NAT路由器内部, 有一张自动生成的, 用于地址转换的表; </li><li>当 10.0.0.10 第一次向 163.221.120.9 发送数据时就会生成表中的映射关系</li></ul></blockquote><p>那么问题来了, 如果局域网内, 有多个主机都访问同一个外网服务器, 那么对于服务器返回的数据中, 目的IP都 是相同的. 那么NAT路由器如何判定将这个数据包转发给哪个局域网的主机? </p><p>NAPT来解决这个问题了. 使⽤用IP+port来建立这个关联关系</p><p>全局IP地址+端口号（建立了一条双项信道）</p><p>这种关联关系是由NAT路由器自动维护的，例如在TCP的情况下，建立连接时，就会产生这个一个源地址，全局IP地址的表项；在断开连接后，就会删除这个表项</p><h2 id="NAT技术的缺陷"><a href="#NAT技术的缺陷" class="headerlink" title="NAT技术的缺陷"></a>NAT技术的缺陷</h2><p>由于NAT依赖这个转换表，所以有诸多限制</p><blockquote><ul><li>⽆法从NAT外部向内部服务器建立连接</li><li>装换表的生成和销毁都需要额外开销；</li><li>通信过程中一旦NAT设备异常, 即使存在热备, 所有的TCP连接也都会断开</li></ul></blockquote><p>桥接模式：Linux,Windos 物理上一台机器，实际上路由器把这个Linux虚拟机看作另一台机器。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-&lt;h1 id=&quot;DNS-Domain-Name-System&quot;&gt;&lt;a href=&quot;#DNS-Domain-Name-System&quot; class=&quot;headerlink&quot; title=&quot;DNS(Domain Name System)&quot;&gt;&lt;/a&gt;DNS(Domain Name System)&lt;/h1&gt;&lt;p&gt;应用层协议-DNS是一整套从域名映射到IP的系统&lt;/p&gt;
-&lt;h2 id=&quot;DNS背景&quot;&gt;&lt;a href=&quot;#DNS背景&quot; class=&quot;headerlink&quot; title=&quot;DNS背景&quot;&gt;&lt;/a&gt;DNS背景&lt;/h2&gt;&lt;p&gt;TCP/IP中使用IP地址和端口号来确定网络上的一台主机的一个程序，但是&lt;strong&gt;IP地址不方便于是人们发明了一种叫主机名的东西, 是一个字符串, 并且使用hosts文件来描述主机名和IP地址的关系.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;hosts文件来描述主机名和IP地址的关系&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;DNS服务器&quot;&gt;&lt;a href=&quot;#DNS服务器&quot; class=&quot;headerlink&quot; title=&quot;DNS服务器&quot;&gt;&lt;/a&gt;DNS服务器&lt;/h2&gt;&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;一个组织的系统管理机构, 维护系统内的每个主机的IP和主机名的对应关系.&lt;/li&gt;
-&lt;li&gt;如果新计算机接入网络, 将这个信息注册到数据库中; &lt;/li&gt;
-&lt;li&gt;⽤用户输入域名的时候, 会自动查询DNS服务器, 由DNS服务器检索数据库, 得到对应的IP地址.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;域名简介&quot;&gt;&lt;a href=&quot;#域名简介&quot; class=&quot;headerlink&quot; title=&quot;域名简介&quot;&gt;&lt;/a&gt;域名简介&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;主域名&lt;/strong&gt;是用来&lt;strong&gt;识别主机名称和主机所属的组织机构的一种分层结构的名称&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;www.baidu.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;域名使用.连接&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;com:一级域名，表示这是一个企业域名，同级的还有 “net”(网络提供商), “org”(非盈利组织) 等. &lt;/li&gt;
-&lt;li&gt;baidu: 二级域名, 公司名. &lt;/li&gt;
-&lt;li&gt;www: 只是一种习惯用法. 之前人们在使⽤用域名时, 往往命名成类似于ftp.xxx.xxx/&lt;a href=&quot;http://www.xxx.xxx这样&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;www.xxx.xxx这样&lt;/a&gt; 的格式, 来表示主机支持的协议。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Linux网络" scheme="https://soyanga.github.io/categories/Linux%E7%BD%91%E7%BB%9C/"/>
-    
-    
-      <category term="Linux网络" scheme="https://soyanga.github.io/tags/Linux%E7%BD%91%E7%BB%9C/"/>
-    
-      <category term="DNS协议" scheme="https://soyanga.github.io/tags/DNS%E5%8D%8F%E8%AE%AE/"/>
-    
-      <category term="NAT技术" scheme="https://soyanga.github.io/tags/NAT%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   

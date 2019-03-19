@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="数据结构与算法之美,散列表," />
 
 
 
@@ -93,16 +93,20 @@
 
 
 
-<meta name="description" content="量变到质变是一段很长的路，如果你不走的话">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SOYANGA">
-<meta property="og:url" content="https://soyanga.github.io/tags/集合框架学习-源码分析/index.html">
+<meta name="description" content="[18]散列表(上)Word 单词检查功能-Hash Table 利用数组的下标随机访问，时间复杂度O(1)这个特性，就可以实现快速查找编号对应大的选手信息。 散列表用的是数组支持按照下标随机访问数据的特性，所以散列表其实就是数组的一种扩展，由数组演化而来。可以说，如果没有数组，就没有散列表。 散列表键(key)或者关键字来表示一组数据的关键信息。然后利用散列函数(Hash函数)来转化为数组下">
+<meta name="keywords" content="数据结构与算法之美,散列表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="散列表(上)">
+<meta property="og:url" content="https://soyanga.github.io/2019/03/19/散列表(上)/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="量变到质变是一段很长的路，如果你不走的话">
+<meta property="og:description" content="[18]散列表(上)Word 单词检查功能-Hash Table 利用数组的下标随机访问，时间复杂度O(1)这个特性，就可以实现快速查找编号对应大的选手信息。 散列表用的是数组支持按照下标随机访问数据的特性，所以散列表其实就是数组的一种扩展，由数组演化而来。可以说，如果没有数组，就没有散列表。 散列表键(key)或者关键字来表示一组数据的关键信息。然后利用散列函数(Hash函数)来转化为数组下">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://soyanga.github.io/2019/03/19/散列表(上)/哈希表原理.png">
+<meta property="og:updated_time" content="2019-03-19T15:54:33.153Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SOYANGA">
-<meta name="twitter:description" content="量变到质变是一段很长的路，如果你不走的话">
+<meta name="twitter:title" content="散列表(上)">
+<meta name="twitter:description" content="[18]散列表(上)Word 单词检查功能-Hash Table 利用数组的下标随机访问，时间复杂度O(1)这个特性，就可以实现快速查找编号对应大的选手信息。 散列表用的是数组支持按照下标随机访问数据的特性，所以散列表其实就是数组的一种扩展，由数组演化而来。可以说，如果没有数组，就没有散列表。 散列表键(key)或者关键字来表示一组数据的关键信息。然后利用散列函数(Hash函数)来转化为数组下">
+<meta name="twitter:image" content="https://soyanga.github.io/2019/03/19/散列表(上)/哈希表原理.png">
 
 
 
@@ -132,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://soyanga.github.io/tags/集合框架学习-源码分析/"/>
+  <link rel="canonical" href="https://soyanga.github.io/2019/03/19/散列表(上)/"/>
 
 
 
 
 
-  <title>标签: 集合框架学习+源码分析 | SOYANGA</title>
+  <title>散列表(上) | SOYANGA</title>
   
 
 
@@ -158,7 +162,7 @@
   
 
   
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/SOYANGA" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 	
@@ -330,54 +334,284 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>集合框架学习+源码分析<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/03/19/散列表(上)/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/02/19/再识java-集合框架/" itemprop="url">
-              
-                <span itemprop="name">再识java--集合框架</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">散列表(上)</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-02-19T12:05:45+08:00"
-              content="2019-02-19" >
-          02-19
-        </time>
-      </div>
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-19T23:51:40+08:00">
+                2019-03-19
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-19T23:54:33+08:00">
+                2019-03-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法之美/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法之美</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="referrer" content="no-referrer">
+
+<h1 id="18-散列表-上"><a href="#18-散列表-上" class="headerlink" title="[18]散列表(上)"></a>[18]散列表(上)</h1><p>Word 单词检查功能-Hash Table</p>
+<p>利用数组的下标随机访问，时间复杂度O(1)这个特性，就可以实现快速查找编号对应大的选手信息。</p>
+<p><strong>散列表用的是数组支持按照下标随机访问数据的特性，所以散列表其实就是数组的一种扩展，由数组演化而来。可以说，如果没有数组，就没有散列表。</strong></p>
+<p><strong>散列表键(key)或者关键字</strong>来表示一组数据的关键信息。然后利用<strong>散列函数(Hash函数)</strong>来转化为数组下标。而散列函数计算得到的值就是<strong>散列值(Hash值，哈希值)</strong>。数组下标中存储的值称为<strong>value</strong>。</p>
+<p><img src="/2019/03/19/散列表(上)/哈希表原理.png" alt="哈希表原理"></p>
+<p>由于<strong>散列表用的是数组支持按照下标随机访问的时候</strong>，时间复杂符是<strong>O(1)</strong>的特性。我们通散列函数把元素的建制映射为下标，然后将数据存储在数组中对应的下标的位置。当我们按照键值查询元素时，我们用同样的散列函数，将建值转化为数组下标，从对应的数组下标的位置取数据。</p>
+<a id="more"></a>
+<h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><p>散列函数的表现形式有多种，其中最为常用的取模（按照基本数组的长度)。</p>
+<p>还有其他的散列函数</p>
+<h2 id="如何构造散列函数"><a href="#如何构造散列函数" class="headerlink" title="如何构造散列函数"></a>如何构造散列函数</h2><ul>
+<li>散列函数计算得到的散列值是一个非负数</li>
+<li>如果key1 = key2,那hash(key1) == hash(key2);</li>
+<li>如果key1 != key2，那hash(key1) !=hash(key2);</li>
+</ul>
+<p>其中第三点的很难做到，想要找到一个不同的key对应的散列值都不一样的散列函数，几乎时不可能的。</p>
+<p>因为数组的存储空间有限，也会加大<strong>散列冲突</strong>的概率。</p>
+<h2 id="如何解决散列冲突问题"><a href="#如何解决散列冲突问题" class="headerlink" title="如何解决散列冲突问题"></a>如何解决散列冲突问题</h2><p> 常用解决散列冲突的方法有两类，开放寻址法和链表法。</p>
+<h3 id="开发寻址法"><a href="#开发寻址法" class="headerlink" title="开发寻址法"></a>开发寻址法</h3><p>开放寻址法的核心思想就i是，如果出现散列冲突，我们就重新探测一个空闲的位置，将其插入。探测的方法有多种，比如<strong>线性探测</strong>，<strong>二次探测</strong>，<strong>双重散列</strong>。</p>
+<h4 id="线性探测"><a href="#线性探测" class="headerlink" title="线性探测"></a>线性探测</h4><p>假如要存储的值经过hash算法计算后得到的下标已经被占用，就向后线性一个一个向后进行探测。</p>
+<p>所谓探测，有三点要求</p>
+<blockquote>
+<p>哈希冲突的下标后也已经被占用则就继续向后探测，直到找到数组中没有被占用的下标将冲突的数据插入。</p>
+</blockquote>
+<blockquote>
+<p>假如从发生哈希冲突的那个点开始，向后进行线性探测，探测到数组的末尾后就又从数组的头开始进行探测。</p>
+<p>假如从在Hashtable中删除了某个元素，我们就需要将当前删除的元素做一个标记（falg）。</p>
+</blockquote>
+<p>只有满足探测的位置为空且探测位置没有flag标记，才进行数据的存储。</p>
+<h4 id="二次探测"><a href="#二次探测" class="headerlink" title="二次探测"></a>二次探测</h4><p>在线性探测的基础上，只是改变了探测的规则，每次探测相隔的距离不同。比如说每次探测的跨度为2。</p>
+<h4 id="双重散列"><a href="#双重散列" class="headerlink" title="双重散列"></a>双重散列</h4><p>当插入数据的时候使用hash1(),当发生散列冲突的时候就要使用hash2()，再次发生散列冲突的时候再次使用hash3()。</p>
+<h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><p>开发地址法：<strong>有一个致命的缺点，就是他只能缓解少量散列冲突，当散列冲突发生多次时，后续对Hash表的插入发生散列冲突的概率就会大大提高</strong>，<strong>散列表的性能就会下降</strong>。进而为了保证散列表的操作效率，一般情况下，我们会尽可能保证散列表中有一定的比例的空闲槽位。我们引入了<strong>装载因子</strong>来表示空位的多少。</p>
+<p>装载因子的计算公式是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">散列表的装载因子 = 填入表中的元素个数/散列表的长度</span><br></pre></td></tr></table></figure>
+<p>装载因子越大，说明空闲位置越少，冲突越多，散列表的性能就会下降。</p>
+<h3 id="链表法"><a href="#链表法" class="headerlink" title="链表法"></a>链表法</h3><p>链表法是一种更加常用的散列冲突解决方法，相比开放寻址法，它更为有效，采用空间换时间的原理。</p>
+<p><strong>数组+链表存储结构</strong></p>
+<p>每当发生散列冲突时，就将发生冲突的数据存储在链表中。链表插入操作时间复杂度O(1),查找删除一个元素怒时，我们同样通过散列函数计算出对应的槽，然后遍历链表查找或者删除。那查找或者删除时间复杂度实际上跟链表长度K成正比，也就是O(k)。</p>
+<p>对于散列表均匀的散列表来说，理论上讲，k = n/m,其中n表示表示散列中数据的个数，m表示散列表中的槽数。</p>
+<h2 id="Word文档中单词检查拼写功能是如何实现的？"><a href="#Word文档中单词检查拼写功能是如何实现的？" class="headerlink" title="Word文档中单词检查拼写功能是如何实现的？"></a>Word文档中单词检查拼写功能是如何实现的？</h2><p>将常用单词(约20万)存放到散列表中，平均一个单词10字节的内存空间，那么20万英文单词约占2MB空间，将2MB的数据存储在内存中。</p>
+<p>当我们输入英文单词时，我们就拿用户输入的单词去散列表中进行查找。如果查找到，说明拼写正确；如果没有查找到，则说明拼写可能有误，给予提示，借助散列表这种数据结构，我们就可以轻松实现快速判断是否存在拼写错误。</p>
 
       
     </div>
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
 
+  
+</div>
+	
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    SOYANGA
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://soyanga.github.io/2019/03/19/散列表(上)/" title="散列表(上)">https://soyanga.github.io/2019/03/19/散列表(上)/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构与算法之美/" rel="tag"><i class="fa fa-tag"></i> 数据结构与算法之美</a>
+          
+            <a href="/tags/散列表/" rel="tag"><i class="fa fa-tag"></i> 散列表</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/12/跳表/" rel="next" title="跳表">
+                <i class="fa fa-chevron-left"></i> 跳表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -385,6 +619,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -405,8 +643,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -493,6 +740,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#18-散列表-上"><span class="nav-number">1.</span> <span class="nav-text">[18]散列表(上)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#散列函数"><span class="nav-number">1.1.</span> <span class="nav-text">散列函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何构造散列函数"><span class="nav-number">1.2.</span> <span class="nav-text">如何构造散列函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何解决散列冲突问题"><span class="nav-number">1.3.</span> <span class="nav-text">如何解决散列冲突问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开发寻址法"><span class="nav-number">1.3.1.</span> <span class="nav-text">开发寻址法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线性探测"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">线性探测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二次探测"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">二次探测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双重散列"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">双重散列</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小总结"><span class="nav-number">1.4.</span> <span class="nav-text">小总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链表法"><span class="nav-number">1.4.1.</span> <span class="nav-text">链表法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word文档中单词检查拼写功能是如何实现的？"><span class="nav-number">1.5.</span> <span class="nav-text">Word文档中单词检查拼写功能是如何实现的？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -641,6 +904,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
