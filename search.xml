@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>散列表(中)</title>
+      <link href="/2019/03/19/%E6%95%A3%E5%88%97%E8%A1%A8(%E4%B8%AD)/"/>
+      <url>/2019/03/19/%E6%95%A3%E5%88%97%E8%A1%A8(%E4%B8%AD)/</url>
+      
+        <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="19-散列表-中-如何打造一个工业级水平的散列表"><a href="#19-散列表-中-如何打造一个工业级水平的散列表" class="headerlink" title="[19]散列表(中) 如何打造一个工业级水平的散列表"></a>[19]散列表(中) 如何打造一个工业级水平的散列表</h1><p>不能笼统地说散列表的查询效率是O(1),影响散列表查询效率的因素：</p><blockquote><ul><li>散列函数的设计</li><li>装载因子的选取</li><li>扩容策略的选取</li><li>散列冲突的处理</li></ul></blockquote><a id="more"></a><p>在极端情况下，一个并不能达到工业级水平的散列表，会被恶意的攻击者利用。通过一些精心构造的数据，使得所有数据经过散列函数，都能够散列到同一个槽中。如果我们使用的是基于链表的冲突解决方法，那这是，<strong>散列表的这个槽就会退化成一个链表，查询在这个槽对应的时间复杂度就会从O(1)退化为O(n)。</strong></p><p>这个O(n)中的n是恶意攻击者构造的数据的总数，假如其中有10万个数据，则退化后的散列表效率就下降了10万倍。更直接点说，假如我们查询100个数据花费0.1秒，但是退化后的散列表中，在这个槽中查找一个数据就需要1万秒。这样就有可能<strong>查询操作消耗大量的CPU资源或者线程资源</strong>，导致<strong>系统无法响应其他请求</strong>，从而<strong>达到拒绝服务攻击(Dos)的目的</strong>，攻击者也就是利用了<strong>散列表碰撞攻击的基本原理</strong>。</p><p>所以我们需要设计一个可以应对各种异常情况的工业级散列表，来避免在散列冲突情况下，散列表性能急剧下降，并且能够抵抗散列碰撞攻击。</p><h2 id="散列函数的设计"><a href="#散列函数的设计" class="headerlink" title="散列函数的设计"></a>散列函数的设计</h2><p>在实际应用，如果我们已知我们在散列表存储的数据，我们需要考虑的是存储的关键字的长度，特点，分布，散列表的大小来设计<strong>散列函数</strong>。</p><h3 id="数据分析法"><a href="#数据分析法" class="headerlink" title="数据分析法"></a>数据分析法</h3><p>1.比如存储手机号，根据手机号的特点，前几位重复的几率很大，后几位重复的几率较小，我们选取后4位作为散列值。</p><p>2.散列表中存储的是单词时，我们可以利用字母的ASCII值“进位”相加，然后再跟散列表的大小求余、取模、作为散列值。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash(<span class="string">"nice"</span>)=((<span class="string">"n"</span> - <span class="string">"a"</span>) * <span class="number">26</span>*<span class="number">26</span>*<span class="number">26</span> + (<span class="string">"i"</span> - <span class="string">"a"</span>)*<span class="number">26</span>*<span class="number">26</span> + (<span class="string">"c"</span> - <span class="string">"a"</span>)*<span class="number">26</span>+ (<span class="string">"e"</span>-<span class="string">"a"</span>)) <span class="comment">//78978</span></span><br></pre></td></tr></table></figure><p>实际上散列函数的设计还有，直接寻址发法，平方取中法，折叠法，随机数法等。</p><h2 id="装载因子的选取与动态扩容策略"><a href="#装载因子的选取与动态扩容策略" class="headerlink" title="装载因子的选取与动态扩容策略"></a>装载因子的选取与动态扩容策略</h2><p><em>装载因子是我们衡量散列表中存储元素个数，和发生散了冲突概率的一个数值。</em></p><p>装载因子越大：说明散列表中元素越多，空闲位置越少，散列表冲突概率就越大。不仅插入数据的过程要多次寻址，或者拉链增长，查找的过程也会因此变慢。</p><h3 id="对于静态数据"><a href="#对于静态数据" class="headerlink" title="对于静态数据"></a>对于静态数据</h3><p>对于没有频繁插入和删除的静态数据集合来说，我们很容易根据数据的特点，分布等，设计出一个冲突很少的散列函数。</p><h3 id="对于动态数据"><a href="#对于动态数据" class="headerlink" title="对于动态数据"></a>对于动态数据</h3><p>数据集合是频繁变动的，我么事先无法预知要加入的数据个数。所以我们无法一次性申请一个足够大的散列表。随着数据慢慢的加入，装载因子就会变大。当装载因子大到一定程度后，散列冲突就会变很频繁，严重影响性能。</p><h4 id="动态扩容"><a href="#动态扩容" class="headerlink" title="动态扩容"></a>动态扩容</h4><p>我们可以使用动态扩容的策略，当装载因子达到某一个阈值后，我们可以进行动态扩容，重新申请了一个更大的散列表，将数据搬移到这个新的散列表中。</p><p>散列表的扩容，并不是像数组那样只是数据搬移。因为散列表的大小变了，数据存储位置也变了，所以我们需要通过散列函数重新计算每个数据存储位置。</p><p><img src="/2019/03/19/散列表(中)/婕\数据结构与算法之美\picture\rehash.png" alt="rehash"></p><p>对于支持动态扩容的散列表，插入操作时间复杂度需要进行摊还分析法。</p><table><thead><tr><th>最好情况（没有进行扩容）插入时间复杂度</th><th>最坏情况(进行扩容)插入时间复杂度</th><th>均摊时间复杂度</th></tr></thead><tbody><tr><td>O(1)</td><td>O(n)</td><td>O(1)</td></tr></tbody></table><p>如果我们对空间消耗很敏感的化，我们可以增加动态缩容功能。如果我们更加在意执行效率的化，能够容忍多消耗一点内存空间，那就可以不用那么费劲来缩容。</p><p>装载因子阈值的设置要权衡时间，空间复杂度。根据内存空间，和执行效率的要求，来进行选择。如果对执行效率不高，且内存空间紧张的情况下，我们可以增加负载因子的值，设置可以大于1。(拉链法)</p><h3 id="如何避免低效的扩容"><a href="#如何避免低效的扩容" class="headerlink" title="如何避免低效的扩容"></a>如何避免低效的扩容</h3><p>其实对用用户来说，需要每次插入数据的体验感都需要很好，所以我们对于那压死哈西表的最后一个插入数据来说，用户此次插入前需要对哈希表进行扩容，所消耗的时间就会边长。</p><p><strong>所以直接的”一次性扩容”就不是很合适，我们可以利用摊还分析法的思想，将那最坏时间复杂度所消耗的时间均摊到每次插入中。</strong></p><p>所以将<strong>扩容操作穿插到插入操作中，分批完成</strong>。<em>当装载因子触达阈值后，我们只申请新的空间，但不进行rehash，将老数据的内容搬移到新的散列表中。</em></p><p>当有新数据要<strong>插入</strong>时，我们将新数据插入到新的散列表中，并且顺带懂老散列表中拿出一个数据放入到新的散列表中。每次插入一个数据到散列表中，我们就顺带稍一点数据进新的散列表。每次我们都重复上面的过程。经过多次插入操作后，老的散列表中的数据就一点一点的全部搬移到新的散列表中了。这样就没有一次性数据搬移，插入操作就变得很快。<strong>这个也是一个空间换时间的方式</strong>。</p><p><img src="/2019/03/19/散列表(中)/婕\数据结构与算法之美\picture\分批扩容策略.png" alt="分批扩容策略"></p><p>期间的<strong>查询</strong>我们为了兼容新，老散列表的数据，<strong>我们先从新散列表中查找，如果没有找到，再去老的散列表中查找。</strong></p><p>这样均摊的方法，讲一次性扩容的代价，均摊到多次插入操作中，就避免了一次性扩容耗时过多的情况。这样插入一个数据的时间复杂度就是O(1)。</p><h2 id="散列冲突处理"><a href="#散列冲突处理" class="headerlink" title="散列冲突处理"></a>散列冲突处理</h2><p>在哈西表(上)中提到了的两种方法<strong>开放寻址法(ThreadLocalMap)</strong>，<strong>拉链法(LinkedHashMap)</strong>。</p><h3 id="开放寻址法"><a href="#开放寻址法" class="headerlink" title="开放寻址法"></a>开放寻址法</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>数据都存储在数组中，我们可以有效的利用CPU缓存加快查询速度。而且，这种方法实现的散列表，序列化起来比较简单。拉链法包含指针，序列化起来就没有那么容易。</p><h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>删除数据比较繁琐，需要添加标记。所有数据存储在数组中，随着负载因子的加大，发生冲突后，就会造成恶性循环，加大下一次发生冲突的概率。</p><p>所以使用开放寻址法的散列表，<strong>装载因子的上线不能太大</strong>。所以使用开放寻址法的散列表，<strong>装载因子的上线不能太大</strong>。这种方法比拉链法更加浪费内存空间。</p><h4 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h4><p><strong>数据量比较小，装载因子比较小的时候，适合开放寻址法</strong>。这也是Java中的<strong>ThreadLocalMap</strong>使用开放寻址法解决散列冲突的原因。</p><h3 id="拉链法"><a href="#拉链法" class="headerlink" title="拉链法"></a>拉链法</h3><h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><p>拉链法对内存的利用率比开放寻址法要高。因为链表节点可以在需要的时候再创建，并不需要像开放寻址法那样事先申请好。<strong>(链表优于数组)</strong></p><p>链表法比开放寻址法，<strong>对于大装载因子容量更高</strong>，开放寻址法装载因子接近1时，就会有大量散列冲突，导致大量的探测，再散列等措施，性能会见降低很对。但是对于链表法来说，<strong>只要散列函数的值随机均匀，即便装载因子变成1</strong>，也就是链表长度长了一点，查找效率虽然有所下降，但是比顺序表查找还是快很多。</p><p><strong>拉链法的升级，将链表达到某一长度后变为更高效的红黑树，跳表等</strong>。这样即便出现散列冲突，极端情况下，所有数据都散列到了同一个桶里，那最终退化成的散列表的查询时间不过是<strong>O(logn)</strong>。这样也避免了DOS攻击。</p><h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><p><strong>链表中存储指针(next 4字节)，所以对于比较小的对象的存储，比较消耗内存，还有可能会让内存消耗翻倍</strong>，而且，因为链表中的节点零散分布在内存中，不连续，<strong>所以对CPU缓存不友好</strong>，对于<strong>执行效率也有一定影响</strong>。</p><p>如果存储的是大对象，就可以忽略上面这一点。</p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>基于链表的散列冲突处理方法比<strong>较适合存储大对象、大数据量的散列表</strong>，而且，比起开放寻址法，它<strong>更加灵活，支持更多的优化策略，比如用红黑树代替链表</strong>。</p><h2 id="工业级散列表举例分析"><a href="#工业级散列表举例分析" class="headerlink" title="工业级散列表举例分析"></a>工业级散列表举例分析</h2><p>Java  HashMap</p><h3 id="初始大小"><a href="#初始大小" class="headerlink" title="初始大小"></a>初始大小</h3><p>HashMap默认的初始化大小16，这个默认值是可以设置的，如果事先知道大概的数据量有多大，可以通过修默认初始大小，减少动态扩容的次数。这样会大大提高HashMap的性能。</p><h3 id="装载因子和动态扩容"><a href="#装载因子和动态扩容" class="headerlink" title="装载因子和动态扩容"></a>装载因子和动态扩容</h3><p>最大装载因子默认是0.75，当HashMap中元素个数超过0.75*capacity(capacity表示散列表容量)时候，就会启动动态扩容，每次扩容都会扩容为原来的2倍大小。</p><h3 id="散列冲突解决方法"><a href="#散列冲突解决方法" class="headerlink" title="散列冲突解决方法"></a>散列冲突解决方法</h3><p>HashMap底层采用拉链法来解决冲突。即使负载因子和散列函数设计的再合理，也免不了会出现拉链过程的情况，一旦出现拉链过长，则会严重影响HashMap的性能。</p><p>在JDK1.8版本中，为了对hashMap做了进一步优化，引入了红黑树。当链表长度(默认超过8)时，链表就转换为红黑树。我们可以利用红黑树快速增删改查的特点，提高HashMap新跟那个。当红黑树节点个数小于6的时候，红黑树转化为链表。因为在数据量较小的情况下，红黑树要维护平衡，比起链表来，性能上的优势并不明显。</p><h3 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h3><p>散列函数的设计并不复杂，追求的是简单高效，分布均匀。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static final int hash(Object key) &#123;   //jdk1.8 &amp; jdk1.7</span><br><span class="line">     int h;</span><br><span class="line">     // h = key.hashCode() 为第一步 取hashCode值</span><br><span class="line">     // h ^ (h &gt;&gt;&gt; 16)  为第二步 高位参与运算</span><br><span class="line">     return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="内容小结"><a href="#内容小结" class="headerlink" title="内容小结"></a>内容小结</h2><p>如何设计一个工业级别的Hash表，应对各种异常情况，防止在极端情况下，散列表的性能退化过于严重。</p><ul><li>如何设计散列函数</li><li>如何根据装载因子动态扩容</li><li>如何选择散列冲突解决方法。</li></ul><p>散列函数的设计：我们尽可能让经过散列函数后的值随机分布，这样会尽可能的减少散列冲突，即便冲突后，分配到每一槽的数据也比均匀。除此之外，<strong>散列函数的设计也不能太复杂，太复杂就会消耗太多时间，会影响散列表的性能。</strong></p><p>关于散列冲突解决方法的选择，根据合适的情况选择合适方法。大部分情况下链表发更为合适。而且，我们还可以将链表法中链表改造成其他动态查找数据结构，比如红黑树，来避免散列表时间复杂度退化成O(n),低于散列碰撞攻击。但是对于小规模数据，装载因子不高的散列表，比较合适用开放寻址法。</p><p>对于动态散列表来说，散列函数，<strong>散列冲突解决方法，都无法解决散列冲突问题，只是缓解。随着数据的不断增加，散列表总会出现装载因子过高的情况</strong>。这时候，我们就需要启动动态扩容。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构与算法之美 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构与算法之美 </tag>
+            
+            <tag> 散列表 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>散列表(上)</title>
       <link href="/2019/03/19/%E6%95%A3%E5%88%97%E8%A1%A8(%E4%B8%8A)/"/>
       <url>/2019/03/19/%E6%95%A3%E5%88%97%E8%A1%A8(%E4%B8%8A)/</url>
@@ -853,31 +880,6 @@
     
     
     <entry>
-      <title>正则表达式</title>
-      <link href="/2019/01/16/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-      <url>/2019/01/16/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><ul><li>正则表达式概念</li><li>正则表达式应用场景</li><li>正则表达式三要素</li><li>正则表达式特殊符号</li><li>扩展正则和基础正则</li></ul><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote><ul><li>正则表达式Regular Expression）是用于描述一组字符串特征的模式，用来匹配特定的字符串。通过特殊字符+普通字符来进行模式描述，从而达到文本匹配目的的工具</li><li>寻人启事</li><li>正则表达式目前被集成到各种文本编辑器/文本处理工具当中</li></ul></blockquote><h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul><li><strong>验证</strong>：表单提交，进行用户名密码验证</li><li><strong>查找</strong>：从大量信息中快速提取指定内容，在一批url中，查找指定url</li><li><strong>替换</strong>：将指定格式的文本，进行正则匹配查找，找到后进行特定替换（vim文本替换符）</li></ul><h2 id="正则表达式的基本要求"><a href="#正则表达式的基本要求" class="headerlink" title="正则表达式的基本要求"></a>正则表达式的基本要求</h2><ul><li>字符类</li><li>数量限定符</li><li>位置限定符</li><li>特殊符号</li></ul><p>grep是一款Linux下按行进行匹配文本的工具。通常是Linux下处理文本的第一步，带有很多有用的选项。采用的是贪心算法</p><blockquote><ul><li>-E :使用扩展正则匹配</li><li>–color:将匹配的到的内容进行语法高亮</li></ul></blockquote><h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><table><thead><tr><th>字符</th><th>含义</th><th>举例</th></tr></thead><tbody><tr><td>.</td><td>匹配任意一个字符</td><td>abd.可以匹配abcde、abc9等</td></tr><tr><td>[]</td><td>匹配括号中的任意一个字符</td><td>[abc]d,可以匹配ad,bd,或带有d的字符集</td></tr><tr><td>-</td><td>在[ ]括号内表示字符范围</td><td>[0-9a-fA-F]可以匹配一位16进制数字</td></tr><tr><td>^</td><td>位于[]括号内的开头，匹配除考好中的字符之外的任意一个字符</td><td>[^xy] 1匹配除了xy之外的任意一个字符 可以怕匹配a1,b1但不能匹配x1,y1</td></tr><tr><td>[[:xxx:]]</td><td>grep工具预定义的一下些命名字符类</td><td>[[:alpha:]]匹配一个字母，[[:digit:]]匹配一个数字</td></tr></tbody></table><a id="more"></a><p><img src="/2019/01/16/正则表达式/gerp练习.png" alt="gerp练习"></p><h2 id="数量限定符"><a href="#数量限定符" class="headerlink" title="数量限定符"></a>数量限定符</h2><table><thead><tr><th>字符</th><th>含义</th><th>举例</th></tr></thead><tbody><tr><td>？</td><td>紧跟在他前面的单元应匹配零次或一次</td><td>[0-9]?\.[0-9]匹配0.0、2.3、.5等，由于.在正则表达式中是一个特殊字符，所以需要用\转义一下，取字面值</td></tr><tr><td>+</td><td>紧跟在他前面的单元应匹配一次或多次</td><td>[a-zA-Z0-9_.-]+@[a-zA-z0-9_.-]+\.[a-zA-Z0-9_.-]+匹配email地址</td></tr><tr><td>*</td><td>紧跟在他前面的单元应匹配零次或多次</td><td>[0-9][0-9]<em>匹配至少一位数字，等价于[0-9]+.[a-zA-z_]+[a-zA-Z_0-9]\</em>匹配C语言标识符</td></tr><tr><td>{N}</td><td>紧跟在他前面的单元应匹配精确匹配N次</td><td>[1-9][0-9]{2}匹配从100到999的整数</td></tr><tr><td>{N,}</td><td>紧跟在他前面的单元应匹配至少N次</td><td>[1-9][0-9][2,]匹配三位以上（含三位)的整数</td></tr><tr><td>{,M}</td><td>紧跟在他前面的单元应匹配最多M次</td><td>[0-9]{,1}相当于[0-9]?     Linux下的grep不支持</td></tr><tr><td>{N,M}</td><td>紧跟在他前面的单元应匹配至少N次,最多M次</td><td>[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1.3}\.[0-9]{1.3}匹配IP地址</td></tr></tbody></table><h2 id="位置限定符"><a href="#位置限定符" class="headerlink" title="位置限定符"></a>位置限定符</h2><table><thead><tr><th>字符</th><th>含义</th><th>举例</th></tr></thead><tbody><tr><td>^</td><td>匹配行首的位置</td><td>^Contennt匹配位于一行开头的Content</td></tr><tr><td>$</td><td>匹配行末的位置</td><td>;\$匹配位于一行结尾的；号，^$匹配空行</td></tr><tr><td>\&lt;</td><td>匹配以单词开头的位置（所有）</td><td>\&lt;th匹配…this,但不匹配ethernet、tenth</td></tr><tr><td>\&gt;</td><td>匹配以词结尾的位置（所有）</td><td>p\&gt;匹配leap…,但不匹配parent,sleepy</td></tr><tr><td>\b</td><td>匹配以单词开头置或以单词结尾的位置（所有）</td><td>\bat\b匹配…at…,但不匹配cat、atexit、batch</td></tr><tr><td>\B</td><td>匹配非以单词开头或以单词结尾的位置（所有）</td><td>\Bat\B匹配battery,但不匹配…attend、hat…</td></tr></tbody></table><h2 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h2><table><thead><tr><th>字符</th><th>含义</th><th>举例</th></tr></thead><tbody><tr><td>\</td><td>转义字符，普通字符转义为特殊字符，特殊字符转义为普通字符</td><td>普通字符&lt;写成\&lt;表示单词开头的位置，特殊字符.写成\.以及\写成\\就当作普通字符</td></tr><tr><td>()</td><td>将正则表达式的一部分括起来组成一个单元，可以对整个单元使用数量限定符</td><td>([0-9]{1,3}\.){3}[0-9]{1,3}匹配IP地址</td></tr><tr><td>\</td><td></td><td>连接两个子表达式，表示或的关系</td><td>n(o\</td><td>either)匹配no 或neither</td></tr></tbody></table><h2 id="扩展正则和基准正则"><a href="#扩展正则和基准正则" class="headerlink" title="扩展正则和基准正则"></a>扩展正则和基准正则</h2><p>区别：正则表达式的Extended规范和Basic规则基本相同。只是Basic规范下，有些字符<code>?+{}|（）</code>  应解释为普通字符，要表示上述特殊含义则需要加上\转义</p><p>反之，在Extended规范下，<code>？+{}|（）</code> 应被解释为普通字符，要表示上述特殊含义则需要加上<code>\</code>转义。</p><p>所以<code>grep</code> 工具带上<code>-E</code> 选项，表示使用扩正则来进行匹配，若没有，则表示使用基准正则进行匹配.</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 文本匹配 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 正则表达式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>网络基础(1)</title>
       <link href="/2019/01/16/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80(1)/"/>
       <url>/2019/01/16/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80(1)/</url>
@@ -895,6 +897,31 @@
         <tags>
             
             <tag> Linux网络 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>正则表达式</title>
+      <link href="/2019/01/16/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+      <url>/2019/01/16/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><ul><li>正则表达式概念</li><li>正则表达式应用场景</li><li>正则表达式三要素</li><li>正则表达式特殊符号</li><li>扩展正则和基础正则</li></ul><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote><ul><li>正则表达式Regular Expression）是用于描述一组字符串特征的模式，用来匹配特定的字符串。通过特殊字符+普通字符来进行模式描述，从而达到文本匹配目的的工具</li><li>寻人启事</li><li>正则表达式目前被集成到各种文本编辑器/文本处理工具当中</li></ul></blockquote><h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul><li><strong>验证</strong>：表单提交，进行用户名密码验证</li><li><strong>查找</strong>：从大量信息中快速提取指定内容，在一批url中，查找指定url</li><li><strong>替换</strong>：将指定格式的文本，进行正则匹配查找，找到后进行特定替换（vim文本替换符）</li></ul><h2 id="正则表达式的基本要求"><a href="#正则表达式的基本要求" class="headerlink" title="正则表达式的基本要求"></a>正则表达式的基本要求</h2><ul><li>字符类</li><li>数量限定符</li><li>位置限定符</li><li>特殊符号</li></ul><p>grep是一款Linux下按行进行匹配文本的工具。通常是Linux下处理文本的第一步，带有很多有用的选项。采用的是贪心算法</p><blockquote><ul><li>-E :使用扩展正则匹配</li><li>–color:将匹配的到的内容进行语法高亮</li></ul></blockquote><h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><table><thead><tr><th>字符</th><th>含义</th><th>举例</th></tr></thead><tbody><tr><td>.</td><td>匹配任意一个字符</td><td>abd.可以匹配abcde、abc9等</td></tr><tr><td>[]</td><td>匹配括号中的任意一个字符</td><td>[abc]d,可以匹配ad,bd,或带有d的字符集</td></tr><tr><td>-</td><td>在[ ]括号内表示字符范围</td><td>[0-9a-fA-F]可以匹配一位16进制数字</td></tr><tr><td>^</td><td>位于[]括号内的开头，匹配除考好中的字符之外的任意一个字符</td><td>[^xy] 1匹配除了xy之外的任意一个字符 可以怕匹配a1,b1但不能匹配x1,y1</td></tr><tr><td>[[:xxx:]]</td><td>grep工具预定义的一下些命名字符类</td><td>[[:alpha:]]匹配一个字母，[[:digit:]]匹配一个数字</td></tr></tbody></table><a id="more"></a><p><img src="/2019/01/16/正则表达式/gerp练习.png" alt="gerp练习"></p><h2 id="数量限定符"><a href="#数量限定符" class="headerlink" title="数量限定符"></a>数量限定符</h2><table><thead><tr><th>字符</th><th>含义</th><th>举例</th></tr></thead><tbody><tr><td>？</td><td>紧跟在他前面的单元应匹配零次或一次</td><td>[0-9]?\.[0-9]匹配0.0、2.3、.5等，由于.在正则表达式中是一个特殊字符，所以需要用\转义一下，取字面值</td></tr><tr><td>+</td><td>紧跟在他前面的单元应匹配一次或多次</td><td>[a-zA-Z0-9_.-]+@[a-zA-z0-9_.-]+\.[a-zA-Z0-9_.-]+匹配email地址</td></tr><tr><td>*</td><td>紧跟在他前面的单元应匹配零次或多次</td><td>[0-9][0-9]<em>匹配至少一位数字，等价于[0-9]+.[a-zA-z_]+[a-zA-Z_0-9]\</em>匹配C语言标识符</td></tr><tr><td>{N}</td><td>紧跟在他前面的单元应匹配精确匹配N次</td><td>[1-9][0-9]{2}匹配从100到999的整数</td></tr><tr><td>{N,}</td><td>紧跟在他前面的单元应匹配至少N次</td><td>[1-9][0-9][2,]匹配三位以上（含三位)的整数</td></tr><tr><td>{,M}</td><td>紧跟在他前面的单元应匹配最多M次</td><td>[0-9]{,1}相当于[0-9]?     Linux下的grep不支持</td></tr><tr><td>{N,M}</td><td>紧跟在他前面的单元应匹配至少N次,最多M次</td><td>[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1.3}\.[0-9]{1.3}匹配IP地址</td></tr></tbody></table><h2 id="位置限定符"><a href="#位置限定符" class="headerlink" title="位置限定符"></a>位置限定符</h2><table><thead><tr><th>字符</th><th>含义</th><th>举例</th></tr></thead><tbody><tr><td>^</td><td>匹配行首的位置</td><td>^Contennt匹配位于一行开头的Content</td></tr><tr><td>$</td><td>匹配行末的位置</td><td>;\$匹配位于一行结尾的；号，^$匹配空行</td></tr><tr><td>\&lt;</td><td>匹配以单词开头的位置（所有）</td><td>\&lt;th匹配…this,但不匹配ethernet、tenth</td></tr><tr><td>\&gt;</td><td>匹配以词结尾的位置（所有）</td><td>p\&gt;匹配leap…,但不匹配parent,sleepy</td></tr><tr><td>\b</td><td>匹配以单词开头置或以单词结尾的位置（所有）</td><td>\bat\b匹配…at…,但不匹配cat、atexit、batch</td></tr><tr><td>\B</td><td>匹配非以单词开头或以单词结尾的位置（所有）</td><td>\Bat\B匹配battery,但不匹配…attend、hat…</td></tr></tbody></table><h2 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h2><table><thead><tr><th>字符</th><th>含义</th><th>举例</th></tr></thead><tbody><tr><td>\</td><td>转义字符，普通字符转义为特殊字符，特殊字符转义为普通字符</td><td>普通字符&lt;写成\&lt;表示单词开头的位置，特殊字符.写成\.以及\写成\\就当作普通字符</td></tr><tr><td>()</td><td>将正则表达式的一部分括起来组成一个单元，可以对整个单元使用数量限定符</td><td>([0-9]{1,3}\.){3}[0-9]{1,3}匹配IP地址</td></tr><tr><td>\</td><td></td><td>连接两个子表达式，表示或的关系</td><td>n(o\</td><td>either)匹配no 或neither</td></tr></tbody></table><h2 id="扩展正则和基准正则"><a href="#扩展正则和基准正则" class="headerlink" title="扩展正则和基准正则"></a>扩展正则和基准正则</h2><p>区别：正则表达式的Extended规范和Basic规则基本相同。只是Basic规范下，有些字符<code>?+{}|（）</code>  应解释为普通字符，要表示上述特殊含义则需要加上\转义</p><p>反之，在Extended规范下，<code>？+{}|（）</code> 应被解释为普通字符，要表示上述特殊含义则需要加上<code>\</code>转义。</p><p>所以<code>grep</code> 工具带上<code>-E</code> 选项，表示使用扩正则来进行匹配，若没有，则表示使用基准正则进行匹配.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文本匹配 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 正则表达式 </tag>
             
         </tags>
       
