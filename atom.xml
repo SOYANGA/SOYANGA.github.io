@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-03-28T16:00:10.402Z</updated>
+  <updated>2019-04-01T14:46:12.926Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>哈希算法(上)</title>
+    <link href="https://soyanga.github.io/2019/04/01/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95(%E4%B8%8A)/"/>
+    <id>https://soyanga.github.io/2019/04/01/哈希算法(上)/</id>
+    <published>2019-04-01T14:45:02.000Z</published>
+    <updated>2019-04-01T14:46:12.926Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="21-哈希算法-上-：如何防止数据库中的用户信息被脱库？"><a href="#21-哈希算法-上-：如何防止数据库中的用户信息被脱库？" class="headerlink" title="[21]哈希算法(上)：如何防止数据库中的用户信息被脱库？"></a>[21]哈希算法(上)：如何防止数据库中的用户信息被脱库？</h1><p>哈希算法：将任意长度的二进制串映射成固定长度的二进制串，这个映射的规则就是哈希算法，通过原始数据映射后得到的二进制值就是哈希值。</p><h2 id="优秀哈希算法的要求"><a href="#优秀哈希算法的要求" class="headerlink" title="优秀哈希算法的要求"></a>优秀哈希算法的要求</h2><ul><li>从哈希值不能反向推导出原始数据（哈希算法也叫<strong>单向哈希算法</strong>）</li><li>对输入数据非常敏感，哪怕原始数据只<strong>修改了一个Bit</strong>,最后<strong>得到的哈希也大不相同</strong>；</li><li>散列<strong>冲突的概率很小</strong>，对于不同的原始数据，哈希值相同的概率非常小；</li><li>哈希算法的<strong>执行效率要尽可能高效</strong>，针对较长的文本，也能快速计算出哈希值</li></ul><a id="more"></a><h2 id="哈希算法的应用"><a href="#哈希算法的应用" class="headerlink" title="哈希算法的应用"></a>哈希算法的应用</h2><p><strong>安全加密</strong>，<strong>唯一标识</strong>，<strong>数据校验</strong>，<strong>散列函数</strong>，负载均衡，数据分片，分布式存储。</p><h2 id="应用一：安全加密"><a href="#应用一：安全加密" class="headerlink" title="应用一：安全加密"></a>应用一：安全加密</h2><h3 id="常用于加密的哈希算法："><a href="#常用于加密的哈希算法：" class="headerlink" title="常用于加密的哈希算法："></a>常用于加密的哈希算法：</h3><p><strong>MD5</strong>:MD5 Message-Digest Algorithm MD5消息摘要算法</p><p><strong>SHA:</strong> Secure Hash Algorithm 安全散列算法</p><p><strong>DES:</strong> Data Encryption Standard 数据加密标准</p><p><strong>AES:</strong> Advanced Encryption Standard 高级加密标准</p><p>加密哈希算法来说 “单项哈希 ”，“散列冲突小”两点很重要</p><p>单项哈希是一个加密哈希算法来说必要的一点。<strong>散列冲突是无法避免的</strong>，因为基于组合数学中一个非常基础的理论<strong>鸽巢原理(也叫抽屉原理)</strong>。也就是10个鸽巢，11个鸽子，那肯定有一个鸽巢的鸽子数量多于1个，换句话说，肯定由2只鸽子在1个鸽巢中。</p><p>所以哈希算法无<strong>法做到零冲突</strong>，MD5的例子哈希值是固定的128为二进制尾，能表示的数据有限的，最多标识2^128^个数据，而我们要哈希的数据是无穷的，基于鸽巢原理，如果我们存储2^128^+1个数据求哈希值，必然会发生哈希冲突。<strong>所以哈希值越长的哈希算法，散列冲突的概率越低</strong>。</p><p>没有绝对的安全加密，<strong>越复杂，越难破解的加密算法，需要计算的时间也就越长。实际开发过程中，也需要权衡破解难度和计算时间，来决定究竟使用那种加密算法。</strong></p><h2 id="应用二：唯一标识"><a href="#应用二：唯一标识" class="headerlink" title="应用二：唯一标识"></a>应用二：唯一标识</h2><p>对图片的唯一标识，可以给每个图片取一个唯一标识，或者说信息摘要。比如说可以从图片二进制代码串开头取100字节，从中间取100字节，从最后再取100字节。然后将这300字节拼到一起，通过哈希算法，的到一个哈希值，将其作为图片的唯一标识。过这个唯一标识来判定图片是否在图库中，这样就可以减少很多工作量。</p><p>还可以把图片的相应图片文件在图库中的路径信息，都存储在散列表中。<strong>提高检索效率</strong></p><p>哈希算法可以对大数据做信息摘要，通过一个较短的二进制编码来表示一个很大的数据。</p><h2 id="应用三：数据校验"><a href="#应用三：数据校验" class="headerlink" title="应用三：数据校验"></a>应用三：数据校验</h2><p>利用<strong>哈希算法对输入数据敏感的特点</strong>，可以对数据取哈希值，从而<strong>高效校验数据是否被篡改过。</strong>（校验文件完整性正确性）</p><p>利用哈希算法的特性改动有效特性，对下载种子文件拆分成若干文件取哈希值，当下载完成后的文件拼接成一个完成文件并分别校验之前划分文件的哈希值是否改变从而确定下载数据的完整性</p><h2 id="应用四：散列函数"><a href="#应用四：散列函数" class="headerlink" title="应用四：散列函数"></a>应用四：散列函数</h2><p>散列函数关注的重点是哈希算法更加关注散列后的值能<strong>不能被平均分布</strong>，以<strong>及散列函数的执行快慢</strong>。（所以，散列函数用的散列算法一般都比较简单，比较追求效率。</p><h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><p>1.如何防止数据库中的用户信息被脱库？你会如何存储用户密码这么重要的数据吗？<br>①使用MD5进行加密（加密存储）<br>②字典攻击：如果用户信息被“脱库”，黑客虽然拿到的是加密之后的密文，但可以通过“猜”的方式来破解密码，这是因为，有些用户的密码太简单。（字典中存储用户常用的密码）<br>③针对字典攻击，我们可以引入一个盐（salt），跟用户密码组合在一起，增加密码的复杂度。</p><p>安全和攻击是一种博弈关系，不存在结对安全，所有安全措施，只是增加攻击成本而已。</p><h2 id="区块链中使用的哈希算法"><a href="#区块链中使用的哈希算法" class="headerlink" title="区块链中使用的哈希算法"></a>区块链中使用的哈希算法</h2><p>区块链是一块块区块组成的，每个区块分为两部分：区块头和区块体。</p><p>区块头保存着 自己区块体 和 上一个区块头 的哈希值。</p><p>因为这种链式关系和哈希值的唯一性，只要区块链上任意一个区块被修改过，后面所有区块保存的哈希值就不对了。</p><p>区块链使用的是 SHA256 哈希算法，计算哈希值非常耗时，如果要篡改一个区块，就必须重新计算该区块后面所有的区块的哈希值，短时间内几乎不可能做到。  </p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+
+
+&lt;h1 id=&quot;21-哈希算法-上-：如何防止数据库中的用户信息被脱库？&quot;&gt;&lt;a href=&quot;#21-哈希算法-上-：如何防止数据库中的用户信息被脱库？&quot; class=&quot;headerlink&quot; title=&quot;[21]哈希算法(上)：如何防止数据库中的用户信息被脱库？&quot;&gt;&lt;/a&gt;[21]哈希算法(上)：如何防止数据库中的用户信息被脱库？&lt;/h1&gt;&lt;p&gt;哈希算法：将任意长度的二进制串映射成固定长度的二进制串，这个映射的规则就是哈希算法，通过原始数据映射后得到的二进制值就是哈希值。&lt;/p&gt;
+&lt;h2 id=&quot;优秀哈希算法的要求&quot;&gt;&lt;a href=&quot;#优秀哈希算法的要求&quot; class=&quot;headerlink&quot; title=&quot;优秀哈希算法的要求&quot;&gt;&lt;/a&gt;优秀哈希算法的要求&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;从哈希值不能反向推导出原始数据（哈希算法也叫&lt;strong&gt;单向哈希算法&lt;/strong&gt;）&lt;/li&gt;
+&lt;li&gt;对输入数据非常敏感，哪怕原始数据只&lt;strong&gt;修改了一个Bit&lt;/strong&gt;,最后&lt;strong&gt;得到的哈希也大不相同&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;散列&lt;strong&gt;冲突的概率很小&lt;/strong&gt;，对于不同的原始数据，哈希值相同的概率非常小；&lt;/li&gt;
+&lt;li&gt;哈希算法的&lt;strong&gt;执行效率要尽可能高效&lt;/strong&gt;，针对较长的文本，也能快速计算出哈希值&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+      <category term="哈希算法" scheme="https://soyanga.github.io/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>散列表(下)</title>
@@ -707,34 +741,6 @@
       <category term="Maven" scheme="https://soyanga.github.io/tags/Maven/"/>
     
       <category term="代码管理工具" scheme="https://soyanga.github.io/tags/%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>网络-各种协议报头图</title>
-    <link href="https://soyanga.github.io/2019/01/23/%E7%BD%91%E7%BB%9C-%E5%90%84%E7%A7%8D%E5%8D%8F%E8%AE%AE%E6%8A%A5%E5%A4%B4%E5%9B%BE/"/>
-    <id>https://soyanga.github.io/2019/01/23/网络-各种协议报头图/</id>
-    <published>2019-01-23T09:54:24.000Z</published>
-    <updated>2019-02-19T03:57:30.233Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="网络模型（OSI-TCP-IP分层结构）"><a href="#网络模型（OSI-TCP-IP分层结构）" class="headerlink" title="网络模型（OSI/TCP/IP分层结构）"></a>网络模型（OSI/TCP/IP分层结构）</h1><p><img src="/2019/01/23/网络-各种协议报头图/OSI、TCP_IP参考模型.png" alt="OSI、TCP_IP参考模型"></p><a id="more"></a><h1 id="数据报的封装和解包分用"><a href="#数据报的封装和解包分用" class="headerlink" title="数据报的封装和解包分用"></a>数据报的封装和解包分用</h1><p><img src="/2019/01/23/网络-各种协议报头图/封装解包分用.png" alt="封装解包分用"></p><h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><h2 id="DHCP-UDP-长度超过512字节使用TCP"><a href="#DHCP-UDP-长度超过512字节使用TCP" class="headerlink" title="DHCP-(UDP/长度超过512字节使用TCP)"></a>DHCP-(UDP/长度超过512字节使用TCP)</h2><p><strong>动态主机配置协议</strong></p><p>一、为主机申请IP:DHCP态主机配置协议</p><ol><li><p>假设主机最开始并没有连接网络，所以主机需要获取IP地址以及其他信息，那么就需要先使用DHCP来获取。</p></li><li><p>主机生成一个<strong>DHCP请求报文</strong>，并将这个报文放入具有<strong>目的的端口号67</strong>和<strong>源端口号68</strong>的<strong>UDP报文中。</strong></p></li><li><p>该报文文段被放入在一个具有<strong>广播IP目的地址（255.255.255.255）</strong>和<strong>源IP地址（0.0.0.0</strong>）的<strong>IP数据报中</strong></p></li><li><p>包含DHCP请求报文的IP据报则被放置在<strong>MAC帧</strong>中。这个以太网帧具有<strong>目的地址MAC地址FF.FF.FF.FF.FF.F</strong>F使该帧将广播到交换机连接的所有设备</p></li></ol><p>   <strong>以上过程就是将DHCP请求报文一层一层做封装（添加了UDP报头，IP报头字段，数据帧报头字段）</strong> </p><ol start="5"><li><p>连接在<strong>交换机的DHCP服务器</strong>收到广播帧之后，不断向上分解得到<strong>IP数据报</strong>，<strong>UDP数据段，DHCP请求报文</strong> ，之后DHCP服务器生成DHCP,ACK报文。DHCP服务器能够以<strong>CIDR块</strong>的形式（服务器IP子 按位与 服务器子网掩码获取子网地址的范围，并取地址分配给<strong>主机IP地址</strong>）</p><blockquote><p>该报文包含以下信息：</p><ul><li><p><strong>IP地址</strong></p></li><li><p><strong>DNS服务器得IP地址</strong></p></li><li><strong>默认网关路由器的IP地址（第一跳的IP地址）</strong></li><li><strong>子网块==子网掩码</strong></li></ul></blockquote></li></ol><ol start="6"><li>将ACK报文向下进行依次封装成UDP报文段，IP报文，MAC帧,这个以太网帧中<strong>目的地址为主机MAC地址</strong>，<strong>源地址为路由器中的DHCP服务器地址</strong>。</li></ol><p>   <strong>得到的MAC帧进行解包，分用处理，然后应用程DHCP服务器给出响应ACK报文再次向下封装发送回个主机，其中包含的内容如上。</strong> </p><ol start="7"><li><p>包含DHCP ACK报文的<strong>MAC帧</strong>由路由器发送给交换机。交换机是自学习的，并且先前从主机收到的包含DHCP请求的MAC帧，所以交换机知交换机表中查询到，该向那个接口发送该MAC帧。</p></li><li><p>主机接收到包含DHCP的MAC帧，从连路层层层向上解包分用，IP报文，UDP报文段，从UDP报文段中抽取DHCP ACK报文。此时主机的DHCP客户端记录其中的IP地址和DNS服务器的IP地址，在主机的<strong>IP转发表(路由表)</strong>中安装默认网关地址。此时，主机已经初始化所有网络组件，并且准备开始处理web页面的获取。</p></li></ol><h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><h2 id="HTTP报头"><a href="#HTTP报头" class="headerlink" title="HTTP报头"></a>HTTP报头</h2><p><img src="/2019/01/23/网络-各种协议报头图/HTTP请求响应的过程.png" alt="HTTP请求响应的过程"></p><ul><li></li><li>URL</li></ul><p><img src="/2019/01/23/网络-各种协议报头图/URL-网址.png" alt="URL-网址"></p><h1 id="传出层"><a href="#传出层" class="headerlink" title="传出层"></a>传出层</h1><h2 id="UDP报头"><a href="#UDP报头" class="headerlink" title="UDP报头"></a>UDP报头</h2><p><img src="/2019/01/23/网络-各种协议报头图/UDP报文图.png" alt="UDP报文图"></p><h2 id="TCP报头"><a href="#TCP报头" class="headerlink" title="TCP报头"></a>TCP报头</h2><p><img src="/2019/01/23/网络-各种协议报头图/TCP协议格式.png" alt="TCP协议格式"></p><ul><li>面向连接过程中为什么要3次握手？</li></ul><ul><li>断开连接时要四次挥手为什么要四次挥手？</li></ul><ul><li>4次挥手主动断开的一方要进入TIME_WAIT为什么要进入TIME_WAIT</li></ul><blockquote><p><strong>TIME_WAIT:主动退出的一方要进入的状态</strong>，是需要等待一段时间的，让<strong>双方的连接安全释放</strong>。</p><ul><li><p><strong>保证迟到的报文尽快消散</strong>。</p><p>例子：</p><p>客户端A发出一个报文，有一个路由器比较卡，此时客户端A退出。退出后有建立了连接，此时报文才发过去。-迟到的报文。（解决迟到报文的状态）</p><ul><li>TCP协议规定,主动关闭连接的⼀⽅要处于TIME_ WAIT状态,等待两个MSL(maximum segment lifetime)的时间后才能回到CLOSED状态</li><li>TIME_WAIT:等待的时间（MSL maximum segment lifetime ），单向的MSL时间一般是60秒，双向则就是120秒2分钟。</li><li>可以通过<code>cat /proc/sys/net/ipv4/tcp_fin_timeout</code>查看MSL的值</li></ul></li></ul></blockquote><ul><li>TCP异常问题的解答，客户端进程结束，机器重启，机器断电/网络断开 1</li></ul><blockquote><p>进程终止会释放文件描述符，任然可以发送FIN，和正常关闭没有什么区别。</p><p>会被操作系统底层正常关闭，操作系统底层会帮你进行4挥手，正常关闭。</p></blockquote><blockquote><p>接收端认为连接还在，一旦接收端有写⼊操作, 接收端发现连接已经不在了, <strong>就会进行reset</strong>发送含有RST. 即使没有写⼊操作, TCP⾃⼰也内置了⼀个保活定时器, 会定期询问对⽅是否还在. 如果对⽅不在, 也会把连接释放 。</p></blockquote><ul><li><p>收发数据时，对方接收缓冲区已经满了，我们无法发送数据。那么此时我们什么时候发？此时怎么知道对方的接收窗口已经有数据更新了？</p><blockquote><p> 如果接收端缓冲区满了, 就会将窗⼝大小置为0; 这时发送⽅不再发送数据, 但是需要定期发送⼀个窗⼝ 探测数据段，使接收端把装口大小告诉发送端。</p></blockquote></li></ul><h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><h2 id="IP报头"><a href="#IP报头" class="headerlink" title="IP报头"></a>IP报头</h2><p><img src="/2019/01/23/网络-各种协议报头图/IP协议头格式.png" alt="IP协议头格式"></p><ul><li>IP分片，重组</li></ul><ul><li>解决IP地址数量限制</li></ul><ul><li>路由</li></ul><h2 id="ICMP报头"><a href="#ICMP报头" class="headerlink" title="ICMP报头"></a>ICMP报头</h2><p><img src="/2019/01/23/网络-各种协议报头图/ICMP报文格式.png" alt="ICMP报文格式"></p><h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><h2 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h2><p><img src="/2019/01/23/网络-各种协议报头图/ARP数据报格式.png" alt="ARP数据报格式"></p><h2 id="以太网帧"><a href="#以太网帧" class="headerlink" title="以太网帧"></a>以太网帧</h2><p><img src="/2019/01/23/网络-各种协议报头图/以太网网络帧格式.png" alt="以太网网络帧格式"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-
-
-&lt;h1 id=&quot;网络模型（OSI-TCP-IP分层结构）&quot;&gt;&lt;a href=&quot;#网络模型（OSI-TCP-IP分层结构）&quot; class=&quot;headerlink&quot; title=&quot;网络模型（OSI/TCP/IP分层结构）&quot;&gt;&lt;/a&gt;网络模型（OSI/TCP/IP分层结构）&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/2019/01/23/网络-各种协议报头图/OSI、TCP_IP参考模型.png&quot; alt=&quot;OSI、TCP_IP参考模型&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux网络" scheme="https://soyanga.github.io/categories/Linux%E7%BD%91%E7%BB%9C/"/>
-    
-    
-      <category term="Linux网络" scheme="https://soyanga.github.io/tags/Linux%E7%BD%91%E7%BB%9C/"/>
-    
-      <category term="图解协议报头" scheme="https://soyanga.github.io/tags/%E5%9B%BE%E8%A7%A3%E5%8D%8F%E8%AE%AE%E6%8A%A5%E5%A4%B4/"/>
     
   </entry>
   
