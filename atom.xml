@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-04-05T15:49:03.516Z</updated>
+  <updated>2019-04-05T15:54:45.027Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mybatis初始</title>
+    <link href="https://soyanga.github.io/2019/04/05/Mybatis%E5%88%9D%E5%A7%8B/"/>
+    <id>https://soyanga.github.io/2019/04/05/Mybatis初始/</id>
+    <published>2019-04-05T15:51:01.000Z</published>
+    <updated>2019-04-05T15:54:45.027Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="Mybatis-简介和开始"><a href="#Mybatis-简介和开始" class="headerlink" title="Mybatis 简介和开始"></a>Mybatis 简介和开始</h1><p><strong>重点</strong></p><p>==了解Mybatis框架==  </p><p>==Mybatis快速入门== </p><h1 id="1-Mybatis是什么？"><a href="#1-Mybatis是什么？" class="headerlink" title="1.Mybatis是什么？"></a>1.Mybatis是什么？</h1><p><img src="/2019/04/05/Mybatis初始/Mybatis图标.png" alt="Mybatis图标"></p><p>MyBatis(3.X以前的版本叫ibatis)</p><a id="more"></a><p>==<strong>支持自定义SQL,存储过程和高级映射的持久化框架</strong>==</p><p>MyBatis<strong>几乎消除了所有的JDBC代码</strong>，也基本<strong>不需要手工去设置参数和获取检索结果</strong>。Mybatis能够使用<strong>简单的XML格式或者注解进来配置</strong>，能够映射基本数据结构，Map接口和POJOs（普通java对象）到数据库中的记录。</p><p><strong>JDBC</strong>——&gt;  将面向对象的语句转化问面向过程的SQL语句（我们只关注SQL语句的结果）。    </p><p>​    &lt;——   将对象转化为SQL语句存储在数据库中持久化处理。</p><p><strong>阻抗不匹配</strong>：持久化存储数据所采用的数据模型（无论是文件系统或者数据库管理系统）在编写程序时跟我们采用的数据模型有差异，就称为阻抗不匹配。</p><p>我们通过JDBC转化将<strong>数据库中的数据模型</strong>与<strong>java中的数据模型进行转化</strong>。</p><p>持久化框架：事务的ACID特性 D：持久化 A：原子性 C：一致性  I：隔离性</p><p><strong>ORM框架（Object Relational Mapping）</strong>采用<strong>元数据</strong>来描述对象–关系映射细节，元数据一般采用XML格式，并且存放在专门的对象映射文件中。</p><p>[Hibernate,iBATIS,MyBatis,EclipseLink,JFinal。]</p><p>采用的<code>Mybatis-3.4.5</code> </p><p>Mybatis框架时JavaEE是最容易掌握的框架。</p><h3 id="1-1-Mybatis-VS-JDBC-SQL"><a href="#1-1-Mybatis-VS-JDBC-SQL" class="headerlink" title="1.1 Mybatis VS JDBC SQL"></a>1.1 Mybatis VS JDBC SQL</h3><table><thead><tr><th>对比</th><th>Mybatis</th><th>JDBC SQL</th></tr></thead><tbody><tr><td>连接</td><td>托管</td><td>编码 Connection connection = DriverManager.getConnection(url)</td></tr><tr><td>SQL</td><td>隔离/集中</td><td>混合/分散  java中有SQL语句</td></tr><tr><td>缓存</td><td>两级缓存</td><td>不支持</td></tr><tr><td>结果映射</td><td>自动映射</td><td>硬编码</td></tr><tr><td>维护性</td><td>高</td><td>低</td></tr></tbody></table><p>缓存：提高访问效率</p><p>JDBC的执行流程</p><ol><li>加载数据库驱动建立连接/获得数据源  建立连接</li><li>创建操作命名</li><li>执行SQL语句–-&gt;返回结果集</li><li>对返回的结果集进行处理（sql–&gt;Java对象）</li><li>资源回收（关闭结果集，关闭操作命令，关闭连接）</li></ol><ul><li><p>加在数据库驱动建立连接/获得数据源建立连接</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br></pre></td></tr></table></figure></li><li><p>建立数据库连接</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Connection connection = DriverManager.getConnection(<span class="string">"jdbc:mysql://localhost:3306/memo?</span></span><br><span class="line"><span class="string">user = root &amp; password = root &amp; useUnicode = true &amp; characterEncoding = "</span>UTF-<span class="number">8</span><span class="string">");</span></span><br></pre></td></tr></table></figure><blockquote><p>//MySQL数据库连接得url参数格式如下：</p><p>jdbc:mysql://服务器地址:端口/数据库名称？参数名 = 参数值</p></blockquote></li><li><p>创建操作命令(statement)</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Statement statemnt = connection.createStatement();</span><br></pre></td></tr></table></figure></li><li><p>执行SQL语句</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ResultSet resultSet = statement.executeQuery(</span><br><span class="line">  <span class="string">"select id,group_id,title,content,is_protected, background,is_remind,remind_time,created_time,modify_time from memo_info"</span>);</span><br></pre></td></tr></table></figure></li><li><p>处理结果集</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (resultSet.next()) &#123;    </span><br><span class="line">    <span class="keyword">int</span> id = resultSet.getInt(<span class="string">"id"</span>);    </span><br><span class="line">    String title = resultSet.getString(<span class="string">"title"</span>);    </span><br><span class="line">    String content = resultSet.getString(<span class="string">"content"</span>);    </span><br><span class="line">    Date createTime = resultSet.getDate(<span class="string">"created_time"</span>);    System.out.println(String.format(<span class="string">"Memo: id=%d, title=%s, content=%s, createTime=%s"</span>, id, title, content, createTime.toString())); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>释放资源（关闭结果集，命令，连接）</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//关闭结果集</span></span><br><span class="line"><span class="keyword">if</span> (resultSet != <span class="keyword">null</span>) &#123;    </span><br><span class="line"><span class="keyword">try</span> &#123;        </span><br><span class="line">resultSet.close();    </span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;        </span><br><span class="line">e.printStackTrace();    </span><br><span class="line">&#125; </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//关闭命令</span></span><br><span class="line"><span class="keyword">if</span> (statement != <span class="keyword">null</span>) &#123;    </span><br><span class="line"><span class="keyword">try</span> &#123;        </span><br><span class="line">statement.close();    </span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;        </span><br><span class="line">e.printStackTrace();    </span><br><span class="line">&#125; </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//关闭连接命令</span></span><br><span class="line"><span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;    </span><br><span class="line"><span class="keyword">try</span> &#123;        </span><br><span class="line">connection.close();    </span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;        </span><br><span class="line">e.printStackTrace();    </span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><h2 id="2-开始使用Mybatis"><a href="#2-开始使用Mybatis" class="headerlink" title="2.开始使用Mybatis"></a>2.开始使用Mybatis</h2><h3 id="2-1准备工作"><a href="#2-1准备工作" class="headerlink" title="2.1准备工作"></a>2.1准备工作</h3><ul><li>IDEA安装Mybatis插件（Free Mybatis Plugin）<ul><li>IDEA Settings-&gt;Plugins-&gt;Browse repositorites-&gt;Free Mybatis Plugin</li><li>安装完成之后重启IDEA</li></ul></li><li>准备mybatis项目<ul><li>创建一个Maven的Application项目</li><li>pom.xml中添加Mybatis依赖 org.mybatis:mybatis:3.4.5</li><li>pom.xml中添加JDBC驱动依赖,如:mysql:mysql-connector-java:5.1.43</li></ul></li><li>准备数据库<ul><li>创建数据库</li><li>创建数据库表</li></ul></li></ul><h3 id="2-2构建SqlSessionFactory"><a href="#2-2构建SqlSessionFactory" class="headerlink" title="2.2构建SqlSessionFactory"></a>2.2构建SqlSessionFactory</h3><h4 id="2-1-1XML构建-重点"><a href="#2-1-1XML构建-重点" class="headerlink" title="2.1.1XML构建(重点)"></a>2.1.1XML构建(<strong>重点</strong>)</h4><p>每个基于Mybatis的应用都是以一个SqlSessionFactory的实例为中心的。SqlSessionFactory的实例可以通过SqlSessionFactoryBuilder获得。而SqlSessionFactoryBuilder则可以从XML配置文件或者一个预先定制的Configuration的实例构建出SqlSessionFactory的实例。</p><ul><li>创建Mybatis配置文件(<code>mybatis-config.xml</code>)归档到<code>src/main/resources/mybatis-comfig.xml</code>)</li><li>利用Resouce类来获取xml文件名解析创建成一个SqlSessionFactory实例</li></ul><h4 id="2-1-2编码构建（了解）"><a href="#2-1-2编码构建（了解）" class="headerlink" title="2.1.2编码构建（了解）"></a>2.1.2编码构建（了解）</h4><p>如果你愿意直接从java程序而不是XML文件中创建configuration,或者创建你自己的configuraton构建器，MyBatis也提供了完整的配置类，提供所有和XML文件相同功能的配置项</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DataSource dataSource = <span class="keyword">new</span> PooledDataSource();<span class="comment">//mybatis提供的数据库连接池</span></span><br><span class="line">TransactionFactory transactionFactory = <span class="keyword">new</span> JdbcTransactionFactory();</span><br><span class="line">Environment environment = <span class="keyword">new</span> Environment(<span class="string">"development"</span>, transactionFactory, dataSource);</span><br><span class="line">Configuration configuration = <span class="keyword">new</span> Configuration(environment);</span><br><span class="line">configuration.addMapper(MemoGroupMapper.clss);</span><br><span class="line">SqlSessionFactory sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(configuration);</span><br></pre></td></tr></table></figure><p>configuration添加了一个映射器类（mapper class)。映射器类是java类，他们包含SQL映射语句的注解，从而避免了XML文件的依赖，不过由于java注解的一些限制加之某些MyBatis映射的复杂性，XML映射对于大多数高级映射（比如：嵌套Join映射）来说仍然是必须的。有鉴于此，如果存在一个对等的XML配置文件的话。MyBatis会自动查找并加载它（这种情况下，MemoGroupMapper.xml将会基于类路径和MemGruopMapper.class的类名被加载进来）。</p><h2 id="2-2使用SqlSession"><a href="#2-2使用SqlSession" class="headerlink" title="2.2使用SqlSession"></a>2.2使用SqlSession</h2><p>我们可以通过SqlSession的实例。SqlSession完全包含了面向数据库执行SQL命令所需的所有方法，你可以通过SqlSession实例来执行已经映射的SQL语句。例如</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlSession.getMapper(.class);</span><br></pre></td></tr></table></figure><p>基于Mybatis项目</p><ol><li>创建Maven项目<ol><li>添加依赖 mybatis org.mybatis:3.4.5</li><li>添加依赖 mysql驱动 mysql:mysql-connector-java:5.1.43驱动</li><li>准备数据库</li></ol></li><li>创建mybatis配置<ol><li>sec/main/resources  -&gt; mybatis-config.xml</li><li>配置文件中需要配置数据库信息 driver url username password</li></ol></li><li>编码<ol><li>entity 包 实体类 -&gt; 数据库表</li><li>mapper 包 mapper接口 -&gt; 数据库操作的方法</li><li>src/main/resources/mapper 创建mapper.xml映射文件 定义信息</li><li>编码 创建SqlSessionFactory SqlSession Mapper Interface</li><li>测试一下代码</li></ol></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+&lt;h1 id=&quot;Mybatis-简介和开始&quot;&gt;&lt;a href=&quot;#Mybatis-简介和开始&quot; class=&quot;headerlink&quot; title=&quot;Mybatis 简介和开始&quot;&gt;&lt;/a&gt;Mybatis 简介和开始&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;重点&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;==了解Mybatis框架==  &lt;/p&gt;
+&lt;p&gt;==Mybatis快速入门== &lt;/p&gt;
+&lt;h1 id=&quot;1-Mybatis是什么？&quot;&gt;&lt;a href=&quot;#1-Mybatis是什么？&quot; class=&quot;headerlink&quot; title=&quot;1.Mybatis是什么？&quot;&gt;&lt;/a&gt;1.Mybatis是什么？&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/2019/04/05/Mybatis初始/Mybatis图标.png&quot; alt=&quot;Mybatis图标&quot;&gt;&lt;/p&gt;
+&lt;p&gt;MyBatis(3.X以前的版本叫ibatis)&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="JavaEE" scheme="https://soyanga.github.io/categories/JavaEE/"/>
+    
+    
+      <category term="Mybatis" scheme="https://soyanga.github.io/tags/Mybatis/"/>
+    
+      <category term="JavaEE" scheme="https://soyanga.github.io/tags/JavaEE/"/>
+    
+  </entry>
   
   <entry>
     <title>二叉树基础(上)</title>
@@ -698,47 +728,6 @@
       <category term="Java学习笔记" scheme="https://soyanga.github.io/tags/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
       <category term="JVM" scheme="https://soyanga.github.io/tags/JVM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>再识Java-02面向对象</title>
-    <link href="https://soyanga.github.io/2019/01/28/%E5%86%8D%E8%AF%86Java-02%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    <id>https://soyanga.github.io/2019/01/28/再识Java-02面向对象/</id>
-    <published>2019-01-28T04:57:28.000Z</published>
-    <updated>2019-02-01T06:06:01.422Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><p>面向过程编程缺少了可重用性设计</p><p>面向对象三大特征：</p><blockquote><ol><li><p>封装性：所谓封装性，就是把客观事物封装成了抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对于不可信的进行信息隐藏。简而言之就是，<strong>内部操作对外部而言不可见（保护性）</strong></p></li><li><p>继承性：继承是指这样的一种能力：它可以<strong>使现有类的所有功能</strong>，<strong>并在无需重信编写原来类的情况下对这些功能进行扩展</strong></p></li><li><p>多态性（*）：所谓多态就是指一个类实例的<strong>相同方法再不同的情形下有不同的表现形式</strong>。多态的机制使具有不同内部结构的对象可以共享相同的外部接口</p><p>利用多态可以得到良好的设计-&gt;</p></li></ol></blockquote><p>面向对象的最大特征：可以进行生活的抽象</p><a id="more"></a>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-&lt;h1 id=&quot;面向对象&quot;&gt;&lt;a href=&quot;#面向对象&quot; class=&quot;headerlink&quot; title=&quot;面向对象&quot;&gt;&lt;/a&gt;面向对象&lt;/h1&gt;&lt;p&gt;面向过程编程缺少了可重用性设计&lt;/p&gt;
-&lt;p&gt;面向对象三大特征：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;封装性：所谓封装性，就是把客观事物封装成了抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对于不可信的进行信息隐藏。简而言之就是，&lt;strong&gt;内部操作对外部而言不可见（保护性）&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;继承性：继承是指这样的一种能力：它可以&lt;strong&gt;使现有类的所有功能&lt;/strong&gt;，&lt;strong&gt;并在无需重信编写原来类的情况下对这些功能进行扩展&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;多态性（*）：所谓多态就是指一个类实例的&lt;strong&gt;相同方法再不同的情形下有不同的表现形式&lt;/strong&gt;。多态的机制使具有不同内部结构的对象可以共享相同的外部接口&lt;/p&gt;
-&lt;p&gt;利用多态可以得到良好的设计-&amp;gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;面向对象的最大特征：可以进行生活的抽象&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="JAVASE" scheme="https://soyanga.github.io/categories/JAVASE/"/>
-    
-    
-      <category term="JavaSE基础" scheme="https://soyanga.github.io/tags/JavaSE%E5%9F%BA%E7%A1%80/"/>
-    
-      <category term="Java学习笔记" scheme="https://soyanga.github.io/tags/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="OOP" scheme="https://soyanga.github.io/tags/OOP/"/>
     
   </entry>
   

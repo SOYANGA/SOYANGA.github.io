@@ -345,6 +345,220 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/21/网络-网络层IP协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/21/网络-网络层IP协议/" itemprop="url">网络-网络层IP协议</a></h1>
+        
+
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T23:51:46+08:00">
+                2019-01-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T19:33:02+08:00">
+                2019-01-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <meta name="referrer" content="no-referrer">
+
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p>在复杂的网络环境中<strong>确定一个合适的路径</strong>，路径选择能力。</p>
+<h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><p>IP地址是<strong>路由选择的作用</strong>，怎么走就是下层协议决定。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>主机：配有IP地址，但是不进行路由控制的设备；</p>
+<p>路由器：配有IP地址，又能进行路由控制；</p>
+<p>节点：主机和路由器的统称。</p>
+<h3 id="IP协议头格式"><a href="#IP协议头格式" class="headerlink" title="IP协议头格式"></a>IP协议头格式</h3><p><img src="/2019/01/21/网络-网络层IP协议/IP协议头格式.png" alt="IP协议头格式"></p>
+<ul>
+<li><strong>4位版本号（version）：</strong>只当IP协议的版本，对于IPv4来说就是4</li>
+<li><strong>4位头部长度（hearer length）:</strong>以4字节（一行）为单位，4位头部长度能表示的最大数字是15，即IP头部最大长度是15*4 = 60字节。</li>
+<li><strong>8位服务类型(Type Of Servier):</strong> 3位优先权字段（已经弃用了），4位TOS字段，和一位保留字段（必须置为0），4为TOS分别表示，最小延时，最大吞吐量，最高可靠性，最小成本，这四者互相冲突，只能选择一个，对于ssh/telnet这样的应用程序，最小延迟比较重要，对于ftp这样的程序，最大吞吐量比较重要。</li>
+<li><strong>16位总长度（total length）:I</strong>P数据报整体占多少个字节。</li>
+<li><strong>16位标识（id）:</strong>唯一的标识住居发送的报文，如果IP报文在数据链路层被分片了，那么每一个片里面的这个id都是相同的。</li>
+<li><strong>3位标志位字段：</strong>第一位保留（保留的意思就是现在不用，但是还没想好说不定以后要用到），第二位置为1标识禁止分片，这时候如果报文长度超过<strong>MTU</strong>, IP模块就会丢弃报文。第三位表示”更多分片”, 如果分片了的话, 最后一个分片置为1, 其他是0. 类似于一个结束标记. </li>
+<li><strong>13位分片偏移(framegament offset):</strong> 是分片相对于原始IP报文开始处的偏移. 其实就是在表示当前 分片在原报文中处在哪个位置. 实际偏移的字节数是这个值 * 8 得到的. 因此, 除了最后一个报文之 外, 其他报文的长度必须是8的整数倍(否则报⽂文就不连续了)。</li>
+<li><strong>8位生存时间(Time To Live, TTL):</strong> 数据报到达目的地的最大报文跳数. 一般是64. 每次经过一个路由, TTL -= 1, 一直减到0还没到达, 那么就丢弃了. 这个字段主要是用来防止出现路由循环 。</li>
+<li><strong>8位协议:</strong> 表示上层协议的类型 。</li>
+<li><strong>16位头部校验和:</strong> 使用CRC进行校验, 来鉴别头部是否损坏.。</li>
+<li><strong>32位源地址和32位目标地址:</strong> 表示发送端和接收端。</li>
+<li><strong>选项字段(不定⻓长, 最多40字节):</strong> 略 </li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/21/网络-网络层IP协议/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/20/网络-TCP扩展/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1623,219 +1837,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/网络基础(1)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/16/网络基础(1)/" itemprop="url">网络基础(1)</a></h1>
-        
-
-        <div class="post-meta">
-		    
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T21:23:00+08:00">
-                2019-01-16
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T18:38:01+08:00">
-                2019-01-22
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.8k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <meta name="referrer" content="no-referrer">
-
-<h1 id="网络基础（1）"><a href="#网络基础（1）" class="headerlink" title="网络基础（1）"></a>网络基础（1）</h1><p><strong>重点：</strong></p>
-<ul>
-<li>网络发展背景，对局域网/广域网的概念有基本认识</li>
-<li>了解网络协议的意义，重点理解TCP/IP五层结构模型</li>
-<li>网络传输的基本流程，理解封装和分用</li>
-</ul>
-<h2 id="计算机网络背景"><a href="#计算机网络背景" class="headerlink" title="计算机网络背景"></a>计算机网络背景</h2><ul>
-<li>在同一个局域网内两台主机是可以直接通信的。</li>
-<li>任何一个在局域网上的主机，在不欠运营费的情况下是可以访问公网下的任意一台主机的。</li>
-<li>不在同一个局域网的主机可以通信的原因，通过公网这座桥梁读写操作。</li>
-</ul>
-<p><strong>网络发展</strong></p>
-<p><strong>独立模式</strong>：计算机之间相互独立；分别计算数据，把数据加工处理完后又必须拷贝到另一台机器。</p>
-<p><strong>机器传输数据之间是人工过程，太过繁琐</strong></p>
-<p><strong>网络互联:</strong> 多台计算机连接在一起, 完成数据共享，<strong>冯诺依曼体系（系统) 是网络</strong>，只是连接线不同。</p>
-<p>但是<strong>长距离传输数据容易丢失</strong>，而且传输速度慢。解决–<strong>TCP协议：解决数据安全，丢包问题</strong>。<strong>IP解决查找问题。</strong> </p>
-<p><strong>局域网LAN:</strong> 计算机数量更多了, 通过交换机和路由器连接在一起，<strong>交换机：</strong>最低层对数据进行数据帧交换。 </p>
-<p><strong>广域网WAN:</strong> 将远隔千里的计算机都连在一起</p>
-<p><strong>所谓</strong> “局域网” 和 “广域网” 只是一个相对的概念. 比如, 我们有 “天朝特色” 的广域网, 也可以看做一个比较大的局域网。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/16/网络基础(1)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/正则表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2096,6 +2097,219 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/网络基础(1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/网络基础(1)/" itemprop="url">网络基础(1)</a></h1>
+        
+
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T21:23:00+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T18:38:01+08:00">
+                2019-01-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <meta name="referrer" content="no-referrer">
+
+<h1 id="网络基础（1）"><a href="#网络基础（1）" class="headerlink" title="网络基础（1）"></a>网络基础（1）</h1><p><strong>重点：</strong></p>
+<ul>
+<li>网络发展背景，对局域网/广域网的概念有基本认识</li>
+<li>了解网络协议的意义，重点理解TCP/IP五层结构模型</li>
+<li>网络传输的基本流程，理解封装和分用</li>
+</ul>
+<h2 id="计算机网络背景"><a href="#计算机网络背景" class="headerlink" title="计算机网络背景"></a>计算机网络背景</h2><ul>
+<li>在同一个局域网内两台主机是可以直接通信的。</li>
+<li>任何一个在局域网上的主机，在不欠运营费的情况下是可以访问公网下的任意一台主机的。</li>
+<li>不在同一个局域网的主机可以通信的原因，通过公网这座桥梁读写操作。</li>
+</ul>
+<p><strong>网络发展</strong></p>
+<p><strong>独立模式</strong>：计算机之间相互独立；分别计算数据，把数据加工处理完后又必须拷贝到另一台机器。</p>
+<p><strong>机器传输数据之间是人工过程，太过繁琐</strong></p>
+<p><strong>网络互联:</strong> 多台计算机连接在一起, 完成数据共享，<strong>冯诺依曼体系（系统) 是网络</strong>，只是连接线不同。</p>
+<p>但是<strong>长距离传输数据容易丢失</strong>，而且传输速度慢。解决–<strong>TCP协议：解决数据安全，丢包问题</strong>。<strong>IP解决查找问题。</strong> </p>
+<p><strong>局域网LAN:</strong> 计算机数量更多了, 通过交换机和路由器连接在一起，<strong>交换机：</strong>最低层对数据进行数据帧交换。 </p>
+<p><strong>广域网WAN:</strong> 将远隔千里的计算机都连在一起</p>
+<p><strong>所谓</strong> “局域网” 和 “广域网” 只是一个相对的概念. 比如, 我们有 “天朝特色” 的广域网, 也可以看做一个比较大的局域网。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/16/网络基础(1)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/LinuxPOSIX信号量/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2288,219 +2502,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/Linux多线程同步/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/16/Linux多线程同步/" itemprop="url">Linux多线程同步</a></h1>
-        
-
-        <div class="post-meta">
-		    
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T15:19:26+08:00">
-                2019-01-16
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-16T16:42:55+08:00">
-                2019-01-16
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux多线程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  293
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Linux同步"><a href="#Linux同步" class="headerlink" title="Linux同步"></a>Linux同步</h1><h2 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h2><blockquote>
-<ul>
-<li>当一个线程互斥地访问某个变量时，它可能发现在其他线程状态改变值之前，它什么也做不了。</li>
-<li>例如一个线程访问队列时，发现队列为空，它只能等待，只到其它线程将一个节点添加到队列中。 这种情况就需要⽤用到条件变量。</li>
-</ul>
-</blockquote>
-<p><strong>同步解决了进程饥饿问题</strong></p>
-<h2 id="条件变量函数"><a href="#条件变量函数" class="headerlink" title="条件变量函数"></a>条件变量函数</h2><p>初始化条件变量</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_init</span><span class="params">(<span class="keyword">pthread_cond_t</span> *<span class="keyword">restrict</span> cond,<span class="keyword">const</span> <span class="keyword">pthread_condattr_t</span> *rest rict attr)</span></span>; </span><br><span class="line">参数：    </span><br><span class="line">cond：要初始化的条件变量    </span><br><span class="line">attr：<span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
-<p>销毁条件变量</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_destroy</span><span class="params">(<span class="keyword">pthread_cond_t</span> *cond）</span></span></span><br></pre></td></tr></table></figure>
-<p>等待条件满足</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_wait</span><span class="params">(<span class="keyword">pthread_cond_t</span> *<span class="keyword">restrict</span> cond,<span class="keyword">pthread_mutex_t</span> *<span class="keyword">restrict</span> mute x)</span></span>; </span><br><span class="line">参数：    </span><br><span class="line">cond：要在这个条件变量上等待    </span><br><span class="line">mutex：互斥量，后⾯面详细解</span><br></pre></td></tr></table></figure>
-<p>唤醒等待</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_broadcast</span><span class="params">(<span class="keyword">pthread_cond_t</span> *cond)</span></span>;   </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_signal</span><span class="params">(<span class="keyword">pthread_cond_t</span> *cond)</span></span>;</span><br></pre></td></tr></table></figure>
-<h1 id="生产消费者"><a href="#生产消费者" class="headerlink" title="生产消费者"></a>生产消费者</h1><p>分析：</p>
-<p>生产者生产者之间的关系—互斥关系（不能共享）</p>
-<p>生产者消费者之间的关系—互斥关系，同步关系</p>
-<p>消费者消费者之间的关系—互斥关系（不能共享）</p>
-<p><strong>交易场所：超市</strong></p>
-<p>321原则： 3种关系，2个角色，1 个交易场所</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/16/Linux多线程同步/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2555,7 +2556,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2566,7 +2567,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2577,7 +2578,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2655,7 +2656,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">111.9k</span>
+    <span title="Site words total count">113.4k</span>
   
 </div>
 
