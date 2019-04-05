@@ -345,6 +345,222 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/02/19/再识java-集合框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/19/再识java-集合框架/" itemprop="url">再识java--集合框架</a></h1>
+        
+
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-19T12:05:45+08:00">
+                2019-02-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-19T13:29:30+08:00">
+                2019-02-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVASE/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVASE</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVASE/Java集合/" itemprop="url" rel="index">
+                    <span itemprop="name">Java集合</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  197
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="集合产生原因"><a href="#集合产生原因" class="headerlink" title="集合产生原因"></a>集合产生原因</h1><ul>
+<li><p>集合产生背景：</p>
+<ul>
+<li>JDK1.2-产生集合框架类集</li>
+</ul>
+</li>
+<li><p>集合的作用</p>
+<ul>
+<li>保存数据</li>
+<li>数组定长问题，集合本质上是一个动态数组</li>
+</ul>
+</li>
+</ul>
+<h2 id="Collection接口-保存单个元素的最大父接口"><a href="#Collection接口-保存单个元素的最大父接口" class="headerlink" title="Collection接口:保存单个元素的最大父接口"></a>Collection接口:保存单个元素的最大父接口</h2><h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.<span class="function"><span class="keyword">public</span> bollean <span class="title">add</span><span class="params">()</span></span>; <span class="comment">//添加元素</span></span><br><span class="line"><span class="number">2</span>.<span class="function"><span class="keyword">public</span> bollean <span class="title">remove</span><span class="params">()</span></span>;<span class="comment">//删除集合中元素</span></span><br><span class="line"><span class="number">3</span>.<span class="function"><span class="keyword">public</span> bollean <span class="title">contains</span><span class="params">()</span></span>;<span class="comment">//查看集合中是否有这个元素</span></span><br><span class="line"><span class="number">4</span>.<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;<span class="comment">//清空集合元素</span></span><br><span class="line"><span class="number">6</span>.<span class="keyword">public</span> Object[] toArray();<span class="comment">//将集合转变为对象数组</span></span><br><span class="line"><span class="number">5</span>.<span class="keyword">public</span> Iterator&lt;?&gt;iterator();<span class="comment">//获得集合的迭代器</span></span><br></pre></td></tr></table></figure>
+<h3 id="List：允许数据重复"><a href="#List：允许数据重复" class="headerlink" title="List：允许数据重复"></a>List：允许数据重复</h3><h4 id="独有的方法"><a href="#独有的方法" class="headerlink" title="独有的方法:"></a>独有的方法:</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span>：<span class="comment">//根据索引下标取得数据</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E set（<span class="keyword">int</span> index,E element)<span class="comment">//根据索引下标更新数据，返回修改之前的数据</span></span></span><br></pre></td></tr></table></figure>
+<p><a href="http://naotu.baidu.com/file/7e2ce9e67efeed3fc5b3f442c30d27c3" target="_blank" rel="noopener">ArrayList,Vectory,LinkedList</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/02/13/再识java包装类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2189,210 +2405,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/22/网络-数据链路层以太网协议/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/22/网络-数据链路层以太网协议/" itemprop="url">网络-数据链路层以太网协议</a></h1>
-        
-
-        <div class="post-meta">
-		    
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-22T00:00:43+08:00">
-                2019-01-22
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T00:03:15+08:00">
-                2019-01-22
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <meta name="referrer" content="no-referrer">
-
-<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><p>用于两个设备（同一种数据节点）之间进行传递</p>
-<h3 id="对比理解“数据链路层”和“网络层”"><a href="#对比理解“数据链路层”和“网络层”" class="headerlink" title="对比理解“数据链路层”和“网络层”"></a>对比理解“数据链路层”和“网络层”</h3><p>[唐僧例子之白龙马]</p>
-<h2 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h2><blockquote>
-<ul>
-<li>“以太网”不是一种具体的网络，而是一种技术标准，即包含了数据链路层的内容，也包含了一些物理层的内容。例如：规定了网络拓扑图</li>
-<li>例如以太网中的网线必须使用双绞线；传输速率有10M,100M，1000M等；</li>
-<li>以太网是当前应用最广发的局域网技术；和以太网并列的还有令牌环，无线LAN等；</li>
-</ul>
-</blockquote>
-<h4 id="以太网帧格式"><a href="#以太网帧格式" class="headerlink" title="以太网帧格式"></a>以太网帧格式</h4><p><img src="/2019/01/22/网络-数据链路层以太网协议/以太网网络帧格式.png" alt="以太网网络帧格式"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/22/网络-数据链路层以太网协议/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2447,7 +2459,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2547,7 +2559,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">113.4k</span>
+    <span title="Site words total count">119k</span>
   
 </div>
 
