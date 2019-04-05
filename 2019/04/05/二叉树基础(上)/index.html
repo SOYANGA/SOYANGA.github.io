@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
+
+
+
+  <meta name="keywords" content="数据结构与算法之美,二叉树," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SOYANGA" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="[23]二叉树基础(上)：什么样的二叉树适合用数组来存储？二叉树有哪些存储方式，什么样的二叉树适合用数组来存储？ 树的高度(Height)、深度(Depth)、层(Level)。   节点高度 = 节点到叶子节点的最长路径(边数) 节点深度 = 根节点到这个节点所经的边的个数 节点层数 = 节点深度 + 1 树的高度 = 根节点的高度    记忆小Tips： 高度是从下往上度量，比如我们要度量">
+<meta name="keywords" content="数据结构与算法之美,二叉树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉树基础(上)">
+<meta property="og:url" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/index.html">
+<meta property="og:site_name" content="SOYANGA">
+<meta property="og:description" content="[23]二叉树基础(上)：什么样的二叉树适合用数组来存储？二叉树有哪些存储方式，什么样的二叉树适合用数组来存储？ 树的高度(Height)、深度(Depth)、层(Level)。   节点高度 = 节点到叶子节点的最长路径(边数) 节点深度 = 根节点到这个节点所经的边的个数 节点层数 = 节点深度 + 1 树的高度 = 根节点的高度    记忆小Tips： 高度是从下往上度量，比如我们要度量">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/婕/数据结构与算法之美/picture/二叉树节点深度，高度，层数图.jpg">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/婕/数据结构与算法之美/picture/二叉树.jpg">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/婕/数据结构与算法之美/picture/链式存储二叉树.jpg">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/婕/数据结构与算法之美/picture/顺序存储二叉树.jpg">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/婕/数据结构与算法之美/picture/非完全二叉树顺序存储.jpg">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/Users/32183/AppData/Roaming/Typora/typora-user-images/1552204034380.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/Users/32183/AppData/Roaming/Typora/typora-user-images/1552206203824.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/Users/32183/AppData/Roaming/Typora/typora-user-images/1552206225972.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2726327-a0a9493ea07294de.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/婕/数据结构与算法之美/picture/前中后续遍历.jpg">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/Users/32183/AppData/Roaming/Typora/typora-user-images/1552206123619.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/Users/32183/AppData/Roaming/Typora/typora-user-images/1552207115851.png">
+<meta property="og:updated_time" content="2019-04-05T15:49:03.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉树基础(上)">
+<meta name="twitter:description" content="[23]二叉树基础(上)：什么样的二叉树适合用数组来存储？二叉树有哪些存储方式，什么样的二叉树适合用数组来存储？ 树的高度(Height)、深度(Depth)、层(Level)。   节点高度 = 节点到叶子节点的最长路径(边数) 节点深度 = 根节点到这个节点所经的边的个数 节点层数 = 节点深度 + 1 树的高度 = 根节点的高度    记忆小Tips： 高度是从下往上度量，比如我们要度量">
+<meta name="twitter:image" content="https://soyanga.github.io/2019/04/05/二叉树基础(上)/婕/数据结构与算法之美/picture/二叉树节点深度，高度，层数图.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://soyanga.github.io/2019/04/05/二叉树基础(上)/"/>
+
+
+
+
+
+  <title>二叉树基础(上) | SOYANGA</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/SOYANGA" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+
+	
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SOYANGA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello World</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-star"></i> <br />
+            
+            生活中的美好
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            照片
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/04/05/二叉树基础(上)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">二叉树基础(上)</h1>
+        
+
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-05T23:47:04+08:00">
+                2019-04-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-05T23:49:03+08:00">
+                2019-04-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法之美/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法之美</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="referrer" content="no-referrer">
+
+<h1 id="23-二叉树基础-上-：什么样的二叉树适合用数组来存储？"><a href="#23-二叉树基础-上-：什么样的二叉树适合用数组来存储？" class="headerlink" title="[23]二叉树基础(上)：什么样的二叉树适合用数组来存储？"></a>[23]二叉树基础(上)：什么样的二叉树适合用数组来存储？</h1><p>二叉树有哪些存储方式，什么样的二叉树适合用数组来存储？</p>
+<p>树的<strong>高度(Height)、深度(Depth)、层(Level)</strong>。</p>
+<blockquote>
+<ul>
+<li>节点高度 = 节点到叶子节点的最长路径(<strong>边数</strong>)</li>
+<li>节点深度 = 根节点到这个节点所经的边的个数</li>
+<li>节点层数 = 节点深度 + 1</li>
+<li>树的高度 = 根节点的高度</li>
+</ul>
+</blockquote>
+<p><img src="/2019/04/05/二叉树基础(上)/婕\数据结构与算法之美\picture\二叉树节点深度，高度，层数图.jpg" alt="二叉树节点深度，高度，层数图"></p>
+<p>记忆小Tips：</p>
+<p><strong>高度</strong>是从下往上度量，比如我们要度量第10层楼的高度，起点都是地面。所以，树这种这种数据结构高度也一样，从树的最底层开始算，并且计数的起点是0。</p>
+<p><strong>“深度”</strong>这个概念在生活中是从上往下度量，比如水中鱼的深度，是从水平面开始度量的。所以，树这种数据结构的深度也是类似，从根节点开始度量，并且计数起点也是0。</p>
+<p><strong>“层数”</strong>跟深度得到计算类似，不过，计数起点是1，也就是说根节点的位于第1层。</p>
+<a id="more"></a>
+<h3 id="代码解析"><a href="#代码解析" class="headerlink" title="代码解析"></a>代码解析</h3><h4 id="二叉树的结点（孩子表示法）-二插链"><a href="#二叉树的结点（孩子表示法）-二插链" class="headerlink" title="二叉树的结点（孩子表示法）-二插链"></a>二叉树的结点（孩子表示法）-二插链</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> T data;<span class="comment">//结点数据</span></span><br><span class="line">        <span class="keyword">private</span> Node&lt;T&gt; lchild;<span class="comment">//左孩子</span></span><br><span class="line">        <span class="keyword">private</span> Node&lt;T&gt; rchild;<span class="comment">//右孩子</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T data)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.data = data;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> T <span class="title">getData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> data;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Node&lt;T&gt; <span class="title">getLchild</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> lchild;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Node&lt;T&gt; <span class="title">getRchild</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> rchild;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            String lchildInfo = lchild == <span class="keyword">null</span> ? <span class="keyword">null</span> : lchild.getData().toString();</span><br><span class="line">            String rchildInfo = rchild == <span class="keyword">null</span> ? <span class="keyword">null</span> : rchild.getData().toString();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Node&#123;"</span> +</span><br><span class="line">                    <span class="string">"data="</span> + data +</span><br><span class="line">                    <span class="string">", lchild="</span> + lchildInfo +</span><br><span class="line">                    <span class="string">", rchild="</span> + rchildInfo +</span><br><span class="line">                    <span class="string">'&#125;'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="树的高度（从下到上）-树的深度（从上到下）-从0开始"><a href="#树的高度（从下到上）-树的深度（从上到下）-从0开始" class="headerlink" title="树的高度（从下到上）/树的深度（从上到下）-从0开始"></a>树的高度（从下到上）/树的深度（从上到下）-从0开始</h4><p>递归左树，递归右树 谁大树的深度就是谁。</p>
+<p>递归递推公式： 深度 = 左树深度&gt;右树深度？ 左树深度+1 ：右树深度+1；</p>
+<p>递归停止条件：node  = null    return 0;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 返回指定结点的深度</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> node 结点</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span> 树的深度</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">depthForSubTree</span><span class="params">(Node&lt;Item&gt; node)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//从上到下递归，从下到上分会深度，</span></span><br><span class="line">      <span class="comment">// 下面就是返回某结点两个孩子中深度最大的那个，加1继续返回到最上一层。</span></span><br><span class="line">      <span class="keyword">int</span> lDepth = depthForSubTree(node.lchild);</span><br><span class="line">      <span class="keyword">int</span> rDepth = depthForSubTree(node.rchild);</span><br><span class="line">      <span class="keyword">return</span> lDepth &gt; rDepth ? lDepth + <span class="number">1</span> : rDepth + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="树的度"><a href="#树的度" class="headerlink" title="树的度"></a>树的度</h4><p>树的度是指的是树的最大子节点的个数，二叉树中树的度有3种 0（只有根结点）， 1（斜树） ，2(普通二叉树)  </p>
+<p>斜树分为左斜树，右斜树（斜树深度为斜树结点个数）  -相当于一个链表。</p>
+<p><strong>由于斜树的判断方式包含根节点，所以先判断是否树的度为0，其次再判断斜树，和其他。</strong></p>
+<p>既然要求树的深度，这里接着说。求树的深度也用了<strong>递归算法——从上往下递归</strong>，从最后一层往根结点返回。如果某个结点为空，当然深度返回0；否则递归查找其左右子树，直到最后一层，开始返回。返回当前结点左右子树的深度值较大者并<strong>加上1</strong>，<strong>这里加上1的意义是因为函数返回对应着返回到上一层中的父结点了，深度自然增加1。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查看树的度</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 树的度</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">degree</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//无非有三种情况</span></span><br><span class="line">    <span class="comment">//1.只有一个根节点，度为0</span></span><br><span class="line">    <span class="comment">//斜树 度为1</span></span><br><span class="line">    <span class="comment">//其余情况是 2</span></span><br><span class="line">    <span class="keyword">if</span> (root.lchild == <span class="keyword">null</span> &amp;&amp; root.rchild == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//斜树的结点个数等于其深度，包括了只有根节点的情况，所以上面的条件要先判断跟结点</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nodesNum == depth()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二叉树-Binary-Tree"><a href="#二叉树-Binary-Tree" class="headerlink" title="二叉树(Binary Tree)"></a>二叉树(Binary Tree)</h2><p><strong>满二叉树，完全二叉树</strong></p>
+<p><img src="/2019/04/05/二叉树基础(上)/婕\数据结构与算法之美\picture\二叉树.jpg" alt="二叉树"></p>
+<p>1.普通二叉树</p>
+<p>2.满二叉树</p>
+<p>除了叶子节外，每个节点都有左右两个子节点</p>
+<p>3.完全二叉树</p>
+<p>最后一层的叶子节点靠左排列，且除去最后一层就是一颗满二叉树。</p>
+<h2 id="存储树的方式"><a href="#存储树的方式" class="headerlink" title="存储树的方式"></a>存储树的方式</h2><h3 id="链式存储"><a href="#链式存储" class="headerlink" title="链式存储"></a>链式存储</h3><p><img src="/2019/04/05/二叉树基础(上)/婕\数据结构与算法之美\picture\链式存储二叉树.jpg" alt="链式存储二叉树"></p>
+<p>每个节点都存储了三个元素（数据data 左节点（指针） 右节点（指针）)</p>
+<h3 id="顺序存储"><a href="#顺序存储" class="headerlink" title="顺序存储"></a>顺序存储</h3><p>基于数组存储方式，我们把</p>
+<p><strong>根节点存储在下标i = 1的位置</strong></p>
+<p><strong>左子节点存储在2*i=2的位置</strong></p>
+<p><strong>右子节点存储在2*i+1=3的位置</strong></p>
+<p><strong>以此类推</strong></p>
+<p><img src="/2019/04/05/二叉树基础(上)/婕\数据结构与算法之美\picture\顺序存储二叉树.jpg" alt="顺序存储二叉树"></p>
+<p>总结：</p>
+<p>如果x存储在数组中下标为i的位置，下标为2<em>i的位置存储的就是左子节点，下标为2\</em>i+1的位置存储的就是右子节点。</p>
+<p>反过来，下标为i/2的位置存储就是它的父节点。通过这种形式，我们只要知道根节点存储的位置(一般情况下为了方便计算子节点，根节点会存储在下标为1的位置)，这样我们通过下标计算，把整个树组织起来。</p>
+<p>假如不是一颗完全二叉树，则就会浪费大量的存储空间(数组)，如下：</p>
+<p><img src="/2019/04/05/二叉树基础(上)/婕\数据结构与算法之美\picture\非完全二叉树顺序存储.jpg" alt="非完全二叉树顺序存储"></p>
+<p>如果某棵树是一棵完全二叉树，那用数组存储无疑是最节省内存的一种方式。因为数组的存方式并不需要像链式存储那样，要存储额外的左右节点指针。这也是为什么完全二叉树会单独作为一类树的统称。也是为什么完全二叉树要求最后一层的子节点都靠左的原因。</p>
+<p>堆其实就是一颗完全二叉树，最常用的存储方式就是数组。</p>
+<h2 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h2><p>二叉树的遍历的遍历方式有三种</p>
+<h3 id="前序遍历（自左右）"><a href="#前序遍历（自左右）" class="headerlink" title="前序遍历（自左右）"></a>前序遍历（自左右）</h3><ul>
+<li>前序遍历是指，对于树中的任意节点来说，<strong>当前结点不为空就先打印这个节点，然后再打印它得到左子树，最后打印它的右子树，为空则，返回父节点，继续开始处理父节点的右子树。</strong></li>
+</ul>
+<p><img src="/2019/04/05/二叉树基础(上)/Users\32183\AppData\Roaming\Typora\typora-user-images\1552204034380.png" alt="1552204034380"></p>
+<h4 id="代码分析-递归"><a href="#代码分析-递归" class="headerlink" title="代码分析(递归)"></a>代码分析(递归)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 前序遍历--递归(自 左 右)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(Node&lt;Item&gt; node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">   		<span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.print(node.getData() + <span class="string">" "</span>);</span><br><span class="line">    preOrder(node.lchild);</span><br><span class="line">    preOrder(node.rchild);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代码分析（非递归）"><a href="#代码分析（非递归）" class="headerlink" title="代码分析（非递归）"></a>代码分析（非递归）</h4><p>递归变非递归就用循环或者栈模拟函数栈帧出栈入栈</p>
+<p>入栈就打印（自 左 右）</p>
+<p><strong>每访问一个结点，若不为空，存入栈，并立即打印。然后不断深入左子树，直到为空，此时返回到父结点（对应的栈操作是出栈），接着处理它的右子树。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 前序遍历 --非递归</span></span><br><span class="line"><span class="comment"> 用栈模拟递归调用的过程</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preOrder2</span><span class="params">(Node&lt;Item&gt; node)</span> </span>&#123;</span><br><span class="line"><span class="comment">//用栈保存已经访问过的结点，便于返回到父节点 //链表</span></span><br><span class="line">	LinkedList&lt;Node&lt;Item&gt;&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"> 	<span class="comment">//当前根结点不为空，或者为空但有可以返回的父节点(栈中有其他结点)（可以进行pop()操作)都可以进入循环</span></span><br><span class="line">	<span class="keyword">while</span> (node != <span class="keyword">null</span> || !stack.isEmpty()) &#123;</span><br><span class="line">    	<span class="comment">//只要当前结点不为空，就打印，同时入栈</span></span><br><span class="line">     	<span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">      	stack.push(node);</span><br><span class="line">      	System.out.print(node.getData() + <span class="string">" "</span>);</span><br><span class="line">        	node = node.lchild;</span><br><span class="line">    	&#125;</span><br><span class="line">		<span class="comment">//上面while终止说明当前结点为空；返回到父结点并处理它的右子树。由于要执行pop操作，先判空</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">//返回到父节点。由于左孩子为空返回时已经弹出过父节点了，所以若是由于右孩子为空返回，</span></span><br><span class="line">		<span class="comment">// 会一次性返回到多层</span></span><br><span class="line">		node = stack.pop();</span><br><span class="line">		<span class="comment">//开始右子树的大循环(第一个while)</span></span><br><span class="line">		<span class="comment">//子问题访问左树</span></span><br><span class="line"> 		node = node.rchild;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="中序遍历（左自右）"><a href="#中序遍历（左自右）" class="headerlink" title="中序遍历（左自右）"></a>中序遍历（左自右）</h3><ul>
+<li>中序遍历是指，对于树中任意节点来说，先打印它的左子树，然后再打印它本身，最后打印它的右子树</li>
+<li><img src="/2019/04/05/二叉树基础(上)/Users\32183\AppData\Roaming\Typora\typora-user-images\1552206203824.png" alt="1552206203824"></li>
+</ul>
+<h4 id="代码分析-递归-1"><a href="#代码分析-递归-1" class="headerlink" title="代码分析(递归)"></a>代码分析(递归)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 中序遍历 --递归 （左自右）</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inOrder</span><span class="params">(Node&lt;Item&gt; node)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    inOrder(node.lchild);</span><br><span class="line">    System.out.print(node.getData() + <span class="string">" "</span>);</span><br><span class="line">    inOrder(node.rchild);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代码分析（非递归）-1"><a href="#代码分析（非递归）-1" class="headerlink" title="代码分析（非递归）"></a>代码分析（非递归）</h4><p>先出栈再打印（左 自 右）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 中序遍历非递归</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inOrder2</span><span class="params">(Node&lt;Item&gt; node)</span> </span>&#123;</span><br><span class="line">    LinkedList&lt;Node&lt;Item&gt;&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    <span class="keyword">while</span> (node != <span class="keyword">null</span> || !stack.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(node);</span><br><span class="line">           node = node.lchild;</span><br><span class="line">     	&#125;</span><br><span class="line">        <span class="comment">//和前序遍历唯一不同就是，前序遍历是入栈时打印。中序遍历是出栈时返回父节点才打印</span></span><br><span class="line">        <span class="comment">//和前序遍历一样，由于左孩子为空返回时已经弹出过父节点，所以若是由于右孩子为空返回，会一次性返回多层</span></span><br><span class="line">         node = stack.pop();</span><br><span class="line">         System.out.print(node.getData() + <span class="string">" "</span>);</span><br><span class="line">         <span class="comment">//子问题访问右树</span></span><br><span class="line">         node = node.rchild;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="后序遍历（左右自）"><a href="#后序遍历（左右自）" class="headerlink" title="后序遍历（左右自）"></a>后序遍历（左右自）</h3><ul>
+<li>后序遍历是指，对于树中的任意节点来说，先打印它的左子树，然后再打印它的右子树，最后打印这个节点本身。</li>
+<li><img src="/2019/04/05/二叉树基础(上)/Users\32183\AppData\Roaming\Typora\typora-user-images\1552206225972.png" alt="1552206225972"></li>
+</ul>
+<h4 id="代码分析-递归-2"><a href="#代码分析-递归-2" class="headerlink" title="代码分析(递归)"></a>代码分析(递归)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 后续序遍历--递归（左右自）</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postOrder</span><span class="params">(Node&lt;Item&gt; node)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	postOrder(node.lchild);</span><br><span class="line">	postOrder(node.rchild);</span><br><span class="line">	System.out.print(node.getData() + <span class="string">" "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代码分析（非递归）-2"><a href="#代码分析（非递归）-2" class="headerlink" title="代码分析（非递归）"></a>代码分析（非递归）</h4><p>左 右 自  （左标记1） （右标记2） 然后才进行打印 每个结点如此</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 后续遍历--非递归</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postOrder2</span><span class="params">(Node&lt;Item&gt; node)</span> </span>&#123;</span><br><span class="line">    LinkedList&lt;Node&lt;Item&gt;&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    <span class="comment">//存放系欸但被访问的信息，1表示只访问过左孩子，2表示右孩子访问过了（此时可以打印自结点）</span></span><br><span class="line">    LinkedList&lt;Integer&gt; visitedState = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">     <span class="keyword">while</span> (node != <span class="keyword">null</span> || !stack.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(node);</span><br><span class="line">            node = node.lchild;</span><br><span class="line">             <span class="comment">//上面访问过左孩子，放入1</span></span><br><span class="line">             visitedState.push(<span class="number">1</span>);</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="comment">//这个while和下面的if不可交换执行顺序，否则变成了中序遍历</span></span><br><span class="line">         <span class="comment">//用while儿不用if是因为：结点已经访问过它的两个孩子了，先不打印而处于等待状态。随即判断若它的右孩子不为空，则仍会被push进入，</span></span><br><span class="line">         <span class="comment">// 待右孩子处理完后按照递归思想应该返回到等待中父节点，由于父节点访问状态已经是2.直接打印</span></span><br><span class="line">		<span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; visitedState.peek() == <span class="number">2</span>) &#123;</span><br><span class="line">			visitedState.pop();</span><br><span class="line">            System.out.println(stack.pop().getData() + <span class="string">" "</span>);</span><br><span class="line">       	&#125;</span><br><span class="line">            <span class="keyword">if</span> (!stack.isEmpty()) &#123;</span><br><span class="line">            <span class="comment">//注意先取出来而不删除，等到访问状态为2才删除</span></span><br><span class="line">            node = stack.peek();</span><br><span class="line">            node = node.rchild;</span><br><span class="line">            <span class="comment">//上面访问过有孩子了，应该更新访问状态为2</span></span><br><span class="line">            visitedState.pop();<span class="comment">//弹出1，压入2</span></span><br><span class="line">            visitedState.push(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a>层序遍历</h3><p>二叉树的前序，中序，后序其实就相当与深度优先遍历DFS,所以用递归和栈都可以实现。层序遍历相当于广度优先BFS，故可以用队列实现。从根节点开始，一层一层的从左往右打印（或其他操作）每个结点，比如下面层序遍历的结果为A-B-C-D-E-F-G-H-I</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2726327-a0a9493ea07294de.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 层序遍历 --借助队列</span></span><br><span class="line"><span class="comment">* 将元素添加到队列中快于打印，要动手在纸上画画</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Queue&lt;Node&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    queue.offer(node);</span><br><span class="line">    <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">        Node front = queue.poll();</span><br><span class="line">        System.out.println(front.getData() + <span class="string">" "</span>); <span class="comment">//一次打印一个</span></span><br><span class="line">        <span class="keyword">if</span> (front.lchild != <span class="keyword">null</span>) &#123;</span><br><span class="line">            queue.offer(front.lchild);</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (front.rchild != <span class="keyword">null</span>) &#123;</span><br><span class="line">             queue.offer(front.rchild);</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="递归遍历总结"><a href="#递归遍历总结" class="headerlink" title="递归遍历总结"></a>递归遍历总结</h2><p><img src="/2019/04/05/二叉树基础(上)/婕\数据结构与算法之美\picture\前中后续遍历.jpg" alt="前中后续遍历"></p>
+<p>二叉树的前中后续遍历，就是一个递归过程。比如，前序遍历，就是先打印根节点，然再递归打印左子树，最后递归打印右子树</p>
+<p>写递归代码的关键，写递推公式，找到递归终止条件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">前序遍历的递推公式：</span><br><span class="line">preOrder(r) = print r-&gt;preOrder(r-&gt;left)-&gt;preOrder(r-&gt;right)</span><br><span class="line"></span><br><span class="line">中序遍历的递推公式：</span><br><span class="line">inOrder(r) = inOrder(r-&gt;left)-&gt;print r-&gt;inOrder(r-&gt;right)</span><br><span class="line"></span><br><span class="line">后序遍历的递推公式：</span><br><span class="line">postOrder(r) = postOrder(r-&gt;left)-&gt;postOrder(r-&gt;right)-&gt;print r</span><br></pre></td></tr></table></figure>
+<p>终止条件  -遍历到节点为null</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 前序遍历--递归(自 左 右)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(Node&lt;Item&gt; node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">   		<span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.print(node.getData() + <span class="string">" "</span>);</span><br><span class="line">    preOrder(node.lchild);</span><br><span class="line">    preOrder(node.rchild);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 中序遍历 --递归 （左自右）</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inOrder</span><span class="params">(Node&lt;Item&gt; node)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    inOrder(node.lchild);</span><br><span class="line">    System.out.print(node.getData() + <span class="string">" "</span>);</span><br><span class="line">    inOrder(node.rchild);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 后续序遍历--递归（左右自）</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postOrder</span><span class="params">(Node&lt;Item&gt; node)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	postOrder(node.lchild);</span><br><span class="line">	postOrder(node.rchild);</span><br><span class="line">	System.out.print(node.getData() + <span class="string">" "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>前、中、后序遍历的顺序图，可以看出，每个节点最多会被访问两次，所以遍历操作的时间复杂度，跟节点个数n成正比，<strong>也就是说二叉树遍历时间复杂度是O(n)。</strong></p>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>二叉树既可以用链式存储，也可以用数组顺序存储。数组顺序存储的方式比较适合完全二叉树，其他类型的二叉树用数组存储会比较浪费存储空间。 </p>
+<p><strong>二叉树前中后序遍历的时间复杂度是O(n);</strong></p>
+<h2 id="补充1"><a href="#补充1" class="headerlink" title="补充1:"></a>补充1:</h2><h3 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h3><ul>
+<li><p>二叉树的第i层至多有$2^{i-1}$个结点，这个多画图很容易的出结论</p>
+</li>
+<li><p>深度为k的二叉树最多有$2^k-1$个结点；拥有最多结点的是满二叉树，根据第一条其实就是$$\sum_{i=1}^n(2^0+2^1+2^2+…+2^{k-1})$$</p>
+</li>
+<li><p>任意一棵二叉树，如果叶子结点个数为$n_0$,度为2的结点个数为$n_2$,则$n_0=n_2+1$。</p>
+<ul>
+<li><p>证明：设n为二叉树总结点个数，那么树的连线（分支）条数就为$n-1$,这个指的由来可以从下往上看，除了根结点外，每个结点都有一条指向父节点的连线。所以连线个数为$n-1$。</p>
+</li>
+<li><p>另外用$n_1$表示度为1的个数，则 $n=n_0+n_1+n_2$;</p>
+</li>
+<li><p>计算分支结点（连线）的方法也可以是从上到下，叶子结点没有孩子，又有一个孩子的结点可引出一条连线，拥有两个孩子的结点可以引出两条连线。所以<code>分支数</code>=$n_1+2n_2=n-1$,</p>
+<p>将$n=n_0+n_1+n_2$带入上式中得$n_0=n_2+1$。</p>
+</li>
+<li><p>结论：二叉树叶子结点的个数一定比度为2的结点个数多一个。</p>
+</li>
+</ul>
+</li>
+<li><p>有n个节点的完全二叉树的深度为$\lfloor\log_2n\rfloor+1$，其中$\lfloor x \rfloor$表示向下取整。因为完全二叉树额节点（最上面的叶子结点）个数肯定不大于满二叉树结点数$2^k-1$个，但是也肯定大于$2^{k-1}-1$个（最少的时候，第k层就1个结点，但是上面的$k-1$层都是满的），也就是说$x^{k-1}-1&lt;n\le 2^k-1$，又n为正整数，该不等式等价于$x^{k-1} \le n &lt; 2^k$ ,两边取对数得到的$k-1 \le \log_2n &lt; k$（k为二叉树深度）</p>
+</li>
+<li><p>按层序编号，根节点编号为1，对于任意一个编号为i的结点，编号2i为其左孩子，2i+1为其有孩子；相反，对于任意一个1编号为i的结点，其父节点编号为$\lfloor i/2 \rfloor$</p>
+</li>
+<li><p>如果$2i&gt;n$则结点i无孩子；如果$2i+1&gt;n$,结点i只有左孩子没有右孩子。</p>
+</li>
+</ul>
+<h3 id="由遍历次序的确定一颗二叉树"><a href="#由遍历次序的确定一颗二叉树" class="headerlink" title="由遍历次序的确定一颗二叉树"></a>由遍历次序的确定一颗二叉树</h3><p>已知前序遍历序列和中序遍历序列或者已知中序序列序列和后序遍历序列是可以确定一棵二叉树的，这就是说推导出的二叉树有唯一形态。</p>
+<h4 id="已知前序和中序"><a href="#已知前序和中序" class="headerlink" title="已知前序和中序"></a>已知前序和中序</h4><p>比如前序遍历的顺序是ABCDEF,中序遍历的顺序是CBAEDF。问中序那边遍历序列？</p>
+<p>由于二叉树形态唯一，中序遍历只有一种结果。现在来分析：前序中，A为根节点。于是中序中，C、B为左子树，E、D，F为右子树。回到前序中，A下一个是B,B肯定是左孩子，C是B的孩子但不确定是左孩子还是右孩子；再看中序，先打印的C说明C是B的左孩子。然后看右树DEF，前序中先打印D说明D是A的右孩子，接着打印了E说明E是D的左孩子。F可能是D的右孩子也可能是E的某一个孩子。再看中序，E之后是D说明E没有孩子，只能是F是D的右孩子。完毕，由此画出的二叉树就能得到后序遍历的结果。  CBEFDA</p>
+<p><img src="/2019/04/05/二叉树基础(上)/Users\32183\AppData\Roaming\Typora\typora-user-images\1552206123619.png" alt="1552206123619"></p>
+<h4 id="已知中序和后序"><a href="#已知中序和后序" class="headerlink" title="已知中序和后序"></a>已知中序和后序</h4><p>比如中序序列ABCDEFG，后序序列BDCAFGE，求前序序列？</p>
+<p>先看后序序列确定根节点是E,则在中序中，ABCD为左子树，FG为右子树。由后序BDCA的顺序，得知A是个节点的左孩子，后序中FG可以看出G是根节点E的右孩子。中序中先打印A说明A没有左孩子，BCD为于A的右侧，结合后序的BDCA，说明C是A的右孩子，则中序中ABCD的打印顺序，知道B是C的左孩子，D是C的右孩子。接下来看根节点E的右子树FG，中序中先打印F,说明F是G的左孩子。由此画出的二叉树就能得到前序遍历的结果。   EACBDGF</p>
+<p><img src="/2019/04/05/二叉树基础(上)/Users\32183\AppData\Roaming\Typora\typora-user-images\1552207115851.png" alt="1552207115851"></p>
+<p>不能根据前序跟后序确定一个唯一的二叉树，因为中序遍历可以区分出左右子树。（根据根结点左边的是左子树，右边的是右子树），所以只根据前序遍历序列和后序遍历序列，可能得到多个形态的二叉树，它们前序、后序遍历出来是的结果相同。</p>
+<h2 id="补充2："><a href="#补充2：" class="headerlink" title="补充2："></a>补充2：</h2><p>具有n个结点的二叉树，共有$h(n) = C(2n, n) - C(2n, n+1)$种形态，C即组合。–&gt;卡特兰数，类似问题还有可能的进出栈顺序，括号问题等。</p>
+<p>代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 根据卡兰特数递推公式 h(n) = h(n-1)*(4*n-2)/(n+1)</span></span><br><span class="line"><span class="comment">* 已知h(1)=1;</span></span><br><span class="line"><span class="comment">* 无穷数列，越到后面数字也大，使用BigIjteger</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> n 二叉树的结点</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span>  多少种组合方式</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BigInteger <span class="title">numofTreeShape</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">     BigInteger a = BigInteger.ONE;</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        a = a.multiply(BigInteger.valueOf(<span class="number">4</span> * i - <span class="number">2</span>)</span><br><span class="line">                       .divide(BigInteger.valueOf(i + <span class="number">1</span>)));</span><br><span class="line">     &#125;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+  
+</div>
+	
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    SOYANGA
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://soyanga.github.io/2019/04/05/二叉树基础(上)/" title="二叉树基础(上)">https://soyanga.github.io/2019/04/05/二叉树基础(上)/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构与算法之美/" rel="tag"><i class="fa fa-tag"></i> 数据结构与算法之美</a>
+          
+            <a href="/tags/二叉树/" rel="tag"><i class="fa fa-tag"></i> 二叉树</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/04/哈希算法(下)/" rel="next" title="哈希算法(下)">
+                <i class="fa fa-chevron-left"></i> 哈希算法(下)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="SOYANGA" />
+            
+              <p class="site-author-name" itemprop="name">SOYANGA</p>
+              <p class="site-description motion-element" itemprop="description">量变到质变是一段很长的路，如果你不走的话</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/SOYANGA" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/SoYangA" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#23-二叉树基础-上-：什么样的二叉树适合用数组来存储？"><span class="nav-number">1.</span> <span class="nav-text">[23]二叉树基础(上)：什么样的二叉树适合用数组来存储？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码解析"><span class="nav-number">1.0.1.</span> <span class="nav-text">代码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉树的结点（孩子表示法）-二插链"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">二叉树的结点（孩子表示法）-二插链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#树的高度（从下到上）-树的深度（从上到下）-从0开始"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">树的高度（从下到上）/树的深度（从上到下）-从0开始</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#树的度"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">树的度</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树-Binary-Tree"><span class="nav-number">1.1.</span> <span class="nav-text">二叉树(Binary Tree)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储树的方式"><span class="nav-number">1.2.</span> <span class="nav-text">存储树的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链式存储"><span class="nav-number">1.2.1.</span> <span class="nav-text">链式存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序存储"><span class="nav-number">1.2.2.</span> <span class="nav-text">顺序存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的遍历"><span class="nav-number">1.3.</span> <span class="nav-text">二叉树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前序遍历（自左右）"><span class="nav-number">1.3.1.</span> <span class="nav-text">前序遍历（自左右）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析-递归"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">代码分析(递归)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析（非递归）"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">代码分析（非递归）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中序遍历（左自右）"><span class="nav-number">1.3.2.</span> <span class="nav-text">中序遍历（左自右）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析-递归-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">代码分析(递归)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析（非递归）-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">代码分析（非递归）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后序遍历（左右自）"><span class="nav-number">1.3.3.</span> <span class="nav-text">后序遍历（左右自）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析-递归-2"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">代码分析(递归)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析（非递归）-2"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">代码分析（非递归）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#层序遍历"><span class="nav-number">1.3.4.</span> <span class="nav-text">层序遍历</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归遍历总结"><span class="nav-number">1.4.</span> <span class="nav-text">递归遍历总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度"><span class="nav-number">1.4.1.</span> <span class="nav-text">时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充1"><span class="nav-number">1.5.</span> <span class="nav-text">补充1:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的性质"><span class="nav-number">1.5.1.</span> <span class="nav-text">二叉树的性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#由遍历次序的确定一颗二叉树"><span class="nav-number">1.5.2.</span> <span class="nav-text">由遍历次序的确定一颗二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#已知前序和中序"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">已知前序和中序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#已知中序和后序"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">已知中序和后序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充2："><span class="nav-number">1.6.</span> <span class="nav-text">补充2：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	  
+		<div id="music163player">
+			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=430 src="//music.163.com/outchain/player?type=0&id=2536957308&auto=1&height=430"></iframe>
+		</div>
+	
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SOYANGA</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">111.9k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  undefined
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":110,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
