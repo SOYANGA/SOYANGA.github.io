@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
+
+
+
+  <meta name="keywords" content="Mybatis,JavaEE," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SOYANGA" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Mybatis的Mapper映射 重点  掌握Mybatis的基本SQL映射 掌握Mybatis中CRUD的SQL编写   1 Mapper映射概念Mapper XML文件MyBatis的真正强大在于它的映射语句，也是解决JDBC大量重复代码">
+<meta name="keywords" content="Mybatis,JavaEE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis Mapper映射">
+<meta property="og:url" content="https://soyanga.github.io/2019/04/15/Mybatis-Mapper映射/index.html">
+<meta property="og:site_name" content="SOYANGA">
+<meta property="og:description" content="Mybatis的Mapper映射 重点  掌握Mybatis的基本SQL映射 掌握Mybatis中CRUD的SQL编写   1 Mapper映射概念Mapper XML文件MyBatis的真正强大在于它的映射语句，也是解决JDBC大量重复代码">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-15T15:41:59.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mybatis Mapper映射">
+<meta name="twitter:description" content="Mybatis的Mapper映射 重点  掌握Mybatis的基本SQL映射 掌握Mybatis中CRUD的SQL编写   1 Mapper映射概念Mapper XML文件MyBatis的真正强大在于它的映射语句，也是解决JDBC大量重复代码">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://soyanga.github.io/2019/04/15/Mybatis-Mapper映射/"/>
+
+
+
+
+
+  <title>Mybatis Mapper映射 | SOYANGA</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/SOYANGA" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+
+	
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SOYANGA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello World</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-star"></i> <br />
+            
+            生活中的美好
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            照片
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/04/15/Mybatis-Mapper映射/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mybatis Mapper映射</h1>
+        
+
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T23:41:11+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-15T23:41:59+08:00">
+                2019-04-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaEE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaEE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  32
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="referrer" content="no-referrer">
+
+
+
+<h1 id="Mybatis的Mapper映射"><a href="#Mybatis的Mapper映射" class="headerlink" title="Mybatis的Mapper映射"></a>Mybatis的Mapper映射</h1><blockquote>
+<p>重点</p>
+<ol>
+<li>掌握Mybatis的基本SQL映射</li>
+<li>掌握Mybatis中CRUD的SQL编写</li>
+</ol>
+</blockquote>
+<h2 id="1-Mapper映射概念"><a href="#1-Mapper映射概念" class="headerlink" title="1 Mapper映射概念"></a>1 Mapper映射概念</h2><p>Mapper XML文件MyBatis的真正强大在于它的映射语句，也是解决<strong>JDBC</strong>大量重复代码</p>
+<a id="more"></a>
+<h2 id="2-Mapper文件结构"><a href="#2-Mapper文件结构" class="headerlink" title="2 Mapper文件结构"></a>2 Mapper文件结构</h2><p>SQL映射文件有很少得到几个顶级元素（按照他们应该被定义的顺序）：</p>
+<ul>
+<li><p>cache-给定命名空间的缓存配置</p>
+</li>
+<li><p>cache-ref-其他命名空间缓存配置的引用</p>
+</li>
+<li><p>resultMap-最复杂也是最强的元素，用来描述如何从数据库结果集中映射</p>
+<ul>
+<li>java对象中的属性名   数据库列名称 跟 jdbcType属性类型 javaType类型 一一对应起来</li>
+<li>id对应数据库的主键 </li>
+</ul>
+</li>
+<li><p>sql-可以被其他语句引用的可重用语句块</p>
+<ul>
+<li>简化查询 可重用的语句块 </li>
+</ul>
+</li>
+<li><p>insert-映射插入语句</p>
+</li>
+<li><p>update-映射更新语句</p>
+</li>
+<li><p>delete-映射删除语句</p>
+</li>
+<li><p>select-映射查询语句</p>
+<p>增删改查中的id对象Mapper接口中的方法名</p>
+</li>
+</ul>
+<p>参考一个完整的Mapper示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.soyanga.mybatis.mapper.ScottGroupMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"ScottGroup"</span> <span class="attr">type</span>=<span class="string">"ScottGroup"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"deptno"</span> <span class="attr">column</span>=<span class="string">"deptno"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"dname"</span> <span class="attr">column</span>=<span class="string">"dname"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"loc"</span> <span class="attr">column</span>=<span class="string">"loc"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;select deptno="selectScottGroup" resultMap="scottGroup"&gt;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--select deptno,dname,loc from scott--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--where deptno = #&#123;deptno&#125;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;/select&gt;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!--SQL片段--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"basic_column"</span>&gt;</span></span><br><span class="line">        id,dname,loc</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--插入信息--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertScottGroup"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span> <span class="attr">keyProperty</span>=<span class="string">"deptno"</span> <span class="attr">keyColumn</span>=<span class="string">"deptno"</span>&gt;</span></span><br><span class="line">        insert into dept (deptno,loc)</span><br><span class="line">                values (#&#123;deptno&#125;,#&#123;loc&#125;)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--修改更新信息--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateScottInfo"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">"deleteScottInfoById"</span>&gt;</span></span><br><span class="line">        delete from dept</span><br><span class="line">        where  id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"query"</span> <span class="attr">resultMap</span>=<span class="string">"ScottGroup"</span>&gt;</span></span><br><span class="line">        select </span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"basic_column"</span>/&gt;</span> </span><br><span class="line">        from dept where id=#&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>插入操作中的Tips:</p>
+<p>插入信息中 useGeneratedKeys = “true”主键自增长 </p>
+<p>keyProperty=”deptno” ：对应映射对象的属性名</p>
+<p>keyColumn=”deptno”     对应表中主键名称</p>
+<p>查询操作中的Tips：</p>
+<p>id = mapper接口中得对应的查询方法，resultMap 对应的查询后的结果的类型 一般返回的都是java对应得数据库的对象的List集合</p>
+</blockquote>
+<h2 id="3-select命令"><a href="#3-select命令" class="headerlink" title="3 select命令"></a>3 select命令</h2><p>查询语句是MyBatis最常用的元素章之一。通常查询比修改频繁。查询方式多种</p>
+<p>简单查询如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectPerson"</span> <span class="attr">paramterType</span>=<span class="string">"int"</span> <span class="attr">resultType</span>=<span class="string">"hashmap"</span>&gt;</span></span><br><span class="line">	select* form person where id=#&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个语句被称作selectPerson,接收一个int(或者Integer)类型的参数，并通过HashMap类型的对象，其中键是列名，值便是结果型中的对应值。参数符#{id}MyBatis创建一个预处理的语句参数，通过JDBC这样的一个参数在SQL中会由，并被传递到一个新的预处理语句中，这跟JBC中的SQL语句中的？类作业类似。</p>
+<h2 id="4-Insert-Update-Delete"><a href="#4-Insert-Update-Delete" class="headerlink" title="4.Insert Update Delete"></a>4.Insert Update Delete</h2><p>Insert Update Delete都属于数据变更语句，他们的基本实现类似</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span></span></span><br><span class="line"><span class="tag">	<span class="attr">id</span>=<span class="string">"insertAuthor"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">parametrType</span>=<span class="string">"domain.bolg.Author"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">flushCache</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">statementType</span>=<span class="string">"PREPARED"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">keyProperty</span>=<span class="string">""</span></span></span><br><span class="line"><span class="tag">	<span class="attr">keyColumn</span>=<span class="string">""</span></span></span><br><span class="line"><span class="tag">	<span class="attr">useGeneratedKeys</span>=<span class="string">""</span></span></span><br><span class="line"><span class="tag">	<span class="attr">timeout</span>=<span class="string">"20"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;<span class="name">update</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">"updateAuthor"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">parametrType</span>=<span class="string">"domain.bolg.Author"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">flushCache</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">statementType</span>=<span class="string">"PREPARED"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">timeout</span>=<span class="string">"20"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span></span></span><br></pre></td></tr></table></figure>
+<p>MyBatis插入时自动生成主键有两种方式</p>
+<ul>
+<li>数据库自动生成主键</li>
+<li>通过SQL语句生成主键，然后使用到主键字段</li>
+</ul>
+<p><strong>在实际开发的项目中，主键字段通常会有一定的规则，所以该两种方式实际上，仅仅体现MyBatis的扩展能力。</strong></p>
+<h2 id="5-sql（复用SQL语句）"><a href="#5-sql（复用SQL语句）" class="headerlink" title="5 sql（复用SQL语句）"></a>5 sql（复用SQL语句）</h2><p>sql标签可以被用来定义可重用SQL代码片段，可以包含在其他语句中。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"userColumns"</span>&gt;</span>$&#123;alias&#125;.id,$&#123;alias&#125;.username,$&#123;alias&#125;.pssword&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"basic_column"</span>&gt;</span>   				  		   id,group_id,title,content,is_prptected,background,remind_time,create_time,modify_time</span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>SQL片段可以被包含在SQL语句中，例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUsers"</span> <span class="attr">resultType</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">    select</span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"userColumns"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"alias"</span> <span class="attr">value</span>=<span class="string">"t1"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"userColumns"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"alias"</span> <span class="attr">value</span>=<span class="string">"t2"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">    from som_table t1 cross join some_table t2</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"query"</span> <span class="attr">resultMap</span>=<span class="string">"ScottGroup"</span>&gt;</span></span><br><span class="line">        select </span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"basic_column"</span>/&gt;</span> </span><br><span class="line">        from dept where id=#&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-parameter-参数"><a href="#6-parameter-参数" class="headerlink" title="6 parameter(参数)"></a>6 parameter(参数)</h2><p>Mybatis的参数类型通常有两种类型：一种时基本类型，一种是引用类型。</p>
+<h3 id="6-1基本类型"><a href="#6-1基本类型" class="headerlink" title="6.1基本类型"></a>6.1基本类型</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUsers"</span>&gt;</span></span><br><span class="line">    select id,username,password</span><br><span class="line">    form users</span><br><span class="line">    where id = #&#123;id&#125;   参数类型为基本类型</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-2引用类型"><a href="#6-2引用类型" class="headerlink" title="6.2引用类型"></a>6.2引用类型</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"insertUser"</span> <span class="attr">parameterType</span>=<span class="string">"User"</span>&gt;</span></span><br><span class="line">	insert into users (id,username,password) values(#&#123;id&#125;,#&#123;username&#125;,#&#123;password&#125;)  </span><br><span class="line">    写的是这个对象的属性名（id,username,password）</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上面User类型的参数对象传递到语句中，id,username 和password属性中然后将他们的值传入预处理语句的参数中，这点相对于语句中传参是比较好的</p>
+<p>且User的这些属性必须要有geter setter方法。</p>
+<h3 id="6-3字符串"><a href="#6-3字符串" class="headerlink" title="6.3字符串"></a>6.3字符串</h3><p>默认情况下，使用#{}格式的语法会导致Mybatis创建PerparedStatement参数设置参数（就像使用？）。这样做更安全，更迅速，通常也是首选做法，不会</p>
+<p>出一些错误，想在直接在SQL语句中插入一个不转义的字符串。比如，想ORDER BY,你可以直接用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">order by $&#123;columnName&#125;</span><br></pre></td></tr></table></figure>
+<p>这里MyBatis会修改或转义字符串。需要额外注意的是:用这种方式接受用的将其用于语句中的参数是不安全的，会导致潜在SQL注入攻击，因此不要使用这些字段，要么自行转译并检验。</p>
+<h2 id="7-resultMap-查询结果映射"><a href="#7-resultMap-查询结果映射" class="headerlink" title="7.resultMap(查询结果映射)"></a>7.resultMap(查询结果映射)</h2><p>resultMap元素是MyBatis种最强大的元素，可以节省%90的JDBC代码量，并在一情形下允许你做一些JDBC不支持的事情。对复杂语句进行联合映射的时候，它很可能代替数千行的同等功能的代码，简化代码量的设计思想是，简单的原句不需要明确的结果映射，而复杂的语句只需要建立联系即可。</p>
+<p>简单的映射，未指定明确的resultmap比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUsers"</span> <span class="attr">resultType</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">	select id,username,hashedPassword</span><br><span class="line">    form some_table</span><br><span class="line">    where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述语句只是简单的将所有的列映射到HashMap的建上，这由resultType的参数指定，然而在大部分情况下都够用，但是HashMap不是一个很好的领域模型。你的使用JavaBean或POJO(Plain Old Java Objects,普通Java对象)作为领域模型对两者都支持。</p>
+<p>Bean映射，指定resultmap比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//指定user Bean</span></span><br><span class="line"><span class="keyword">package</span> com.soyanga.mode1;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String hashedPassword;</span><br><span class="line">    <span class="comment">//省略getter setter方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基于JavaBean的规范，上面这个类有3个属性：id,username和hashedPassword属性会对应到select语句中列名。这个的一个JavaBean可以被映射到Result映射到HashMap一样简单。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUsers"</span> <span class="attr">resultType</span>=<span class="string">"com.soyanga.mode1.User"</span>&gt;</span></span><br><span class="line">	select id,username,hashedPassword</span><br><span class="line">    form som_table</span><br><span class="line">    where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样情况下，MyaBatis会在幕后自动创建一个ResultMap,再基于属性名称映射在javaBean的属性上。如果，列名和属性名没有精确匹配<strong>，可以再select语句中的sql的as来起一个别名（sql中起别名–-SQL特性）来匹配标签</strong>。比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUsers"</span> <span class="attr">resultType</span>=<span class="string">"com.soyanga.mode1.User"</span>&gt;</span></span><br><span class="line">	select </span><br><span class="line">    user_id  as"id"</span><br><span class="line">    user_name as "userName",</span><br><span class="line">    hashed_password as"hashedPassword"</span><br><span class="line">    form some_table</span><br><span class="line">    where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>ResultMap方式 极大的简化繁琐的配置，resultMap和resultType只能二选一</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"UserResultMap"</span> <span class="attr">type</span>=<span class="string">"com.soynga.model.User"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"user_id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"userName"</span> <span class="attr">column</span>=<span class="string">"user_name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"hashedPassword"</span> <span class="attr">column</span>=<span class="string">"hashed_password"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="8-cache-缓存"><a href="#8-cache-缓存" class="headerlink" title="8.cache(缓存)"></a>8.cache(缓存)</h2><h3 id="8-1一级缓存"><a href="#8-1一级缓存" class="headerlink" title="8.1一级缓存"></a>8.1一级缓存</h3><p>MyBatis默认开启了一级缓存，一级缓存是SqlSession层面进行缓存的。即同一个SqlSession，多次调用同一个Mapper和同一个方法的同一参数，只会进行一次数据库查询，然后把数据缓存到缓冲中，以后直接先从缓存中取出数据，不会直接去查数据库</p>
+<p>默认<strong>开启一级缓存</strong>是在Mybatis的配置文件的settings元素中定义</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--mapper映射的二级缓存默认开启，需要mapper文件设置，以及实体类的支持序列化--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span> = <span class="string">"cachaeEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!--session级别的一级缓存默认开启--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"localCacheScope"</span> <span class="attr">value</span>=<span class="string">"SESSION"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="8-2二级缓存"><a href="#8-2二级缓存" class="headerlink" title="8.2二级缓存"></a>8.2二级缓存</h3><p>默认情况下Mapper中是没有开启缓存的，除了局部的session缓存，可以增强变现而且处理循环依赖也是必须的，要开启二级缓存，需要在你SQL映射文件中添加一行： 实体类需要实现<strong>Serializable接口支持序列化</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>从cache字面上看就是这样。这个简单语句的效果如下：</p>
+<ul>
+<li><p>映射语句文件中的所有<strong>select语句</strong>将会被缓存</p>
+</li>
+<li><p>映射语句文件中的所有<strong>insert,update和delete语句</strong>会刷新缓存</p>
+</li>
+<li><p>缓存会使用<strong>Least Recently Used</strong>（<strong>LRU,最近最少使用的</strong>）算法来收回</p>
+</li>
+<li><p>根据时间表(比如 <strong>NO Flush interval,没有刷新间隔</strong>)，缓存不会以任何时间顺序来刷新</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">flushInterval</span>=<span class="string">"60000"</span>&gt;</span>  //单位是ms</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>缓存会存储<strong>列表集合或对象</strong>(无论查询方式返回什么)的<strong>1024个引用</strong></p>
+</li>
+<li><p>缓存会被视为是<strong>read/write(可读/可写)的缓存</strong>，意味着对象检索不是共享的，而且可以安全地被调用者修改，而不是干扰其他调用者或线程所做的潜在修改。（<strong>两个策略</strong>）</p>
+</li>
+</ul>
+<p><strong>缓存命中率：</strong>Cache Hit Ratio(缓存命中)  关心缓存命中率</p>
+<h3 id="8-3缓存属性"><a href="#8-3缓存属性" class="headerlink" title="8.3缓存属性"></a>8.3缓存属性</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">eviction</span>=<span class="string">"FIFO"</span> <span class="attr">flushInterval</span>=<span class="string">"60000"</span> <span class="attr">size</span>=<span class="string">"512"</span> <span class="attr">redOnly</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>配置了一个FIFO回收策略的缓存。每隔60秒刷新，存储结果对象或列表的512隔引用，而且返回的对象被认为是只读的，因此在不同线程中的调用者之间修改他们会导致冲突。</p>
+<p>eviction（回收策略）：</p>
+<ul>
+<li>LRU  -（默认值）最近最少使用的：移除最长时间不被使用的对象。</li>
+<li>FIFO - （先进先出） ：按对象进入缓存的顺序来移除它们。</li>
+<li>SOFT -（软引用）：移除基于垃圾回收器状态和软引用规则的对象。</li>
+<li>WEAK - （弱引用）：更积极地移除基于垃圾回收器状态和弱引用规则地对象。</li>
+</ul>
+<p>flushInerval(刷新间隔)：</p>
+<ul>
+<li>可以被设置为任意正整数，而且他们代表一个合理的毫秒形式的时间段</li>
+<li>默认情况是不设置，也就是没有刷新间隔的，缓存仅仅调用语句时刷新</li>
+</ul>
+<p>size（引用数目）</p>
+<ul>
+<li>可以被设置为任意正整数，要记住你缓存的对象数目和运行环境的可用内存资源数目。</li>
+<li>默认值是1024。</li>
+</ul>
+<p>readOnly（只读）</p>
+<ul>
+<li>可以设置为 true 或 false</li>
+<li>只读缓存会给调用者返回缓存对象的相同实例，<strong>因此这些对象不能被修改，者提供了很重要的性能优势。</strong></li>
+<li>可读写的<strong>缓存会返回缓存对象的拷贝</strong>(<strong>通过序列化)</strong>，这样会慢一点，的但是安全，因此默认是false.</li>
+</ul>
+<h3 id="8-4自定义缓存"><a href="#8-4自定义缓存" class="headerlink" title="8.4自定义缓存"></a>8.4自定义缓存</h3><p>除了使用自定义缓存的方式，还可以通过实现自己的缓存或者为其他第三方方案创建适配器来完全覆盖缓存行为。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span>=<span class="string">"com.soyanga.mybaits.plugin.MyCache"</span></span></span><br></pre></td></tr></table></figure>
+<p>这个实例展示了如何使用一个自定义的缓存实现。type属性指定的类必须实现<code>org.mybatis.cache.Cache</code>接口。这个接口是MyBatis框架中很多复杂接口之一，但是简单实现即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cache</span></span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">getId</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">putObject</span><span class="params">(Object key,Object value)</span></span>;</span><br><span class="line">    <span class="function">Object <span class="title">getObject</span><span class="params">(Object key)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">haskey</span><span class="params">(Object key)</span></span>;</span><br><span class="line">    <span class="function">Object <span class="title">removeObject</span><span class="params">(Object key)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自定义实现一个简单的Cache</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.soyanga.mybatis.plugin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.cache.Cache;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.cache.CacheKey;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ConcurrentHashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReadWriteLock;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: mybatis-case</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: MyCache 自定义缓存利用MyBatis的接口</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: SOYANGA</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Create</span>: 2019-04-05 11:22</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> MyBatis会为，每一个nameSpace配置一个Cache实例 将其中的id属性(nameSpace字符串)作为为cache的一个唯一标识</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCache</span> <span class="keyword">implements</span> <span class="title">Cache</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 日志信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(MyCache.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * nameSpace中的id 作为cache的标识符</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 开辟容量</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Integer capacity = <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置最大缓存数目用户缓存回收策略--（即满即清空）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Integer maxSize = <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将key和value一一对应起来 内部存储数据结构（线程安全的Map）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ConcurrentHashMap&lt;Object, Object&gt; cacaheData = <span class="keyword">new</span> ConcurrentHashMap&lt;Object, Object&gt;(capacity);  <span class="comment">//默认开辟1024个</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyCache</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取Cache的标识id</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> The identifier of this cache</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将key和value一一对应起来  (HashMap/数据库)</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key   Can be any object but usually it is a &#123;<span class="doctag">@link</span> CacheKey&#125;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value The result of a select.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putObject</span><span class="params">(Object key, Object value)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//即满即清空 回收策略</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.cacaheData.size() &gt;= <span class="keyword">this</span>.getMaxSize()) &#123;</span><br><span class="line">            <span class="keyword">this</span>.clear();</span><br><span class="line">        &#125;</span><br><span class="line">        logger.debug(<span class="string">"putObject key=&#123;&#125; value=&#123;&#125;"</span>, key, value);</span><br><span class="line">        <span class="keyword">this</span>.cacaheData.put(key, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取缓存中的对象</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key The key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> The object stored in the cache.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getObject</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">        Object value = cacaheData.get(key);</span><br><span class="line">        logger.debug(<span class="string">"getObject key=&#123;&#125; value=&#123;&#125;"</span>, key, value);</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//    As of 3.3.0 this method is only called during a rollback for any previous value that was missing in the cache.</span></span><br><span class="line"><span class="comment">//    This lets any blocking cache to release the lock that may have previously put on the key.</span></span><br><span class="line"><span class="comment">//    A blocking cache puts a lock when a value is null and releases it when the value is back again.</span></span><br><span class="line"><span class="comment">//    This way other threads will wait for the value to be available instead of hitting the database.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除缓存中的某个对象</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key The key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Not used</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">removeObject</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">        Object value = cacaheData.remove(key);</span><br><span class="line">        logger.debug(<span class="string">"removeObject key=&#123;&#125; value=&#123;&#125;"</span>, key, value);</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Clears this cache instance</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        logger.debug(<span class="string">"clear cache"</span>);</span><br><span class="line">        cacaheData.clear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 并不是核心方法，可以不要去实现</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 并不是核心类，可以不去实现</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ReadWriteLock <span class="title">getReadWriteLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getMaxSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> maxSize;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMaxSize</span><span class="params">(Integer maxSize)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.maxSize = maxSize;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>缓存配置和缓存实例绑定在SQL映射文件（mapper文件）的命名空间（nameSpace）很重要的。因此，所有在相同命名空间的语句,正如绑定的缓存一样。<strong>语句可以修改和缓存交互方式</strong>，<strong>或在语句的基础上使用两种简单的属性来完全排除它们</strong>。默认情况下，语句可以这样来配置。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">...</span> <span class="attr">flushCache</span>=<span class="string">"false"</span> <span class="attr">usedCache</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">...</span> <span class="attr">flushCache</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">...</span> <span class="attr">flushCache</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">delete</span> <span class="attr">...</span> <span class="attr">flushCache</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果想改变默认的缓存行为，可以通过flushCache和useCache属性。比如在一情况下需要通过一个查询语句来刷新新缓存。</p>
+<h3 id="8-5-第三方缓存"><a href="#8-5-第三方缓存" class="headerlink" title="8.5 第三方缓存"></a>8.5 第三方缓存</h3><p>Mybatis的Cache实现比较简单，真正使用二级缓存的时候，都会选择专业的缓存框架。EHcache是在Java领域广泛使用的分布式缓存解决方案框架。通过Mybatis集成EHcache来实现二级缓存。</p>
+<p>memcache k - v 内存缓存</p>
+<p><strong>redis</strong>         k - v  list map set skipList  缓存系统</p>
+<ul>
+<li><p>添加Mybatis集成Ehcache依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.caches<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybstis-ehcache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加缓存配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span>=<span class="string">"org.mybatis.caches.ehcache.EhcacheCache"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"timeToIdleSeconds"</span> <span class="attr">value</span>=<span class="string">"3600"</span>/&gt;</span><span class="comment">&lt;!--hour--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"timeToLiveSeconds"</span> <span class="attr">value</span>=<span class="string">"3600"</span>/&gt;</span><span class="comment">&lt;!--hour--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxEntriesLocalHeap"</span> <span class="attr">value</span>=<span class="string">"1000"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxEntriesLocalDisk"</span> <span class="attr">value</span>=<span class="string">"10000000"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"memoryStoreEvictionPolicy"</span> <span class="attr">value</span>=<span class="string">"LRU"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加Ehcache的配置文件（<code>classPath:src/main/resources/ehcache.xml</code>）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ehcache</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:noNamespaceSchemaLocation</span>=<span class="string">"../config/ehcache.xsd"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">	java.io.tmpdir  ：默认的temp文件目录</span></span><br><span class="line"><span class="comment">	maxElementsInMemory :内存中最大缓存对象数</span></span><br><span class="line"><span class="comment">	maxElementsOnDisk :磁盘中最大缓存对象数，若是0表示无穷大</span></span><br><span class="line"><span class="comment">	eternal :Element是否永久有效，一但设置了，timeout将不起作用</span></span><br><span class="line"><span class="comment">	overflowToDisk ;配置此属性，当内存中Element数量达到maxElementsInMemory时，Ehcahche将会Element写到磁盘中</span></span><br><span class="line"><span class="comment">	timeToIdleSeconds :设置Element在失效前的允许闲置时间。仅当element不是永久有效时使用，可选属性，默认属性值是0，也就是可闲置时间无穷大</span></span><br><span class="line"><span class="comment">	timeToLiveSeconds ：设置Element在失效前允许存活时间。最大时间介于创建时间和失效时间之间。仅当element不是永久有效时使用，默认是0，也就是element存活时间无穷大</span></span><br><span class="line"><span class="comment">	diskExpiryThreadTntervalSeconds :磁盘失效线程运行时间间隔，默认是120秒--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--diskStore path="java.io.tmpdir/mybatis-cache"/存储临时目录--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">diskStore</span> <span class="attr">path</span>=<span class="string">"java.io.tmpdir/mybatis-cache"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">defaultCache</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">name</span>=<span class="string">"default"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">maxElementsInMemory</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">maxElementsOnDisk</span>=<span class="string">"10000000"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">eternal</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">overflowToDisk</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">timeToIdleSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">timeToLiveSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">diskExpiryThreadIntervalSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">memoryStoreEvictionPolicy</span>=<span class="string">"LRU"</span>&gt;</span><span class="tag">&lt;/<span class="name">defaultCache</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ehcache</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>代码实验：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test_queryScottEmpAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//第一次打开SqlSession</span></span><br><span class="line">    SqlSession sqlSession = sqlSessionFactory.openSession(<span class="keyword">true</span>);</span><br><span class="line">    ScottEmpMapper scottEmpMapper = sqlSession.getMapper(ScottEmpMapper.class);</span><br><span class="line">    List&lt;ScottEmp&gt; scottEmpList = scottEmpMapper.queryScottEmpAll();</span><br><span class="line">    logger.info(<span class="string">"test_queryScottEmpAll  FirstResult: &#123;&#125;"</span>, scottEmpList);</span><br><span class="line">    sqlSession.close();</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//第二次打开SqlSession</span></span><br><span class="line">    sqlSession = sqlSessionFactory.openSession(<span class="keyword">true</span>);</span><br><span class="line">    scottEmpMapper = sqlSession.getMapper(ScottEmpMapper.class);</span><br><span class="line">    List&lt;ScottEmp&gt; scottEmpList2 = scottEmpMapper.queryScottEmpAll();</span><br><span class="line">    logger.info(<span class="string">"test_queryScottEmpAll SecondResult: &#123;&#125;"</span>, scottEmpList2);</span><br><span class="line">    sqlSession.close();</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//第二次打开SqlSession</span></span><br><span class="line">    sqlSession = sqlSessionFactory.openSession(<span class="keyword">true</span>);</span><br><span class="line">    scottEmpMapper = sqlSession.getMapper(ScottEmpMapper.class);</span><br><span class="line">    List&lt;ScottEmp&gt; scottEmpList3 = scottEmpMapper.queryScottEmpAll();</span><br><span class="line">    logger.info(<span class="string">"test_queryScottEmpAll ThirResult: &#123;&#125;"</span>, scottEmpList3);</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>​    返回结果日志：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">00.385</span> [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using <span class="string">'class org.apache.ibatis.logging.slf4j.Slf4jImpl'</span> adapter.</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">00.723</span> [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using <span class="string">'class org.apache.ibatis.logging.slf4j.Slf4jImpl'</span> adapter.</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">00.778</span> [main] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">00.778</span> [main] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">00.778</span> [main] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">00.778</span> [main] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.058</span> [main] DEBUG net.sf.ehcache.config.ConfigurationFactory - Configuring ehcache from ehcache.xml found in the classpath: file:/D:/IDEA%<span class="number">20</span>project/mybatis-<span class="keyword">case</span>/target/classes/ehcache.xml</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.058</span> [main] DEBUG net.sf.ehcache.config.ConfigurationFactory - Configuring ehcache from URL: file:/D:/IDEA%<span class="number">20</span>project/mybatis-<span class="keyword">case</span>/target/classes/ehcache.xml</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.061</span> [main] DEBUG net.sf.ehcache.config.ConfigurationFactory - Configuring ehcache from InputStream</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.090</span> [main] DEBUG net.sf.ehcache.config.BeanHandler - Ignoring ehcache attribute xmlns:xsi</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.090</span> [main] DEBUG net.sf.ehcache.config.BeanHandler - Ignoring ehcache attribute xsi:noNamespaceSchemaLocation</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.092</span> [main] DEBUG net.sf.ehcache.config.DiskStoreConfiguration - Disk Store Path: C:\Users\<span class="number">32183</span>\AppData\Local\Temp\/mybatis-cache</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.114</span> [main] DEBUG net.sf.ehcache.CacheManager - Creating <span class="keyword">new</span> CacheManager with <span class="keyword">default</span> config</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.119</span> [main] DEBUG net.sf.ehcache.util.PropertyUtil - propertiesString is <span class="keyword">null</span>.</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.132</span> [main] DEBUG net.sf.ehcache.config.ConfigurationHelper - No CacheManagerEventListenerFactory <span class="class"><span class="keyword">class</span> <span class="title">specified</span>. <span class="title">Skipping</span>...</span></span><br><span class="line">16:33:01.900 [main] DEBUG net.sf.ehcache.Cache - No BootstrapCacheLoaderFactory class specified. Skipping...</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.901</span> [main] DEBUG net.sf.ehcache.Cache - CacheWriter factory not configured. Skipping...</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.903</span> [main] DEBUG net.sf.ehcache.config.ConfigurationHelper - No CacheExceptionHandlerFactory <span class="class"><span class="keyword">class</span> <span class="title">specified</span>. <span class="title">Skipping</span>...</span></span><br><span class="line">16:33:01.938 [main] DEBUG net.sf.ehcache.store.MemoryStore - Initialized net.sf.ehcache.store.MemoryStore for com.soyanga.mybatis.mapper.ScottEmpMapper</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.951</span> [main] DEBUG net.sf.ehcache.DiskStorePathManager - Using diskstore path C:\Users\<span class="number">32183</span>\AppData\Local\Temp\mybatis-cache</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.951</span> [main] DEBUG net.sf.ehcache.DiskStorePathManager - Holding exclusive lock on C:\Users\<span class="number">32183</span>\AppData\Local\Temp\mybatis-cache\.ehcache-diskstore.lock</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.955</span> [main] DEBUG net.sf.ehcache.store.disk.DiskStorageFactory - Failed to delete file com%<span class="number">002</span>esoyanga%<span class="number">002</span>emybatis%<span class="number">002</span>emapper%<span class="number">002</span>e%<span class="number">0053</span>cott%<span class="number">0045</span>mp%<span class="number">004</span>dapper.index</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">01.967</span> [main] DEBUG net.sf.ehcache.store.disk.DiskStorageFactory - <span class="function">Matching data file <span class="title">missing</span> <span class="params">(or empty)</span> <span class="keyword">for</span> index file. Deleting index file C:\Users\32183\AppData\Local\Temp\mybatis-cache\com%002esoyanga%002emybatis%002emapper%002e%0053cott%0045mp%004dapper.index</span></span><br><span class="line"><span class="function">16:33:01.968 [main] DEBUG net.sf.ehcache.store.disk.DiskStorageFactory - Failed to delete file com%002esoyanga%002emybatis%002emapper%002e%0053cott%0045mp%004dapper.index</span></span><br><span class="line"><span class="function">16:33:01.977 [main] DEBUG net.sf.ehcache.Cache - Initialised cache: com.soyanga.mybatis.mapper.ScottEmpMapper</span></span><br><span class="line"><span class="function">16:33:01.977 [main] DEBUG net.sf.ehcache.config.ConfigurationHelper - CacheDecoratorFactory not configured <span class="keyword">for</span> defaultCache. Skipping <span class="keyword">for</span> 'com.soyanga.mybatis.mapper.ScottEmpMapper'.</span></span><br><span class="line"><span class="function">16:33:02.017 [main] DEBUG com.soyanga.mybatis.mapper.ScottEmpMapper - Cache Hit Ratio [com.soyanga.mybatis.mapper.ScottEmpMapper]: 0.0</span></span><br><span class="line"><span class="function">16:33:02.023 [main] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Opening JDBC Connection</span></span><br><span class="line"><span class="function">Fri Apr 05 16:33:02 CST 2019 WARN: Establishing SSL connection without server's identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by <span class="keyword">default</span> <span class="keyword">if</span> explicit option isn't set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to '<span class="keyword">false</span>'. You need either to explicitly disable SSL by setting useSSL</span>=<span class="keyword">false</span>, or set useSSL=<span class="keyword">true</span> and provide truststore <span class="keyword">for</span> server certificate verification.</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.342</span> [main] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - Created connection <span class="number">98394724</span>.</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.344</span> [main] DEBUG com.soyanga.mybatis.mapper.ScottEmpMapper.queryScottEmpAll - ==&gt;  Preparing: select empno as <span class="string">'empno'</span>, ename as <span class="string">'ename'</span>, job as <span class="string">'job'</span>, mgr as <span class="string">'mgr'</span> , sal as <span class="string">'sal'</span>, comm as <span class="string">'common'</span>, deptno as <span class="string">'deptno'</span>, hiredate as <span class="string">'hiredate'</span> from emp </span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.376</span> [main] DEBUG com.soyanga.mybatis.mapper.ScottEmpMapper.queryScottEmpAll - ==&gt; Parameters: </span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.413</span> [main] DEBUG com.soyanga.mybatis.mapper.ScottEmpMapper.queryScottEmpAll - &lt;==      Total: <span class="number">15</span></span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.414</span> [main] INFO com.soyanga.mybatis.mapper.ScottEmpMapperTest - test_queryScottEmpAll  FirstResult: [ScottEmp&#123;empno=<span class="string">'7369'</span>, ename=<span class="string">'SMITH'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7902</span>, hiredate=Wed Dec <span class="number">17</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1980</span>, sal=<span class="number">800.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7499'</span>, ename=<span class="string">'ALLEN'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Fri Feb <span class="number">20</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1600.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7521'</span>, ename=<span class="string">'WARD'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Sun Feb <span class="number">22</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1250.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7566'</span>, ename=<span class="string">'JONES'</span>, job=<span class="string">'MANAGER'</span>, mgr=<span class="number">7839</span>, hiredate=Thu Apr <span class="number">02</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">2975.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7654'</span>, ename=<span class="string">'MARTIN'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Mon Sep <span class="number">28</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1250.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7698'</span>, ename=<span class="string">'BLAKE'</span>, job=<span class="string">'MANAGER'</span>, mgr=<span class="number">7839</span>, hiredate=Fri May <span class="number">01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">2850.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7782'</span>, ename=<span class="string">'CLARK'</span>, job=<span class="string">'MANAGER'</span>, mgr=<span class="number">7839</span>, hiredate=Tue Jun <span class="number">09</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">2450.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">10</span>&#125;, ScottEmp&#123;empno=<span class="string">'7788'</span>, ename=<span class="string">'SCOTT'</span>, job=<span class="string">'ANALYST'</span>, mgr=<span class="number">7566</span>, hiredate=Sun Apr <span class="number">19</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CDT <span class="number">1987</span>, sal=<span class="number">3000.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7839'</span>, ename=<span class="string">'KING'</span>, job=<span class="string">'PRESIDENT'</span>, mgr=<span class="keyword">null</span>, hiredate=Tue Nov <span class="number">17</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">5000.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">10</span>&#125;, ScottEmp&#123;empno=<span class="string">'7844'</span>, ename=<span class="string">'TURNER'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Tue Sep <span class="number">08</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1500.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7876'</span>, ename=<span class="string">'ADAMS'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7788</span>, hiredate=Sat May <span class="number">23</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CDT <span class="number">1987</span>, sal=<span class="number">1100.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7900'</span>, ename=<span class="string">'JAMES'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7698</span>, hiredate=Thu Dec <span class="number">03</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">950.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7902'</span>, ename=<span class="string">'FORD'</span>, job=<span class="string">'ANALYST'</span>, mgr=<span class="number">7566</span>, hiredate=Thu Dec <span class="number">03</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">3000.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7934'</span>, ename=<span class="string">'MILLER'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7782</span>, hiredate=Sat Jan <span class="number">23</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1982</span>, sal=<span class="number">1300.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">10</span>&#125;, ScottEmp&#123;empno=<span class="string">'1314'</span>, ename=<span class="string">'SOYANGA'</span>, job=<span class="string">'BOSS'</span>, mgr=<span class="number">10000</span>, hiredate=Wed Apr <span class="number">03</span> <span class="number">22</span>:<span class="number">12</span>:<span class="number">39</span> CST <span class="number">2019</span>, sal=<span class="number">8888.88</span>, comm=<span class="keyword">null</span>, deptno=<span class="keyword">null</span>&#125;]</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.415</span> [main] DEBUG net.sf.ehcache.store.disk.Segment - put added <span class="number">0</span> on heap</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.418</span> [main] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Closing JDBC Connection [com.mysql.jdbc.JDBC4Connection@<span class="number">5</span>dd6264]</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.419</span> [main] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - Returned connection <span class="number">98394724</span> to pool.</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.419</span> [main] DEBUG com.soyanga.mybatis.mapper.ScottEmpMapper - Cache Hit Ratio [com.soyanga.mybatis.mapper.ScottEmpMapper]: <span class="number">0.5</span></span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.419</span> [main] INFO com.soyanga.mybatis.mapper.ScottEmpMapperTest - test_queryScottEmpAll SecondResult: [ScottEmp&#123;empno=<span class="string">'7369'</span>, ename=<span class="string">'SMITH'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7902</span>, hiredate=Wed Dec <span class="number">17</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1980</span>, sal=<span class="number">800.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7499'</span>, ename=<span class="string">'ALLEN'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Fri Feb <span class="number">20</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1600.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7521'</span>, ename=<span class="string">'WARD'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Sun Feb <span class="number">22</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1250.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7566'</span>, ename=<span class="string">'JONES'</span>, job=<span class="string">'MANAGER'</span>, mgr=<span class="number">7839</span>, hiredate=Thu Apr <span class="number">02</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">2975.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7654'</span>, ename=<span class="string">'MARTIN'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Mon Sep <span class="number">28</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1250.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7698'</span>, ename=<span class="string">'BLAKE'</span>, job=<span class="string">'MANAGER'</span>, mgr=<span class="number">7839</span>, hiredate=Fri May <span class="number">01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">2850.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7782'</span>, ename=<span class="string">'CLARK'</span>, job=<span class="string">'MANAGER'</span>, mgr=<span class="number">7839</span>, hiredate=Tue Jun <span class="number">09</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">2450.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">10</span>&#125;, ScottEmp&#123;empno=<span class="string">'7788'</span>, ename=<span class="string">'SCOTT'</span>, job=<span class="string">'ANALYST'</span>, mgr=<span class="number">7566</span>, hiredate=Sun Apr <span class="number">19</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CDT <span class="number">1987</span>, sal=<span class="number">3000.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7839'</span>, ename=<span class="string">'KING'</span>, job=<span class="string">'PRESIDENT'</span>, mgr=<span class="keyword">null</span>, hiredate=Tue Nov <span class="number">17</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">5000.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">10</span>&#125;, ScottEmp&#123;empno=<span class="string">'7844'</span>, ename=<span class="string">'TURNER'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Tue Sep <span class="number">08</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1500.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7876'</span>, ename=<span class="string">'ADAMS'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7788</span>, hiredate=Sat May <span class="number">23</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CDT <span class="number">1987</span>, sal=<span class="number">1100.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7900'</span>, ename=<span class="string">'JAMES'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7698</span>, hiredate=Thu Dec <span class="number">03</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">950.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7902'</span>, ename=<span class="string">'FORD'</span>, job=<span class="string">'ANALYST'</span>, mgr=<span class="number">7566</span>, hiredate=Thu Dec <span class="number">03</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">3000.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7934'</span>, ename=<span class="string">'MILLER'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7782</span>, hiredate=Sat Jan <span class="number">23</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1982</span>, sal=<span class="number">1300.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">10</span>&#125;, ScottEmp&#123;empno=<span class="string">'1314'</span>, ename=<span class="string">'SOYANGA'</span>, job=<span class="string">'BOSS'</span>, mgr=<span class="number">10000</span>, hiredate=Wed Apr <span class="number">03</span> <span class="number">22</span>:<span class="number">12</span>:<span class="number">39</span> CST <span class="number">2019</span>, sal=<span class="number">8888.88</span>, comm=<span class="keyword">null</span>, deptno=<span class="keyword">null</span>&#125;]</span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.420</span> [main] DEBUG com.soyanga.mybatis.mapper.ScottEmpMapper - Cache Hit Ratio [com.soyanga.mybatis.mapper.ScottEmpMapper]: <span class="number">0.6666666666666666</span></span><br><span class="line"><span class="number">16</span>:<span class="number">33</span>:<span class="number">02.420</span> [main] INFO com.soyanga.mybatis.mapper.ScottEmpMapperTest - test_queryScottEmpAll ThirResult: [ScottEmp&#123;empno=<span class="string">'7369'</span>, ename=<span class="string">'SMITH'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7902</span>, hiredate=Wed Dec <span class="number">17</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1980</span>, sal=<span class="number">800.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7499'</span>, ename=<span class="string">'ALLEN'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Fri Feb <span class="number">20</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1600.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7521'</span>, ename=<span class="string">'WARD'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Sun Feb <span class="number">22</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1250.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7566'</span>, ename=<span class="string">'JONES'</span>, job=<span class="string">'MANAGER'</span>, mgr=<span class="number">7839</span>, hiredate=Thu Apr <span class="number">02</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">2975.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7654'</span>, ename=<span class="string">'MARTIN'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Mon Sep <span class="number">28</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1250.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7698'</span>, ename=<span class="string">'BLAKE'</span>, job=<span class="string">'MANAGER'</span>, mgr=<span class="number">7839</span>, hiredate=Fri May <span class="number">01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">2850.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7782'</span>, ename=<span class="string">'CLARK'</span>, job=<span class="string">'MANAGER'</span>, mgr=<span class="number">7839</span>, hiredate=Tue Jun <span class="number">09</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">2450.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">10</span>&#125;, ScottEmp&#123;empno=<span class="string">'7788'</span>, ename=<span class="string">'SCOTT'</span>, job=<span class="string">'ANALYST'</span>, mgr=<span class="number">7566</span>, hiredate=Sun Apr <span class="number">19</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CDT <span class="number">1987</span>, sal=<span class="number">3000.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7839'</span>, ename=<span class="string">'KING'</span>, job=<span class="string">'PRESIDENT'</span>, mgr=<span class="keyword">null</span>, hiredate=Tue Nov <span class="number">17</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">5000.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">10</span>&#125;, ScottEmp&#123;empno=<span class="string">'7844'</span>, ename=<span class="string">'TURNER'</span>, job=<span class="string">'SALESMAN'</span>, mgr=<span class="number">7698</span>, hiredate=Tue Sep <span class="number">08</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">1500.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">30</span>&#125;, ScottEmp&#123;empno=<span class="string">'7876'</span>, ename=<span class="string">'ADAMS'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7788</span>, hiredate=Sat May <span class="number">23</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CDT <span class="number">1987</span>, sal=<span class="number">1100.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7900'</span>, ename=<span class="string">'JAMES'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7698</span>, hiredate=Thu Dec <span class="number">03</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">950.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7902'</span>, ename=<span class="string">'FORD'</span>, job=<span class="string">'ANALYST'</span>, mgr=<span class="number">7566</span>, hiredate=Thu Dec <span class="number">03</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1981</span>, sal=<span class="number">3000.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">20</span>&#125;, ScottEmp&#123;empno=<span class="string">'7934'</span>, ename=<span class="string">'MILLER'</span>, job=<span class="string">'CLERK'</span>, mgr=<span class="number">7782</span>, hiredate=Sat Jan <span class="number">23</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> CST <span class="number">1982</span>, sal=<span class="number">1300.00</span>, comm=<span class="keyword">null</span>, deptno=<span class="number">10</span>&#125;, ScottEmp&#123;empno=<span class="string">'1314'</span>, ename=<span class="string">'SOYANGA'</span>, job=<span class="string">'BOSS'</span>, mgr=<span class="number">10000</span>, hiredate=Wed Apr <span class="number">03</span> <span class="number">22</span>:<span class="number">12</span>:<span class="number">39</span> CST <span class="number">2019</span>, sal=<span class="number">8888.88</span>, comm=<span class="keyword">null</span>, deptno=<span class="keyword">null</span>&#125;]</span><br><span class="line"></span><br><span class="line">Process finished with exit code <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>结论：缓存命中率提高 0 -&gt;0.5–&gt;0.666666所有配置缓存是生效的，且除了第一次以外的其他两次查询没有生成SQL语句是直接在缓存中进行查询的</p>
+</blockquote>
+<p>小Tips：</p>
+<blockquote>
+<p>Ehcache本身不支持Mybatis的Cache接口，MyBatis创建了一个新的接口（org\mybatis\caches\ehcache）来将Ehcache和Mybatis的Cache适配起来   –——<strong>适配器设计模式</strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+  
+</div>
+	
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    SOYANGA
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://soyanga.github.io/2019/04/15/Mybatis-Mapper映射/" title="Mybatis Mapper映射">https://soyanga.github.io/2019/04/15/Mybatis-Mapper映射/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mybatis/" rel="tag"><i class="fa fa-tag"></i> Mybatis</a>
+          
+            <a href="/tags/JavaEE/" rel="tag"><i class="fa fa-tag"></i> JavaEE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/05/Mybatis配置/" rel="next" title="Mybatis配置">
+                <i class="fa fa-chevron-left"></i> Mybatis配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="SOYANGA" />
+            
+              <p class="site-author-name" itemprop="name">SOYANGA</p>
+              <p class="site-description motion-element" itemprop="description">量变到质变是一段很长的路，如果你不走的话</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/SOYANGA" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/SoYangA" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis的Mapper映射"><span class="nav-number">1.</span> <span class="nav-text">Mybatis的Mapper映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Mapper映射概念"><span class="nav-number">1.1.</span> <span class="nav-text">1 Mapper映射概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mapper文件结构"><span class="nav-number">1.2.</span> <span class="nav-text">2 Mapper文件结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-select命令"><span class="nav-number">1.3.</span> <span class="nav-text">3 select命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Insert-Update-Delete"><span class="nav-number">1.4.</span> <span class="nav-text">4.Insert Update Delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-sql（复用SQL语句）"><span class="nav-number">1.5.</span> <span class="nav-text">5 sql（复用SQL语句）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-parameter-参数"><span class="nav-number">1.6.</span> <span class="nav-text">6 parameter(参数)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1基本类型"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2引用类型"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2引用类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3字符串"><span class="nav-number">1.6.3.</span> <span class="nav-text">6.3字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-resultMap-查询结果映射"><span class="nav-number">1.7.</span> <span class="nav-text">7.resultMap(查询结果映射)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-cache-缓存"><span class="nav-number">1.8.</span> <span class="nav-text">8.cache(缓存)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1一级缓存"><span class="nav-number">1.8.1.</span> <span class="nav-text">8.1一级缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2二级缓存"><span class="nav-number">1.8.2.</span> <span class="nav-text">8.2二级缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3缓存属性"><span class="nav-number">1.8.3.</span> <span class="nav-text">8.3缓存属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4自定义缓存"><span class="nav-number">1.8.4.</span> <span class="nav-text">8.4自定义缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-第三方缓存"><span class="nav-number">1.8.5.</span> <span class="nav-text">8.5 第三方缓存</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	  
+		<div id="music163player">
+			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=430 src="//music.163.com/outchain/player?type=0&id=2536957308&auto=1&height=430"></iframe>
+		</div>
+	
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SOYANGA</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">125.5k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  undefined
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":110,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
