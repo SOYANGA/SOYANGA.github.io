@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+
+
+
+
+
+  <meta name="keywords" content="Mybatis,JavaEE," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SOYANGA" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Mybatis动态SQL映射 重点：  理解Mybatis的动态SQL映射原理 掌握Mybatis的动态SQL映射编写">
+<meta name="keywords" content="Mybatis,JavaEE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis-动态SQL映射">
+<meta property="og:url" content="https://soyanga.github.io/2019/04/21/Mybatis-动态SQL映射/index.html">
+<meta property="og:site_name" content="SOYANGA">
+<meta property="og:description" content="Mybatis动态SQL映射 重点：  理解Mybatis的动态SQL映射原理 掌握Mybatis的动态SQL映射编写">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/21/Mybatis-动态SQL映射/Users/32183/AppData/Roaming/Typora/typora-user-images/1554724202872.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/04/21/Mybatis-动态SQL映射/Users/32183/AppData/Roaming/Typora/typora-user-images/1554725010278.png">
+<meta property="og:updated_time" content="2019-04-21T12:17:37.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mybatis-动态SQL映射">
+<meta name="twitter:description" content="Mybatis动态SQL映射 重点：  理解Mybatis的动态SQL映射原理 掌握Mybatis的动态SQL映射编写">
+<meta name="twitter:image" content="https://soyanga.github.io/2019/04/21/Mybatis-动态SQL映射/Users/32183/AppData/Roaming/Typora/typora-user-images/1554724202872.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://soyanga.github.io/2019/04/21/Mybatis-动态SQL映射/"/>
+
+
+
+
+
+  <title>Mybatis-动态SQL映射 | SOYANGA</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/SOYANGA" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+
+	
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SOYANGA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello World</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-star"></i> <br />
+            
+            生活中的美好
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            照片
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/04/21/Mybatis-动态SQL映射/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mybatis-动态SQL映射</h1>
+        
+
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-21T20:13:20+08:00">
+                2019-04-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-21T20:17:37+08:00">
+                2019-04-21
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaEE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaEE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="referrer" content="no-referrer">
+
+<h1 id="Mybatis动态SQL映射"><a href="#Mybatis动态SQL映射" class="headerlink" title="Mybatis动态SQL映射"></a>Mybatis动态SQL映射</h1><blockquote>
+<p>重点：</p>
+<ul>
+<li>理解Mybatis的动态SQL映射原理</li>
+<li>掌握Mybatis的动态SQL映射编写</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h2 id="1-动态SQL简介"><a href="#1-动态SQL简介" class="headerlink" title="1.动态SQL简介"></a>1.动态SQL简介</h2><p>MyBatis的强大特性之一就是他的动态SQL。JDBC中根据不同条件拼接SQL语句繁琐。利用动态SQL就可以摆脱这种痛苦。</p>
+<p>通常动态SQL不可能是独立的一部分，MyBatis当然使用一种强大的动态SQL语言来改进这种情形，这种语言可以被用在任意SQL映射语句中。</p>
+<p>动态SQL元素和使用JSTL(JSP标准标签库)或其他类似基于XML的文本处理器相似。在MyBatis之前版本中，需要了解很多元素，现在MyBatis3大大提升了元素，用不到原先一半元素就可以了。MyBatis采用功能强大的基于<strong>OGNL</strong>（Object Graphic Navigation Language 对象图导航语言） 的表达式来消除其他元素。</p>
+<p>动态SQL映射使用标记：</p>
+<ul>
+<li>if</li>
+<li>choose(when,otherwise)</li>
+<li>trim(where,set)</li>
+<li>foreach</li>
+</ul>
+<h2 id="2-动态SQl标记"><a href="#2-动态SQl标记" class="headerlink" title="2.动态SQl标记"></a>2.动态SQl标记</h2><h3 id="2-1if"><a href="#2-1if" class="headerlink" title="2.1if"></a>2.1if</h3><p>动态SQL通常要做的事情是有条件地包含where子句地一部分。比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryScottEmpWhithdeptnoAndJob"</span> <span class="attr">resultMap</span>=<span class="string">"scottEmpMap"</span>&gt;</span></span><br><span class="line">    select</span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"emp_column"</span>/&gt;</span></span><br><span class="line">    from emp</span><br><span class="line">    where deptno=20</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"job!=null and jon != '' "</span> &gt;</span></span><br><span class="line">         and job like #&#123;job&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>多重if判断  and</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryScottEmpWhithdeptnoAndLikeJobAndLikeEname"</span> <span class="attr">resultMap</span>=<span class="string">"scottEmpMap"</span>&gt;</span></span><br><span class="line">     select</span><br><span class="line">     <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"emp_column"</span>/&gt;</span></span><br><span class="line">     from emp</span><br><span class="line">     where deptno=20</span><br><span class="line">     <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"job!=null and job!= '' "</span>&gt;</span></span><br><span class="line">         and job like #&#123;job&#125;</span><br><span class="line">     <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"ename!=null"</span>&gt;</span></span><br><span class="line">         and ename like #&#123;ename&#125;</span><br><span class="line">     <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2where"><a href="#2-2where" class="headerlink" title="2.2where"></a>2.2where</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryScottEmpWhithdeptnoAndLikeJobAndLikeEname2"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">resultMap</span>=<span class="string">"scottEmpMap"</span>&gt;</span></span><br><span class="line">      select</span><br><span class="line">      <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"emp_column"</span>/&gt;</span></span><br><span class="line">      from emp</span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptno!=null"</span>&gt;</span></span><br><span class="line">                deptno = #&#123;deptno&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"job!=null and job!= '' "</span>&gt;</span></span><br><span class="line">            and job like #&#123;job&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">         <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"ename!=null"</span>&gt;</span></span><br><span class="line">             and ename like #&#123;ename&#125;</span><br><span class="line">         <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3choose-when-otherwise"><a href="#2-3choose-when-otherwise" class="headerlink" title="2.3choose,when,otherwise"></a>2.3choose,when,otherwise</h3><p>有些时候，我们不想用条件语句，而只是想从中择出一点。针对这种情况，MyBatis提供了choose元素，它有点像Java中的switch语句</p>
+<p>还是如上的例子，但是这次变为提供了“job”就按“job”查找，提供了”ename”就按“ename”查找，若两者都没有，就按业务情况返回所有deptno = 20的且ename是</p>
+<p><code>JACK</code>的职务表信息。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--choose when otherwise 相当于SwitchCase case default--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryScottEmpWhithDeptnoAndLikeJobOrEname"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">resultMap</span>=<span class="string">"scottEmpMap"</span>&gt;</span></span><br><span class="line">    select</span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"emp_column"</span>/&gt;</span></span><br><span class="line">    from emp</span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        deptno=20</span><br><span class="line">        <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"job!=null"</span>&gt;</span></span><br><span class="line">                and job = #&#123;job&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"ename!=null"</span>&gt;</span></span><br><span class="line">                and ename = #&#123;ename&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3trim-where-set"><a href="#2-3trim-where-set" class="headerlink" title="2.3trim,where,set"></a>2.3trim,where,set</h3><p>前面几个例子已经合宜的解决了经典的动态SQL问题，现在考虑回到if示例，这次我们将<code>deptno= 20</code>也设置为动态的条件或者去掉看看会发生什么。</p>
+<p>会在解析SQL语句时出现SQL语句异常，所以我们此时需要<code>where</code>来解决此问题，它会将where中包括的语句适当的增加删除某些多余的SQL命令，使得达到开发者预期的情况，比如去掉多余的 and，当没有符合条件时，where语句不执行。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryScottEmpWhithdeptnoAndLikeJobAndLikeEname2"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">resultMap</span>=<span class="string">"scottEmpMap"</span>&gt;</span></span><br><span class="line">    select</span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"emp_column"</span>/&gt;</span></span><br><span class="line">    from emp</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptno!=null"</span>&gt;</span></span><br><span class="line">            deptno = #&#123;deptno&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"job!=null and job!= '' "</span>&gt;</span></span><br><span class="line">            and job like #&#123;job&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"ename!=null"</span>&gt;</span></span><br><span class="line">            and ename like #&#123;ename&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>where元素直到只有在一个以上if条件有值时才会添加where子句，而且，若最后内容是“AND”或者“OR”开头的，where元素也知道如何将他们去除。</p>
+<p>如果where元素不正常处理，我们还可以通过trim元素来定制我们想要的功能。比如，和where元素等价的自定义trim元素为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"where"</span> <span class="attr">prefixOverrides</span>=<span class="string">"AND |OR"</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>prefixOverrides 属性会忽略通过管道分隔的文本序列（注意此例中的空格也是必要的）。其功能就是在所有prefixOverrides 属性指定的内容将被移除，并且插入prefix属性中指定的内容。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryScottEmpWhithdeptnoAndLikeJobAndLikeEname2"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">resultMap</span>=<span class="string">"scottEmpMap"</span>&gt;</span></span><br><span class="line">    select</span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"emp_column"</span>/&gt;</span></span><br><span class="line">    from emp</span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--&lt;where&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;if test="deptno!=null"&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--deptno = #&#123;deptno&#125;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;/if&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--&lt;if test="job!=null and job!= '' "&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--and job like #&#123;job&#125;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;/if&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--&lt;if test="ename!=null"&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--and ename like #&#123;ename&#125;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;/if&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;/where&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--将where后的语句中所偶有以and 或者 or结尾或开头的标签都去掉--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"where"</span> <span class="attr">prefixOverrides</span>=<span class="string">"and | or"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptno!=null"</span>&gt;</span></span><br><span class="line">            deptno = #&#123;deptno&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"job!=null and job!= '' "</span>&gt;</span></span><br><span class="line">            and job like #&#123;job&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"ename!=null"</span>&gt;</span></span><br><span class="line">            and ename like #&#123;ename&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>类似用于动态更新的解决方案叫做set，set元素可以被用于动态包含需要<strong>更新</strong>的列，而且舍去其他的。比如：舍去以，结尾的，并且当set元素不为空的元素中个数大于1时，在开头添加set </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateScottEmpByObjectWithSet"</span> <span class="attr">parameterType</span>=<span class="string">"com.soyanga.mybatis.entity.ScottEmp"</span>&gt;</span></span><br><span class="line">        update emp</span><br><span class="line">        <span class="comment">&lt;!--&lt;trim prefix="set" suffixOverrides=","&gt;--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;if test="hiredate!=null"&gt;--&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--hiredate = #&#123;hiredate&#125;,--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;/if&gt;--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;if test="ename!=null"&gt;--&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--ename = #&#123;ename&#125;,--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;/if&gt;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;/trim&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"hiredate!=null"</span>&gt;</span></span><br><span class="line">                hiredate = #&#123;hiredate&#125;,</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"ename!=null"</span>&gt;</span></span><br><span class="line">                ename = #&#123;ename&#125;,</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">        where empno = #&#123;empno&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"set"</span> <span class="attr">suffixOverrides</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-4foreach"><a href="#2-4foreach" class="headerlink" title="2.4foreach"></a>2.4foreach</h3><p>动态SQL的另外一个常用的必要操作是需要对一个集合进行遍历，通常子构建 IN 条件语句的时候。比如：</p>
+<p>参数类型为：list</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--映射接口--&gt;</span></span><br><span class="line">List<span class="tag">&lt;<span class="name">ScottEmp</span>&gt;</span> queryScottempByList(List deptnos);</span><br><span class="line"><span class="comment">&lt;!--命令配置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryScottempByList"</span> <span class="attr">parameterType</span>=<span class="string">"list"</span> <span class="attr">resultMap</span>=<span class="string">"scottEmpMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"emp_column"</span>/&gt;</span></span><br><span class="line">        from emp</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            deptno in</span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">separator</span>=<span class="string">","</span> <span class="attr">close</span>=<span class="string">")"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">item</span>=<span class="string">"item"</span>&gt;</span></span><br><span class="line">                #&#123;item&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--测试代码--&gt;</span></span><br><span class="line">    @Test</span><br><span class="line">    public void test_queryScottempByList() &#123;</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession(true);</span><br><span class="line">        ScottEmpMapper scottEmpMapper = sqlSession.getMapper(ScottEmpMapper.class);</span><br><span class="line">        List<span class="tag">&lt;<span class="name">Integer</span>&gt;</span> deptnolist = new ArrayList<span class="tag">&lt;<span class="name">Integer</span>&gt;</span>();</span><br><span class="line">        deptnolist.add(10);</span><br><span class="line">//        deptnolist.add(20);</span><br><span class="line">//        deptnolist.add(30);</span><br><span class="line">        List<span class="tag">&lt;<span class="name">ScottEmp</span>&gt;</span> scottEmpList = scottEmpMapper.queryScottempByList(deptnolist);</span><br><span class="line">        logger.info("queryScottEmpWhithDeptnoAndLikeJobOrEname  Result &#123;&#125;", scottEmpList);</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>参数类型为 ：array</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--映射接口--&gt;</span></span><br><span class="line">List<span class="tag">&lt;<span class="name">ScottEmp</span>&gt;</span> queryScottempByArray(Integer[] deptnos);</span><br><span class="line"><span class="comment">&lt;!--命令配置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryScottempByArray"</span> <span class="attr">parameterType</span>=<span class="string">"integer[]"</span> <span class="attr">resultMap</span>=<span class="string">"scottEmpMap"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        select</span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"emp_column"</span>/&gt;</span></span><br><span class="line">        from emp</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            deptno in</span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"array"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">separator</span>=<span class="string">","</span> <span class="attr">close</span>=<span class="string">")"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">item</span>=<span class="string">"item"</span>&gt;</span></span><br><span class="line">                #&#123;item&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--测试代码--&gt;</span></span><br><span class="line">    @Test</span><br><span class="line">    public void test_queryScottempByArray() &#123;</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession(true);</span><br><span class="line">        ScottEmpMapper scottEmpMapper = sqlSession.getMapper(ScottEmpMapper.class);</span><br><span class="line">        List<span class="tag">&lt;<span class="name">ScottEmp</span>&gt;</span> scottEmpList = scottEmpMapper.queryScottempByArray(new Integer[]&#123;10&#125;);</span><br><span class="line">        logger.info("queryScottEmpWhithDeptnoAndLikeJobOrEname  Result &#123;&#125;", scottEmpList);</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>参数类型为Map</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--映射接口--&gt;</span></span><br><span class="line">    List<span class="tag">&lt;<span class="name">ScottEmp</span>&gt;</span> queryScottempByMap(Map deptnoMap);</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--命令配置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryScottempByMap"</span> <span class="attr">resultMap</span>=<span class="string">"scottEmpMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"emp_column"</span>/&gt;</span></span><br><span class="line">        from emp</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"ename!=null"</span>&gt;</span></span><br><span class="line">                ename like #&#123;ename&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptnos!=null"</span>&gt;</span></span><br><span class="line">                and deptno in</span><br><span class="line">                <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"deptnos"</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">separator</span>=<span class="string">","</span> <span class="attr">close</span>=<span class="string">")"</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">item</span>=<span class="string">"item"</span>&gt;</span></span><br><span class="line">                    #&#123;item&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--测试代码--&gt;</span></span><br><span class="line">    //TDD 测试驱动开发</span><br><span class="line">    @Test</span><br><span class="line">    public void test_queryScottempByMap() &#123;</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession(true);</span><br><span class="line">        ScottEmpMapper scottEmpMapper = sqlSession.getMapper(ScottEmpMapper.class);</span><br><span class="line">        Map map = new HashMap();</span><br><span class="line">        map.put("ename", "%J%");</span><br><span class="line">        map.put("deptnos", new Integer[]&#123;10,20,30&#125;);</span><br><span class="line">        List<span class="tag">&lt;<span class="name">ScottEmp</span>&gt;</span> scottEmpList = scottEmpMapper.queryScottempByMap(map);</span><br><span class="line">        logger.info("queryScottEmpWhithDeptnoAndLikeJobOrEname  Result &#123;&#125;", scottEmpList);</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>foreach元素的功能非常强大，它允许你指定一个集合，声明可以用在元素体内的集合项和索引变量。它也允许你指定开辟匹配的字符串以及在迭代中间放置分隔符。这个元素是很智能的，因此他不会偶然地附加多余地分隔符。</p>
+<blockquote>
+<p>注意：你可以将任何可迭代对象（如列表，集合等)和任何的字典或者数组对象传递给foreach作为集合参数。当使用可迭代对象或者数组时，index是当前迭代的次数。item的值便是本次迭代获取的元素。当使用字典（或者Map.Entry对象的集合时），index是键，item是值。</p>
+<p>collection 迭代输出 List时为list ,迭代输出数组时为array,迭代输出当使用字典（或者Map.Entry),为其中的存储的集合名称</p>
+<p>open 拼接SQL左边   item    close 拼接SQL右边  separator=“,” ：分隔符为”，“</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"deptnos"</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">separator</span>=<span class="string">","</span> <span class="attr">close</span>=<span class="string">")"</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">item</span>=<span class="string">"item"</span>&gt;</span></span><br><span class="line">                    #&#123;item&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-扩展"><a href="#3-扩展" class="headerlink" title="3.扩展"></a>3.扩展</h2><h3 id="3-1分页插件"><a href="#3-1分页插件" class="headerlink" title="3.1分页插件"></a>3.1分页插件</h3><p>在进行数据库应用程序开发的时候，经常会使用到各种各样的分页，这里又开源社区提供了一个分页插件([PageHelper][<a href="https://github.com/pagehelper/Mybatis-PageHelper/blob/master/README_zh.md]),能够制成任何复杂的表单，多表查询。" target="_blank" rel="noopener">https://github.com/pagehelper/Mybatis-PageHelper/blob/master/README_zh.md]),能够制成任何复杂的表单，多表查询。</a></p>
+<p>[使用方法][<a href="https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md]" target="_blank" rel="noopener">https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md]</a> ：中文的插件</p>
+<ul>
+<li><p>添加分页插件依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--Mybatis分页插件--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;pagehelper&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;5.1.4&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置拦截器插件</p>
+<p>在MyBatis的配置文件中添加拦截器插件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置PageHelper分页插件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">interceptor</span>=<span class="string">"com.github.pagehelper.PageInterceptor"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"helperDialect"</span> <span class="attr">value</span>=<span class="string">"mysql"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种，RowBounds方式的调用</span></span><br><span class="line">List&lt;Country&gt; list = sqlSession.selectList(<span class="string">"x.y.selectIf"</span>, <span class="keyword">null</span>, <span class="keyword">new</span> RowBounds(<span class="number">0</span>, <span class="number">10</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种，Mapper接口方式的调用，推荐这种使用方式。</span></span><br><span class="line">PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line">List&lt;Country&gt; list = countryMapper.selectIf(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第三种，Mapper接口方式的调用，推荐这种使用方式。</span></span><br><span class="line">PageHelper.offsetPage(<span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line">List&lt;Country&gt; list = countryMapper.selectIf(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第四种，参数方法调用</span></span><br><span class="line"><span class="comment">//存在以下 Mapper 接口方法，你不需要在 xml 处理后两个参数</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CountryMapper</span> </span>&#123;</span><br><span class="line">    <span class="function">List&lt;Country&gt; <span class="title">selectByPageNumSize</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            @Param(<span class="string">"user"</span>)</span> User user,</span></span><br><span class="line"><span class="function">            @<span class="title">Param</span><span class="params">(<span class="string">"pageNum"</span>)</span> <span class="keyword">int</span> pageNum, </span></span><br><span class="line"><span class="function">            @<span class="title">Param</span><span class="params">(<span class="string">"pageSize"</span>)</span> <span class="keyword">int</span> pageSize)</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//配置supportMethodsArguments=true</span></span><br><span class="line"><span class="comment">//在代码中直接调用：</span></span><br><span class="line">List&lt;Country&gt; list = countryMapper.selectByPageNumSize(user, <span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第五种，参数对象</span></span><br><span class="line"><span class="comment">//如果 pageNum 和 pageSize 存在于 User 对象中，只要参数有值，也会被分页</span></span><br><span class="line"><span class="comment">//有如下 User 对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="comment">//其他fields</span></span><br><span class="line">    <span class="comment">//下面两个参数名和 params 配置的名字一致</span></span><br><span class="line">    <span class="keyword">private</span> Integer pageNum;</span><br><span class="line">    <span class="keyword">private</span> Integer pageSize;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//存在以下 Mapper 接口方法，你不需要在 xml 处理后两个参数</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CountryMapper</span> </span>&#123;</span><br><span class="line">    <span class="function">List&lt;Country&gt; <span class="title">selectByPageNumSize</span><span class="params">(User user)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//当 user 中的 pageNum!= null &amp;&amp; pageSize!= null 时，会自动分页</span></span><br><span class="line">List&lt;Country&gt; list = countryMapper.selectByPageNumSize(user);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第六种，ISelect 接口方式</span></span><br><span class="line"><span class="comment">//jdk6,7用法，创建接口</span></span><br><span class="line">Page&lt;Country&gt; page = PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>).doSelectPage(<span class="keyword">new</span> ISelect() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSelect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        countryMapper.selectGroupBy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//jdk8 lambda用法</span></span><br><span class="line">Page&lt;Country&gt; page = PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>).doSelectPage(()-&gt; countryMapper.selectGroupBy());</span><br><span class="line"></span><br><span class="line"><span class="comment">//也可以直接返回PageInfo，注意doSelectPageInfo方法和doSelectPage</span></span><br><span class="line">pageInfo = PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>).doSelectPageInfo(<span class="keyword">new</span> ISelect() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSelect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        countryMapper.selectGroupBy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//对应的lambda用法</span></span><br><span class="line">pageInfo = PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>).doSelectPageInfo(() -&gt; countryMapper.selectGroupBy());</span><br><span class="line"></span><br><span class="line"><span class="comment">//count查询，返回一个查询语句的count数</span></span><br><span class="line"><span class="keyword">long</span> total = PageHelper.count(<span class="keyword">new</span> ISelect() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSelect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        countryMapper.selectLike(country);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//lambda</span></span><br><span class="line">total = PageHelper.count(()-&gt;countryMapper.selectLike(country));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>XML中的一些特殊字符的转译符</p>
+<p><img src="/2019/04/21/Mybatis-动态SQL映射/Users\32183\AppData\Roaming\Typora\typora-user-images\1554724202872.png" alt="1554724202872"></p>
+<p>练习：</p>
+<blockquote>
+<p><img src="/2019/04/21/Mybatis-动态SQL映射/Users\32183\AppData\Roaming\Typora\typora-user-images\1554725010278.png" alt="1554725010278"></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+  
+</div>
+	
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    SOYANGA
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://soyanga.github.io/2019/04/21/Mybatis-动态SQL映射/" title="Mybatis-动态SQL映射">https://soyanga.github.io/2019/04/21/Mybatis-动态SQL映射/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mybatis/" rel="tag"><i class="fa fa-tag"></i> Mybatis</a>
+          
+            <a href="/tags/JavaEE/" rel="tag"><i class="fa fa-tag"></i> JavaEE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/15/Mybatis-Mapper映射/" rel="next" title="Mybatis Mapper映射">
+                <i class="fa fa-chevron-left"></i> Mybatis Mapper映射
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="SOYANGA" />
+            
+              <p class="site-author-name" itemprop="name">SOYANGA</p>
+              <p class="site-description motion-element" itemprop="description">量变到质变是一段很长的路，如果你不走的话</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/SOYANGA" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/SoYangA" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis动态SQL映射"><span class="nav-number">1.</span> <span class="nav-text">Mybatis动态SQL映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-动态SQL简介"><span class="nav-number">1.1.</span> <span class="nav-text">1.动态SQL简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-动态SQl标记"><span class="nav-number">1.2.</span> <span class="nav-text">2.动态SQl标记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1if"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2where"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2where</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3choose-when-otherwise"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3choose,when,otherwise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3trim-where-set"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.3trim,where,set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4foreach"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.4foreach</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-扩展"><span class="nav-number">1.3.</span> <span class="nav-text">3.扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1分页插件"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1分页插件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	  
+		<div id="music163player">
+			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=430 src="//music.163.com/outchain/player?type=0&id=2536957308&auto=1&height=430"></iframe>
+		</div>
+	
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SOYANGA</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">128.2k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  undefined
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":110,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
