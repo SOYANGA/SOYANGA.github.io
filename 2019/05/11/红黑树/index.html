@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="数据结构与算法之美,哈希算法," />
+  <meta name="keywords" content="数据结构与算法之美,红黑树," />
 
 
 
@@ -93,18 +93,22 @@
 
 
 
-<meta name="description" content="[22]哈西算法(下): 哈希算法在分布式系统中有哪些应用哈希算法上讲了，哈希算法的四个应用，分别是 安全加密、数据检验、唯一标识、散列函数 还剩下 ：负载均衡、数据分片、分布式存储">
-<meta name="keywords" content="数据结构与算法之美,哈希算法">
+<meta name="description" content="[25]红黑树(上)：为什么工程中都使用到了红黑树这种二叉树结构二叉树的插入，删除，查找操作，各个操作的事件复杂度跟树的高度成正比，理想情况下时间复杂度是O($log_n$) 。 不过二叉树查找树在频繁的动态更新过程中，可能会出现树的高度远大于$log_2n$ 情况，从而导致操作效率下降。极端情况下，二叉树会退化成为链表，时间复杂度会退化到O(n)。平衡二叉树的出现解决了这个问题。 平衡二">
+<meta name="keywords" content="数据结构与算法之美,红黑树">
 <meta property="og:type" content="article">
-<meta property="og:title" content="哈希算法(下)">
-<meta property="og:url" content="https://soyanga.github.io/2019/04/04/哈希算法(下)/index.html">
+<meta property="og:title" content="红黑树">
+<meta property="og:url" content="https://soyanga.github.io/2019/05/11/红黑树/index.html">
 <meta property="og:site_name" content="SOYANGA">
-<meta property="og:description" content="[22]哈西算法(下): 哈希算法在分布式系统中有哪些应用哈希算法上讲了，哈希算法的四个应用，分别是 安全加密、数据检验、唯一标识、散列函数 还剩下 ：负载均衡、数据分片、分布式存储">
+<meta property="og:description" content="[25]红黑树(上)：为什么工程中都使用到了红黑树这种二叉树结构二叉树的插入，删除，查找操作，各个操作的事件复杂度跟树的高度成正比，理想情况下时间复杂度是O($log_n$) 。 不过二叉树查找树在频繁的动态更新过程中，可能会出现树的高度远大于$log_2n$ 情况，从而导致操作效率下降。极端情况下，二叉树会退化成为链表，时间复杂度会退化到O(n)。平衡二叉树的出现解决了这个问题。 平衡二">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-04T15:47:14.400Z">
+<meta property="og:image" content="https://soyanga.github.io/2019/05/11/红黑树/qq数据/321830735/FileRecv/MobileFile/1552563697223.jpg">
+<meta property="og:image" content="https://soyanga.github.io/2019/05/11/红黑树/qq数据/321830735/FileRecv/MobileFile/1552566548676.jpg">
+<meta property="og:image" content="https://soyanga.github.io/2019/05/11/红黑树/qq数据/321830735/FileRecv/MobileFile/1552566521418.jpg">
+<meta property="og:updated_time" content="2019-05-11T15:35:14.146Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="哈希算法(下)">
-<meta name="twitter:description" content="[22]哈西算法(下): 哈希算法在分布式系统中有哪些应用哈希算法上讲了，哈希算法的四个应用，分别是 安全加密、数据检验、唯一标识、散列函数 还剩下 ：负载均衡、数据分片、分布式存储">
+<meta name="twitter:title" content="红黑树">
+<meta name="twitter:description" content="[25]红黑树(上)：为什么工程中都使用到了红黑树这种二叉树结构二叉树的插入，删除，查找操作，各个操作的事件复杂度跟树的高度成正比，理想情况下时间复杂度是O($log_n$) 。 不过二叉树查找树在频繁的动态更新过程中，可能会出现树的高度远大于$log_2n$ 情况，从而导致操作效率下降。极端情况下，二叉树会退化成为链表，时间复杂度会退化到O(n)。平衡二叉树的出现解决了这个问题。 平衡二">
+<meta name="twitter:image" content="https://soyanga.github.io/2019/05/11/红黑树/qq数据/321830735/FileRecv/MobileFile/1552563697223.jpg">
 
 
 
@@ -134,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="https://soyanga.github.io/2019/04/04/哈希算法(下)/"/>
+  <link rel="canonical" href="https://soyanga.github.io/2019/05/11/红黑树/"/>
 
 
 
 
 
-  <title>哈希算法(下) | SOYANGA</title>
+  <title>红黑树 | SOYANGA</title>
   
 
 
@@ -346,7 +350,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/04/04/哈希算法(下)/">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/05/11/红黑树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SOYANGA">
@@ -363,7 +367,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">哈希算法(下)</h1>
+          <h1 class="post-title" itemprop="name headline">红黑树</h1>
         
 
         <div class="post-meta">
@@ -376,8 +380,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-04T23:44:47+08:00">
-                2019-04-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T23:33:32+08:00">
+                2019-05-11
               </time>
             
 
@@ -392,8 +396,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-04T23:47:14+08:00">
-                2019-04-04
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-11T23:35:14+08:00">
+                2019-05-11
               </time>
             
           </span>
@@ -481,49 +485,39 @@
       
         <meta name="referrer" content="no-referrer">
 
-<h1 id="22-哈西算法-下-哈希算法在分布式系统中有哪些应用"><a href="#22-哈西算法-下-哈希算法在分布式系统中有哪些应用" class="headerlink" title="[22]哈西算法(下): 哈希算法在分布式系统中有哪些应用"></a>[22]哈西算法(下): 哈希算法在分布式系统中有哪些应用</h1><p>哈希算法上讲了，哈希算法的四个应用，分别是 安全加密、数据检验、唯一标识、散列函数</p>
-<p>还剩下 ：<strong>负载均衡、数据分片、分布式存储</strong></p>
-<a id="more"></a>
-<h2 id="应用5：负载均衡"><a href="#应用5：负载均衡" class="headerlink" title="应用5：负载均衡"></a>应用5：负载均衡</h2><p>我们需要在同一个客户端上，在一次会话中的所有请求都路由到同一个服务器。（会话粘滞session sticky）</p>
-<p>最初想到的是类似 Linux中的页表（将存储虚拟地址空间的虚拟地址映射到物理内存中）一张映射表，我们的维护是（会话粘滞的）一张表内容是将客户端的IP地址和会话ID 与服务器编号，然后再请求变化对应的服务器。这个方法很简单直观，但是又缺陷：</p>
-<ul>
-<li>客户太多，要维护的表很大，比较浪费内存空间</li>
-<li>客户端下线，上线，服务器扩容，缩容都会导致映射失效，这样维护表的成本就会很大；</li>
-</ul>
-<p>如果借助哈希算法，这些问题都可完美解决。<strong>我们可以通过哈希算法，对客户IP地址或者会话IP计算哈希值，将取得的哈希值与服务器列表的大小进行取模运算，最终得到的值就是应该被路由到服务器编号。（类似一致性哈希算法）</strong></p>
-<h2 id="应用六：数据分片"><a href="#应用六：数据分片" class="headerlink" title="应用六：数据分片"></a>应用六：数据分片</h2><h3 id="1-IT日志文件，快速计算关键词被搜索了几次"><a href="#1-IT日志文件，快速计算关键词被搜索了几次" class="headerlink" title="1.IT日志文件，快速计算关键词被搜索了几次"></a>1.IT日志文件，快速计算关键词被搜索了几次</h3><p>举例说明，IT日志文件，这里面记录了用户的搜索关系词，我们想要快速统计出每个是关键次被搜索的记录次数，该怎么做呢？</p>
-<p>难点：</p>
-<ul>
-<li>搜索日志很大，没办法放到一台机器的内存中。</li>
-<li>第二个难点，如果只用一台机器来处理这么巨大的数据，处理时间会很长。</li>
-</ul>
-<p>解决：</p>
-<ul>
-<li><p>首先对数据进行分片。</p>
-<ul>
-<li>首先为了提高处理的速度，我们使用n台机器并行处理。</li>
-</ul>
-</li>
-<li><p>然后采集多台机器处理的方法，来提高处理速度。</p>
-<ul>
-<li><p>我们根据搜索记录的日志文件中一次读出每个搜索的关键次，并且通过哈希函数计算哈希值，然后再跟n取模，最终得到的值，就是应该被分配到的机器的编号。</p>
-<p>这样所有哈希值相同的搜索关键词就被分配到了同一个机器上。也就是说，同一个搜索关键词会被分配到同一个机器上。每个机器会分别计算关键词出现的次数，最终合并起来就是最终的结果。</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-如何快速判断图片是否在图库中"><a href="#2-如何快速判断图片是否在图库中" class="headerlink" title="2.如何快速判断图片是否在图库中"></a>2.如何快速判断图片是否在图库中</h3><p>同上，按照图片唯一标识（图片前100比特+中间100比特+图片最后100比特）使用加密算法计算哈希值</p>
-<p>然后与机器个数n求于取模，存放在n台机器上。</p>
-<p>查找时也是按照以上的方法进行查找。</p>
-<p>实际上这种<strong>，针对海量数据的处理问题，我们都可以采用多机分布式处理。借助这种分片思路，可以突破单机内存，CPU等资源限制。</strong></p>
-<h2 id="应用七：分布式存储"><a href="#应用七：分布式存储" class="headerlink" title="应用七：分布式存储"></a>应用七：分布式存储</h2><p>一致性哈希的应用，海量数据，海量用户。为了提高效率采用分布式存储，分布式缓存。我们有海量数据需要缓存，所以一个缓存机器肯定不够。于是我们就需要将数据分布在多台机器上。</p>
-<p>数据存储在那台机器上我们使用数据分片思想，进行缓存。</p>
-<p>但是随着数据的增长，预估的机器难以缓存的下，我们就需要扩容，但是扩容我们需要rehash，数据分片然后存储，等于将老数据进行了一次数据搬移，耗时太长，效率太低。</p>
-<p>而且重新搬移过程中，所有缓存都失效了。所有数据请求都会穿透缓存，直接去请求数据库。这样就可能发生雪崩效应，压垮数据库。</p>
-<p>所以我们不能使用这种扩容机制，我们需要一致性哈希算法。我们有k台机器，我们按照数据哈希值的范围。我们将整个范围划分成m个小区间(m远大于k),每个机器负责m/k个小区间。这样，既不用重新哈希也不用搬移数据，也保持了各个机器上数据数量的均衡。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><strong>负载均衡</strong>中利用哈希算法代替了映射表，可实现会话粘滞的负载均衡策略。</p>
-<p>在<strong>数据分片</strong>应用中，通过哈希算法对处理的海量数据进行分片，多机分布式处理，突破单继资源限制。</p>
-<p>在<strong>分布式存储应用</strong>中，利用一致性哈希算法，可以解决缓存等分布式系统的扩容，缩容导致数据大量搬移的问题。</p>
+
+
+<h1 id="25-红黑树-上-：为什么工程中都使用到了红黑树这种二叉树结构"><a href="#25-红黑树-上-：为什么工程中都使用到了红黑树这种二叉树结构" class="headerlink" title="[25]红黑树(上)：为什么工程中都使用到了红黑树这种二叉树结构"></a>[25]红黑树(上)：为什么工程中都使用到了红黑树这种二叉树结构</h1><p>二叉树的插入，删除，查找操作，各个操作的事件复杂度跟树的高度成正比，理想情况下时间复杂度是O($log_n$) 。</p>
+<p>不过二叉树查找树在频繁的动态更新过程中，可<strong>能会出现树的高度远大于$log_2n$ 情况，从而导致操作效率下降。极端情况下，二叉树会退化成为链表，时间复杂度会退化到O(n)。</strong>平衡二叉树的出现解决了这个问题。</p>
+<p>平衡二叉树严格定义上讲：<strong>二叉树中任意一个节点的左右节点的树高度相差不能大于1</strong>.从这个定义上来看，完全二叉树，满二叉树都是平衡二叉树，但是非完全二叉树也有可能是平衡二叉树。<br><a id="more"></a></p>
+<p><img src="/2019/05/11/红黑树/qq数据\321830735\FileRecv\MobileFile\1552563697223.jpg" alt="1552563697223"></p>
+<p>AVL数是严格按照上述所讲的定义的，即任何一个节点的左右子树的高度差不超过1，是一种高度平衡的二叉查找树。红黑树并没有严格按照上述定义</p>
+<p>平衡二叉查找树种的”平衡”的意思就是让整棵看起来比较”对称”，比较”平衡”，不要出现左子树很高、右子树很矮就行。<strong>这个就能让整棵树的高度相对来说比较低一些，相应的插入、删除、查找等操作的效率高一些。</strong></p>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><p>如何定义一棵”红黑树”？</p>
+<p>平衡二叉树其实很多，比如，SplayTree(伸展树)、Tree(树堆)等，</p>
+<p><strong>红黑树的英文是”Red-Black-Tree”,简称R-B Tree。</strong>，红黑树中节点，一类被标记为黑色，一类被标记为红色，除此之外，一棵红黑树好需要满足如下要求：</p>
+<ol>
+<li>根节点是黑色的</li>
+<li>每个叶子节点都是黑色的空节点（NULL),也就是说，叶子节点不存储数据； —为了简化代码实现</li>
+<li>任何相邻的节点都不能同时为红色，也就是说，红色节点被黑色节点隔开的。</li>
+<li>每个节点，从该节点到达其可达叶子节点的所有路径，都包含相同数目的黑色节点。</li>
+</ol>
+<p>如下图，红黑树。</p>
+<p><img src="/2019/05/11/红黑树/qq数据\321830735\FileRecv\MobileFile\1552566548676.jpg" alt="1552566548676"></p>
+<h2 id="红黑树的性能分析"><a href="#红黑树的性能分析" class="headerlink" title="红黑树的性能分析"></a>红黑树的性能分析</h2><p>为什么说红黑树“近似平衡”的？</p>
+<p>平衡的意思就等价为性能不退化。“近似平衡”就等价为性能不会退化的太严重。红黑树的高度是否稳定地趋近$log_2n$就好了。</p>
+<p>二叉树的性能由二叉树的高度来决定，我们分析以下红黑树的高度。</p>
+<p>首先，我们来看，如果我们将红色节点从红黑树中去掉，那单纯包含黑色节点的红黑树的高度是多少呢？如下图：</p>
+<p><img src="/2019/05/11/红黑树/qq数据\321830735\FileRecv\MobileFile\1552566521418.jpg" alt="1552566521418"></p>
+<p>红色节点之后，有些节点就没有父节点了，它们会直接拿这些节点的祖父节点（父节点得到父节点）作为父节点。所以，之前的二叉树就变成了四叉树。</p>
+<p>构成的四叉树是一颗完全二叉树，所以包含黑色节点的四叉树的高度，比包含向同节点个数的完全二叉树高度还要小。</p>
+<p>即<strong>“黑色”四叉树的高度要低于完全二叉树，所以去掉红色节点的”黑树”的高度也不会超过$log_2n$。</strong></p>
+<h2 id="我们把红色节点加回去的红黑树的树的高度是多少呢？"><a href="#我们把红色节点加回去的红黑树的树的高度是多少呢？" class="headerlink" title="我们把红色节点加回去的红黑树的树的高度是多少呢？"></a>我们把红色节点加回去的红黑树的树的高度是多少呢？</h2><p>由二叉树的<strong>第三条特性任何相邻节点不能是红色，则红色要被黑色隔开</strong>。<strong>红黑树中包含最多黑色节点的路径不会超过$log_2n$,所以加入红色节点之后，最长路径不会超过$2log_2n$，也就是说红黑树的高度近似为$2log_2n$。</strong></p>
+<p><strong>所以红黑树的高度只是比高度平衡的AVL树的高度($log_2n$ )仅仅大了一倍，在性能上，下降的并不多。</strong>这样推导出来的节点不够精确，实际上红黑树的性能更好。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Treap,Splay Tree，绝大情况下，他们的操作效率都很高，但是他们无法避免极端情况下的时间复杂度退化的情况，虽然出现概率不大，但是对于单次操作而言非常敏感的场景来说，他们并不适用。</p>
+<p>AVL树是一种高度平衡的二叉树，所以查找的效率非常高，但是AVL树为维持这种高度平衡的树，就要付出更大的代价，每次插入之后，删除倒要调整，就比较复杂跟耗时。所以对于频繁的插入删除操作而言，使用AVL树的代价就比较高了。</p>
+<p><strong>所以红黑树的插入删除，查找各种操作比较稳定，对于工程应用跟偏向使用这个能应对各种异常情况，为了支持工业级别的应用，我们更倾向于使用这种性能跟稳定为平衡二叉树。</strong></p>
+<p>红黑树的实现对于初学者来说比较复杂，我们可以使用跳表代替。</p>
 
       
     </div>
@@ -554,7 +548,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://soyanga.github.io/2019/04/04/哈希算法(下)/" title="哈希算法(下)">https://soyanga.github.io/2019/04/04/哈希算法(下)/</a>
+    <a href="https://soyanga.github.io/2019/05/11/红黑树/" title="红黑树">https://soyanga.github.io/2019/05/11/红黑树/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -571,7 +565,7 @@
           
             <a href="/tags/数据结构与算法之美/" rel="tag"><i class="fa fa-tag"></i> 数据结构与算法之美</a>
           
-            <a href="/tags/哈希算法/" rel="tag"><i class="fa fa-tag"></i> 哈希算法</a>
+            <a href="/tags/红黑树/" rel="tag"><i class="fa fa-tag"></i> 红黑树</a>
           
         </div>
       
@@ -584,8 +578,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/01/哈希算法(上)/" rel="next" title="哈希算法(上)">
-                <i class="fa fa-chevron-left"></i> 哈希算法(上)
+              <a href="/2019/05/03/二叉树基础(下)/" rel="next" title="二叉树基础(下)">
+                <i class="fa fa-chevron-left"></i> 二叉树基础(下)
               </a>
             
           </div>
@@ -593,10 +587,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/05/二叉树基础(上)/" rel="prev" title="二叉树基础(上)">
-                二叉树基础(上) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -755,7 +745,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#22-哈西算法-下-哈希算法在分布式系统中有哪些应用"><span class="nav-number">1.</span> <span class="nav-text">[22]哈西算法(下): 哈希算法在分布式系统中有哪些应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用5：负载均衡"><span class="nav-number">1.1.</span> <span class="nav-text">应用5：负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用六：数据分片"><span class="nav-number">1.2.</span> <span class="nav-text">应用六：数据分片</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-IT日志文件，快速计算关键词被搜索了几次"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.IT日志文件，快速计算关键词被搜索了几次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-如何快速判断图片是否在图库中"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.如何快速判断图片是否在图库中</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用七：分布式存储"><span class="nav-number">1.3.</span> <span class="nav-text">应用七：分布式存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#25-红黑树-上-：为什么工程中都使用到了红黑树这种二叉树结构"><span class="nav-number">1.</span> <span class="nav-text">[25]红黑树(上)：为什么工程中都使用到了红黑树这种二叉树结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树"><span class="nav-number">1.1.</span> <span class="nav-text">红黑树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树的性能分析"><span class="nav-number">1.2.</span> <span class="nav-text">红黑树的性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我们把红色节点加回去的红黑树的树的高度是多少呢？"><span class="nav-number">1.3.</span> <span class="nav-text">我们把红色节点加回去的红黑树的树的高度是多少呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>

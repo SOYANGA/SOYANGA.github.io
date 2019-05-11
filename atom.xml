@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-05-02T16:04:26.810Z</updated>
+  <updated>2019-05-11T15:35:14.146Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>红黑树</title>
+    <link href="https://soyanga.github.io/2019/05/11/%E7%BA%A2%E9%BB%91%E6%A0%91/"/>
+    <id>https://soyanga.github.io/2019/05/11/红黑树/</id>
+    <published>2019-05-11T15:33:32.000Z</published>
+    <updated>2019-05-11T15:35:14.146Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="25-红黑树-上-：为什么工程中都使用到了红黑树这种二叉树结构"><a href="#25-红黑树-上-：为什么工程中都使用到了红黑树这种二叉树结构" class="headerlink" title="[25]红黑树(上)：为什么工程中都使用到了红黑树这种二叉树结构"></a>[25]红黑树(上)：为什么工程中都使用到了红黑树这种二叉树结构</h1><p>二叉树的插入，删除，查找操作，各个操作的事件复杂度跟树的高度成正比，理想情况下时间复杂度是O($log_n$) 。</p><p>不过二叉树查找树在频繁的动态更新过程中，可<strong>能会出现树的高度远大于$log_2n$ 情况，从而导致操作效率下降。极端情况下，二叉树会退化成为链表，时间复杂度会退化到O(n)。</strong>平衡二叉树的出现解决了这个问题。</p><p>平衡二叉树严格定义上讲：<strong>二叉树中任意一个节点的左右节点的树高度相差不能大于1</strong>.从这个定义上来看，完全二叉树，满二叉树都是平衡二叉树，但是非完全二叉树也有可能是平衡二叉树。<br><a id="more"></a></p><p><img src="/2019/05/11/红黑树/qq数据\321830735\FileRecv\MobileFile\1552563697223.jpg" alt="1552563697223"></p><p>AVL数是严格按照上述所讲的定义的，即任何一个节点的左右子树的高度差不超过1，是一种高度平衡的二叉查找树。红黑树并没有严格按照上述定义</p><p>平衡二叉查找树种的”平衡”的意思就是让整棵看起来比较”对称”，比较”平衡”，不要出现左子树很高、右子树很矮就行。<strong>这个就能让整棵树的高度相对来说比较低一些，相应的插入、删除、查找等操作的效率高一些。</strong></p><h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><p>如何定义一棵”红黑树”？</p><p>平衡二叉树其实很多，比如，SplayTree(伸展树)、Tree(树堆)等，</p><p><strong>红黑树的英文是”Red-Black-Tree”,简称R-B Tree。</strong>，红黑树中节点，一类被标记为黑色，一类被标记为红色，除此之外，一棵红黑树好需要满足如下要求：</p><ol><li>根节点是黑色的</li><li>每个叶子节点都是黑色的空节点（NULL),也就是说，叶子节点不存储数据； —为了简化代码实现</li><li>任何相邻的节点都不能同时为红色，也就是说，红色节点被黑色节点隔开的。</li><li>每个节点，从该节点到达其可达叶子节点的所有路径，都包含相同数目的黑色节点。</li></ol><p>如下图，红黑树。</p><p><img src="/2019/05/11/红黑树/qq数据\321830735\FileRecv\MobileFile\1552566548676.jpg" alt="1552566548676"></p><h2 id="红黑树的性能分析"><a href="#红黑树的性能分析" class="headerlink" title="红黑树的性能分析"></a>红黑树的性能分析</h2><p>为什么说红黑树“近似平衡”的？</p><p>平衡的意思就等价为性能不退化。“近似平衡”就等价为性能不会退化的太严重。红黑树的高度是否稳定地趋近$log_2n$就好了。</p><p>二叉树的性能由二叉树的高度来决定，我们分析以下红黑树的高度。</p><p>首先，我们来看，如果我们将红色节点从红黑树中去掉，那单纯包含黑色节点的红黑树的高度是多少呢？如下图：</p><p><img src="/2019/05/11/红黑树/qq数据\321830735\FileRecv\MobileFile\1552566521418.jpg" alt="1552566521418"></p><p>红色节点之后，有些节点就没有父节点了，它们会直接拿这些节点的祖父节点（父节点得到父节点）作为父节点。所以，之前的二叉树就变成了四叉树。</p><p>构成的四叉树是一颗完全二叉树，所以包含黑色节点的四叉树的高度，比包含向同节点个数的完全二叉树高度还要小。</p><p>即<strong>“黑色”四叉树的高度要低于完全二叉树，所以去掉红色节点的”黑树”的高度也不会超过$log_2n$。</strong></p><h2 id="我们把红色节点加回去的红黑树的树的高度是多少呢？"><a href="#我们把红色节点加回去的红黑树的树的高度是多少呢？" class="headerlink" title="我们把红色节点加回去的红黑树的树的高度是多少呢？"></a>我们把红色节点加回去的红黑树的树的高度是多少呢？</h2><p>由二叉树的<strong>第三条特性任何相邻节点不能是红色，则红色要被黑色隔开</strong>。<strong>红黑树中包含最多黑色节点的路径不会超过$log_2n$,所以加入红色节点之后，最长路径不会超过$2log_2n$，也就是说红黑树的高度近似为$2log_2n$。</strong></p><p><strong>所以红黑树的高度只是比高度平衡的AVL树的高度($log_2n$ )仅仅大了一倍，在性能上，下降的并不多。</strong>这样推导出来的节点不够精确，实际上红黑树的性能更好。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Treap,Splay Tree，绝大情况下，他们的操作效率都很高，但是他们无法避免极端情况下的时间复杂度退化的情况，虽然出现概率不大，但是对于单次操作而言非常敏感的场景来说，他们并不适用。</p><p>AVL树是一种高度平衡的二叉树，所以查找的效率非常高，但是AVL树为维持这种高度平衡的树，就要付出更大的代价，每次插入之后，删除倒要调整，就比较复杂跟耗时。所以对于频繁的插入删除操作而言，使用AVL树的代价就比较高了。</p><p><strong>所以红黑树的插入删除，查找各种操作比较稳定，对于工程应用跟偏向使用这个能应对各种异常情况，为了支持工业级别的应用，我们更倾向于使用这种性能跟稳定为平衡二叉树。</strong></p><p>红黑树的实现对于初学者来说比较复杂，我们可以使用跳表代替。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+
+
+&lt;h1 id=&quot;25-红黑树-上-：为什么工程中都使用到了红黑树这种二叉树结构&quot;&gt;&lt;a href=&quot;#25-红黑树-上-：为什么工程中都使用到了红黑树这种二叉树结构&quot; class=&quot;headerlink&quot; title=&quot;[25]红黑树(上)：为什么工程中都使用到了红黑树这种二叉树结构&quot;&gt;&lt;/a&gt;[25]红黑树(上)：为什么工程中都使用到了红黑树这种二叉树结构&lt;/h1&gt;&lt;p&gt;二叉树的插入，删除，查找操作，各个操作的事件复杂度跟树的高度成正比，理想情况下时间复杂度是O($log_n$) 。&lt;/p&gt;
+&lt;p&gt;不过二叉树查找树在频繁的动态更新过程中，可&lt;strong&gt;能会出现树的高度远大于$log_2n$ 情况，从而导致操作效率下降。极端情况下，二叉树会退化成为链表，时间复杂度会退化到O(n)。&lt;/strong&gt;平衡二叉树的出现解决了这个问题。&lt;/p&gt;
+&lt;p&gt;平衡二叉树严格定义上讲：&lt;strong&gt;二叉树中任意一个节点的左右节点的树高度相差不能大于1&lt;/strong&gt;.从这个定义上来看，完全二叉树，满二叉树都是平衡二叉树，但是非完全二叉树也有可能是平衡二叉树。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+      <category term="红黑树" scheme="https://soyanga.github.io/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/"/>
+    
+  </entry>
   
   <entry>
     <title>二叉树基础(下)</title>
@@ -704,41 +734,6 @@
       <category term="数据结构与算法之美" scheme="https://soyanga.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
     
       <category term="时间复杂度" scheme="https://soyanga.github.io/tags/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>再识java--集合框架</title>
-    <link href="https://soyanga.github.io/2019/02/19/%E5%86%8D%E8%AF%86java-%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/"/>
-    <id>https://soyanga.github.io/2019/02/19/再识java-集合框架/</id>
-    <published>2019-02-19T04:05:45.000Z</published>
-    <updated>2019-02-19T05:29:30.472Z</updated>
-    
-    <content type="html"><![CDATA[<a id="more"></a><h1 id="集合产生原因"><a href="#集合产生原因" class="headerlink" title="集合产生原因"></a>集合产生原因</h1><ul><li><p>集合产生背景：</p><ul><li>JDK1.2-产生集合框架类集</li></ul></li><li><p>集合的作用</p><ul><li>保存数据</li><li>数组定长问题，集合本质上是一个动态数组</li></ul></li></ul><h2 id="Collection接口-保存单个元素的最大父接口"><a href="#Collection接口-保存单个元素的最大父接口" class="headerlink" title="Collection接口:保存单个元素的最大父接口"></a>Collection接口:保存单个元素的最大父接口</h2><h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.<span class="function"><span class="keyword">public</span> bollean <span class="title">add</span><span class="params">()</span></span>; <span class="comment">//添加元素</span></span><br><span class="line"><span class="number">2</span>.<span class="function"><span class="keyword">public</span> bollean <span class="title">remove</span><span class="params">()</span></span>;<span class="comment">//删除集合中元素</span></span><br><span class="line"><span class="number">3</span>.<span class="function"><span class="keyword">public</span> bollean <span class="title">contains</span><span class="params">()</span></span>;<span class="comment">//查看集合中是否有这个元素</span></span><br><span class="line"><span class="number">4</span>.<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;<span class="comment">//清空集合元素</span></span><br><span class="line"><span class="number">6</span>.<span class="keyword">public</span> Object[] toArray();<span class="comment">//将集合转变为对象数组</span></span><br><span class="line"><span class="number">5</span>.<span class="keyword">public</span> Iterator&lt;?&gt;iterator();<span class="comment">//获得集合的迭代器</span></span><br></pre></td></tr></table></figure><h3 id="List：允许数据重复"><a href="#List：允许数据重复" class="headerlink" title="List：允许数据重复"></a>List：允许数据重复</h3><h4 id="独有的方法"><a href="#独有的方法" class="headerlink" title="独有的方法:"></a>独有的方法:</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span>：<span class="comment">//根据索引下标取得数据</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E set（<span class="keyword">int</span> index,E element)<span class="comment">//根据索引下标更新数据，返回修改之前的数据</span></span></span><br></pre></td></tr></table></figure><p><a href="http://naotu.baidu.com/file/7e2ce9e67efeed3fc5b3f442c30d27c3" target="_blank" rel="noopener">ArrayList,Vectory,LinkedList</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h1 id=&quot;集合产生原因&quot;&gt;&lt;a href=&quot;#集合产生原因&quot; class=&quot;headerlink&quot; title=&quot;集合产生原因&quot;&gt;&lt;/a&gt;集合产生原因&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;集合产生背景：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;JDK1.2
-      
-    
-    </summary>
-    
-      <category term="JAVASE" scheme="https://soyanga.github.io/categories/JAVASE/"/>
-    
-      <category term="Java集合" scheme="https://soyanga.github.io/categories/JAVASE/Java%E9%9B%86%E5%90%88/"/>
-    
-    
-      <category term="JavaSE基础" scheme="https://soyanga.github.io/tags/JavaSE%E5%9F%BA%E7%A1%80/"/>
-    
-      <category term="Java学习笔记" scheme="https://soyanga.github.io/tags/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="集合框架学习+源码分析" scheme="https://soyanga.github.io/tags/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
