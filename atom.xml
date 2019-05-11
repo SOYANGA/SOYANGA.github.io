@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-05-11T15:39:05.759Z</updated>
+  <updated>2019-05-11T15:42:18.218Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://soyanga.github.io/2019/05/11/%E9%80%92%E5%BD%92%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%B1%82%E8%A7%A3/"/>
     <id>https://soyanga.github.io/2019/05/11/递归复杂度求解/</id>
     <published>2019-05-11T15:37:15.000Z</published>
-    <updated>2019-05-11T15:39:05.759Z</updated>
+    <updated>2019-05-11T15:42:18.218Z</updated>
     
     <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="26-递归的时间复杂度的求解"><a href="#26-递归的时间复杂度的求解" class="headerlink" title="[26]递归的时间复杂度的求解"></a>[26]递归的时间复杂度的求解</h1><p>递归时间复杂度的求解分为2种常规求法和递归树法</p><a id="more"></a><h2 id="常规求法"><a href="#常规求法" class="headerlink" title="常规求法"></a>常规求法</h2><h3 id="写递归代码的三部"><a href="#写递归代码的三部" class="headerlink" title="写递归代码的三部"></a>写递归代码的三部</h3><ol><li>找出递推公式</li><li>知道递推的出口</li><li>将以上两步翻译成代码</li></ol><p>常规求法就是按照递推公式去求解—-比较麻烦，考验数学的时候到了！！:sweat:</p><h2 id="递归树求法"><a href="#递归树求法" class="headerlink" title="递归树求法"></a>递归树求法</h2><p>根据写出的递推公式，以及递归的出口，画出递归树，分析每个节点的时间复杂度<em>当前行的节点个数\</em>行数</p><p>如下图：</p><p><img src="/2019/05/11/递归复杂度求解/qq数据\321830735\FileRecv\MobileFile\1552895962676.jpg" alt="1552895962676"></p><p>递归的时候时间复杂度为O(n*m) n为每行消耗的时间复杂度，m为数的高度。</p><p>即O($nlog_n$)   每行消耗的时间复杂度为O(n),树的高度为$nog_n$ 。</p>]]></content>
     
