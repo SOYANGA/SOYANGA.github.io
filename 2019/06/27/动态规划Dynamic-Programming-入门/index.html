@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="数据结构与算法之美,动态规划典型题,LeetCode题解," />
+  <meta name="keywords" content="数据结构与算法之美,动态规划 Dynamic Programming," />
 
 
 
@@ -93,15 +93,18 @@
 
 
 
-<meta name="keywords" content="数据结构与算法之美,动态规划典型题,LeetCode题解">
+<meta name="description" content="动态规划 Dynamic Programming 递推（递归+记忆化） 状态定义: opt[n], dp[n] ,fib[n] 定义成数组 状态转移方程： opt[n] = best_of(opt[n-1], opt[n-2]) 最优子结构">
+<meta name="keywords" content="数据结构与算法之美,动态规划 Dynamic Programming">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动态规划Dynamic Programming 入门">
 <meta property="og:url" content="https://soyanga.github.io/2019/06/27/动态规划Dynamic-Programming-入门/index.html">
 <meta property="og:site_name" content="SOYANGA">
+<meta property="og:description" content="动态规划 Dynamic Programming 递推（递归+记忆化） 状态定义: opt[n], dp[n] ,fib[n] 定义成数组 状态转移方程： opt[n] = best_of(opt[n-1], opt[n-2]) 最优子结构">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-26T17:14:06.286Z">
+<meta property="og:updated_time" content="2019-06-26T17:14:58.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划Dynamic Programming 入门">
+<meta name="twitter:description" content="动态规划 Dynamic Programming 递推（递归+记忆化） 状态定义: opt[n], dp[n] ,fib[n] 定义成数组 状态转移方程： opt[n] = best_of(opt[n-1], opt[n-2]) 最优子结构">
 
 
 
@@ -389,7 +392,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-27T01:14:06+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-27T01:14:58+08:00">
                 2019-06-27
               </time>
             
@@ -439,7 +442,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  461
                 </span>
               
 
@@ -455,7 +458,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -478,7 +481,35 @@
       
         <meta name="referrer" content="no-referrer">
 
+
+
+<h1 id="动态规划-Dynamic-Programming"><a href="#动态规划-Dynamic-Programming" class="headerlink" title="动态规划 Dynamic Programming"></a>动态规划 Dynamic Programming</h1><ol>
+<li><strong>递推（递归+记忆化）</strong></li>
+<li><strong>状态定义: opt[n], dp[n] ,fib[n] 定义成数组</strong></li>
+<li><strong>状态转移方程： opt[n] = best_of(opt[n-1], opt[n-2])</strong></li>
+<li><strong>最优子结构</strong></li>
+</ol>
 <a id="more"></a>
+<h1 id="DP-vs-回溯-vs-贪心"><a href="#DP-vs-回溯-vs-贪心" class="headerlink" title="DP vs 回溯 vs 贪心"></a>DP vs 回溯 vs 贪心</h1><ul>
+<li><strong>回溯（递归） —— 存在重新计算</strong>  假如不存在最优子结构的化，回溯（递归）就是最佳解法</li>
+<li><strong>贪心 —— 永远局部最优</strong></li>
+<li><strong>DP —— 记录局部最优子结构/多种记录值</strong></li>
+</ul>
+<h2 id="爬楼梯"><a href="#爬楼梯" class="headerlink" title="爬楼梯"></a>爬楼梯</h2><h3 id="递归-记忆化"><a href="#递归-记忆化" class="headerlink" title="递归+记忆化"></a>递归+记忆化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> memo[] = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> climb_Stairs(<span class="number">0</span>, n, memo);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climb_Stairs</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> n, <span class="keyword">int</span> memo[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i &gt; n) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i == n) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(memo[i] &gt; <span class="number">0</span>)&#123;</span><br><span class="line">             <span class="keyword">return</span> memo[i];</span><br><span class="line">        &#125;</span><br><span class="line">        memo[i] = climb_Stairs(i + <span class="number">1</span>, n, memo) + climb_Stairs(i + <span class="number">2</span>, n, memo);</span><br><span class="line">        <span class="keyword">return</span> memo[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 memo为记忆数组 i为走过的台阶数  n为要走的台阶数</p>
+<p>时间复杂度时O(n) </p>
+<p>空间复杂度O(n)</p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p>反向递推 </p>
+<p>不难发现，这个问题可以被分解为一些包含<strong>最优子结构的子问题</strong>，即它的最优解可以从其子问题的最优解来有效地构建，我们可以使用动态规划来解决这一问题。</p>
+<p>第 i 阶可以由以下两种方法得到：</p>
+<p>在第（i−1) 阶后向上爬1阶。</p>
+<p>在第 (i−2) 阶后向上爬 2 阶。</p>
+<p>所以到达第 i 阶的方法总数就是到第 (i−1) 阶和第 (i−2) 阶的方法数之和。</p>
+<p>令 dp[i] 表示能到达第 i 阶的方法总数：</p>
+<p>dp[i]=dp[i-1]+dp[i-2]</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            dp[i] = dp[i-<span class="number">1</span>]+dp[i-<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度时O(n) </p>
+<p>空间复杂度O(n)</p>
 
       
     </div>
@@ -526,9 +557,7 @@
           
             <a href="/tags/数据结构与算法之美/" rel="tag"><i class="fa fa-tag"></i> 数据结构与算法之美</a>
           
-            <a href="/tags/动态规划典型题/" rel="tag"><i class="fa fa-tag"></i> 动态规划典型题</a>
-          
-            <a href="/tags/LeetCode题解/" rel="tag"><i class="fa fa-tag"></i> LeetCode题解</a>
+            <a href="/tags/动态规划-Dynamic-Programming/" rel="tag"><i class="fa fa-tag"></i> 动态规划 Dynamic Programming</a>
           
         </div>
       
@@ -601,8 +630,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -643,7 +681,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -690,6 +728,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划-Dynamic-Programming"><span class="nav-number">1.</span> <span class="nav-text">动态规划 Dynamic Programming</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DP-vs-回溯-vs-贪心"><span class="nav-number">2.</span> <span class="nav-text">DP vs 回溯 vs 贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#爬楼梯"><span class="nav-number">2.1.</span> <span class="nav-text">爬楼梯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#递归-记忆化"><span class="nav-number">2.1.1.</span> <span class="nav-text">递归+记忆化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">2.1.2.</span> <span class="nav-text">动态规划</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 	  
@@ -721,7 +775,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">133.6k</span>
+    <span title="Site words total count">134k</span>
   
 </div>
 
