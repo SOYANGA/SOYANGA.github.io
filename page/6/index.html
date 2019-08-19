@@ -345,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/网络基础(1)/">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/16/正则表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SOYANGA">
@@ -364,7 +364,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/16/网络基础(1)/" itemprop="url">网络基础(1)</a></h1>
+                <a class="post-title-link" href="/2019/01/16/正则表达式/" itemprop="url">正则表达式</a></h1>
         
 
         <div class="post-meta">
@@ -393,8 +393,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-22T18:38:01+08:00">
-                2019-01-22
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-13T19:11:19+08:00">
+                2019-03-13
               </time>
             
           </span>
@@ -412,8 +412,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux网络</span>
+                  <a href="/categories/文本匹配/" itemprop="url" rel="index">
+                    <span itemprop="name">文本匹配</span>
                   </a>
                 </span>
 
@@ -443,7 +443,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.8k
+                  1.2k
                 </span>
               
 
@@ -459,7 +459,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9
+                  4
                 </span>
               
             </div>
@@ -481,30 +481,77 @@
 
       
         
-          <meta name="referrer" content="no-referrer">
-
-<h1 id="网络基础（1）"><a href="#网络基础（1）" class="headerlink" title="网络基础（1）"></a>网络基础（1）</h1><p><strong>重点：</strong></p>
+          <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><ul>
+<li>正则表达式概念</li>
+<li>正则表达式应用场景</li>
+<li>正则表达式三要素</li>
+<li>正则表达式特殊符号</li>
+<li>扩展正则和基础正则</li>
+</ul>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
 <ul>
-<li>网络发展背景，对局域网/广域网的概念有基本认识</li>
-<li>了解网络协议的意义，重点理解TCP/IP五层结构模型</li>
-<li>网络传输的基本流程，理解封装和分用</li>
+<li>正则表达式Regular Expression）是用于描述一组字符串特征的模式，用来匹配特定的字符串。通过特殊字符+普通字符来进行模式描述，从而达到文本匹配目的的工具</li>
+<li>寻人启事</li>
+<li>正则表达式目前被集成到各种文本编辑器/文本处理工具当中</li>
 </ul>
-<h2 id="计算机网络背景"><a href="#计算机网络背景" class="headerlink" title="计算机网络背景"></a>计算机网络背景</h2><ul>
-<li>在同一个局域网内两台主机是可以直接通信的。</li>
-<li>任何一个在局域网上的主机，在不欠运营费的情况下是可以访问公网下的任意一台主机的。</li>
-<li>不在同一个局域网的主机可以通信的原因，通过公网这座桥梁读写操作。</li>
+</blockquote>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
+<li><strong>验证</strong>：表单提交，进行用户名密码验证</li>
+<li><strong>查找</strong>：从大量信息中快速提取指定内容，在一批url中，查找指定url</li>
+<li><strong>替换</strong>：将指定格式的文本，进行正则匹配查找，找到后进行特定替换（vim文本替换符）</li>
 </ul>
-<p><strong>网络发展</strong></p>
-<p><strong>独立模式</strong>：计算机之间相互独立；分别计算数据，把数据加工处理完后又必须拷贝到另一台机器。</p>
-<p><strong>机器传输数据之间是人工过程，太过繁琐</strong></p>
-<p><strong>网络互联:</strong> 多台计算机连接在一起, 完成数据共享，<strong>冯诺依曼体系（系统) 是网络</strong>，只是连接线不同。</p>
-<p>但是<strong>长距离传输数据容易丢失</strong>，而且传输速度慢。解决–<strong>TCP协议：解决数据安全，丢包问题</strong>。<strong>IP解决查找问题。</strong> </p>
-<p><strong>局域网LAN:</strong> 计算机数量更多了, 通过交换机和路由器连接在一起，<strong>交换机：</strong>最低层对数据进行数据帧交换。 </p>
-<p><strong>广域网WAN:</strong> 将远隔千里的计算机都连在一起</p>
-<p><strong>所谓</strong> “局域网” 和 “广域网” 只是一个相对的概念. 比如, 我们有 “天朝特色” 的广域网, 也可以看做一个比较大的局域网。</p>
+<h2 id="正则表达式的基本要求"><a href="#正则表达式的基本要求" class="headerlink" title="正则表达式的基本要求"></a>正则表达式的基本要求</h2><ul>
+<li>字符类</li>
+<li>数量限定符</li>
+<li>位置限定符</li>
+<li>特殊符号</li>
+</ul>
+<p>grep是一款Linux下按行进行匹配文本的工具。通常是Linux下处理文本的第一步，带有很多有用的选项。采用的是贪心算法</p>
+<blockquote>
+<ul>
+<li>-E :使用扩展正则匹配</li>
+<li>–color:将匹配的到的内容进行语法高亮</li>
+</ul>
+</blockquote>
+<h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>匹配任意一个字符</td>
+<td>abd.可以匹配abcde、abc9等</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>匹配括号中的任意一个字符</td>
+<td>[abc]d,可以匹配ad,bd,或带有d的字符集</td>
+</tr>
+<tr>
+<td>-</td>
+<td>在[ ]括号内表示字符范围</td>
+<td>[0-9a-fA-F]可以匹配一位16进制数字</td>
+</tr>
+<tr>
+<td>^</td>
+<td>位于[]括号内的开头，匹配除考好中的字符之外的任意一个字符</td>
+<td>[^xy] 1匹配除了xy之外的任意一个字符 可以怕匹配a1,b1但不能匹配x1,y1</td>
+</tr>
+<tr>
+<td>[[:xxx:]]</td>
+<td>grep工具预定义的一下些命名字符类</td>
+<td>[[:alpha:]]匹配一个字母，[[:digit:]]匹配一个数字</td>
+</tr>
+</tbody>
+</table>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/16/网络基础(1)/#more" rel="contents">
+            <a class="btn" href="/2019/01/16/正则表达式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
