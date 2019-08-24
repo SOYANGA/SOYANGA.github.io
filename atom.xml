@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-08-19T15:46:48.910Z</updated>
+  <updated>2019-08-24T14:59:42.342Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>初识Redis</title>
+    <link href="https://soyanga.github.io/2019/08/24/%E5%88%9D%E8%AF%86Redis/"/>
+    <id>https://soyanga.github.io/2019/08/24/初识Redis/</id>
+    <published>2019-08-24T14:57:57.000Z</published>
+    <updated>2019-08-24T14:59:42.342Z</updated>
+    
+    <content type="html"><![CDATA[<p><meta name="referrer" content="no-referrer"></p><h1 id="初识Redis"><a href="#初识Redis" class="headerlink" title="初识Redis"></a>初识Redis</h1><h2 id="Redis的铺垫"><a href="#Redis的铺垫" class="headerlink" title="Redis的铺垫"></a>Redis的铺垫</h2><p>MySQL的数据都是存储在磁盘中的，虽然在数据库层也做了对应的缓存，但是此缓存只是针对不变动的数据（读数据做缓存，写数据清理缓存）。即这种数据库的缓存仅仅针对的查询的内容而且粒度比较小。一般只有表中数据库未发生变动的时候数据库对应的Cache才能发挥作用。</p><p>无法减少业务系统对数据库产生的增删改查的IO压力，因此缓存数据库应运而生。该技术实现了对热点数据的高速缓存，提高应用的响应速度，极大的缓解后端MySQL数据库的压力。</p><p><img src="/2019/08/24/初识Redis/Users\32183\AppData\Roaming\Typora\typora-user-images\1566116158126.png" alt="1566116158126"></p><a id="more"></a><h2 id="面对缓存db穿透如何解决"><a href="#面对缓存db穿透如何解决" class="headerlink" title="面对缓存db穿透如何解决"></a>面对缓存db穿透如何解决</h2><ul><li>采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免对底层数据系统的查询压力。（博隆过滤器判断一个数据不存在则这个数据真的是不存在，反之判断一个数据存在则这个数据不一定存在）<strong>可以一定程度上进行拦截不存在的请求，但是需要支持扩容机制，以及扩容后的多个位图，都将会被查询，降低了查询效率。</strong></li><li><strong>更为简单的方法，如果一个查询返回的数据为空，我们任然将这个空结果去缓存，但是它的过期时间会很短，最长不过5分钟。</strong></li></ul><h2 id="如何保证缓存与数据库双写时的一致性？"><a href="#如何保证缓存与数据库双写时的一致性？" class="headerlink" title="如何保证缓存与数据库双写时的一致性？"></a>如何保证缓存与数据库双写时的一致性？</h2><p>如果要使用缓存，就可能涉及到缓存与数据库双存储双写，你只要是双写，就一定会有数据一致性的问题。那么你如何解决一致性问题？</p><p>一般来说，就是如果你的系统不是严格要求缓存+数据库必须一致性的，缓存可以稍微跟数据库偶尔不一致的情况，最好不要做这个缓存与数据库双写的一致性操作。</p><p><strong>解决方案</strong></p><p>将读请求和写请求串行化，串到一个内存队列中去，这个可以保证一定不会出现不一致的情况。</p><p><strong>串行化后，就会导致系统的吞吐量大幅度降低，</strong>用比正常情况下多几倍的机器去支撑一个请求。</p><h2 id="熔断技术"><a href="#熔断技术" class="headerlink" title="熔断技术"></a>熔断技术</h2><p>当MySQL数据库挂掉之后，Redis层还可以工作此时的请求就直接经过Redis返回给客户端。</p><h2 id="缓存中间件——Memcache-和-Redis的区别"><a href="#缓存中间件——Memcache-和-Redis的区别" class="headerlink" title="缓存中间件——Memcache 和 Redis的区别"></a>缓存中间件——Memcache 和 Redis的区别</h2><h3 id="Memcache-代码层次类似Hash"><a href="#Memcache-代码层次类似Hash" class="headerlink" title="Memcache:代码层次类似Hash"></a>Memcache:代码层次类似Hash</h3><ul><li>支持简单的数据类</li><li>不支持数据持久化存储</li><li>不支持主从同步</li><li>不支持分片</li></ul><h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><ul><li><strong>数据类型丰富</strong></li><li><strong>支持数据磁盘持久化存储</strong></li><li>支持主从同步</li><li>支持分片</li></ul><h3 id="为什么Redis为什么这么快"><a href="#为什么Redis为什么这么快" class="headerlink" title="为什么Redis为什么这么快"></a>为什么Redis为什么这么快</h3><p>官方提供的是：10万的并发+的qps（每秒内查询次数）</p><ul><li>完全基于内存的，绝大部分请求是纯粹的内存操作，执行效率高。</li><li>单进程，单线程模型的K-V数据库，由C语言编写。读写的时候不会受硬盘IO速度的限制。</li><li>数据简单，对数据操作也简单</li><li>Redis不使用表，不会要求用户对存储的不同数据强制性的进行关联，因此性能高出关系型数据库不知一个量级。</li><li>其存储结构就是k-v键值对，其查找，操纵的时间复杂度都是O(1)的。</li><li>采用单线程，单线程也能处理高并发请求，想使用多核也可以启动多实例。</li><li><strong>正因为采用单线程处理，所以对于客户端所有请求都采用串行处理，因此多个客户端对一个键进行写操作时，就不会产生并发问题，避免了频繁的上下文切换，锁竞争使得Redis执行起来效率更高。（配合IO多路复用即可实现超高效率）</strong></li><li><strong>多核提高性能问题Redis已经做了相关的验证，Redis的qps相当高，并且在qps峰值的时候，Redis并不会跑满CPU。只是由于网络等原因导致并发量不能进一步上升，因此cpu并不是制约Redis的性能瓶颈。</strong></li></ul><blockquote><p>这里的单线程，只是说在处理网络请求中，我们使用单线程来处理。Redis Server并不是只有一个线程在处理。例如：Redis在持久化的时使用子进程或者子线程对Redis做持久化处理。</p></blockquote><ul><li><p>使用多路I/O复用模型，非阻塞IO（NIO）</p><p>Redis是在单线程执行由于读写操作会等待用户的输入输出时会出现阻塞，所以IO操作往往不能直接返回，进而导致整个进程无法对其他客户端提供服务。而IO对路复用是针对这个问题而出现的。</p></li></ul><h2 id="多路I-O复用模型"><a href="#多路I-O复用模型" class="headerlink" title="多路I/O复用模型"></a>多路I/O复用模型</h2><h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p><strong>FD：</strong>File Descriptor, 文件描述符（用一个整数来表示）</p><p>​    操作系统中，一个打开的文件通过唯一的描述符进行引用，该描述符是打开文件的元数据到文件本身的映射。</p><h3 id="传统的IO阻塞模型"><a href="#传统的IO阻塞模型" class="headerlink" title="传统的IO阻塞模型"></a>传统的IO阻塞模型</h3><h3 id=""><a href="#" class="headerlink" title=""></a><img src="/2019/08/24/初识Redis/Users\32183\AppData\Roaming\Typora\typora-user-images\1566119511319.png" alt="1566119511319"></h3><p>会影响其他FD对应的服务，所以在需要处理多个任务处理任务的时候往往不会使用阻塞IO模型。</p><h3 id="IO多路复用模型"><a href="#IO多路复用模型" class="headerlink" title="IO多路复用模型"></a>IO多路复用模型</h3><p><strong>Select</strong>系统调用</p><p><img src="/2019/08/24/初识Redis/Users\32183\AppData\Roaming\Typora\typora-user-images\1566119661055.png" alt="1566119661055"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;初识Redis&quot;&gt;&lt;a href=&quot;#初识Redis&quot; class=&quot;headerlink&quot; title=&quot;初识Redis&quot;&gt;&lt;/a&gt;初识Redis&lt;/h1&gt;&lt;h2 id=&quot;Redis的铺垫&quot;&gt;&lt;a href=&quot;#Redis的铺垫&quot; class=&quot;headerlink&quot; title=&quot;Redis的铺垫&quot;&gt;&lt;/a&gt;Redis的铺垫&lt;/h2&gt;&lt;p&gt;MySQL的数据都是存储在磁盘中的，虽然在数据库层也做了对应的缓存，但是此缓存只是针对不变动的数据（读数据做缓存，写数据清理缓存）。即这种数据库的缓存仅仅针对的查询的内容而且粒度比较小。一般只有表中数据库未发生变动的时候数据库对应的Cache才能发挥作用。&lt;/p&gt;
+&lt;p&gt;无法减少业务系统对数据库产生的增删改查的IO压力，因此缓存数据库应运而生。该技术实现了对热点数据的高速缓存，提高应用的响应速度，极大的缓解后端MySQL数据库的压力。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2019/08/24/初识Redis/Users\32183\AppData\Roaming\Typora\typora-user-images\1566116158126.png&quot; alt=&quot;1566116158126&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Redis数据库" scheme="https://soyanga.github.io/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="Redis数据库" scheme="https://soyanga.github.io/tags/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux重要指令回顾总结</title>
@@ -643,35 +668,6 @@
       <category term="数据结构与算法之美" scheme="https://soyanga.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
     
       <category term="散列表" scheme="https://soyanga.github.io/tags/%E6%95%A3%E5%88%97%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>跳表</title>
-    <link href="https://soyanga.github.io/2019/03/12/%E8%B7%B3%E8%A1%A8/"/>
-    <id>https://soyanga.github.io/2019/03/12/跳表/</id>
-    <published>2019-03-12T14:47:22.000Z</published>
-    <updated>2019-03-12T14:48:59.338Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="跳表-beers-–动态数据结构"><a href="#跳表-beers-–动态数据结构" class="headerlink" title="跳表:beers:–动态数据结构"></a>跳表:beers:–动态数据结构</h1><p>二分查找算法中底层是依赖数组实现的（依赖数组的随机访问的特性）。又有众多弊端，比如只能操作已排好序的数据。且拥有数组这个数据结构的弊端。比如对数据频繁的增加或者删除操作时间复杂度高，每次数据增加删除还需要保持数据的有序性（即只支持静态数据集），存储数据必须依数组所以开辟内存时，必须是需要连续的内存空间。（对空间要求比较严格)。  数据量太小也不需要使用二分查找，基本没有什么性能上的区别，但是假如一个数据集中它存储的（300字符）字符串，比较操作比较费时间，则就可以使用二分查找。</p><p>二分查找的思想其实可以用在链表中，比如：跳表</p><p>跳表的核心思想：分区，建立多级索引，“二分查找”</p><p>跳表可以支持快速插入，删除，查找操作，写起来也不复杂，代码的可读性较高（跟功能差不多的红黑树相比），Redis中的有序集合(Sort Set)就是用跳表来实现的<strong>。为什么Redis中会选取跳表作为实现有序集合而不是红黑树</strong>？</p><a id="more"></a><h2 id="跳表的数据结构详解"><a href="#跳表的数据结构详解" class="headerlink" title="跳表的数据结构详解"></a>跳表的数据结构详解</h2><p>对于一个单链表来说，即便链表中存储的数据是有序的查找链表中的某一个值得元素，也需要O(n)的时间复杂度，如何提高查找效率，一想到查找，就想到数据库中的查找（建立索引）。对于一个有序链表我们可以建立索引（分成区间），缩短从链表头部向目标元素的遍历的节点个数，从而达到提高查找效率。</p><h3 id="索引建立（多级索引）"><a href="#索引建立（多级索引）" class="headerlink" title="索引建立（多级索引）"></a>索引建立（多级索引）</h3><p>在原始链表上建立索引或者称为(索引层)。其中索引层节点中存储的是索引值和指向索引值的对应下一级节点的指针(down指针)。</p><blockquote><p>单级索引是提高了不少查找的效率但是多级索引更能提升性能。</p></blockquote><p>这种链表+多级索引的数据结构，就是跳表。如下图：</p><p><img src="/2019/03/12/跳表/婕\数据结构与算法之美\picture\跳表图解.jpg" alt="跳表图解"></p><h2 id="跳表的查找删除的时间复杂度分析"><a href="#跳表的查找删除的时间复杂度分析" class="headerlink" title="跳表的查找删除的时间复杂度分析"></a>跳表的查找删除的时间复杂度分析</h2><h3 id="跳表查询时间复杂度分析"><a href="#跳表查询时间复杂度分析" class="headerlink" title="跳表查询时间复杂度分析"></a>跳表查询时间复杂度分析</h3><p>假如我们如上图定义的每隔一个节点就建立一个索引，那么假设原始数据有n个节点，则建立得到第一级节点大约就有n/2个节点，再往上建立索引则就有n/4、n/8、n/16…即第k层建立的索引是K-1层建立索引的1/2，那么第k级索引节点个数就是n/(2^k^)。</p><p><img src="/2019/03/12/跳表/婕\数据结构与算法之美\picture\多层跳表解析.jpg" alt="多层跳表解析"></p><p>假设我们的原始数据建立的索引有h层，最高层的索引有两个节点。则 <strong>n/(2^h^) = 2</strong> ,从而求得 <strong>h = log~2~(n-1)</strong></p><p>我们求得整个跳表得高度就是<strong>log2^(n-1)</strong>^,假设每层跳表我们遍历m个节点则从跳表中查询一个元素的时间复杂度就是<strong>O(m*logn)</strong>。</p><p>由于我们跳表是每隔一个节点就建立一个上层索引，最上层索引的节点的数量最大不超过3。从最上层节点确定区间后再往down指针下寻找更细的的区间划分在此层也只需按照上层一样最多遍历3个节点，依次类推。<strong>m的值就是一个常数3</strong>。</p><p>所以在跳表中查找人一个数据的<strong>时间复杂度就是O(logn)</strong>,这个查找的时间复杂度跟二分查找的时间复杂度相同，所以近似上我们是纵向的划分索引，然后横向利用二分查找，找符合区间的思想一层一层向下遍历，直到找到目标元素。</p><p><img src="/2019/03/12/跳表/婕\数据结构与算法之美\picture\跳表时间复杂度分析.jpg" alt="跳表时间复杂度分析"></p><h2 id="跳表的空间复杂度"><a href="#跳表的空间复杂度" class="headerlink" title="跳表的空间复杂度"></a>跳表的空间复杂度</h2><p>跳表的思想就是典型的用空间换时间的思想，几乎所有查找高效的数据结构都是用这样的思想。</p><p>假设原始链表大小为n，那第一级索引大约有n/2个节点，第二级索引大约有n/4个节点，依次类推，每上升一级就减少一半，直到剩下2个节点。所以跳表的索引节点总数为:n/2+n/4+n/8+…+8+4+2=n-2。是一个等比数列所以跳表的时间复杂度是O(n)。</p><h3 id="减少跳表的占用的内存空间"><a href="#减少跳表的占用的内存空间" class="headerlink" title="减少跳表的占用的内存空间"></a>减少跳表的占用的内存空间</h3><p>我们可以通过每隔多层节点建立索引，比如每隔2个结点或者每隔3个节点建立索引。那么就可以减少每层索引的节点数目。</p><p>当每隔2个节点就建立索引的化，我们建立索引的节点数=n/3+n/9+n/27+9+3+1=n/2。尽管空间复杂度还是O(n),但是比上面的每两个节点抽出一个节点的索引构建的方法，要减少一半的索引节点存储空间。</p><h3 id="实际开发中看待索引节点占用的空间"><a href="#实际开发中看待索引节点占用的空间" class="headerlink" title="实际开发中看待索引节点占用的空间"></a>实际开发中看待索引节点占用的空间</h3><p>实际开发中索引节点中存储的是要查找的对象属性和一个down指针，原始数据存储的则是大的对象，相比于原始数据的大小，索引所占用的额外的空间就可以忽略了。</p><h2 id="高效的动态插入和删除"><a href="#高效的动态插入和删除" class="headerlink" title="高效的动态插入和删除"></a>高效的动态插入和删除</h2><p>因为数据的插入和删除都需要保证原始数据的有序，所以跳表的插入也需要用到插找的思想，找到适合插入的前一个节点后面，利用链表插入操作对原始数据进行插入。</p><p>删除跟插入类似，但是删除必须利用查找找到要删除节点的前驱节点，进行链表是删除操作。</p><h2 id="跳表的索引更新"><a href="#跳表的索引更新" class="headerlink" title="跳表的索引更新"></a>跳表的索引更新</h2><p>假如在原始数据的基础上跳表中的元素增加删除会导致某一个区间里面的元素众多，导致查找效率变低，甚至跟单链表查找效率类似。作为一个动态结构，我们需要某种手段来维护索引与原始链表大小的之间的平衡，如果某个区间内节点过多就需要多建立索引，某个区间内节点过少就要适当删减索引。</p><h3 id="跳表维护平衡性"><a href="#跳表维护平衡性" class="headerlink" title="跳表维护平衡性"></a>跳表维护平衡性</h3><p>通过一个随机数函数，来决这个节点插入到那几级索引中，随机函数生成了k就将这个节点添加到第一级到第k级这k级索引中。</p><h2 id="为什么Redis中的有序集合是通过跳表来实现的"><a href="#为什么Redis中的有序集合是通过跳表来实现的" class="headerlink" title="为什么Redis中的有序集合是通过跳表来实现的"></a>为什么Redis中的有序集合是通过跳表来实现的</h2><p>严格上来讲，起始还用到了散列表。</p><p>根据Redis开发手册，就会发现Redis中的有序结合支持的核心操作主要有下面几个:</p><ul><li>插入一个数据</li><li>删除一个数据</li><li>查找一个数据</li><li>按照区间查找数据(比如查找[0,100]之间的数据)</li><li>迭代输出有序序列</li></ul><ol><li>除了区间查找这个操作，跳表可一做到O(logn)的时间复杂度定位区间定位起点，然后在原始链表中顺序往后遍历就可以了，比红黑树来说高效，其余操作红黑树跟跳表都可以高效实现。</li><li>跳表代码相比红黑树来说易于实现，且代码可读性高，不易出错，跳表更加灵活，它可以通过该表索引构建策略，有效平衡执行效率和内存消耗。</li></ol><p>缺点：</p><p>跳表出现的时间比较晚，很多编程语言中Map类型都是红黑树来实现的。业务开发过程中，直接拿来使用就可以了，不需要费劲自己去实现一个红黑树，但是跳表并没有一个线程的实现，所以开发中，如果你想使用跳表，必须要自己实现。</p><h1 id="跳表的实现"><a href="#跳表的实现" class="headerlink" title="跳表的实现"></a>跳表的实现</h1>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-&lt;h1 id=&quot;跳表-beers-–动态数据结构&quot;&gt;&lt;a href=&quot;#跳表-beers-–动态数据结构&quot; class=&quot;headerlink&quot; title=&quot;跳表:beers:–动态数据结构&quot;&gt;&lt;/a&gt;跳表:beers:–动态数据结构&lt;/h1&gt;&lt;p&gt;二分查找算法中底层是依赖数组实现的（依赖数组的随机访问的特性）。又有众多弊端，比如只能操作已排好序的数据。且拥有数组这个数据结构的弊端。比如对数据频繁的增加或者删除操作时间复杂度高，每次数据增加删除还需要保持数据的有序性（即只支持静态数据集），存储数据必须依数组所以开辟内存时，必须是需要连续的内存空间。（对空间要求比较严格)。  数据量太小也不需要使用二分查找，基本没有什么性能上的区别，但是假如一个数据集中它存储的（300字符）字符串，比较操作比较费时间，则就可以使用二分查找。&lt;/p&gt;
-&lt;p&gt;二分查找的思想其实可以用在链表中，比如：跳表&lt;/p&gt;
-&lt;p&gt;跳表的核心思想：分区，建立多级索引，“二分查找”&lt;/p&gt;
-&lt;p&gt;跳表可以支持快速插入，删除，查找操作，写起来也不复杂，代码的可读性较高（跟功能差不多的红黑树相比），Redis中的有序集合(Sort Set)就是用跳表来实现的&lt;strong&gt;。为什么Redis中会选取跳表作为实现有序集合而不是红黑树&lt;/strong&gt;？&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
-    
-    
-      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
-    
-      <category term="跳表" scheme="https://soyanga.github.io/tags/%E8%B7%B3%E8%A1%A8/"/>
     
   </entry>
   
