@@ -345,6 +345,222 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/18/TCP协议通讯流程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SOYANGA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SOYANGA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/18/TCP协议通讯流程/" itemprop="url">TCP协议通讯流程</a></h1>
+        
+
+        <div class="post-meta">
+		    
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T20:39:25+08:00">
+                2019-01-18
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-19T11:58:04+08:00">
+                2019-02-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux网络/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <meta name="referrer" content="no-referrer">
+
+
+
+<h2 id="TCP协议通讯流程"><a href="#TCP协议通讯流程" class="headerlink" title="TCP协议通讯流程"></a>TCP协议通讯流程</h2><p><strong>TCP要建立链接，就需要三次握手</strong> </p>
+<p><strong>TCP保证可靠性：确认应答机制。</strong> </p>
+<p><strong>TCP断开链接，需要4次握手</strong> </p>
+<p>维护链接是要有成本，TCP比UDP消耗更大，因为保证可靠性</p>
+<h3 id="问题：三次握手为什么不是2次呢，不是4次呢？"><a href="#问题：三次握手为什么不是2次呢，不是4次呢？" class="headerlink" title="问题：三次握手为什么不是2次呢，不是4次呢？"></a>问题：三次握手为什么不是2次呢，不是4次呢？</h3><p>客户端发起链接<strong>请求（SYN）</strong>，服务器对其<strong>响应</strong>（<strong>SYN+ACK</strong>），客户端再紧接着<strong>确认</strong>(<strong>ACK)</strong>。</p>
+<p>客户端发起链接<strong>请求</strong>，服务器对其<strong>响应</strong>，在网络中报文可能丢失，</p>
+<h4 id="为什么不是2次"><a href="#为什么不是2次" class="headerlink" title="为什么不是2次"></a>为什么不是2次</h4><p>客户端发送的报文丢失，链接失败</p>
+<p>但是客户端发送（<strong>请求</strong>）给服务器的报文没丢失，且服务器发送的报文（<strong>响应</strong>）发出后，服务器认为已经建立链接，但是客户端此时并能没有接收报文（报文在网络中传输），客户端认为并没有建立起链接。</p>
+<p>服务器认为链接建立好了，服务器就要求维护这个链接，<strong>服务器需要花成本去维护</strong>。，但是这个链接并不是双方认可的链接。</p>
+<p>如果服务器发送的<strong>响应报文</strong>，丢失了，客户端认为并没有链接，就会继续发送<strong>一个新的请求报文</strong>给服务器。此时服务器接收到<strong>请求报文</strong>，发送自己的<strong>响应报文</strong> 给客户端客户,服务器又认为链接已经建立，就又会<strong>花成本维护</strong>一个这个链接。</p>
+<p><strong>所以长此以往，服务器上就会有众多的闲时链接，导致服务器资源不够，服务器瘫痪。</strong></p>
+<p><strong>两次握手有着致命的缺陷。</strong></p>
+<p>2次握手情况下，假如人利用这种方式攻击服务器，服务器就会瘫痪，但是3次握手情况下服务器不会产生故障，攻击者也会得逞只会自己主机上会产生众多闲时链接自作自受。</p>
+<p><strong>三次握手前两次发送报文丢失了，服务器客户端不会认为链接已经建立。不会发生上述情况。</strong></p>
+<p><strong>分析最后一次确认链接报文发送过程中丢失了</strong>，客户端认为链接成功，服务器认为报文丢失了链接失败了。</p>
+<p>此时会发生以上的相反情况，客户端上就会有众多的闲时链接。</p>
+<p>但是服务器永远是多个客户端链接的，一对多的。得保证服务器的安全，所以是三次。</p>
+<h4 id="为什么不是4次-6-8"><a href="#为什么不是4次-6-8" class="headerlink" title="为什么不是4次 /6/8"></a><strong>为什么不是4次</strong> <strong>/6/8</strong></h4><p>这个就像是踢球一样，在谁的脚下发起最后的射门，谁就有责任对这个求负责。</p>
+<p>最后一次链接谁发决定谁可能会产生闲时链接。</p>
+<h4 id="为什么不是5次7次"><a href="#为什么不是5次7次" class="headerlink" title="为什么不是5次7次"></a>为什么不是5次7次</h4><p>没有必要这样，3次握手已经可以避免上述服务器瘫痪的操作，5次7次就很多余而且还会导致链接成功几率降低。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/18/TCP协议通讯流程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/18/网络套接字/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2253,210 +2469,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://soyanga.github.io/2019/01/14/Linux线程概念/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SOYANGA">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SOYANGA">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/14/Linux线程概念/" itemprop="url">Linux多线程概念</a></h1>
-        
-
-        <div class="post-meta">
-		    
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T10:10:31+08:00">
-                2019-01-14
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-19T00:37:27+08:00">
-                2019-01-19
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux多线程/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux多线程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  704
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="线程的概念（复习）-铺垫"><a href="#线程的概念（复习）-铺垫" class="headerlink" title="线程的概念（复习）-铺垫"></a>线程的概念（复习）-铺垫</h1><ul>
-<li>进程是<strong>分配系统资源的基本单位</strong></li>
-<li>线程是<strong>一个标准的进程(一个执行流的进程)</strong></li>
-</ul>
-<p><img src="/2019/01/14/Linux线程概念/Linux线程图解.png" alt="Linux线程图解"></p>
-<h2 id="1-理解（Linux下）"><a href="#1-理解（Linux下）" class="headerlink" title="1.理解（Linux下）"></a>1.理解（Linux下）</h2><p><strong>线程是在进程的内部运行的：</strong>线程是在进程的地址空间内运行的，共享一份虚拟地址空间。</p>
-<p><strong>线程大部分资源都是共享的</strong>。（共用一个虚拟地址空间）</p>
-<p><strong>进程大部分资源都是独立的</strong>。（每个一个进程都有自己独自的一份虚拟地址空间）</p>
-<p>CPU是只能识别PCB的，但是他无法区分进程还是线程。所以Linux当中CPU看到的一个进程相当于一个轻量级进程（&lt;=一个标准的进程(一个执行流的进程)）</p>
-<p>Linux下没有一份真正意义的进程。使用进程模拟线程。</p>
-<p>TCB ThreadContrlClock 线程控制块</p>
-<p><img src="/2019/01/14/Linux线程概念/线程概念.png" alt="线程概念"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/14/Linux线程概念/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-<div>
-  
-</div>
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2511,7 +2523,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2611,7 +2623,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">145k</span>
+    <span title="Site words total count">146.3k</span>
   
 </div>
 
