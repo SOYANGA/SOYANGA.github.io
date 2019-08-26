@@ -101,14 +101,14 @@
 <meta property="og:site_name" content="SOYANGA">
 <meta property="og:description" content="初识RedisRedis的铺垫MySQL的数据都是存储在磁盘中的，虽然在数据库层也做了对应的缓存，但是此缓存只是针对不变动的数据（读数据做缓存，写数据清理缓存）。即这种数据库的缓存仅仅针对的查询的内容而且粒度比较小。一般只有表中数据库未发生变动的时候数据库对应的Cache才能发挥作用。 无法减少业务系统对数据库产生的增删改查的IO压力，因此缓存数据库应运而生。该技术实现了对热点数据的高速缓存，提">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://soyanga.github.io/2019/08/24/初识Redis/Users/32183/AppData/Roaming/Typora/typora-user-images/1566116158126.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/08/24/初识Redis/Users/32183/AppData/Roaming/Typora/typora-user-images/1566119511319.png">
-<meta property="og:image" content="https://soyanga.github.io/2019/08/24/初识Redis/Users/32183/AppData/Roaming/Typora/typora-user-images/1566119661055.png">
-<meta property="og:updated_time" content="2019-08-24T16:13:52.680Z">
+<meta property="og:image" content="https://soyanga.github.io/2019/08/24/初识Redis/1566116158126.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/08/24/初识Redis/1566119511319.png">
+<meta property="og:image" content="https://soyanga.github.io/2019/08/24/初识Redis/1566119661055.png">
+<meta property="og:updated_time" content="2019-08-26T14:48:03.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初识Redis">
 <meta name="twitter:description" content="初识RedisRedis的铺垫MySQL的数据都是存储在磁盘中的，虽然在数据库层也做了对应的缓存，但是此缓存只是针对不变动的数据（读数据做缓存，写数据清理缓存）。即这种数据库的缓存仅仅针对的查询的内容而且粒度比较小。一般只有表中数据库未发生变动的时候数据库对应的Cache才能发挥作用。 无法减少业务系统对数据库产生的增删改查的IO压力，因此缓存数据库应运而生。该技术实现了对热点数据的高速缓存，提">
-<meta name="twitter:image" content="https://soyanga.github.io/2019/08/24/初识Redis/Users/32183/AppData/Roaming/Typora/typora-user-images/1566116158126.png">
+<meta name="twitter:image" content="https://soyanga.github.io/2019/08/24/初识Redis/1566116158126.png">
 
 
 
@@ -396,8 +396,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-25T00:13:52+08:00">
-                2019-08-25
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-26T22:48:03+08:00">
+                2019-08-26
               </time>
             
           </span>
@@ -486,7 +486,7 @@
         <p><meta name="referrer" content="no-referrer"></p>
 <h1 id="初识Redis"><a href="#初识Redis" class="headerlink" title="初识Redis"></a>初识Redis</h1><h2 id="Redis的铺垫"><a href="#Redis的铺垫" class="headerlink" title="Redis的铺垫"></a>Redis的铺垫</h2><p>MySQL的数据都是存储在磁盘中的，虽然在数据库层也做了对应的缓存，但是此缓存只是针对不变动的数据（读数据做缓存，写数据清理缓存）。即这种数据库的缓存仅仅针对的查询的内容而且粒度比较小。一般只有表中数据库未发生变动的时候数据库对应的Cache才能发挥作用。</p>
 <p>无法减少业务系统对数据库产生的增删改查的IO压力，因此缓存数据库应运而生。该技术实现了对热点数据的高速缓存，提高应用的响应速度，极大的缓解后端MySQL数据库的压力。</p>
-<p><img src="/2019/08/24/初识Redis/Users\32183\AppData\Roaming\Typora\typora-user-images\1566116158126.png" alt="1566116158126"></p>
+<p><img src="/2019/08/24/初识Redis/1566116158126.png" alt="1566116158126"></p>
 <a id="more"></a>
 <h2 id="面对缓存db穿透如何解决"><a href="#面对缓存db穿透如何解决" class="headerlink" title="面对缓存db穿透如何解决"></a>面对缓存db穿透如何解决</h2><ul>
 <li>采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免对底层数据系统的查询压力。（博隆过滤器判断一个数据不存在则这个数据真的是不存在，反之判断一个数据存在则这个数据不一定存在）<strong>可以一定程度上进行拦截不存在的请求，但是需要支持扩容机制，以及扩容后的多个位图，都将会被查询，降低了查询效率。</strong></li>
@@ -531,9 +531,10 @@
 </ul>
 <h2 id="多路I-O复用模型"><a href="#多路I-O复用模型" class="headerlink" title="多路I/O复用模型"></a>多路I/O复用模型</h2><h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p><strong>FD：</strong>File Descriptor, 文件描述符（用一个整数来表示）</p>
 <p>​    操作系统中，一个打开的文件通过唯一的描述符进行引用，该描述符是打开文件的元数据到文件本身的映射。</p>
-<h3 id="传统的IO阻塞模型"><a href="#传统的IO阻塞模型" class="headerlink" title="传统的IO阻塞模型"></a>传统的IO阻塞模型</h3><h3 id=""><a href="#" class="headerlink" title=""></a><img src="/2019/08/24/初识Redis/Users\32183\AppData\Roaming\Typora\typora-user-images\1566119511319.png" alt="1566119511319"></h3><p>会影响其他FD对应的服务，所以在需要处理多个任务处理任务的时候往往不会使用阻塞IO模型。</p>
+<h3 id="传统的IO阻塞模型"><a href="#传统的IO阻塞模型" class="headerlink" title="传统的IO阻塞模型"></a>传统的IO阻塞模型</h3><p><img src="/2019/08/24/初识Redis/1566119511319.png" alt="1566119511319"></p>
+<p>会影响其他FD对应的服务，所以在需要处理多个任务处理任务的时候往往不会使用阻塞IO模型。</p>
 <h3 id="IO多路复用模型"><a href="#IO多路复用模型" class="headerlink" title="IO多路复用模型"></a>IO多路复用模型</h3><p><strong>Select</strong>系统调用</p>
-<p><img src="/2019/08/24/初识Redis/Users\32183\AppData\Roaming\Typora\typora-user-images\1566119661055.png" alt="1566119661055"></p>
+<p><img src="/2019/08/24/初识Redis/1566119661055.png" alt="1566119661055"></p>
 <blockquote>
 <p>Select 可以同时监控多个文件描述符的可读可写情况，当某个文件描述符可读可写时，Select就会返回这个可读可写的文件描述的个数。</p>
 <p>Select是负责监听文件是否可读或者可写的将监听的任务交给Selecter后我们的程序就不会被阻塞了，可以执行其他任务去了。</p>
@@ -790,7 +791,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初识Redis"><span class="nav-number">1.</span> <span class="nav-text">初识Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis的铺垫"><span class="nav-number">1.1.</span> <span class="nav-text">Redis的铺垫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面对缓存db穿透如何解决"><span class="nav-number">1.2.</span> <span class="nav-text">面对缓存db穿透如何解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何保证缓存与数据库双写时的一致性？"><span class="nav-number">1.3.</span> <span class="nav-text">如何保证缓存与数据库双写时的一致性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#熔断技术"><span class="nav-number">1.4.</span> <span class="nav-text">熔断技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存中间件——Memcache-和-Redis的区别"><span class="nav-number">1.5.</span> <span class="nav-text">缓存中间件——Memcache 和 Redis的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Memcache-代码层次类似Hash"><span class="nav-number">1.5.1.</span> <span class="nav-text">Memcache:代码层次类似Hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis"><span class="nav-number">1.5.2.</span> <span class="nav-text">Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么Redis为什么这么快"><span class="nav-number">1.5.3.</span> <span class="nav-text">为什么Redis为什么这么快</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路I-O复用模型"><span class="nav-number">1.6.</span> <span class="nav-text">多路I/O复用模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.6.1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传统的IO阻塞模型"><span class="nav-number">1.6.2.</span> <span class="nav-text">传统的IO阻塞模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">1.6.3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO多路复用模型"><span class="nav-number">1.6.4.</span> <span class="nav-text">IO多路复用模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis采用的I-O多路复用函数：epoll-kqueue-evport-select"><span class="nav-number">1.6.5.</span> <span class="nav-text">Redis采用的I/O多路复用函数：epoll/kqueue/evport/select</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初识Redis"><span class="nav-number">1.</span> <span class="nav-text">初识Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis的铺垫"><span class="nav-number">1.1.</span> <span class="nav-text">Redis的铺垫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面对缓存db穿透如何解决"><span class="nav-number">1.2.</span> <span class="nav-text">面对缓存db穿透如何解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何保证缓存与数据库双写时的一致性？"><span class="nav-number">1.3.</span> <span class="nav-text">如何保证缓存与数据库双写时的一致性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#熔断技术"><span class="nav-number">1.4.</span> <span class="nav-text">熔断技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存中间件——Memcache-和-Redis的区别"><span class="nav-number">1.5.</span> <span class="nav-text">缓存中间件——Memcache 和 Redis的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Memcache-代码层次类似Hash"><span class="nav-number">1.5.1.</span> <span class="nav-text">Memcache:代码层次类似Hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis"><span class="nav-number">1.5.2.</span> <span class="nav-text">Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么Redis为什么这么快"><span class="nav-number">1.5.3.</span> <span class="nav-text">为什么Redis为什么这么快</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路I-O复用模型"><span class="nav-number">1.6.</span> <span class="nav-text">多路I/O复用模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.6.1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传统的IO阻塞模型"><span class="nav-number">1.6.2.</span> <span class="nav-text">传统的IO阻塞模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO多路复用模型"><span class="nav-number">1.6.3.</span> <span class="nav-text">IO多路复用模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis采用的I-O多路复用函数：epoll-kqueue-evport-select"><span class="nav-number">1.6.4.</span> <span class="nav-text">Redis采用的I/O多路复用函数：epoll/kqueue/evport/select</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
