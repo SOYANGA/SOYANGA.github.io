@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-08-24T16:13:52.680Z</updated>
+  <updated>2019-08-26T14:40:42.465Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Redis的数据类型</title>
+    <link href="https://soyanga.github.io/2019/08/26/Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
+    <id>https://soyanga.github.io/2019/08/26/Redis的数据类型/</id>
+    <published>2019-08-26T14:39:35.000Z</published>
+    <updated>2019-08-26T14:40:42.465Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="Redis的数据类型"><a href="#Redis的数据类型" class="headerlink" title="Redis的数据类型"></a>Redis的数据类型</h1><a id="more"></a><blockquote><p>Redis的单个操作都是原子性的。</p></blockquote><h2 id="供用户使用的数据类型"><a href="#供用户使用的数据类型" class="headerlink" title="供用户使用的数据类型"></a>供用户使用的数据类型</h2><ul><li><strong>String：最基本的数据类型，二进制安全</strong><ul><li>k-v键值对最大能存储521MB</li><li>二进制安全的意思是Redis的String可以包含任何数据。eg:jpg图片，或者序列化的对象</li><li>底层实现<code>sdshdr</code></li></ul></li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *保存字符串对象的结构</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span> &#123;</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">//buf 中已占用的空间长度</span></span><br><span class="line"> <span class="keyword">int</span> len;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//buf 中剩余可用空间的长度</span></span><br><span class="line"> <span class="keyword">int</span> <span class="built_in">free</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">//数据空间</span></span><br><span class="line"> <span class="keyword">char</span> buf[];</span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure><ul><li><strong>Hash: String元素组成的字典，适合用于存储对象（<code>field(String)-v</code>映射表）</strong><ul><li>优点类似于类对象，有属性通过get跟set访问修改属性。服务端序列化成Json的格式然后存储在其中。</li></ul></li><li><strong>List ：列表，按照String元素插入顺序排序</strong><ul><li>可以对List进行头插也可以进行尾插 </li><li><code>lpush（头插）</code>，<code>lrange（从左开始顺序取）</code> == Stack（结构类似）</li></ul></li><li><strong>Set：String元素组成的无序集合，通过哈西表实现，不允许重复</strong><ul><li><code>sadd添加 key value</code>由于唯一性正确返回1，重复添加返回0。第二次插入的元素直接被忽略。</li><li><code>smembers key value</code> 查看set集合中的元素</li><li>应用场景：微博中将一个用户的所有关注的人和粉丝分别存储在两个集合中，利用Redis的求交集并集操作可以非常方便的实现如：共同关注共同喜好互关等功能，还可以将结果返回给客户端还是存储在新的集合之中。</li><li>如果想要有序排列则需要使用Sorted Set数据类型</li></ul></li><li><strong>Sorted Set:通过分数来为集合中的成员进行从小到大的排序</strong><ul><li>与Set集合相同点：都是String类型的集合，且不允许重复的成员</li><li><strong>与Set集合不同点：每个元素都会关联一个Doublue类型的分数（Score），Redis正是通过整个分数来为集合中的成员进行排序</strong></li><li>ZSet集合中的每个成员的分数是可以重复的(重复的意思成员的<code>Score相同</code>但是成员的value不相同)</li><li><code>zrangebyscore myzaet 0 10</code>Set依据score范围排序查看</li><li>应用：给全班的同学成绩进行排序则创建一个sort set value是每一位同学姓名，score是每一位同学分数。最后进行<code>zrangebyscore</code>排序即可。</li><li>还可以用带score的set做带权重的队列按权重大小获取队列中的任务，重要任务优先执行。（优先级队列）</li></ul></li><li><strong>用于计数的HyperLogLog,用于支持存储地理位置信息的Geo</strong></li></ul><h2 id="底层数据类型基础"><a href="#底层数据类型基础" class="headerlink" title="底层数据类型基础"></a>底层数据类型基础</h2><ol><li>简单动态字符串</li><li>链表</li><li>字典</li><li>跳跃表</li><li>整数集合</li><li>压缩列表</li><li>对象</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+
+&lt;h1 id=&quot;Redis的数据类型&quot;&gt;&lt;a href=&quot;#Redis的数据类型&quot; class=&quot;headerlink&quot; title=&quot;Redis的数据类型&quot;&gt;&lt;/a&gt;Redis的数据类型&lt;/h1&gt;
+    
+    </summary>
+    
+      <category term="Redis数据库" scheme="https://soyanga.github.io/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="Redis数据库" scheme="https://soyanga.github.io/tags/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>初识Redis</title>
@@ -628,37 +653,6 @@
 &lt;li&gt;散列冲突的处理&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
-    
-    
-      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
-    
-      <category term="散列表" scheme="https://soyanga.github.io/tags/%E6%95%A3%E5%88%97%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>散列表(上)</title>
-    <link href="https://soyanga.github.io/2019/03/19/%E6%95%A3%E5%88%97%E8%A1%A8(%E4%B8%8A)/"/>
-    <id>https://soyanga.github.io/2019/03/19/散列表(上)/</id>
-    <published>2019-03-19T15:51:40.000Z</published>
-    <updated>2019-03-19T15:54:33.153Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="18-散列表-上"><a href="#18-散列表-上" class="headerlink" title="[18]散列表(上)"></a>[18]散列表(上)</h1><p>Word 单词检查功能-Hash Table</p><p>利用数组的下标随机访问，时间复杂度O(1)这个特性，就可以实现快速查找编号对应大的选手信息。</p><p><strong>散列表用的是数组支持按照下标随机访问数据的特性，所以散列表其实就是数组的一种扩展，由数组演化而来。可以说，如果没有数组，就没有散列表。</strong></p><p><strong>散列表键(key)或者关键字</strong>来表示一组数据的关键信息。然后利用<strong>散列函数(Hash函数)</strong>来转化为数组下标。而散列函数计算得到的值就是<strong>散列值(Hash值，哈希值)</strong>。数组下标中存储的值称为<strong>value</strong>。</p><p><img src="/2019/03/19/散列表(上)/哈希表原理.png" alt="哈希表原理"></p><p>由于<strong>散列表用的是数组支持按照下标随机访问的时候</strong>，时间复杂符是<strong>O(1)</strong>的特性。我们通散列函数把元素的建制映射为下标，然后将数据存储在数组中对应的下标的位置。当我们按照键值查询元素时，我们用同样的散列函数，将建值转化为数组下标，从对应的数组下标的位置取数据。</p><a id="more"></a><h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><p>散列函数的表现形式有多种，其中最为常用的取模（按照基本数组的长度)。</p><p>还有其他的散列函数</p><h2 id="如何构造散列函数"><a href="#如何构造散列函数" class="headerlink" title="如何构造散列函数"></a>如何构造散列函数</h2><ul><li>散列函数计算得到的散列值是一个非负数</li><li>如果key1 = key2,那hash(key1) == hash(key2);</li><li>如果key1 != key2，那hash(key1) !=hash(key2);</li></ul><p>其中第三点的很难做到，想要找到一个不同的key对应的散列值都不一样的散列函数，几乎时不可能的。</p><p>因为数组的存储空间有限，也会加大<strong>散列冲突</strong>的概率。</p><h2 id="如何解决散列冲突问题"><a href="#如何解决散列冲突问题" class="headerlink" title="如何解决散列冲突问题"></a>如何解决散列冲突问题</h2><p> 常用解决散列冲突的方法有两类，开放寻址法和链表法。</p><h3 id="开发寻址法"><a href="#开发寻址法" class="headerlink" title="开发寻址法"></a>开发寻址法</h3><p>开放寻址法的核心思想就i是，如果出现散列冲突，我们就重新探测一个空闲的位置，将其插入。探测的方法有多种，比如<strong>线性探测</strong>，<strong>二次探测</strong>，<strong>双重散列</strong>。</p><h4 id="线性探测"><a href="#线性探测" class="headerlink" title="线性探测"></a>线性探测</h4><p>假如要存储的值经过hash算法计算后得到的下标已经被占用，就向后线性一个一个向后进行探测。</p><p>所谓探测，有三点要求</p><blockquote><p>哈希冲突的下标后也已经被占用则就继续向后探测，直到找到数组中没有被占用的下标将冲突的数据插入。</p></blockquote><blockquote><p>假如从发生哈希冲突的那个点开始，向后进行线性探测，探测到数组的末尾后就又从数组的头开始进行探测。</p><p>假如从在Hashtable中删除了某个元素，我们就需要将当前删除的元素做一个标记（falg）。</p></blockquote><p>只有满足探测的位置为空且探测位置没有flag标记，才进行数据的存储。</p><h4 id="二次探测"><a href="#二次探测" class="headerlink" title="二次探测"></a>二次探测</h4><p>在线性探测的基础上，只是改变了探测的规则，每次探测相隔的距离不同。比如说每次探测的跨度为2。</p><h4 id="双重散列"><a href="#双重散列" class="headerlink" title="双重散列"></a>双重散列</h4><p>当插入数据的时候使用hash1(),当发生散列冲突的时候就要使用hash2()，再次发生散列冲突的时候再次使用hash3()。</p><h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><p>开发地址法：<strong>有一个致命的缺点，就是他只能缓解少量散列冲突，当散列冲突发生多次时，后续对Hash表的插入发生散列冲突的概率就会大大提高</strong>，<strong>散列表的性能就会下降</strong>。进而为了保证散列表的操作效率，一般情况下，我们会尽可能保证散列表中有一定的比例的空闲槽位。我们引入了<strong>装载因子</strong>来表示空位的多少。</p><p>装载因子的计算公式是:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">散列表的装载因子 = 填入表中的元素个数/散列表的长度</span><br></pre></td></tr></table></figure><p>装载因子越大，说明空闲位置越少，冲突越多，散列表的性能就会下降。</p><h3 id="链表法"><a href="#链表法" class="headerlink" title="链表法"></a>链表法</h3><p>链表法是一种更加常用的散列冲突解决方法，相比开放寻址法，它更为有效，采用空间换时间的原理。</p><p><strong>数组+链表存储结构</strong></p><p>每当发生散列冲突时，就将发生冲突的数据存储在链表中。链表插入操作时间复杂度O(1),查找删除一个元素怒时，我们同样通过散列函数计算出对应的槽，然后遍历链表查找或者删除。那查找或者删除时间复杂度实际上跟链表长度K成正比，也就是O(k)。</p><p>对于散列表均匀的散列表来说，理论上讲，k = n/m,其中n表示表示散列中数据的个数，m表示散列表中的槽数。</p><h2 id="Word文档中单词检查拼写功能是如何实现的？"><a href="#Word文档中单词检查拼写功能是如何实现的？" class="headerlink" title="Word文档中单词检查拼写功能是如何实现的？"></a>Word文档中单词检查拼写功能是如何实现的？</h2><p>将常用单词(约20万)存放到散列表中，平均一个单词10字节的内存空间，那么20万英文单词约占2MB空间，将2MB的数据存储在内存中。</p><p>当我们输入英文单词时，我们就拿用户输入的单词去散列表中进行查找。如果查找到，说明拼写正确；如果没有查找到，则说明拼写可能有误，给予提示，借助散列表这种数据结构，我们就可以轻松实现快速判断是否存在拼写错误。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-&lt;h1 id=&quot;18-散列表-上&quot;&gt;&lt;a href=&quot;#18-散列表-上&quot; class=&quot;headerlink&quot; title=&quot;[18]散列表(上)&quot;&gt;&lt;/a&gt;[18]散列表(上)&lt;/h1&gt;&lt;p&gt;Word 单词检查功能-Hash Table&lt;/p&gt;
-&lt;p&gt;利用数组的下标随机访问，时间复杂度O(1)这个特性，就可以实现快速查找编号对应大的选手信息。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;散列表用的是数组支持按照下标随机访问数据的特性，所以散列表其实就是数组的一种扩展，由数组演化而来。可以说，如果没有数组，就没有散列表。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;散列表键(key)或者关键字&lt;/strong&gt;来表示一组数据的关键信息。然后利用&lt;strong&gt;散列函数(Hash函数)&lt;/strong&gt;来转化为数组下标。而散列函数计算得到的值就是&lt;strong&gt;散列值(Hash值，哈希值)&lt;/strong&gt;。数组下标中存储的值称为&lt;strong&gt;value&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/2019/03/19/散列表(上)/哈希表原理.png&quot; alt=&quot;哈希表原理&quot;&gt;&lt;/p&gt;
-&lt;p&gt;由于&lt;strong&gt;散列表用的是数组支持按照下标随机访问的时候&lt;/strong&gt;，时间复杂符是&lt;strong&gt;O(1)&lt;/strong&gt;的特性。我们通散列函数把元素的建制映射为下标，然后将数据存储在数组中对应的下标的位置。当我们按照键值查询元素时，我们用同样的散列函数，将建值转化为数组下标，从对应的数组下标的位置取数据。&lt;/p&gt;
     
     </summary>
     
