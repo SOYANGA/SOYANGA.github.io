@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://soyanga.github.io/"/>
-  <updated>2019-09-29T06:45:44.966Z</updated>
+  <updated>2019-11-13T15:10:00.882Z</updated>
   <id>https://soyanga.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>安卓学习笔记&lt;1&gt;</title>
+    <link href="https://soyanga.github.io/2019/11/13/%E5%AE%89%E5%8D%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/"/>
+    <id>https://soyanga.github.io/2019/11/13/安卓学习笔记-1/</id>
+    <published>2019-11-13T15:05:01.000Z</published>
+    <updated>2019-11-13T15:10:00.882Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="Android学习笔记（一）"><a href="#Android学习笔记（一）" class="headerlink" title="Android学习笔记（一）"></a>Android学习笔记（一）</h1><p>Time： 2019/11/13 </p><p><img src="/2019/11/13/安卓学习笔记-1/1.png" alt="1"></p><a id="more"></a><h2 id="针对安卓开发需要的注意的两个问题："><a href="#针对安卓开发需要的注意的两个问题：" class="headerlink" title="针对安卓开发需要的注意的两个问题："></a>针对安卓开发需要的注意的两个问题：</h2><ol><li><strong>系统碎片化</strong>：版本兼容问题，以及由于国内Rom定制盛行，对原生系统的更改导致开发后的app无法在定制Rom上正常运行。（已经测试需要的功能正常运行，板子上安装的是谷歌原生Android4.03）</li><li><strong>屏幕碎片化</strong>：屏幕尺寸问题（放到最后的优化自适应屏幕尺寸，当前只考虑1980 * 800的7寸的屏幕）</li></ol><h2 id="平台架构图"><a href="#平台架构图" class="headerlink" title="平台架构图"></a>平台架构图</h2><p>Android操作系统是一个软件组件的栈，在架构图中它大致可以分为五个部分和四个主要层。</p><p><img src="/2019/11/13/安卓学习笔记-1/image-20191113114302834.png" alt="image-20191113114302834"></p><ol><li><p><strong>Application(应用程序层)</strong>我们一般来说的应用层开发就是在这个层次上进行的，当然包括了系统内置的一组应用程序，java语言开发的。</p></li><li><p><strong>Application Framework(应用程序框架层)</strong>无论系统内置或者我们自己编写的App,都需要使用到这层，eg:获取电话黑名单，自动挂断电话，我们就需要用到电话管理（TelephoneyManager）通过该层我嫩就可以很轻松的实现挂断操作，而不需要关心底层实现。</p></li><li><p><strong>Librarises(库) + Android Runtime(Android运行时</strong>)Android给我们提供了一组C/C++库，为平台的不同组件所使用，比如媒体框架；而Android Runtime则由Android核心库集 + Dalvik虚拟机构成</p><ul><li>Dalvik虚拟机则是针对移动设备的虚拟机。特点：不需要很快的cpu计算速度和大量的内存空间，而每个App都单独地运行在单独地Dalvik虚拟机内地每个app对应一条Dalvik进程</li></ul><p><img src="/2019/11/13/安卓学习笔记-1/image-20191113112723998.png" alt="image-20191113112723998"></p><ul><li><strong>后期可以优化的点Dalvik虚拟机的配置</strong></li></ul></li><li><p><strong>Linux内核</strong> 这里就设计底层驱动，一些服务，不如安全性，内存管理以及进程管理等。</p></li></ol><h2 id="相关术语"><a href="#相关术语" class="headerlink" title="相关术语"></a>相关术语</h2><ol><li>Dalvik:Android特有的虚拟机，适合运行与移动端</li><li>AVD:（android virtual machine）:安卓虚拟设备（安卓模拟器）</li><li>ADT:（android development tools）:安卓开发工具</li><li>SDK:（software development kit）:软件开发工具包，就是安卓系统，平台架构等的工具集合</li><li>DDMS:安卓调试工具</li><li>adb:安卓调试，在sdk的platform-tools目录下，功能很多，命令行必备</li><li>DX工具：将class转换成.dex文件</li><li>AAPT:安卓资源打包工具</li><li>R.java文件：由app工具根据App中的资源文件自动生成，可以理解为资源字典</li><li>AndroidManifest.xml:app包名+组件声明+程序兼容的最低版本+所需权限等程序的配置文件</li></ol><h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><ul><li><p>build:构建目录，相当于bin目录</p></li><li><p>libs:依赖的包</p></li><li><p>src:</p><ul><li>androidTest:安卓单元测试的目录</li><li>main<ul><li>Java：写Java代码的地方,业务功能实现</li><li>res:资源文件  （res下每个资源都都会在R.java生成一个唯一的id） <ul><li>drawable:图像资源</li><li>layout:布局资源</li><li>menu:菜单资源</li><li>value:<ul><li>demens:css配置文件</li><li>string：字符串资源</li><li>styles：style资源</li></ul></li></ul></li></ul></li></ul></li><li>AndroidManifest.xml:配置文件</li><li>build.gradle:Gradle构建脚本</li></ul><p>注：可以从 Logcat 选择日志类型来筛选查看日志，定位错误信息于代码地点</p><h2 id="9图片（GUI-UI-界面）"><a href="#9图片（GUI-UI-界面）" class="headerlink" title=".9图片（GUI(UI)界面）"></a>.9图片（GUI(UI)界面）</h2><p>eg: <em>pic1.9.png</em> </p><p>作用：在图片拉伸的时候特定的区域不会发生图片失真，eg:qq发送的消息气泡，不论里面的内容如何长度，气泡边缘区域的图片并不会发生变化。</p><p>应用：可以对具体的按钮或者背景在填充内容情况下边缘不会发生变形。</p><p>核心要点： <strong>左上拉伸，右下内容</strong> </p><p> 左边那条黑色线代表图片垂直拉伸的区域，<br>上边的那条黑色线代表水平拉伸区域，<br>右边的黑色线代表内容绘制的垂直区域，<br>下边的黑色线代表内容绘制的水平区域，<br>右边和下边的线是可选的，左边和上边的线不能省略。 </p><h2 id="界面原型设计"><a href="#界面原型设计" class="headerlink" title="界面原型设计"></a>界面原型设计</h2><ul><li><h3 id="Android自带DroidDraw工具设计Android界面-可自动生成代码"><a href="#Android自带DroidDraw工具设计Android界面-可自动生成代码" class="headerlink" title="Android自带DroidDraw工具设计Android界面(可自动生成代码)"></a>Android自带DroidDraw工具设计Android界面(可自动生成代码)</h3></li><li><h3 id="Mockplus原型工具的使用"><a href="#Mockplus原型工具的使用" class="headerlink" title="Mockplus原型工具的使用"></a>Mockplus原型工具的使用</h3></li></ul><h2 id="工程项目结构具体解析"><a href="#工程项目结构具体解析" class="headerlink" title="工程项目结构具体解析"></a>工程项目结构具体解析</h2><p><img src="/2019/11/13/安卓学习笔记-1/image-20191113224542920.png" alt="image-20191113224542920"></p><p><strong>res目录:</strong>res下的每个资源都会R.java文件中生成唯一的id。</p><p><strong>mipmap目录：</strong>mipmap会在图片缩放在提供一定的性能优化，根据分辨率的不同系统会根据屏幕分辨率来选择hdpi,mdpi,xmdpi,xxhdpi下的对应的图片，可以解压别人的apk可以看到上述目录同一名称的图片，在四个文件夹下都有，只是大小和像素不同。加载图片的顺序是，使用最接近的密度级别来加载图片，如何想禁止Android不跟随屏幕密度加载不同文件夹的资源，只需要在<code>AndriodManifest.xml</code>文件中添加<code>android:anyDensity=“false”</code>字段即可。</p><h3 id="图片资源"><a href="#图片资源" class="headerlink" title="图片资源"></a>图片资源</h3><ul><li><strong>drawable:</strong>存放各种位图文件（png,jpg,9png,gif）除此之外可能是一些其他的drawable类型的xml文件</li><li><strong>mipmap-hdpi：</strong>高分辨率，一般我们把图片丢这里</li><li><strong>mipmap-mdpi：</strong>中等分辨率，很少，除非兼容的的手机很旧</li><li><strong>mipmap-xhdpi：</strong>超高分辨率（中高端机型）</li><li><strong>mipmap-xxhdpi：</strong>超超高分辨率（高端机型）</li></ul><h3 id="布局资源"><a href="#布局资源" class="headerlink" title="布局资源"></a>布局资源</h3><ul><li><strong>layout：</strong>该目录下存放的就是我们的布局文件，另外在一些特定的机型上，我们做屏幕适配，比如480*320这样的手机，我们会另外创建一套布局，就行：layout-480x320这样的文件夹！(可后续做屏幕适配)</li></ul><h3 id="菜单资源"><a href="#菜单资源" class="headerlink" title="菜单资源"></a>菜单资源</h3><ul><li>menu:物理按钮，menu键在手机上，现在用的并不多，菜单项相关的资源xml可以在这里编写</li></ul><h3 id="Values目录"><a href="#Values目录" class="headerlink" title="Values目录"></a>Values目录</h3><ul><li>demens.xml:定义尺寸资源</li><li>string.xml：定义字符串资源</li><li>styles.xml：定义样式资源</li><li>colors.xml：定义颜色资源</li><li>arrays.xml：定义数组资源</li><li>attrs.xml：自定义控件时用的较多，自定义控件的属性！</li><li>theme主题文件，和styles很相似，但是会对整个应用中的Actvitiy或指定Activity起作用，一般是改变窗口外观的！可在Java代码中通过setTheme使用，或者在Androidmanifest.xml中为&lt;application…&gt;添加theme的属性！ PS:你可能看到过这样的values目录：values-w820dp，values-v11等，前者w代表平板设备，820dp代表屏幕宽度；而v11这样代表在API(11)，即android 3.0后才会用到的！</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+
+&lt;h1 id=&quot;Android学习笔记（一）&quot;&gt;&lt;a href=&quot;#Android学习笔记（一）&quot; class=&quot;headerlink&quot; title=&quot;Android学习笔记（一）&quot;&gt;&lt;/a&gt;Android学习笔记（一）&lt;/h1&gt;&lt;p&gt;Time： 2019/11/13 &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2019/11/13/安卓学习笔记-1/1.png&quot; alt=&quot;1&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="https://soyanga.github.io/categories/Android/"/>
+    
+    
+      <category term="Android学习笔记" scheme="https://soyanga.github.io/tags/Android%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>《暗时间》-序言</title>
@@ -597,40 +623,6 @@
 
 &lt;h1 id=&quot;22-哈西算法-下-哈希算法在分布式系统中有哪些应用&quot;&gt;&lt;a href=&quot;#22-哈西算法-下-哈希算法在分布式系统中有哪些应用&quot; class=&quot;headerlink&quot; title=&quot;[22]哈西算法(下): 哈希算法在分布式系统中有哪些应用&quot;&gt;&lt;/a&gt;[22]哈西算法(下): 哈希算法在分布式系统中有哪些应用&lt;/h1&gt;&lt;p&gt;哈希算法上讲了，哈希算法的四个应用，分别是 安全加密、数据检验、唯一标识、散列函数&lt;/p&gt;
 &lt;p&gt;还剩下 ：&lt;strong&gt;负载均衡、数据分片、分布式存储&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
-    
-    
-      <category term="数据结构与算法之美" scheme="https://soyanga.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
-    
-      <category term="哈希算法" scheme="https://soyanga.github.io/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>哈希算法(上)</title>
-    <link href="https://soyanga.github.io/2019/04/01/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95(%E4%B8%8A)/"/>
-    <id>https://soyanga.github.io/2019/04/01/哈希算法(上)/</id>
-    <published>2019-04-01T14:45:02.000Z</published>
-    <updated>2019-04-01T14:46:12.926Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="21-哈希算法-上-：如何防止数据库中的用户信息被脱库？"><a href="#21-哈希算法-上-：如何防止数据库中的用户信息被脱库？" class="headerlink" title="[21]哈希算法(上)：如何防止数据库中的用户信息被脱库？"></a>[21]哈希算法(上)：如何防止数据库中的用户信息被脱库？</h1><p>哈希算法：将任意长度的二进制串映射成固定长度的二进制串，这个映射的规则就是哈希算法，通过原始数据映射后得到的二进制值就是哈希值。</p><h2 id="优秀哈希算法的要求"><a href="#优秀哈希算法的要求" class="headerlink" title="优秀哈希算法的要求"></a>优秀哈希算法的要求</h2><ul><li>从哈希值不能反向推导出原始数据（哈希算法也叫<strong>单向哈希算法</strong>）</li><li>对输入数据非常敏感，哪怕原始数据只<strong>修改了一个Bit</strong>,最后<strong>得到的哈希也大不相同</strong>；</li><li>散列<strong>冲突的概率很小</strong>，对于不同的原始数据，哈希值相同的概率非常小；</li><li>哈希算法的<strong>执行效率要尽可能高效</strong>，针对较长的文本，也能快速计算出哈希值</li></ul><a id="more"></a><h2 id="哈希算法的应用"><a href="#哈希算法的应用" class="headerlink" title="哈希算法的应用"></a>哈希算法的应用</h2><p><strong>安全加密</strong>，<strong>唯一标识</strong>，<strong>数据校验</strong>，<strong>散列函数</strong>，负载均衡，数据分片，分布式存储。</p><h2 id="应用一：安全加密"><a href="#应用一：安全加密" class="headerlink" title="应用一：安全加密"></a>应用一：安全加密</h2><h3 id="常用于加密的哈希算法："><a href="#常用于加密的哈希算法：" class="headerlink" title="常用于加密的哈希算法："></a>常用于加密的哈希算法：</h3><p><strong>MD5</strong>:MD5 Message-Digest Algorithm MD5消息摘要算法</p><p><strong>SHA:</strong> Secure Hash Algorithm 安全散列算法</p><p><strong>DES:</strong> Data Encryption Standard 数据加密标准</p><p><strong>AES:</strong> Advanced Encryption Standard 高级加密标准</p><p>加密哈希算法来说 “单项哈希 ”，“散列冲突小”两点很重要</p><p>单项哈希是一个加密哈希算法来说必要的一点。<strong>散列冲突是无法避免的</strong>，因为基于组合数学中一个非常基础的理论<strong>鸽巢原理(也叫抽屉原理)</strong>。也就是10个鸽巢，11个鸽子，那肯定有一个鸽巢的鸽子数量多于1个，换句话说，肯定由2只鸽子在1个鸽巢中。</p><p>所以哈希算法无<strong>法做到零冲突</strong>，MD5的例子哈希值是固定的128为二进制尾，能表示的数据有限的，最多标识2^128^个数据，而我们要哈希的数据是无穷的，基于鸽巢原理，如果我们存储2^128^+1个数据求哈希值，必然会发生哈希冲突。<strong>所以哈希值越长的哈希算法，散列冲突的概率越低</strong>。</p><p>没有绝对的安全加密，<strong>越复杂，越难破解的加密算法，需要计算的时间也就越长。实际开发过程中，也需要权衡破解难度和计算时间，来决定究竟使用那种加密算法。</strong></p><h2 id="应用二：唯一标识"><a href="#应用二：唯一标识" class="headerlink" title="应用二：唯一标识"></a>应用二：唯一标识</h2><p>对图片的唯一标识，可以给每个图片取一个唯一标识，或者说信息摘要。比如说可以从图片二进制代码串开头取100字节，从中间取100字节，从最后再取100字节。然后将这300字节拼到一起，通过哈希算法，的到一个哈希值，将其作为图片的唯一标识。过这个唯一标识来判定图片是否在图库中，这样就可以减少很多工作量。</p><p>还可以把图片的相应图片文件在图库中的路径信息，都存储在散列表中。<strong>提高检索效率</strong></p><p>哈希算法可以对大数据做信息摘要，通过一个较短的二进制编码来表示一个很大的数据。</p><h2 id="应用三：数据校验"><a href="#应用三：数据校验" class="headerlink" title="应用三：数据校验"></a>应用三：数据校验</h2><p>利用<strong>哈希算法对输入数据敏感的特点</strong>，可以对数据取哈希值，从而<strong>高效校验数据是否被篡改过。</strong>（校验文件完整性正确性）</p><p>利用哈希算法的特性改动有效特性，对下载种子文件拆分成若干文件取哈希值，当下载完成后的文件拼接成一个完成文件并分别校验之前划分文件的哈希值是否改变从而确定下载数据的完整性</p><h2 id="应用四：散列函数"><a href="#应用四：散列函数" class="headerlink" title="应用四：散列函数"></a>应用四：散列函数</h2><p>散列函数关注的重点是哈希算法更加关注散列后的值能<strong>不能被平均分布</strong>，以<strong>及散列函数的执行快慢</strong>。（所以，散列函数用的散列算法一般都比较简单，比较追求效率。</p><h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><p>1.如何防止数据库中的用户信息被脱库？你会如何存储用户密码这么重要的数据吗？<br>①使用MD5进行加密（加密存储）<br>②字典攻击：如果用户信息被“脱库”，黑客虽然拿到的是加密之后的密文，但可以通过“猜”的方式来破解密码，这是因为，有些用户的密码太简单。（字典中存储用户常用的密码）<br>③针对字典攻击，我们可以引入一个盐（salt），跟用户密码组合在一起，增加密码的复杂度。</p><p>安全和攻击是一种博弈关系，不存在结对安全，所有安全措施，只是增加攻击成本而已。</p><h2 id="区块链中使用的哈希算法"><a href="#区块链中使用的哈希算法" class="headerlink" title="区块链中使用的哈希算法"></a>区块链中使用的哈希算法</h2><p>区块链是一块块区块组成的，每个区块分为两部分：区块头和区块体。</p><p>区块头保存着 自己区块体 和 上一个区块头 的哈希值。</p><p>因为这种链式关系和哈希值的唯一性，只要区块链上任意一个区块被修改过，后面所有区块保存的哈希值就不对了。</p><p>区块链使用的是 SHA256 哈希算法，计算哈希值非常耗时，如果要篡改一个区块，就必须重新计算该区块后面所有的区块的哈希值，短时间内几乎不可能做到。  </p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-
-
-&lt;h1 id=&quot;21-哈希算法-上-：如何防止数据库中的用户信息被脱库？&quot;&gt;&lt;a href=&quot;#21-哈希算法-上-：如何防止数据库中的用户信息被脱库？&quot; class=&quot;headerlink&quot; title=&quot;[21]哈希算法(上)：如何防止数据库中的用户信息被脱库？&quot;&gt;&lt;/a&gt;[21]哈希算法(上)：如何防止数据库中的用户信息被脱库？&lt;/h1&gt;&lt;p&gt;哈希算法：将任意长度的二进制串映射成固定长度的二进制串，这个映射的规则就是哈希算法，通过原始数据映射后得到的二进制值就是哈希值。&lt;/p&gt;
-&lt;h2 id=&quot;优秀哈希算法的要求&quot;&gt;&lt;a href=&quot;#优秀哈希算法的要求&quot; class=&quot;headerlink&quot; title=&quot;优秀哈希算法的要求&quot;&gt;&lt;/a&gt;优秀哈希算法的要求&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;从哈希值不能反向推导出原始数据（哈希算法也叫&lt;strong&gt;单向哈希算法&lt;/strong&gt;）&lt;/li&gt;
-&lt;li&gt;对输入数据非常敏感，哪怕原始数据只&lt;strong&gt;修改了一个Bit&lt;/strong&gt;,最后&lt;strong&gt;得到的哈希也大不相同&lt;/strong&gt;；&lt;/li&gt;
-&lt;li&gt;散列&lt;strong&gt;冲突的概率很小&lt;/strong&gt;，对于不同的原始数据，哈希值相同的概率非常小；&lt;/li&gt;
-&lt;li&gt;哈希算法的&lt;strong&gt;执行效率要尽可能高效&lt;/strong&gt;，针对较长的文本，也能快速计算出哈希值&lt;/li&gt;
-&lt;/ul&gt;
     
     </summary>
     

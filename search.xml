@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>安卓学习笔记&lt;1&gt;</title>
+      <link href="/2019/11/13/%E5%AE%89%E5%8D%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/"/>
+      <url>/2019/11/13/%E5%AE%89%E5%8D%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/</url>
+      
+        <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="Android学习笔记（一）"><a href="#Android学习笔记（一）" class="headerlink" title="Android学习笔记（一）"></a>Android学习笔记（一）</h1><p>Time： 2019/11/13 </p><p><img src="/2019/11/13/安卓学习笔记-1/1.png" alt="1"></p><a id="more"></a><h2 id="针对安卓开发需要的注意的两个问题："><a href="#针对安卓开发需要的注意的两个问题：" class="headerlink" title="针对安卓开发需要的注意的两个问题："></a>针对安卓开发需要的注意的两个问题：</h2><ol><li><strong>系统碎片化</strong>：版本兼容问题，以及由于国内Rom定制盛行，对原生系统的更改导致开发后的app无法在定制Rom上正常运行。（已经测试需要的功能正常运行，板子上安装的是谷歌原生Android4.03）</li><li><strong>屏幕碎片化</strong>：屏幕尺寸问题（放到最后的优化自适应屏幕尺寸，当前只考虑1980 * 800的7寸的屏幕）</li></ol><h2 id="平台架构图"><a href="#平台架构图" class="headerlink" title="平台架构图"></a>平台架构图</h2><p>Android操作系统是一个软件组件的栈，在架构图中它大致可以分为五个部分和四个主要层。</p><p><img src="/2019/11/13/安卓学习笔记-1/image-20191113114302834.png" alt="image-20191113114302834"></p><ol><li><p><strong>Application(应用程序层)</strong>我们一般来说的应用层开发就是在这个层次上进行的，当然包括了系统内置的一组应用程序，java语言开发的。</p></li><li><p><strong>Application Framework(应用程序框架层)</strong>无论系统内置或者我们自己编写的App,都需要使用到这层，eg:获取电话黑名单，自动挂断电话，我们就需要用到电话管理（TelephoneyManager）通过该层我嫩就可以很轻松的实现挂断操作，而不需要关心底层实现。</p></li><li><p><strong>Librarises(库) + Android Runtime(Android运行时</strong>)Android给我们提供了一组C/C++库，为平台的不同组件所使用，比如媒体框架；而Android Runtime则由Android核心库集 + Dalvik虚拟机构成</p><ul><li>Dalvik虚拟机则是针对移动设备的虚拟机。特点：不需要很快的cpu计算速度和大量的内存空间，而每个App都单独地运行在单独地Dalvik虚拟机内地每个app对应一条Dalvik进程</li></ul><p><img src="/2019/11/13/安卓学习笔记-1/image-20191113112723998.png" alt="image-20191113112723998"></p><ul><li><strong>后期可以优化的点Dalvik虚拟机的配置</strong></li></ul></li><li><p><strong>Linux内核</strong> 这里就设计底层驱动，一些服务，不如安全性，内存管理以及进程管理等。</p></li></ol><h2 id="相关术语"><a href="#相关术语" class="headerlink" title="相关术语"></a>相关术语</h2><ol><li>Dalvik:Android特有的虚拟机，适合运行与移动端</li><li>AVD:（android virtual machine）:安卓虚拟设备（安卓模拟器）</li><li>ADT:（android development tools）:安卓开发工具</li><li>SDK:（software development kit）:软件开发工具包，就是安卓系统，平台架构等的工具集合</li><li>DDMS:安卓调试工具</li><li>adb:安卓调试，在sdk的platform-tools目录下，功能很多，命令行必备</li><li>DX工具：将class转换成.dex文件</li><li>AAPT:安卓资源打包工具</li><li>R.java文件：由app工具根据App中的资源文件自动生成，可以理解为资源字典</li><li>AndroidManifest.xml:app包名+组件声明+程序兼容的最低版本+所需权限等程序的配置文件</li></ol><h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><ul><li><p>build:构建目录，相当于bin目录</p></li><li><p>libs:依赖的包</p></li><li><p>src:</p><ul><li>androidTest:安卓单元测试的目录</li><li>main<ul><li>Java：写Java代码的地方,业务功能实现</li><li>res:资源文件  （res下每个资源都都会在R.java生成一个唯一的id） <ul><li>drawable:图像资源</li><li>layout:布局资源</li><li>menu:菜单资源</li><li>value:<ul><li>demens:css配置文件</li><li>string：字符串资源</li><li>styles：style资源</li></ul></li></ul></li></ul></li></ul></li><li>AndroidManifest.xml:配置文件</li><li>build.gradle:Gradle构建脚本</li></ul><p>注：可以从 Logcat 选择日志类型来筛选查看日志，定位错误信息于代码地点</p><h2 id="9图片（GUI-UI-界面）"><a href="#9图片（GUI-UI-界面）" class="headerlink" title=".9图片（GUI(UI)界面）"></a>.9图片（GUI(UI)界面）</h2><p>eg: <em>pic1.9.png</em> </p><p>作用：在图片拉伸的时候特定的区域不会发生图片失真，eg:qq发送的消息气泡，不论里面的内容如何长度，气泡边缘区域的图片并不会发生变化。</p><p>应用：可以对具体的按钮或者背景在填充内容情况下边缘不会发生变形。</p><p>核心要点： <strong>左上拉伸，右下内容</strong> </p><p> 左边那条黑色线代表图片垂直拉伸的区域，<br>上边的那条黑色线代表水平拉伸区域，<br>右边的黑色线代表内容绘制的垂直区域，<br>下边的黑色线代表内容绘制的水平区域，<br>右边和下边的线是可选的，左边和上边的线不能省略。 </p><h2 id="界面原型设计"><a href="#界面原型设计" class="headerlink" title="界面原型设计"></a>界面原型设计</h2><ul><li><h3 id="Android自带DroidDraw工具设计Android界面-可自动生成代码"><a href="#Android自带DroidDraw工具设计Android界面-可自动生成代码" class="headerlink" title="Android自带DroidDraw工具设计Android界面(可自动生成代码)"></a>Android自带DroidDraw工具设计Android界面(可自动生成代码)</h3></li><li><h3 id="Mockplus原型工具的使用"><a href="#Mockplus原型工具的使用" class="headerlink" title="Mockplus原型工具的使用"></a>Mockplus原型工具的使用</h3></li></ul><h2 id="工程项目结构具体解析"><a href="#工程项目结构具体解析" class="headerlink" title="工程项目结构具体解析"></a>工程项目结构具体解析</h2><p><img src="/2019/11/13/安卓学习笔记-1/image-20191113224542920.png" alt="image-20191113224542920"></p><p><strong>res目录:</strong>res下的每个资源都会R.java文件中生成唯一的id。</p><p><strong>mipmap目录：</strong>mipmap会在图片缩放在提供一定的性能优化，根据分辨率的不同系统会根据屏幕分辨率来选择hdpi,mdpi,xmdpi,xxhdpi下的对应的图片，可以解压别人的apk可以看到上述目录同一名称的图片，在四个文件夹下都有，只是大小和像素不同。加载图片的顺序是，使用最接近的密度级别来加载图片，如何想禁止Android不跟随屏幕密度加载不同文件夹的资源，只需要在<code>AndriodManifest.xml</code>文件中添加<code>android:anyDensity=“false”</code>字段即可。</p><h3 id="图片资源"><a href="#图片资源" class="headerlink" title="图片资源"></a>图片资源</h3><ul><li><strong>drawable:</strong>存放各种位图文件（png,jpg,9png,gif）除此之外可能是一些其他的drawable类型的xml文件</li><li><strong>mipmap-hdpi：</strong>高分辨率，一般我们把图片丢这里</li><li><strong>mipmap-mdpi：</strong>中等分辨率，很少，除非兼容的的手机很旧</li><li><strong>mipmap-xhdpi：</strong>超高分辨率（中高端机型）</li><li><strong>mipmap-xxhdpi：</strong>超超高分辨率（高端机型）</li></ul><h3 id="布局资源"><a href="#布局资源" class="headerlink" title="布局资源"></a>布局资源</h3><ul><li><strong>layout：</strong>该目录下存放的就是我们的布局文件，另外在一些特定的机型上，我们做屏幕适配，比如480*320这样的手机，我们会另外创建一套布局，就行：layout-480x320这样的文件夹！(可后续做屏幕适配)</li></ul><h3 id="菜单资源"><a href="#菜单资源" class="headerlink" title="菜单资源"></a>菜单资源</h3><ul><li>menu:物理按钮，menu键在手机上，现在用的并不多，菜单项相关的资源xml可以在这里编写</li></ul><h3 id="Values目录"><a href="#Values目录" class="headerlink" title="Values目录"></a>Values目录</h3><ul><li>demens.xml:定义尺寸资源</li><li>string.xml：定义字符串资源</li><li>styles.xml：定义样式资源</li><li>colors.xml：定义颜色资源</li><li>arrays.xml：定义数组资源</li><li>attrs.xml：自定义控件时用的较多，自定义控件的属性！</li><li>theme主题文件，和styles很相似，但是会对整个应用中的Actvitiy或指定Activity起作用，一般是改变窗口外观的！可在Java代码中通过setTheme使用，或者在Androidmanifest.xml中为&lt;application…&gt;添加theme的属性！ PS:你可能看到过这样的values目录：values-w820dp，values-v11等，前者w代表平板设备，820dp代表屏幕宽度；而v11这样代表在API(11)，即android 3.0后才会用到的！</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Android学习笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《暗时间》-序言</title>
       <link href="/2019/09/26/%E3%80%8A%E6%9A%97%E6%97%B6%E9%97%B4%E3%80%8B-%E5%BA%8F%E8%A8%80/"/>
       <url>/2019/09/26/%E3%80%8A%E6%9A%97%E6%97%B6%E9%97%B4%E3%80%8B-%E5%BA%8F%E8%A8%80/</url>
