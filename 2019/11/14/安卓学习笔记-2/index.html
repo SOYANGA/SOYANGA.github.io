@@ -103,7 +103,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://soyanga.github.io/2019/11/14/安卓学习笔记-2/timg.png">
 <meta property="og:image" content="https://soyanga.github.io/2019/11/14/安卓学习笔记-2/image-20191113224542920.png">
-<meta property="og:updated_time" content="2019-11-14T15:44:30.211Z">
+<meta property="og:image" content="https://soyanga.github.io/2019/11/14/安卓学习笔记-2/image-20191118113150053.png">
+<meta property="og:updated_time" content="2019-11-18T15:25:34.994Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安卓学习笔记-2">
 <meta name="twitter:description" content="Andoroid学习笔记(2)Time: 2019/11/14">
@@ -395,8 +396,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-14T23:44:30+08:00">
-                2019-11-14
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-18T23:25:34+08:00">
+                2019-11-18
               </time>
             
           </span>
@@ -445,7 +446,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.3k
+                  2.5k
                 </span>
               
 
@@ -524,7 +525,18 @@
 <li><p>XML代码中使用</p>
 </li>
 </ul>
-<h3 id="Java代码中使用"><a href="#Java代码中使用" class="headerlink" title="Java代码中使用"></a>Java代码中使用</h3><h4 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">txtName.setText(getResources().getText(R.string.name));</span><br></pre></td></tr></table></figure>
+<h3 id="Java代码中使用"><a href="#Java代码中使用" class="headerlink" title="Java代码中使用"></a>Java代码中使用</h3><h4 id="使用步骤："><a href="#使用步骤：" class="headerlink" title="使用步骤："></a>使用步骤：</h4><ol>
+<li><p>创建托图片控件对象（ImageView）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ImageView iv = <span class="keyword">new</span> ImageView(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对图片控件对象进行设置，将控件对象与图片资源进行绑定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iv.setImageBitMap(BitMapFactory.decodeResource(getResources(),R.drwaable.logo);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将设置好的图片控件与放置到当前View位置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setContentView(iv);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">txtName.setText(getResources().getText(R.string.name));</span><br></pre></td></tr></table></figure>
 <h4 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imgIcon.steBackgroundDrawableResource(R.drawable.icon);</span><br></pre></td></tr></table></figure>
 <h4 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">txtName.setTextColor(getResource().getColor(r.color.red));</span><br></pre></td></tr></table></figure>
 <h4 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setContentView(R.layout.main);</span><br></pre></td></tr></table></figure>
@@ -585,6 +597,12 @@
 <p>①如果app包含其他组件的话,都要使用类型说明语法在该文件中进行声明 Server:元素 <code>BroadcastReceiver</code>元素 <code>ContentProvider</code>元素 IntentFilter<code>&lt;intent-filter&gt;</code>元素</p>
 <p>②权限的声明: 在该文件中显式地声明程序需要的权限,防止app错误地使用服务, 不恰当地访问 资源,最终提高android app的健壮性 <code>android.permission.SEND_SMS</code> 有这句话表示app需要使用发送信息的权限,安装的时候就会提示用户, 相关权限可以在sdk参考手册查找！</p>
 </blockquote>
+<h4 id="权限设置"><a href="#权限设置" class="headerlink" title="权限设置"></a>权限设置</h4><ul>
+<li>添加了应用程序的权限（发送短信的操作）在<code>&lt;/manifest&gt;</code>结尾标签之前(整个应用程序)</li>
+<li>放置到\<activity>内置,其他app访问当前\<activity>时时必须获取的权限</activity></activity></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">user-permission</span> <span class="attr">android.name</span>=<span class="string">"android.permission.SEND_SMS"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2019/11/14/安卓学习笔记-2/image-20191118113150053.png" alt="image-20191118113150053"></p>
 <h2 id="互联网三大定律（科普知识）"><a href="#互联网三大定律（科普知识）" class="headerlink" title="互联网三大定律（科普知识）"></a>互联网三大定律（科普知识）</h2><p><strong>摩尔定律：</strong>当价格不变时，每一美元所能买到的电脑性能将每隔18-24个月翻一倍以上。</p>
 <p><strong>吉尔德定律</strong>：网络主干网带宽大约每八个月增长一倍，网络主干网的网络带宽不断增长意味着各种新的网络应用方式的出现和网络用户的使用费用不断降低。</p>
 <p><strong>迈特卡夫定律：</strong>随着一个计数的使用者不断增多，每一个使用者从中获取的价值不断增多，但使用者却不断下降的现象是由市场决定的。（网络的价值与网络使用者的数量的平方成正比）</p>
@@ -745,7 +763,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -823,7 +841,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Andoroid学习笔记-2"><span class="nav-number">1.</span> <span class="nav-text">Andoroid学习笔记(2)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工程项目结构具体解析"><span class="nav-number">1.1.</span> <span class="nav-text">工程项目结构具体解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图片资源"><span class="nav-number">1.1.1.</span> <span class="nav-text">图片资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局资源"><span class="nav-number">1.1.2.</span> <span class="nav-text">布局资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#菜单资源"><span class="nav-number">1.1.3.</span> <span class="nav-text">菜单资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Values目录"><span class="nav-number">1.1.4.</span> <span class="nav-text">Values目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#raw目录"><span class="nav-number">1.1.5.</span> <span class="nav-text">raw目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动画"><span class="nav-number">1.1.6.</span> <span class="nav-text">动画</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何取使用这些资源"><span class="nav-number">1.2.</span> <span class="nav-text">如何取使用这些资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java代码中使用"><span class="nav-number">1.2.1.</span> <span class="nav-text">Java代码中使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文字"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">文字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图片"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#颜色"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">颜色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#布局"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控件"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">控件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XML代码中使用"><span class="nav-number">1.2.2.</span> <span class="nav-text">XML代码中使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入了解三个文件"><span class="nav-number">1.3.</span> <span class="nav-text">深入了解三个文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MainActivity-java"><span class="nav-number">1.3.1.</span> <span class="nav-text">MainActivity.java:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析："><span class="nav-number">1.3.1.1.</span> <span class="nav-text">代码分析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局文件：activity-main-xml"><span class="nav-number">1.3.2.</span> <span class="nav-text">布局文件：activity_main.xml</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析：-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">代码分析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AndroidManifest-xml配置文件"><span class="nav-number">1.3.3.</span> <span class="nav-text">AndroidManifest.xml配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析：-2"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">代码分析：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#manifest"><span class="nav-number">1.3.3.1.1.</span> <span class="nav-text">manifest</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#users-sdk"><span class="nav-number">1.3.3.1.2.</span> <span class="nav-text">users-sdk</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Application"><span class="nav-number">1.3.3.1.3.</span> <span class="nav-text">Application</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Activity"><span class="nav-number">1.3.3.1.4.</span> <span class="nav-text">Activity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Intent-filter-章图过滤器"><span class="nav-number">1.3.3.1.5.</span> <span class="nav-text">Intent-filter(章图过滤器)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#除此之外"><span class="nav-number">1.3.4.</span> <span class="nav-text">除此之外</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互联网三大定律（科普知识）"><span class="nav-number">1.4.</span> <span class="nav-text">互联网三大定律（科普知识）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反编译APK"><span class="nav-number">1.5.</span> <span class="nav-text">反编译APK</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Andoroid学习笔记-2"><span class="nav-number">1.</span> <span class="nav-text">Andoroid学习笔记(2)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工程项目结构具体解析"><span class="nav-number">1.1.</span> <span class="nav-text">工程项目结构具体解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图片资源"><span class="nav-number">1.1.1.</span> <span class="nav-text">图片资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局资源"><span class="nav-number">1.1.2.</span> <span class="nav-text">布局资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#菜单资源"><span class="nav-number">1.1.3.</span> <span class="nav-text">菜单资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Values目录"><span class="nav-number">1.1.4.</span> <span class="nav-text">Values目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#raw目录"><span class="nav-number">1.1.5.</span> <span class="nav-text">raw目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动画"><span class="nav-number">1.1.6.</span> <span class="nav-text">动画</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何取使用这些资源"><span class="nav-number">1.2.</span> <span class="nav-text">如何取使用这些资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java代码中使用"><span class="nav-number">1.2.1.</span> <span class="nav-text">Java代码中使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用步骤："><span class="nav-number">1.2.1.1.</span> <span class="nav-text">使用步骤：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文字"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">文字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图片"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#颜色"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">颜色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#布局"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控件"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">控件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XML代码中使用"><span class="nav-number">1.2.2.</span> <span class="nav-text">XML代码中使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入了解三个文件"><span class="nav-number">1.3.</span> <span class="nav-text">深入了解三个文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MainActivity-java"><span class="nav-number">1.3.1.</span> <span class="nav-text">MainActivity.java:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析："><span class="nav-number">1.3.1.1.</span> <span class="nav-text">代码分析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局文件：activity-main-xml"><span class="nav-number">1.3.2.</span> <span class="nav-text">布局文件：activity_main.xml</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析：-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">代码分析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AndroidManifest-xml配置文件"><span class="nav-number">1.3.3.</span> <span class="nav-text">AndroidManifest.xml配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分析：-2"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">代码分析：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#manifest"><span class="nav-number">1.3.3.1.1.</span> <span class="nav-text">manifest</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#users-sdk"><span class="nav-number">1.3.3.1.2.</span> <span class="nav-text">users-sdk</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Application"><span class="nav-number">1.3.3.1.3.</span> <span class="nav-text">Application</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Activity"><span class="nav-number">1.3.3.1.4.</span> <span class="nav-text">Activity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Intent-filter-章图过滤器"><span class="nav-number">1.3.3.1.5.</span> <span class="nav-text">Intent-filter(章图过滤器)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#除此之外"><span class="nav-number">1.3.4.</span> <span class="nav-text">除此之外</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#权限设置"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">权限设置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互联网三大定律（科普知识）"><span class="nav-number">1.4.</span> <span class="nav-text">互联网三大定律（科普知识）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反编译APK"><span class="nav-number">1.5.</span> <span class="nav-text">反编译APK</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -861,7 +879,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">152k</span>
+    <span title="Site words total count">152.9k</span>
   
 </div>
 
